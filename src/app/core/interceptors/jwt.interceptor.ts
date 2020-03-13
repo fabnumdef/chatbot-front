@@ -24,11 +24,8 @@ export class JwtInterceptor implements HttpInterceptor {
     }
 
     request = request.clone({
-      setHeaders: {
-        token: this.currentToken,
-        'Access-Control-Allow-Origin': '*',
-        'API-Auth-Token': this.currentToken
-      }
+      headers: request.headers.set('Authorization',
+        'Bearer ' + this.currentToken)
     });
     return next.handle(request);
   }

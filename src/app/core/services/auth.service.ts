@@ -17,6 +17,7 @@ export class AuthService {
   private _authenticating$ = new BehaviorSubject<boolean>(false);
 
   constructor(private _http: HttpClient) {
+    this.readToken();
   }
 
   isAuthenticated(): boolean {
@@ -52,5 +53,16 @@ export class AuthService {
   public logout(): void {
     sessionStorage.clear();
     this._token$.next(null);
+  }
+
+  /**
+   * PRIVATE FUNCTIONS
+   */
+
+  private readToken() {
+    const token = sessionStorage.getItem(this._tokenName);
+    if (token) {
+      this.token$.next(token);
+    }
   }
 }
