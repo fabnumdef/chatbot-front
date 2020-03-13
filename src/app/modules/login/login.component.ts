@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DestroyObservable } from '../../core/utils/destroy-observable';
+import { AuthService } from '../../core/services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -10,12 +12,15 @@ import { DestroyObservable } from '../../core/utils/destroy-observable';
 export class LoginComponent extends DestroyObservable implements OnInit {
 
   loginForm: FormGroup;
+  authenticating$: Observable<boolean>;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder,
+              private _authService: AuthService) {
     super();
   }
 
   ngOnInit(): void {
+    this.authenticating$ = this._authService.authenticating$;
     this.initLoginForm();
   }
 
@@ -24,7 +29,7 @@ export class LoginComponent extends DestroyObservable implements OnInit {
   }
 
   login() {
-    console.log('POULET');
+    this._authService.authenticate(this.loginForm.getRawValue()).subscribe();
   }
 
   /**

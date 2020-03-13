@@ -25,7 +25,8 @@
       </mat-form-field>
       <button mat-raised-button
               color="primary"
-              (click)="login()">
+              (click)="login()"
+              [disabled]="(authenticating$ | async) || !loginForm.valid">
         Se connecter
       </button>
     </form>

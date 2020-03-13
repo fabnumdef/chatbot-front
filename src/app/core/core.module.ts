@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NotAuthenticatedLayoutComponent } from './components/not-authenticated-layout/not-authenticated-layout.component';
 import { RouterModule } from '@angular/router';
 import { AuthenticatedLayoutComponent } from './components/authenticated-layout/authenticated-layout.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { AuthenticatedLayoutComponent } from './components/authenticated-layout/
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ]
 })
 export class CoreModule { }
