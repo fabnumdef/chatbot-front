@@ -1,4 +1,4 @@
 // start:ng42.barrel
 export * from './login.model';
-export * from './login-response.model';
+export * from './auth-response.model';
 // end:ng42.barrel

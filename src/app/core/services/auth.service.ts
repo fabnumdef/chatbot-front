@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Login } from '../models';
+import { AuthResponse, Login } from '../models';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { finalize, tap } from 'rxjs/operators';
-import { LoginResponse } from '../models/login-response.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ import { LoginResponse } from '../models/login-response.model';
 export class AuthService {
 
   private _tokenName = 'user-token';
+  private _userSession = 'user';
 
   private _token$ = new BehaviorSubject<string>(null);
   private _authenticating$ = new BehaviorSubject<boolean>(false);
@@ -24,7 +25,7 @@ export class AuthService {
     return !!this.token;
   }
 
-  get authenticating$(): Observable<boolean> {
+  public get authenticating$(): Observable<boolean> {
     return this._authenticating$;
   }
 
@@ -40,11 +41,11 @@ export class AuthService {
     this._authenticating$.next(true);
 
     const url = `${environment.api_endpoint}${environment.login_endpoint}`;
-    return this._http.post<LoginResponse>(`${url}/login`, login).pipe(
+    return this._http.post<AuthResponse>(`${url}/login`, login).pipe(
       tap(res => {
-        this._token$.next(res.chatbot_factory_token);
-        sessionStorage.setItem(this._tokenName, res.chatbot_factory_token);
-        // this._storage.storeAuthResponse(res);
+        this._token$.next(res.chatbotFactoryToken);
+        sessionStorage.setItem(this._tokenName, res.chatbotFactoryToken);
+        sessionStorage.setItem(this._userSession, JSON.stringify(res.user));
       }),
       finalize(() => this._authenticating$.next(false))
     );
@@ -53,6 +54,11 @@ export class AuthService {
   public logout(): void {
     sessionStorage.clear();
     this._token$.next(null);
+  }
+
+  public getCurrentUser(): User {
+    const str = sessionStorage.getItem(this._userSession);
+    return JSON.parse(str);
   }
 
   /**
