@@ -5,14 +5,23 @@ import { NotAuthenticatedLayoutComponent } from './core/components/not-authentic
 import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
-  /* {
+  {
     path: '',
     component: AuthenticatedLayoutComponent,
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
     children: [
+      {
+        path: 'intents',
+        loadChildren: () => import('./modules/intent/intent.module').then(m => m.IntentModule)
+      },
+      {
+        path: '',
+        redirectTo: '/intents',
+        pathMatch: 'full'
+      },
     ]
-  }, */
+  },
   {
     path: '',
     component: NotAuthenticatedLayoutComponent,

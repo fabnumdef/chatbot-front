@@ -11,18 +11,28 @@ import { LoginResponse } from '../models/login-response.model';
 })
 export class AuthService {
 
-  private _loginResponse$ = new BehaviorSubject<LoginResponse>(null);
+  private _tokenName = 'user-token';
+
+  private _token$ = new BehaviorSubject<string>(null);
   private _authenticating$ = new BehaviorSubject<boolean>(false);
 
   constructor(private _http: HttpClient) {
   }
 
   isAuthenticated(): boolean {
-    return false;
+    return !!this.token;
   }
 
   get authenticating$(): Observable<boolean> {
     return this._authenticating$;
+  }
+
+  public get token$() {
+    return this._token$;
+  }
+
+  public get token() {
+    return this._token$.value;
   }
 
   public authenticate(login: Login) {
@@ -31,10 +41,16 @@ export class AuthService {
     const url = `${environment.api_endpoint}${environment.login_endpoint}`;
     return this._http.post<LoginResponse>(`${url}/login`, login).pipe(
       tap(res => {
-        this._loginResponse$.next(res);
+        this._token$.next(res.chatbot_factory_token);
+        sessionStorage.setItem(this._tokenName, res.chatbot_factory_token);
         // this._storage.storeAuthResponse(res);
       }),
       finalize(() => this._authenticating$.next(false))
     );
+  }
+
+  public logout(): void {
+    sessionStorage.clear();
+    this._token$.next(null);
   }
 }
