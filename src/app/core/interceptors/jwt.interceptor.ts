@@ -5,9 +5,7 @@ import { Observable } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
   token$: Observable<string>;

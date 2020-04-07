@@ -1,6 +1,6 @@
 import { User } from './user.model';
 
 export class AuthResponse {
-  chatbotFactoryToken: string;
+  chatbotToken: string;
   user: User;
 }

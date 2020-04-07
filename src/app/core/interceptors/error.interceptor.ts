@@ -28,7 +28,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     if (err.status === 401) {
       // Clear session information as they are outdated
       sessionStorage.clear();
-      this._router.navigate(['/login']);
+      this._router.navigate(['/auth']);
     }
   }
 

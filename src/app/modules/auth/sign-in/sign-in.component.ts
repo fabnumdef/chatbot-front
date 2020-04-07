@@ -28,7 +28,7 @@ export class SignInComponent implements OnInit {
 
   login() {
     this._auth.authenticate(this.signInForm.getRawValue()).subscribe(() => {
-      this._router.navigateByUrl('/create');
+      this._router.navigateByUrl('');
     });
   }
 

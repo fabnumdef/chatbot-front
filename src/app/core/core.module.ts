@@ -11,6 +11,7 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { MaterialModule } from '../modules/material/material.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FooterComponent } from './components/footer/footer.component';
     BrowserAnimationsModule,
     RouterModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MaterialModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

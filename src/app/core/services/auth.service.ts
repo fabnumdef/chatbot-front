@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Login } from '../models';
+import { AuthResponse, Login } from '../models';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { finalize, tap } from 'rxjs/operators';
@@ -54,11 +54,11 @@ export class AuthService {
 
   public authenticate(login: Login): Observable<any> {
     this._authenticating$.next(true);
-    return this._http.post<any>(`${this._url}/login`, login).pipe(
+    return this._http.post<AuthResponse>(`${this._url}/login`, login).pipe(
       tap(res => {
-        this._token$.next(res.chatbotFactoryToken);
+        this._token$.next(res.chatbotToken);
         this._user$.next(res.user);
-        sessionStorage.setItem(this._tokenName, res.chatbotFactoryToken);
+        sessionStorage.setItem(this._tokenName, res.chatbotToken);
         sessionStorage.setItem(this._userSession, JSON.stringify(res.user));
       }),
       finalize(() => this._authenticating$.next(false))
@@ -77,7 +77,7 @@ export class AuthService {
     sessionStorage.clear();
     this._token$.next(null);
     this._user$.next(null);
-    this._router.navigateByUrl('');
+    this._router.navigateByUrl('/auth/login');
   }
 
   /**
