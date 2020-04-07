@@ -1,7 +1,8 @@
-:host {
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  width: 100%;
-  height: 100%;
+.body {
+  max-width: 90%;
+  margin: auto;
+  margin-top: 40px;
+
+  // full height - header height - footer height - margin-top
+  min-height: calc(100vh - 100px - 70px - 40px);
 }

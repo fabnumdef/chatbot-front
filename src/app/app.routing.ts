@@ -25,10 +25,12 @@ const routes: Routes = [
   {
     path: '',
     component: NotAuthenticatedLayoutComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
-        path: 'login',
-        loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
+        path: 'auth',
+        loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
       },
     ]
   }

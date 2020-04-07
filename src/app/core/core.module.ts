@@ -9,11 +9,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     NotAuthenticatedLayoutComponent,
-    AuthenticatedLayoutComponent
+    AuthenticatedLayoutComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
