@@ -16,6 +16,10 @@ const routes: Routes = [
         loadChildren: () => import('./modules/intent/intent.module').then(m => m.IntentModule)
       },
       {
+        path: 'mediatheque',
+        loadChildren: () => import('./modules/media/media.module').then(m => m.MediaModule)
+      },
+      {
         path: '',
         redirectTo: '/base-documentaire',
         pathMatch: 'full'

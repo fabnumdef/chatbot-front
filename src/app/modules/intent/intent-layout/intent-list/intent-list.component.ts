@@ -11,11 +11,13 @@ import { Intent } from '../../../../core/models/intent.model';
 export class IntentListComponent implements OnInit {
 
   intents$: Observable<Intent[]>;
+  loading$: Observable<boolean>;
 
   constructor(private _intentService: IntentService) {
   }
 
   ngOnInit(): void {
+    this.loading$ = this._intentService.loading$;
     this.intents$ = this._intentService.entities$;
     this.loadIntents();
   }

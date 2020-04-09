@@ -1,0 +1,18 @@
+<div class="media-list">
+  <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
+  <div class="chatbot-list">
+    <app-chatbot-list-item *ngFor="let media of medias$ | async">
+      <div class="title">
+        {{ media.file }}
+      </div>
+
+      <div class="actions">
+        <button mat-icon-button
+                aria-label="Supprimer le fichier"
+                (click)="deleteMedia(media.id)">
+          <mat-icon fontSet="material-icons-outlined">delete</mat-icon>
+        </button>
+      </div>
+    </app-chatbot-list-item>
+  </div>
+</div>

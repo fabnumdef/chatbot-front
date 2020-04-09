@@ -9,15 +9,16 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   imports: [
     MatFormFieldModule, MatSelectModule, MatInputModule, MatButtonModule, MatIconModule, MatCardModule, MatDividerModule, MatSidenavModule,
-    MatProgressSpinnerModule, MatRadioModule
+    MatProgressSpinnerModule, MatRadioModule, MatProgressBarModule
   ],
   exports: [
     MatFormFieldModule, MatSelectModule, MatInputModule, MatButtonModule, MatIconModule, MatCardModule, MatDividerModule, MatSidenavModule,
-    MatProgressSpinnerModule, MatRadioModule
+    MatProgressSpinnerModule, MatRadioModule, MatProgressBarModule
   ]
 })
 export class MaterialModule { }

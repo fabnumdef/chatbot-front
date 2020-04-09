@@ -1,6 +1,6 @@
 .mat-drawer-container.body {
-  // full height - header height - footer height - margin-top
-  height: calc(100vh - 100px - 70px);
+  // full height - header height
+  height: calc(100vh - 100px);
   background-color: transparent;
 
   .mat-drawer {
@@ -14,6 +14,8 @@
       max-width: 90%;
       margin: auto;
       margin-top: 40px;
+      // 100% - footer height - margin-top
+      min-height: calc(100% - 70px - 40px);
     }
   }
 }
