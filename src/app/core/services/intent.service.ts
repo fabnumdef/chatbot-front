@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { finalize, tap } from 'rxjs/operators';
+import { Intent } from '../models/intent.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class IntentService {
 
   protected _url: string;
 
-  protected _entities$ = new BehaviorSubject<any[]>([]);
+  protected _entities$ = new BehaviorSubject<Intent[]>([]);
   protected _loading$ = new BehaviorSubject<boolean>(false);
 
   constructor(private _httpClient: HttpClient) {
@@ -21,7 +22,7 @@ export class IntentService {
   // ==== CRUD ======
   public load(): Observable<any[]> {
     this._loading$.next(true);
-    return this._httpClient.get<any[]>(this._url).pipe(
+    return this._httpClient.get<Intent[]>(this._url).pipe(
       tap(data => {
         this._entities$.next(data);
       }),

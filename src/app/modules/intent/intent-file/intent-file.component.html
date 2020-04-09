@@ -1,0 +1,59 @@
+<div class="intent-file">
+  <button mat-stroked-button
+          [routerLink]="'/base-documentaire'">
+    <mat-icon fontSet="material-icons-outlined">keyboard_arrow_left</mat-icon>
+    Retour
+  </button>
+
+  <h1>Fichier base de connaissance</h1>
+  <mat-divider></mat-divider>
+
+  <h2>Exporter la base de connaissance</h2>
+  <button mat-stroked-button
+          color="primary"
+          [disabled]="fileService.loading$ | async"
+          (click)="exportFile()">
+    <mat-icon *ngIf="!(fileService.loading$ | async)" fontSet="material-icons-outlined">cloud_download</mat-icon>
+    <mat-spinner *ngIf="fileService.loading$ | async"
+                 aria-label="Export du fichier en cours"
+                 [diameter]="24"></mat-spinner>
+    Exporter la base de connaissance
+  </button>
+
+  <h2>Importer une nouvelle base de connaissance</h2>
+  <button mat-stroked-button
+          (click)="uploader.click()"
+          [disabled]="fileService.loading$ | async"
+          color="primary">
+    <mat-icon *ngIf="!(fileService.loading$ | async)" fontSet="material-icons-outlined">check_circle_outline</mat-icon>
+    <mat-spinner *ngIf="fileService.loading$ | async"
+                 aria-label="Chargement et vérification du fichier"
+                 [diameter]="24"></mat-spinner>
+    Tester la base de connaissance
+  </button>
+  <input hidden
+         type="file"
+         #uploader
+         (change)="checkFile($event)"
+         [accept]="'.xlsx'"/>
+  <form [formGroup]="importFileFormGroup" *ngIf="importFileFormGroup">
+    <label>A la suite de l'import de la base de connaissance, voulez-vous archiver les connaissances qui ne sont pas présentes dans le nouveau fichier ?</label>
+    <mat-radio-group aria-label="Doit-on conserver les connaissances qui ne sont pas présentes dans la base de connaissance ?"
+                     labelPosition="before"
+                     formControlName="deleteIntents"
+                     color="primary">
+      <mat-radio-button [value]="false">Conservation des connaissances</mat-radio-button>
+      <mat-radio-button [value]="true">Archivation des connaissances</mat-radio-button>
+    </mat-radio-group>
+  </form>
+  <button mat-stroked-button
+          (click)="uploadFile()"
+          [disabled]="(fileService.loading$ | async) || !importFileFormGroup.valid"
+          color="primary">
+    <mat-icon *ngIf="!(fileService.loading$ | async)" fontSet="material-icons-outlined">cloud_upload</mat-icon>
+    <mat-spinner *ngIf="fileService.loading$ | async"
+                 aria-label="Import de la base de connaissance"
+                 [diameter]="24"></mat-spinner>
+    Importer la base de connaissance
+  </button>
+</div>

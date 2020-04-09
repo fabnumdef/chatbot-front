@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { version } from '../../../../../package.json';
 
 @Component({
   selector: 'app-auth-layout',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth-layout.component.scss']
 })
 export class AuthLayoutComponent implements OnInit {
+  version: string = version;
 
   constructor() { }
 

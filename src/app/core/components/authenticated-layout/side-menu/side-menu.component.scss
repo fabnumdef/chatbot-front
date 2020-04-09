@@ -1,0 +1,30 @@
+@import "src/styles/variables";
+
+.side-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 40px 0 0 20px;
+  width: 220px;
+  height: 100%;
+  background-color: $grey-lighter;
+  box-sizing: border-box;
+
+  > button {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+    ::ng-deep.mat-button-wrapper {
+      justify-content: flex-start;
+      font-family: $title-font;
+
+      .mat-icon {
+        margin-right: 10px;
+      }
+    }
+
+    &.active {
+      background-color: $white;
+    }
+  }
+}

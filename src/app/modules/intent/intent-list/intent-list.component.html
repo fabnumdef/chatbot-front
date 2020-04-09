@@ -1,7 +1,0 @@
-<p>intent-list works!</p>
-<div class="IntentList">
-  {{ (intents$ | async).length }}
-  <div *ngFor="let intent of intents$ | async">
-    {{ intent.id }} {{ intent.main_question }}
-  </div>
-</div>

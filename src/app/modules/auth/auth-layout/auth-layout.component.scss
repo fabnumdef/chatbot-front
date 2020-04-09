@@ -1,5 +1,10 @@
-.content {
-  margin-top: 20px;
-  max-width: 500px;
-  margin: auto;
+.auth-layout {
+  .content {
+    max-width: 500px;
+    margin: 20px auto 0 auto;
+  }
+
+  .version {
+    text-align: right;
+  }
 }

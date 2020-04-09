@@ -12,12 +12,12 @@ const routes: Routes = [
     canActivateChild: [AuthGuard],
     children: [
       {
-        path: 'intents',
+        path: 'base-documentaire',
         loadChildren: () => import('./modules/intent/intent.module').then(m => m.IntentModule)
       },
       {
         path: '',
-        redirectTo: '/intents',
+        redirectTo: '/base-documentaire',
         pathMatch: 'full'
       },
     ]

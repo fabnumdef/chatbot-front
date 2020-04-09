@@ -1,5 +1,11 @@
 <app-header></app-header>
-<div class="body">
-  <router-outlet></router-outlet>
-</div>
+<mat-drawer-container autosize class="body">
+  <mat-drawer mode="side" disableClose opened>
+    <app-side-menu></app-side-menu>
+  </mat-drawer>
+
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>
 <app-footer></app-footer>

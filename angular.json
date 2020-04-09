@@ -29,7 +29,8 @@
               "src/styles/theme.scss",
               "src/styles/typography.scss",
               "src/styles/variables.scss",
-              "src/styles/input.scss"
+              "src/styles/input.scss",
+              "src/styles/radio.scss"
             ],
             "scripts": []
           },
@@ -99,7 +100,8 @@
               "src/styles/theme.scss",
               "src/styles/typography.scss",
               "src/styles/variables.scss",
-              "src/styles/input.scss"
+              "src/styles/input.scss",
+              "src/styles/radio.scss"
             ],
             "scripts": []
           }

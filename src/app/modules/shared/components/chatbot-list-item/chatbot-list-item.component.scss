@@ -1,0 +1,79 @@
+@import "src/styles/variables";
+
+:host {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+$border-radius: 5px;
+
+.chatbot-list-item {
+  box-shadow: $shadow-uniform;
+  border-radius: $border-radius;
+  padding: 30px 30px 20px 30px;
+
+  ::ng-deep {
+    &.body {
+      display: flex;
+
+      & > * {
+        display: flex;
+        align-items: center;
+      }
+
+      .title-wrapper {
+        flex: 2;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .content-wrapper {
+        flex: 1;
+      }
+
+      .actions {
+        flex: 1;
+        justify-content: flex-end;
+      }
+    }
+
+    &.badge {
+      position: absolute;
+      border-top-left-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+      top: 0;
+      left: 0;
+      padding: 2px 30px;
+      background-color: $primary-color;
+      color: $white;
+    }
+
+    &.title {
+      font-weight: bold;
+    }
+
+    &.hint {
+      font-size: 12px;
+      color: $grey;
+    }
+
+    &.actions {
+      color: $primary-color;
+
+      > .mat-icon-button {
+        margin: 0 10px;
+
+        &:not(:first-child):before {
+          content: '';
+          width: 0;
+          height: 50%;
+          position: absolute;
+          border: 1px solid $input-border-color;
+          top: 25%;
+          left: -10px;
+        }
+      }
+    }
+  }
+}

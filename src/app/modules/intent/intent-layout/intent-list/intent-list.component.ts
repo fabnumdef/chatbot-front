@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IntentService } from '../../../core/services/intent.service';
+import { IntentService } from '../../../../core/services/intent.service';
 import { Observable } from 'rxjs';
+import { Intent } from '../../../../core/models/intent.model';
 
 @Component({
   selector: 'app-intent-list',
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class IntentListComponent implements OnInit {
 
-  intents$: Observable<any[]>;
+  intents$: Observable<Intent[]>;
 
   constructor(private _intentService: IntentService) {
   }

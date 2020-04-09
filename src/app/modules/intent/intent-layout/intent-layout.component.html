@@ -1,0 +1,17 @@
+<div class="intent-layout">
+  <div class="actions">
+    <button mat-stroked-button
+            color="accent">
+      <mat-icon fontSet="material-icons-outlined">add_circle_outline</mat-icon>
+      Créer nouvelle connaissance
+    </button>
+    <button mat-stroked-button
+            color="primary"
+            [routerLink]="'/base-documentaire/fichier'">
+      <mat-icon fontSet="material-icons-outlined">description</mat-icon>
+      Fichier base de connaissance
+    </button>
+  </div>
+  <app-intent-filter></app-intent-filter>
+  <app-intent-list></app-intent-list>
+</div>

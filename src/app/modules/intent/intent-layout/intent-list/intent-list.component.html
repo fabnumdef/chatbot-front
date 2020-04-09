@@ -1,0 +1,40 @@
+<div class="intent-list">
+  <div class="chatbot-list">
+    <app-chatbot-list-item *ngFor="let intent of intents$ | async">
+      <div class="badge">
+        {{ intent.status }}
+      </div>
+      <div class="title">
+        {{ intent.mainQuestion }}
+      </div>
+      <div class="hint">
+        {{ intent.id }}
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cars</mat-label>
+        <mat-select>
+          <mat-option value="volvo">Volvo</mat-option>
+          <mat-option value="saab">Saab</mat-option>
+          <mat-option value="mercedes">Mercedes</mat-option>
+          <mat-option value="audi">Audi</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="actions">
+        <button mat-icon-button
+                aria-label="Example icon-button with a heart icon">
+          <mat-icon fontSet="material-icons-outlined">link</mat-icon>
+        </button>
+        <button mat-icon-button
+                aria-label="Example icon-button with a heart icon">
+          <mat-icon fontSet="material-icons-outlined">chat</mat-icon>
+        </button>
+        <button mat-icon-button
+                aria-label="Example icon-button with a heart icon">
+          <mat-icon fontSet="material-icons-outlined">delete</mat-icon>
+        </button>
+      </div>
+    </app-chatbot-list-item>
+  </div>
+</div>

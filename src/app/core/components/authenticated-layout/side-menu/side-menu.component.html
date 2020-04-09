@@ -1,0 +1,47 @@
+<div class="side-menu">
+  <button mat-button
+          [color]="inbox.isActive ? 'accent' : 'primary'"
+          [class]="inbox.isActive ? 'active' : ''"
+          [routerLink]="'/inbox'"
+          routerLinkActive
+          #inbox="routerLinkActive">
+    <mat-icon fontSet="material-icons-outlined">inbox</mat-icon>
+    Inbox
+  </button>
+  <button mat-button
+          [color]="intents.isActive ? 'accent' : 'primary'"
+          [class]="intents.isActive ? 'active' : ''"
+          [routerLink]="'/base-documentaire'"
+          routerLinkActive
+          #intents="routerLinkActive">
+    <mat-icon fontSet="material-icons-outlined">description</mat-icon>
+    Base documentaire
+  </button>
+  <button mat-button
+          [color]="medias.isActive ? 'accent' : 'primary'"
+          [class]="medias.isActive ? 'active' : ''"
+          [routerLink]="'/mediatheque'"
+          routerLinkActive
+          #medias="routerLinkActive">
+    <mat-icon fontSet="material-icons-outlined">collections</mat-icon>
+    Médiathèque
+  </button>
+  <button mat-button
+          [color]="stats.isActive ? 'accent' : 'primary'"
+          [class]="stats.isActive ? 'active' : ''"
+          [routerLink]="'/statistiques'"
+          routerLinkActive
+          #stats="routerLinkActive">
+    <mat-icon fontSet="material-icons-outlined">insert_chart_outlined</mat-icon>
+    Statistiques
+  </button>
+  <button mat-button
+          [color]="config.isActive ? 'accent' : 'primary'"
+          [class]="config.isActive ? 'active' : ''"
+          [routerLink]="'/configuration'"
+          routerLinkActive
+          #config="routerLinkActive">
+    <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
+    Configuration
+  </button>
+</div>

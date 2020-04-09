@@ -1,8 +1,19 @@
-.body {
-  max-width: 90%;
-  margin: auto;
-  margin-top: 40px;
-
+.mat-drawer-container.body {
   // full height - header height - footer height - margin-top
-  min-height: calc(100vh - 100px - 70px - 40px);
+  height: calc(100vh - 100px - 70px);
+  background-color: transparent;
+
+  .mat-drawer {
+    border: none;
+  }
+
+  ::ng-deep.mat-drawer-content {
+    overflow-y: scroll;
+
+    .content {
+      max-width: 90%;
+      margin: auto;
+      margin-top: 40px;
+    }
+  }
 }

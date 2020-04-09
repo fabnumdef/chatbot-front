@@ -12,13 +12,15 @@ import { ToastrModule } from 'ngx-toastr';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MaterialModule } from '../modules/material/material.module';
+import { SideMenuComponent } from './components/authenticated-layout/side-menu/side-menu.component';
 
 @NgModule({
   declarations: [
     NotAuthenticatedLayoutComponent,
     AuthenticatedLayoutComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    SideMenuComponent
   ],
   imports: [
     CommonModule,
