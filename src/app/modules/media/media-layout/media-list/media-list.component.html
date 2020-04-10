@@ -3,14 +3,22 @@
   <div class="chatbot-list">
     <app-chatbot-list-item *ngFor="let media of medias$ | async">
       <div class="title">
-        {{ media.file }}
+        <a target="_blank" [href]="mediaPath + media.file">
+          <mat-icon>insert_drive_file</mat-icon>
+          {{ media.file }}
+        </a>
+      </div>
+
+      <div class="hint" *ngIf="media.createdAt">
+        Ajouté le {{ media.createdAt | date:'dd/MM/yyyy à HH:mm' }}
       </div>
 
       <div class="actions">
         <button mat-icon-button
                 aria-label="Supprimer le fichier"
-                (click)="deleteMedia(media.id)">
-          <mat-icon fontSet="material-icons-outlined">delete</mat-icon>
+                color="accent"
+                (click)="deleteMedia(media)">
+          <mat-icon>delete</mat-icon>
         </button>
       </div>
     </app-chatbot-list-item>

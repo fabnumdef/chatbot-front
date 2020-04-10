@@ -2,10 +2,10 @@
   <div class="actions">
     <button mat-stroked-button
             color="accent"
-            [disabled]="loading$ | async"
+            [disabled]="processing$ | async"
             (click)="uploader.click()">
-      <mat-icon *ngIf="!(loading$ | async)" fontSet="material-icons-outlined">add_circle_outline</mat-icon>
-      <mat-spinner *ngIf="loading$ | async"
+      <mat-icon *ngIf="!(processing$ | async)">add_circle_outline</mat-icon>
+      <mat-spinner *ngIf="processing$ | async"
                    aria-label="Chargement et vérification du fichier"
                    [diameter]="24"></mat-spinner>
       Ajouter un nouveau média
@@ -16,5 +16,6 @@
          #uploader
          (change)="uploadMedia($event)"/>
 
+  <app-media-filter></app-media-filter>
   <app-media-list></app-media-list>
 </div>

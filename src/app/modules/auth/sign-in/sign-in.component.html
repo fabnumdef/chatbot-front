@@ -2,7 +2,9 @@
   <h2>
     Connectez-vous à votre compte
   </h2>
-  <form [formGroup]="signInForm" *ngIf="signInForm">
+  <form [formGroup]="signInForm"
+        *ngIf="signInForm"
+        (keyup.enter)="login()">
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input matInput
@@ -27,9 +29,10 @@
       <button mat-button
               matSuffix
               mat-icon-button
+              type="button"
               aria-label="Montrer mot de passe"
               (click)="hidePassword = !hidePassword">
-        <mat-icon fontSet="material-icons-outlined">visibility</mat-icon>
+        <mat-icon>visibility</mat-icon>
       </button>
       <mat-error *ngIf="controls.password.hasError('required')">
         Vous n'avez pas saisi de mot de passe.

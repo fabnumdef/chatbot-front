@@ -9,21 +9,21 @@ import { Observable } from 'rxjs';
 })
 export class MediaLayoutComponent implements OnInit {
 
-  loading$: Observable<boolean>;
+  processing$: Observable<boolean>;
 
   constructor(private _mediaService: MediaService) {
   }
 
   ngOnInit(): void {
-    this.loading$ = this._mediaService.loading$;
+    this.processing$ = this._mediaService.processing$;
   }
 
   uploadMedia($event) {
-    const file = $event.target.files[0];
+    const file: File = $event.target.files[0];
     if (!file) {
       return;
     }
-    this._mediaService.create(file).subscribe();
+    this._mediaService.createMedia(file).subscribe();
     $event.target.value = '';
   }
 

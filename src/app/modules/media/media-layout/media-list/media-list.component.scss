@@ -1,7 +1,26 @@
+@import "src/styles/variables";
+
 .media-list {
   .chatbot-list {
     & > * {
       margin-bottom: 20px;
+    }
+
+    ::ng-deep {
+      .title a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: $primary-color;
+
+        &:active {
+          color: $primary-color;
+        }
+
+        .mat-icon {
+          margin-right: 10px;
+        }
+      }
     }
   }
 }
