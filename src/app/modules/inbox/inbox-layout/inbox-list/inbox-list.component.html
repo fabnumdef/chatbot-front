@@ -1,18 +1,18 @@
-<div class="intent-list">
+<div class="inbox-list">
   <div class="chatbot-list">
     <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
-    <div class="empty-list" *ngIf="!(loading$ | async) && (intents$ | async).length < 1">
-      Base de connaissance vide.
+    <div class="empty-list" *ngIf="!(loading$ | async) && (inboxes$ | async).length < 1">
+      Aucun message à traiter.
     </div>
-    <app-chatbot-list-item *ngFor="let intent of intents$ | async">
+    <app-chatbot-list-item *ngFor="let inbox of inboxes$ | async">
       <div class="badge">
-        {{ intent.status }}
+        {{ inbox.status }}
       </div>
       <div class="title">
-        {{ intent.mainQuestion }}
+        {{ inbox.question }}
       </div>
       <div class="hint">
-        {{ intent.id }}
+        Reçu le {{ inbox.timestamp * 1000 | date:'dd/MM/yyyy à HH:mm' }}
       </div>
 
       <mat-form-field appearance="outline">

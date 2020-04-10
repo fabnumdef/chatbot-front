@@ -1,5 +1,8 @@
 <div class="media-list">
   <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
+  <div class="empty-list" *ngIf="!(loading$ | async) && (medias$ | async).length < 1">
+    Base de média vide.
+  </div>
   <div class="chatbot-list">
     <app-chatbot-list-item *ngFor="let media of medias$ | async">
       <div class="title">

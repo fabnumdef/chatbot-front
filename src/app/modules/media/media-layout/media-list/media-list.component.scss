@@ -23,4 +23,11 @@
       }
     }
   }
+
+  .empty-list {
+    text-align: center;
+    font-family: $title-font;
+    font-size: 24px;
+    color: $grey;
+  }
 }

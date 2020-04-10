@@ -21,7 +21,6 @@ export class MediaListComponent implements OnInit {
     this.loading$ = this._mediaService.loading$;
     this.processing$ = this._mediaService.processing$;
     this.medias$ = this._mediaService.entities$;
-    this.loadMedias();
   }
 
   deleteMedia(media: Media) {
@@ -31,13 +30,4 @@ export class MediaListComponent implements OnInit {
   get mediaPath() {
     return `${this._window.location.origin}/media/`;
   }
-
-  /**
-   * PRIVATE FUNCTIONS
-   */
-
-  private loadMedias() {
-    this._mediaService.load().subscribe();
-  }
-
 }

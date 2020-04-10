@@ -12,6 +12,10 @@ const routes: Routes = [
     canActivateChild: [AuthGuard],
     children: [
       {
+        path: 'inbox',
+        loadChildren: () => import('./modules/inbox/inbox.module').then(m => m.InboxModule)
+      },
+      {
         path: 'base-documentaire',
         loadChildren: () => import('./modules/intent/intent.module').then(m => m.IntentModule)
       },
@@ -20,8 +24,16 @@ const routes: Routes = [
         loadChildren: () => import('./modules/media/media.module').then(m => m.MediaModule)
       },
       {
+        path: 'statistiques',
+        loadChildren: () => import('./modules/stats/stats.module').then(m => m.StatsModule)
+      },
+      {
+        path: 'configuration',
+        loadChildren: () => import('./modules/configuration/configuration.module').then(m => m.ConfigurationModule)
+      },
+      {
         path: '',
-        redirectTo: '/base-documentaire',
+        redirectTo: '/inbox',
         pathMatch: 'full'
       },
     ]
