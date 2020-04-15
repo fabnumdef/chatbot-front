@@ -1,18 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChatbotListItemComponent } from './components/chatbot-list-item/chatbot-list-item.component';
-
-
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [
-    ChatbotListItemComponent
+    ChatbotListItemComponent,
+    ConfirmDialogComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MaterialModule
   ],
   exports: [
-    ChatbotListItemComponent
+    ChatbotListItemComponent,
+    ConfirmDialogComponent
+  ],
+  entryComponents: [
+    ConfirmDialogComponent
   ]
 })
 export class SharedModule { }

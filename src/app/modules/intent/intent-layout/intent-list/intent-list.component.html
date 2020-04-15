@@ -4,41 +4,49 @@
     <div class="empty-list" *ngIf="!(loading$ | async) && (intents$ | async).length < 1">
       Base de connaissance vide.
     </div>
-    <app-chatbot-list-item *ngFor="let intent of intents$ | async">
-      <div class="badge">
-        {{ intent.status }}
-      </div>
-      <div class="title">
-        {{ intent.mainQuestion }}
-      </div>
-      <div class="hint">
-        {{ intent.id }}
-      </div>
+    <div *ngFor="let intent of intents$ | async">
+      <app-chatbot-list-item>
+        <div class="badge badge-primary"
+             *ngIf="intent.category">
+          {{ intent.category }}
+        </div>
+        <div class="badge badge-warning"
+             *ngIf="intent.expiresAt">
+          Contenu variable
+        </div>
+        <div class="badge badge-error"
+             *ngIf="isIntentInError(intent)">
+          Connaissance incomplète
+        </div>
+        <div class="title">
+          {{ intent.mainQuestion ? intent.mainQuestion : intent.id }}
+        </div>
+        <div class="hint">
+          {{ intent.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+        </div>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Cars</mat-label>
-        <mat-select>
-          <mat-option value="volvo">Volvo</mat-option>
-          <mat-option value="saab">Saab</mat-option>
-          <mat-option value="mercedes">Mercedes</mat-option>
-          <mat-option value="audi">Audi</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <div class="actions">
-        <button mat-icon-button
-                aria-label="Example icon-button with a heart icon">
-          <mat-icon>link</mat-icon>
-        </button>
-        <button mat-icon-button
-                aria-label="Example icon-button with a heart icon">
-          <mat-icon>chat</mat-icon>
-        </button>
-        <button mat-icon-button
-                aria-label="Example icon-button with a heart icon">
-          <mat-icon>delete</mat-icon>
-        </button>
+        <div class="actions">
+          <div>
+            3 réponses 5 liens
+          </div>
+          <button mat-icon-button
+                  aria-label="Modifier la connaissance"
+                  (click)="selectIntent(intent.id)"
+                  [matTooltip]="'Modifier la connaissance'">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button
+                  aria-label="Archiver la connaissance"
+                  (click)="archiveIntent(intent)"
+                  [matTooltip]="'Archiver la connaissance'">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </app-chatbot-list-item>
+      <div *ngIf="intent.id === intentSelected" class="intent-detail">
+        <h3>Modifier une connaissance</h3>
+        <app-create-edit-intent [intent]="intent"></app-create-edit-intent>
       </div>
-    </app-chatbot-list-item>
+    </div>
   </div>
 </div>

@@ -1,9 +1,20 @@
 @import "src/styles/variables";
 
+$border-radius: 3px;
+
 .intent-list {
   .chatbot-list {
     & > * {
       margin-bottom: 20px;
+      box-shadow: $shadow-uniform;
+      border-radius: $border-radius;
+    }
+
+    .intent-detail {
+      background-color: #F5F6FA;
+      padding: 15px;
+      border-bottom-left-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
     }
   }
 

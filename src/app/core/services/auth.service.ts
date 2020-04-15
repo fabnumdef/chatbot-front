@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AuthResponse, Login } from '../models';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { finalize, tap } from 'rxjs/operators';
-import { User } from '../models';
-import { ResetPassword } from '../models/reset-password.model';
+import { ResetPassword } from '@model/reset-password.model';
 import { Router } from '@angular/router';
+import { User } from '@model/user.model';
+import { Login } from '@model/login.model';
+import { AuthResponse } from '@model/auth-response.model';
 
 @Injectable({
   providedIn: 'root'

@@ -8,13 +8,15 @@ import { MaterialModule } from '../material/material.module';
 import { IntentFileComponent } from './intent-file/intent-file.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { CreateEditIntentComponent } from './create-edit-intent/create-edit-intent.component';
 
 @NgModule({
   declarations: [
     IntentListComponent,
     IntentFilterComponent,
     IntentLayoutComponent,
-    IntentFileComponent
+    IntentFileComponent,
+    CreateEditIntentComponent
   ],
   imports: [
     CommonModule,

@@ -12,11 +12,11 @@
     "importHelpers": true,
     "target": "es2015",
     "paths": {
-      "@models": [
-        "app/core/models/index"
+      "@model/*": [
+        "src/app/core/models/*"
       ],
       "@core/*": [
-        "app/core/*"
+        "src/app/core/*"
       ]
     },
     "typeRoots": [

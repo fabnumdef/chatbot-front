@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MediaService } from '../../../../core/services/media.service';
+import { MediaService } from '@core/services/media.service';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { DestroyObservable } from '../../../../core/utils/destroy-observable';
+import { DestroyObservable } from '@core/utils/destroy-observable';
 
 @Component({
   selector: 'app-media-filter',

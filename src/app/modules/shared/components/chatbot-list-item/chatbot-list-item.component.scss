@@ -6,27 +6,20 @@
   position: relative;
 }
 
-$border-radius: 5px;
+$border-radius: 3px;
 
 .chatbot-list-item {
-  box-shadow: $shadow-uniform;
   border-radius: $border-radius;
-  padding: 30px 30px 20px 30px;
+  padding: 15px;
 
   ::ng-deep {
     &.body {
       display: flex;
-
-      & > * {
-        display: flex;
-        align-items: center;
-      }
+      align-items: center;
 
       .title-wrapper {
+        margin-top: 10px;
         flex: 2;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
       }
 
       .content-wrapper {
@@ -34,20 +27,39 @@ $border-radius: 5px;
       }
 
       .actions {
-        flex: 1;
         justify-content: flex-end;
       }
     }
 
-    &.badge {
-      position: absolute;
-      border-top-left-radius: $border-radius;
-      border-bottom-right-radius: $border-radius;
-      top: 0;
-      left: 0;
-      padding: 2px 30px;
-      background-color: $primary-color;
-      color: $white;
+    &.badges {
+      display: flex;
+
+      .badge {
+        border-radius: $border-radius;
+        padding: 2px 30px;
+        border: 2px solid transparent;
+        font-weight: bold;
+
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
+
+        &-primary {
+          background-color: $primary-color;
+          border-color: $primary-color;
+          color: $white;
+        }
+
+        &-warning {
+          color: $warning-color;
+          border-color: $warning-color;
+        }
+
+        &-error {
+          color: $accent-color;
+          border-color: $accent-color;
+        }
+      }
     }
 
     &.title {
@@ -61,8 +73,10 @@ $border-radius: 5px;
 
     &.actions {
       color: $primary-color;
+      display: flex;
+      align-items: center;
 
-      > .mat-icon-button {
+      > * {
         margin: 0 10px;
 
         &:not(:first-child):before {

@@ -1,7 +1,14 @@
 .intent-layout {
   .actions {
     display: flex;
-    justify-content: space-between;
+    margin-bottom: 20px;
+
+    & > *:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+
+  app-intent-filter {
     margin-bottom: 20px;
   }
 }
