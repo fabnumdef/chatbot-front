@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RasaService } from '@core/services/rasa.service';
 
 @Component({
   selector: 'app-configuration-layout',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigurationLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _rasaService: RasaService) {
+  }
 
   ngOnInit(): void {
+  }
+
+  trainRasa() {
+    this._rasaService.train().subscribe();
   }
 
 }
