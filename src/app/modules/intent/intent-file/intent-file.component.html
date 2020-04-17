@@ -1,59 +1,183 @@
 <div class="intent-file">
-  <button mat-stroked-button
-          [routerLink]="'/base-documentaire'">
-    <mat-icon>keyboard_arrow_left</mat-icon>
-    Retour
+  <button mat-button
+          [routerLink]="'/base-documentaire'"
+          class="back-button"
+          color="accent">
+    <mat-icon>arrow_back</mat-icon>
+    <span class="back-text">Retour</span>
   </button>
 
-  <h1>Fichier base de connaissance</h1>
-  <mat-divider></mat-divider>
+  <h3>Importer / exporter des connaissances</h3>
 
-  <h2>Exporter la base de connaissance</h2>
-  <button mat-stroked-button
-          color="primary"
-          [disabled]="fileService.loading$ | async"
-          (click)="exportFile()">
-    <mat-icon *ngIf="!(fileService.loading$ | async)">cloud_download</mat-icon>
-    <mat-spinner *ngIf="fileService.loading$ | async"
-                 aria-label="Export du fichier en cours"
-                 [diameter]="24"></mat-spinner>
-    Exporter la base de connaissance
-  </button>
+  <mat-card>
+    <mat-card-header>
+      <h3>Exporter la base de connaissance</h3>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        Exporter la base de connaissance vous permet d'avoir un fichier excel rempli.
+        Il contiendra toutes les modifications apportées via le back office depuis sa date d'importation.
+      </p>
+      <button mat-flat-button
+              color="accent"
+              [disabled]="fileService.loading$ | async"
+              (click)="exportFile()">
+        <mat-icon *ngIf="!(fileService.loading$ | async)">get_app</mat-icon>
+        <mat-spinner *ngIf="fileService.loading$ | async"
+                     aria-label="Export du fichier en cours"
+                     [diameter]="24"></mat-spinner>
+        Exporter la base de connaissance
+      </button>
+    </mat-card-content>
+  </mat-card>
 
-  <h2>Importer une nouvelle base de connaissance</h2>
-  <button mat-stroked-button
-          (click)="uploader.click()"
-          [disabled]="fileService.loading$ | async"
-          color="primary">
-    <mat-icon *ngIf="!(fileService.loading$ | async)">check_circle_outline</mat-icon>
-    <mat-spinner *ngIf="fileService.loading$ | async"
-                 aria-label="Chargement et vérification du fichier"
-                 [diameter]="24"></mat-spinner>
-    Tester la base de connaissance
-  </button>
-  <input hidden
-         type="file"
-         #uploader
-         (change)="checkFile($event)"
-         [accept]="'.xlsx'"/>
-  <form [formGroup]="importFileFormGroup" *ngIf="importFileFormGroup">
-    <label>A la suite de l'import de la base de connaissance, voulez-vous archiver les connaissances qui ne sont pas présentes dans le nouveau fichier ?</label>
-    <mat-radio-group aria-label="Doit-on conserver les connaissances qui ne sont pas présentes dans la base de connaissance ?"
-                     labelPosition="before"
-                     formControlName="deleteIntents"
-                     color="primary">
-      <mat-radio-button [value]="false">Conservation des connaissances</mat-radio-button>
-      <mat-radio-button [value]="true">Archivation des connaissances</mat-radio-button>
-    </mat-radio-group>
-  </form>
-  <button mat-stroked-button
-          (click)="uploadFile()"
-          [disabled]="(fileService.loading$ | async) || !importFileFormGroup.valid"
-          color="primary">
-    <mat-icon *ngIf="!(fileService.loading$ | async)">cloud_upload</mat-icon>
-    <mat-spinner *ngIf="fileService.loading$ | async"
-                 aria-label="Import de la base de connaissance"
-                 [diameter]="24"></mat-spinner>
-    Importer la base de connaissance
-  </button>
+  <mat-card>
+    <mat-card-header>
+      <h3>Importer une nouvelle base de connaissance</h3>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        Importer un nouveau fichier base de connaissance premet de mettre à jour celui actuellement en place.
+        Dans ce cas, la base de connaissance remplacée est automatiquement archivée dans l'historique.
+      </p>
+      <p class="red info-row">
+        <mat-icon>warning</mat-icon>
+        Pour une nouvelle connaissance, l'ID doit aussi être nouveau sur le fichier excel.
+      </p>
+      <p>
+        <b>
+          Quelle option choisissez-vous ?
+        </b>
+      </p>
+      <div class="option-row">
+        <form [formGroup]="importFileFormGroup" *ngIf="importFileFormGroup">
+          <mat-radio-group
+            aria-label="Doit-on conserver les connaissances qui ne sont pas présentes dans la base de connaissance ?"
+            labelPosition="before"
+            formControlName="deleteIntents"
+            color="primary">
+            <mat-radio-button [value]="false">Ajouter et modifier (sécurisé)</mat-radio-button>
+            <mat-radio-button [value]="true">Remplacement total</mat-radio-button>
+          </mat-radio-group>
+        </form>
+        <button mat-flat-button
+                (click)="uploader.click()"
+                [disabled]="(fileService.loading$ | async) || !!fileCtrl.value"
+                color="accent">
+          <mat-icon *ngIf="!(fileService.loading$ | async)">publish</mat-icon>
+          <mat-spinner *ngIf="fileService.loading$ | async"
+                       aria-label="Chargement et vérification du fichier"
+                       [diameter]="24"></mat-spinner>
+          Importer la base de connaissance
+        </button>
+      </div>
+      <input hidden
+             type="file"
+             #uploader
+             (change)="checkFile($event)"
+             [accept]="'.xlsx'"/>
+      <div class="file-row" *ngIf="fileTemplateCheckResume">
+        <div class="file-wrapper" *ngIf="fileCtrl.value">
+          <div class="file-name">
+            <mat-icon color="primary"
+                      *ngIf="!hasFileErrors()">
+              check_circle
+            </mat-icon>
+            <mat-icon color="accent"
+                      *ngIf="hasFileErrors()">
+              cancel
+            </mat-icon>
+            {{ fileCtrl.value.name }}
+          </div>
+          <div class="file-status">
+            <span class="valid" *ngIf="!hasFileErrors()">
+              Votre fichier est valide.
+            </span>
+            <span class="error" *ngIf="hasFileErrors()">
+              Votre fichier contient des erreurs. Veuillez le corriger et le mettre à jour.
+            </span>
+          </div>
+          <div class="file-buttons">
+            <button mat-stroked-button
+                    color="accent"
+                    (click)="resetFile()">
+              Supprimer
+            </button>
+            <button mat-flat-button
+                    color="accent"
+                    [disabled]="fileService.loading$ | async"
+                    (click)="uploader.click()">
+              Mettre à jour
+            </button>
+          </div>
+        </div>
+        <div class="feedback-wrapper">
+          <div class="feedback-content">
+            <div class="number" [ngClass]="{'error': hasFileErrors()}">
+              {{ objectKeys(fileTemplateCheckResume.errors).length }}
+            </div>
+            <div class="message">
+              <b>Erreur(s)</b><span class="red">*</span><br/>
+              <span *ngIf="!hasFileErrors(); else messageError">
+                Votre fichier est conforme aux normes.
+              </span>
+              <ng-template #messageError>
+                Votre fichier contient des erreurs qui l'empêche de fonctionner.<br/>
+                <a (click)="openDialog(true, fileTemplateCheckResume.errors)">
+                  <b>Visualiser les erreurs</b>
+                </a>
+              </ng-template>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="feedback-content">
+            <div class="number" [ngClass]="{'error': hasFileWarnings()}">
+              {{ objectKeys(fileTemplateCheckResume.warnings).length }}
+            </div>
+            <div class="message">
+              <b>Avertissement(s)</b><br/>
+              <span *ngIf="!hasFileWarnings(); else messageWarning">
+                Votre fichier ne contient pas d'avertissements.
+              </span>
+              <ng-template #messageWarning>
+                Votre fichier contient des avertissements qui ne sont pas bloquants pour la création de votre
+                chatbot.<br/>
+                <a (click)="openDialog(false, fileTemplateCheckResume.warnings)">
+                  <b>Visualiser les avertissements</b>
+                </a>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="action-row" *ngIf="fileCtrl.value">
+        <button mat-flat-button
+                (click)="uploadFile()"
+                [disabled]="(fileService.loading$ | async) || !importFileFormGroup.valid"
+                color="accent">
+          <mat-icon *ngIf="!(fileService.loading$ | async)">cloud_upload</mat-icon>
+          <mat-spinner *ngIf="fileService.loading$ | async"
+                       aria-label="Import de la base de connaissance"
+                       [diameter]="24"></mat-spinner>
+          Mettre à jour la base de connaissance
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <h3>Historique des bases de connaissances</h3>
+  <div class="historic-file" *ngFor="let historicFile of historicFiles">
+    <div class="badge">
+      Version {{ historicFile.id }}
+    </div>
+    <div class="date">
+      Crée le {{ historicFile.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+    </div>
+    <a target="_blank" [href]="historicFilePath + historicFile.name">
+      <button mat-stroked-button
+              color="accent">
+        <mat-icon>get_app</mat-icon>
+        Exporter la base de connaissance archivée
+      </button>
+    </a>
+  </div>
 </div>

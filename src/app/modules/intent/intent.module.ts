@@ -9,6 +9,7 @@ import { IntentFileComponent } from './intent-file/intent-file.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { CreateEditIntentComponent } from './create-edit-intent/create-edit-intent.component';
+import { WarningsDialogComponent } from './intent-file/warnings-dialog/warnings-dialog.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { CreateEditIntentComponent } from './create-edit-intent/create-edit-inte
     IntentFilterComponent,
     IntentLayoutComponent,
     IntentFileComponent,
-    CreateEditIntentComponent
+    CreateEditIntentComponent,
+    WarningsDialogComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +26,12 @@ import { CreateEditIntentComponent } from './create-edit-intent/create-edit-inte
     MaterialModule,
     ReactiveFormsModule,
     SharedModule
+  ],
+  entryComponents: [
+    WarningsDialogComponent
+  ],
+  providers: [
+    {provide: Window, useValue: window},
   ]
 })
 export class IntentModule { }

@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { finalize } from 'rxjs/operators';
 import { FileTemplateCheckResume } from '../models/file-template-check-resume.model';
 import { ImportFile } from '../models/import-file.model';
+import { FileHistoric } from '@model/file-historic.model';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,15 @@ export class FileService {
     this._loading$.next(true);
     // @ts-ignore
     return this._http.get<any>(`${this._url}/export`, {responseType: 'blob'}).pipe(
+      finalize(() => {
+        this._loading$.next(false);
+      })
+    );
+  }
+
+  getHistoric(): Observable<FileHistoric[]> {
+    this._loading$.next(true);
+    return this._http.get<FileHistoric[]>(`${this._url}/historic`).pipe(
       finalize(() => {
         this._loading$.next(false);
       })

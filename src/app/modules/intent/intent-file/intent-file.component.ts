@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { FileService } from '../../../core/services/file.service';
-import { FileTemplateCheckResume } from '../../../core/models/file-template-check-resume.model';
+import { FileService } from '@core/services/file.service';
+import { FileTemplateCheckResume } from '@model/file-template-check-resume.model';
 import { saveAs } from 'file-saver';
+import { MatDialog } from '@angular/material/dialog';
+import { WarningsDialogComponent } from './warnings-dialog/warnings-dialog.component';
+import { FileHistoric } from '@model/file-historic.model';
 
 @Component({
   selector: 'app-intent-file',
@@ -13,13 +16,18 @@ export class IntentFileComponent implements OnInit {
 
   importFileFormGroup: FormGroup;
   fileTemplateCheckResume: FileTemplateCheckResume;
+  historicFiles: FileHistoric[];
+  objectKeys = Object.keys;
 
   constructor(private _fb: FormBuilder,
-              public fileService: FileService) {
+              public fileService: FileService,
+              private _dialog: MatDialog,
+              @Inject(Window) private _window: Window) {
   }
 
   ngOnInit(): void {
-    this.initForm();
+    this._initForm();
+    this._getHistoric();
   }
 
   get fileCtrl(): FormControl {
@@ -42,7 +50,11 @@ export class IntentFileComponent implements OnInit {
     if (!this.importFileFormGroup.valid) {
       return;
     }
-    this.fileService.upload(this.importFileFormGroup.getRawValue()).subscribe();
+    this.fileService.upload(this.importFileFormGroup.getRawValue()).subscribe((response: FileTemplateCheckResume) => {
+      this.fileTemplateCheckResume = response;
+    }, error => {
+      this.resetFile();
+    });
   }
 
   exportFile() {
@@ -55,11 +67,36 @@ export class IntentFileComponent implements OnInit {
     });
   }
 
+  get historicFilePath() {
+    return `${this._window.location.origin}/historic/`;
+  }
+
+  hasFileErrors() {
+    return (Object.keys(this.fileTemplateCheckResume?.errors).length > 0);
+  }
+
+  hasFileWarnings() {
+    return (Object.keys(this.fileTemplateCheckResume.warnings).length > 0);
+  }
+
+  resetFile() {
+    this.fileTemplateCheckResume = null;
+    this.fileCtrl.setValue(null);
+  }
+
+  openDialog(isError: boolean, detailsArray: { [key: string]: string }): void {
+    this._dialog.open(WarningsDialogComponent, {
+      width: '100%',
+      height: '90%',
+      data: {isError: isError, details: detailsArray}
+    });
+  }
+
   /**
    * PRIVATE FUNCTIONS
    */
 
-  private initForm() {
+  private _initForm() {
     this.importFileFormGroup = this._fb.group({
       file: ['', Validators.required],
       deleteIntents: [false, Validators.required],
@@ -70,13 +107,14 @@ export class IntentFileComponent implements OnInit {
     this.fileService.checkFile(file).subscribe((response: FileTemplateCheckResume) => {
       this.fileTemplateCheckResume = response;
     }, error => {
-      this._resetFile();
+      this.resetFile();
     });
   }
 
-  private _resetFile() {
-    this.fileTemplateCheckResume = null;
-    this.fileCtrl.setValue(null);
+  private _getHistoric() {
+    this.fileService.getHistoric().subscribe(files => {
+      this.historicFiles = files;
+    });
   }
 
 }

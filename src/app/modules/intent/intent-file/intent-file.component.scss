@@ -1,0 +1,136 @@
+@import 'src/styles/variables';
+
+.intent-file {
+  .mat-card {
+    margin-bottom: 20px;
+  }
+
+  .info-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .option-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .file-row {
+    display: flex;
+
+    & > * {
+      flex: 1;
+    }
+
+    .file-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      border: 1px solid $input-border-color;
+
+      .file-name {
+        display: flex;
+        background-color: $grey-lighter;
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
+
+        .mat-icon {
+          margin-right: 10px;
+        }
+      }
+
+      .file-buttons {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+
+        & > *:not(:last-child) {
+          margin-right: 20px;
+        }
+      }
+
+      .file-status {
+        padding: 10px 20px;
+        font-size: 12px;
+
+        .valid {
+          color: $primary-color;
+        }
+
+        .error {
+          color: $accent-color;
+        }
+      }
+    }
+
+    .feedback-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0 20px;
+
+      .feedback-content {
+        display: flex;
+        width: 100%;
+        align-items: flex-start;
+
+        .number {
+          min-width: 40px;
+          background-color: $primary-color;
+          color: $white;
+          border-radius: 13px;
+          text-align: center;
+          margin-right: 15px;
+
+          &.error {
+            background-color: $accent-color;
+          }
+        }
+
+        .message {
+          a {
+            text-decoration: underline;
+            color: $accent-color;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .mat-divider {
+        width: 100%;
+        margin-bottom: 20px;
+        margin-top: 20px;
+      }
+    }
+  }
+
+  .action-row {
+    text-align: right;
+  }
+
+  .file-row, .action-row {
+    margin-top: 20px;
+  }
+
+  .historic-file {
+    display: flex;
+    width: 100%;
+    box-shadow: $shadow-uniform;
+    border-radius: 3px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+
+    .badge {
+      background-color: $blue-lighter;
+      padding: 6px 34px;
+      font-weight: bold;
+    }
+  }
+}

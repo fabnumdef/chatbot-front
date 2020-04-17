@@ -17,4 +17,13 @@ button {
       margin-right: 5px;
     }
   }
+
+  &.back-button {
+    padding: 0;
+
+    .back-text {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
 }
