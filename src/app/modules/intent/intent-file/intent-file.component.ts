@@ -6,6 +6,9 @@ import { saveAs } from 'file-saver';
 import { MatDialog } from '@angular/material/dialog';
 import { WarningsDialogComponent } from './warnings-dialog/warnings-dialog.component';
 import { FileHistoric } from '@model/file-historic.model';
+import { finalize } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+import { ImportResponse } from '@model/import-response.model';
 
 @Component({
   selector: 'app-intent-file',
@@ -22,6 +25,7 @@ export class IntentFileComponent implements OnInit {
   constructor(private _fb: FormBuilder,
               public fileService: FileService,
               private _dialog: MatDialog,
+              private _toastService: ToastrService,
               @Inject(Window) private _window: Window) {
   }
 
@@ -50,11 +54,14 @@ export class IntentFileComponent implements OnInit {
     if (!this.importFileFormGroup.valid) {
       return;
     }
-    this.fileService.upload(this.importFileFormGroup.getRawValue()).subscribe((response: FileTemplateCheckResume) => {
-      this.fileTemplateCheckResume = response;
-    }, error => {
-      this.resetFile();
-    });
+    this.fileService.upload(this.importFileFormGroup.getRawValue())
+      .pipe(finalize(() => {
+        this.resetFile();
+      }))
+      .subscribe((response: ImportResponse) => {
+        this._toastService.success(`La base de connaissance a bien été importée.
+        ${response.intents} connaissances ont été ajoutées ou modifiées.`);
+      });
   }
 
   exportFile() {
