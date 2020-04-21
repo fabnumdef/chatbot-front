@@ -1,0 +1,28 @@
+<div class="media-list-dialog">
+  <h2>Insérer un fichier</h2>
+  <div class="media-items">
+    <ng-container *ngFor="let media of medias$ | async">
+      <div class="media-item"
+           (click)="selectMedia(media)"
+           [ngClass]="{'media-item-selected': isMediaSelected(media)}">
+        <mat-icon [color]="isMediaSelected(media) ? 'accent' : 'primary'">insert_drive_file</mat-icon>
+        <div>{{ media.file }}</div>
+        <div>{{ media.createdAt | date: 'dd/MM/yyyy'}}</div>
+      </div>
+      <mat-divider></mat-divider>
+    </ng-container>
+  </div>
+  <div class="media-actions">
+    <button mat-stroked-button
+            color="accent"
+            matDialogClose>
+      Annuler
+    </button>
+    <button mat-flat-button
+            color="accent"
+            [disabled]="!mediaSelected"
+            [matDialogClose]="mediaSelected">
+      Valider
+    </button>
+  </div>
+</div>

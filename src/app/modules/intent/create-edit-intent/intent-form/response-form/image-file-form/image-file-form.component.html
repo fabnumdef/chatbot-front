@@ -1,0 +1,23 @@
+<div class="image-file-form">
+  <div>
+    <label>{{ getInputLabel() }}</label>
+    <mat-form-field appearance="outline">
+      <mat-label>URL</mat-label>
+      <input matInput
+             placeholder="Saisir..."
+             maxlength="2000"
+             [disabled]="!!media"
+             [value]="url"
+             (input)="urlChange($event)"
+             required>
+    </mat-form-field>
+  </div>
+  <div>
+    OU
+  </div>
+  <div>
+    <label>{{ getMediaLabel() }}</label>
+    <app-file-item (mediaChange)="mediaChange($event)"
+                   [disabled]="!!url"></app-file-item>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="question-form">
+  <form [formGroup]="questionForm" *ngIf="questionForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Question</mat-label>
+      <input matInput
+             placeholder="Saisir..."
+             formControlName="mainQuestion"
+             maxlength="255"
+             required>
+      <mat-error *ngIf="controls.mainQuestion.hasError('required')">
+        Vous n'avez pas saisi de question.
+      </mat-error>
+      <mat-error *ngIf="controls.mainQuestion.hasError('maxLength')">
+        La question est trop longue, elle doit faire au maximum 255 charactères.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Identifiant</mat-label>
+      <input matInput
+             placeholder="Saisir..."
+             formControlName="id"
+             maxlength="100"
+             required>
+      <mat-error *ngIf="controls.id.hasError('required')">
+        Vous n'avez pas saisi d'identifiant.
+      </mat-error>
+      <mat-error *ngIf="controls.id.hasError('pattern')">
+        L'identifiant ne doit contenir que des charactères alphanumériques ainsi que des tirets.
+      </mat-error>
+      <mat-error *ngIf="controls.id.hasError('maxLength')">
+        L'identifiant est trop long, il doit faire au maximum 100 charactères.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Catégorie</mat-label>
+      <input placeholder="Choisir ou saisir une nouvelle catégorie"
+             matInput
+             formControlName="category"
+             maxlength="255"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let category of filteredCategories$ | async" [value]="category">
+          {{category}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="controls.category.hasError('maxLength')">
+        La catégorie est trop longue, elle doit faire au maximum 255 charactères.
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>

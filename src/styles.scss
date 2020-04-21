@@ -21,3 +21,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .red {
   color: $accent-color;
 }
+
+.chatbot-badge {
+  min-width: 40px;
+  background-color: $primary-color;
+  color: $white;
+  border-radius: 13px;
+  text-align: center;
+  margin-right: 15px;
+}

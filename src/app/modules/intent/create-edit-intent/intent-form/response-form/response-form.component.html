@@ -1,0 +1,41 @@
+<div class="response-form">
+  <form [formGroup]="responseForm" *ngIf="responseForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Type de réponse</mat-label>
+      <mat-select formControlName="responseType"
+                  required>
+        <mat-option *ngFor="let responseType of responseTypeKeys" [value]="responseType">
+          {{ responseType_Fr[responseType] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <ng-container [ngSwitch]="responseTypeValue">
+      <mat-form-field appearance="outline" *ngSwitchCase="responseType.text">
+        <mat-label>Texte</mat-label>
+        <textarea matInput
+                  placeholder="Saisir ..."
+                  formControlName="response"
+                  maxlength="2000"
+                  required>
+        </textarea>
+        <mat-error *ngIf="controls.response.hasError('required')">
+          Vous n'avez pas saisi de réponse.
+        </mat-error>
+        <mat-error *ngIf="controls.response.hasError('maxLength')">
+          La réponse est trop longue, elle doit faire au maximum 2000 charactères.
+        </mat-error>
+      </mat-form-field>
+      <app-image-file-form *ngSwitchCase="responseType.image"
+                           [responseFormControl]="responseForm.get('response')"
+                           [responseType]="responseTypeValue">
+      </app-image-file-form>
+      <app-image-file-form *ngSwitchCase="responseType.button"
+                           [responseFormControl]="responseForm.get('response')"
+                           [responseType]="responseTypeValue">
+      </app-image-file-form>
+      <app-quick-reply-form *ngSwitchCase="responseType.quick_reply"
+                           [responseFormControl]="responseForm.get('response')">
+      </app-quick-reply-form>
+    </ng-container>
+  </form>
+</div>

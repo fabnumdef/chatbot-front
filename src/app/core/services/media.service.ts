@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { finalize, tap } from 'rxjs/operators';
-import { Media } from '../models/media.model';
+import { Media } from '@model/media.model';
 import { ApiService } from './api.service';
 
 @Injectable({

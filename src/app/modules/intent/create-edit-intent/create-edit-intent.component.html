@@ -1,17 +1,10 @@
 <div class="create-edit-intent">
-  <form [formGroup]="intentForm" *ngIf="intentForm">
-    <mat-checkbox #expiresCheckbox
-                  [checked]="!!controls.expiresAt.value"
-                  (change)="resetValue('expiresAt')">
-      Contenu variable
-      <ng-container *ngIf="expiresCheckbox.checked">
-        jusqu'au
-        <mat-form-field appearance="outline">
-          <input matInput [matDatepicker]="picker" formControlName="expiresAt">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </ng-container>
-    </mat-checkbox>
-  </form>
+  <button mat-button
+          [routerLink]="'/base_documentaire'"
+          class="back-button"
+          color="accent">
+    <mat-icon>arrow_back</mat-icon>
+    <span class="back-text">Retour</span>
+  </button>
+  <app-intent-form [intent]="intent"></app-intent-form>
 </div>

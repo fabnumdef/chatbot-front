@@ -1,0 +1,37 @@
+@import '../../../../../../../styles/variables';
+
+.media-list-dialog {
+  min-width: 400px;
+  text-align: center;
+
+  .media-items {
+    height: 350px;
+    overflow-y: auto;
+
+    .media-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 5px;
+      cursor: pointer;
+
+      &-selected {
+        font-weight: bold;
+        background-color: $blue-light;
+      }
+    }
+  }
+
+  .media-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    & > *:not(:last-child) {
+      margin-right: 15px;
+    }
+
+    button {
+      min-width: auto;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.response-form {
+  form {
+    display: flex;
+    flex-wrap: wrap;
+
+    > *:nth-child(1) {
+      width: 33%;
+    }
+
+    > *:nth-child(2) {
+      width: 100%;
+    }
+  }
+}

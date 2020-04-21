@@ -15,6 +15,9 @@
       "@model/*": [
         "src/app/core/models/*"
       ],
+      "@enum/*": [
+        "src/app/core/enums/*"
+      ],
       "@core/*": [
         "src/app/core/*"
       ]

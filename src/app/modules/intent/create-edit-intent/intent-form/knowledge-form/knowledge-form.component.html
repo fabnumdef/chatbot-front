@@ -1,0 +1,24 @@
+<div class="knowledge-form">
+  <form [formGroup]="knowledgeForm" *ngIf="knowledgeForm">
+    <mat-form-field appearance="outline">
+      <input matInput
+             placeholder="Rédiger la question synonyme..."
+             formControlName="question"
+             maxlength="255"
+             required>
+      <mat-error *ngIf="controls.question.hasError('required')">
+        Vous n'avez pas saisi de question synonyme.
+      </mat-error>
+      <mat-error *ngIf="controls.question.hasError('maxLength')">
+        La question synonyme est trop longue, elle doit faire au maximum 255 charactères.
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-icon-button
+            aria-label="Suppression de la question synonyme"
+            color="accent"
+            (click)="delete()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </form>
+</div>

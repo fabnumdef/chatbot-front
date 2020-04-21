@@ -1,0 +1,59 @@
+<div class="quick-reply-form" *ngIf="quickRepliesForm">
+  <div class="quick-reply-item" *ngFor="let quickReplyForm of quickRepliesFormGroups; let idx = index">
+    <div class="quick-reply-badge">
+      Choix {{ idx + 1}}
+    </div>
+    <form [formGroup]="quickReplyForm" *ngIf="quickReplyForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Texte</mat-label>
+        <input matInput
+               placeholder="Saisir..."
+               formControlName="text"
+               maxlength="50"
+               required>
+        <mat-error *ngIf="quickReplyForm.controls.text.hasError('required')">
+          Vous n'avez pas saisi de texte.
+        </mat-error>
+        <mat-error *ngIf="quickReplyForm.controls.text.hasError('maxLength')">
+          Le texte est trop long, il doit faire au maximum 50 charactères.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Connaissance</mat-label>
+        <mat-select formControlName="intent"
+                    placeholder="Choisir une connaissance..."
+                    required>
+          <mat-option>
+            <ngx-mat-select-search [formControl]="intentFilterCtrl"
+                                   placeholderLabel="Recherche une connaissance..."
+                                   noEntriesFoundLabel="'Aucune connaissance trouvée'">
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let intent of filteredIntents$ | async" [value]="intent">
+            {{ intent.category ? intent.category + ' - ' : ''}}{{intent.mainQuestion ? intent.mainQuestion : intent.id}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="quickReplyForm.controls.intent.hasError('required')">
+          Vous n'avez pas saisi de connaissance.
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-icon-button
+              aria-label="Suppression du choix"
+              *ngIf="quickRepliesForm.length > 1"
+              color="accent"
+              (click)="deleteChoice(idx)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </form>
+  </div>
+  <button mat-stroked-button
+          color="accent"
+          [disabled]="!quickRepliesForm.valid"
+          (click)="addChoice()"
+          *ngIf="quickRepliesForm.length < 10">
+    <mat-icon>add</mat-icon>
+    Ajouter un autre choix
+  </button>
+</div>

@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Intent } from '@model/intent.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-edit-intent',
@@ -9,30 +8,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CreateEditIntentComponent implements OnInit {
 
-  @Input() intent: Intent;
+  private intent: Intent;
 
-  intentForm: FormGroup;
-
-  constructor(private _fb: FormBuilder) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this._initForm();
-  }
-
-  get controls() {
-    return this.intentForm.controls;
-  }
-
-  resetValue(controlName) {
-    this.intentForm.get(controlName).setValue(null);
-  }
-
-  private _initForm() {
-    this.intentForm = this._fb.group({
-      id: [this.intent.id, Validators.required],
-      expiresAt: [this.intent.expiresAt]
-    });
+    // TODO Edit
+    this.intent = new Intent();
   }
 
 }

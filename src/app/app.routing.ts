@@ -16,7 +16,7 @@ const routes: Routes = [
         loadChildren: () => import('./modules/inbox/inbox.module').then(m => m.InboxModule)
       },
       {
-        path: 'base-documentaire',
+        path: 'base_documentaire',
         loadChildren: () => import('./modules/intent/intent.module').then(m => m.IntentModule)
       },
       {

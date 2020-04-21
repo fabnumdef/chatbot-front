@@ -1,0 +1,24 @@
+<div class="file-item">
+  <div class="file-wrapper">
+    <div class="file-icon">
+      <mat-icon color="primary">insert_drive_file</mat-icon>
+    </div>
+    <div class="file-name">
+      {{ media?.file }}
+    </div>
+    <div class="file-actions">
+      <button mat-stroked-button
+              color="accent"
+              [disabled]="disabled || !media"
+              (click)="resetMedia()">
+        Supprimer
+      </button>
+      <button mat-flat-button
+              color="accent"
+              [disabled]="disabled"
+              (click)="openMediaList()">
+        Insérer un fichier
+      </button>
+    </div>
+  </div>
+</div>

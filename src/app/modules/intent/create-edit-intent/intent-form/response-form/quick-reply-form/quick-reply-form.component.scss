@@ -1,0 +1,42 @@
+@import '../../../../../../../styles/variables';
+
+$border-radius: 5px;
+
+.quick-reply-form {
+  .quick-reply-item {
+    background-color: $blue-light;
+    position: relative;
+    border-radius: $border-radius;
+    padding: 30px 15px 0 15px;
+
+    .quick-reply-badge {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: $primary-color;
+      color: $white;
+      border-top-left-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+      padding: 2px 20px;
+      font-size: 12px;
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+
+      & > * {
+        box-sizing: border-box;
+
+        &:nth-child(1) {
+          width: 33%;
+        }
+
+        &:nth-child(2) {
+          width: 66%;
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+}

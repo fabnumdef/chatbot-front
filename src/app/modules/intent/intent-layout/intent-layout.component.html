@@ -1,13 +1,14 @@
 <div class="intent-layout">
   <div class="actions">
     <button mat-flat-button
-            color="accent">
+            color="accent"
+            [routerLink]="'/base_documentaire/creer'">
       <mat-icon>add</mat-icon>
       Créer nouvelle connaissance
     </button>
     <button mat-stroked-button
             color="accent"
-            [routerLink]="'/base-documentaire/fichier'">
+            [routerLink]="'/base_documentaire/fichier'">
       <mat-icon>file_copy</mat-icon>
       Importer / exporter des connaissances
     </button>

@@ -1,0 +1,29 @@
+@import 'src/styles/variables';
+
+.intent-form {
+  .mat-accordion .mat-expansion-panel {
+    box-shadow: $shadow-uniform;
+
+    .mat-expansion-panel-header {
+      background-color: $blue-light;
+
+      .mat-expansion-panel-header-title {
+        align-items: center;
+      }
+
+      h3 {
+        margin: 0 15px 0 0;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 0;
+
+    & > *:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+}

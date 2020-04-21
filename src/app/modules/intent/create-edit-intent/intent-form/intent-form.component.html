@@ -1,0 +1,114 @@
+<div class="intent-form">
+  <h3>{{ getTitle() }}</h3>
+  <form [formGroup]="intentForm" *ngIf="intentForm">
+    <mat-checkbox #expiresCheckbox
+                  [checked]="!!controls.expiresAt.value"
+                  (change)="resetValue('expiresAt')">
+      Contenu variable
+      <ng-container *ngIf="expiresCheckbox.checked">
+        jusqu'au
+        <mat-form-field appearance="outline">
+          <input matInput [matDatepicker]="picker" formControlName="expiresAt">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </ng-container>
+    </mat-checkbox>
+
+    <mat-accordion [multi]="true">
+      <mat-expansion-panel disabled [expanded]="true">
+        <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
+          <mat-panel-title>
+            <h3>Votre question</h3>
+          </mat-panel-title>
+          <mat-panel-description>
+            <a target="_blank"
+               href="https://fabrique-a-chatbots.gitbook.io/fabrique-a-chatbots/base-documentaire/description#question">
+              <button mat-stroked-button
+                      type="button"
+                      color="primary">
+                <mat-icon>help_outline</mat-icon>
+                Aide gitbook
+              </button>
+            </a>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <app-question-form [questionForm]="intentForm"></app-question-form>
+      </mat-expansion-panel>
+
+      <ng-container *ngFor="let responseForm of responsesFormArray.controls; let idx = index">
+        <mat-expansion-panel disabled [expanded]="true">
+          <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
+            <mat-panel-title>
+              <h3>Votre réponse {{ idx + 1 }}</h3>
+            </mat-panel-title>
+            <mat-panel-description>
+              <button mat-icon-button
+                      aria-label="Suppression de la réponse"
+                      [disabled]="!canDeleteResponse(idx)"
+                      color="accent"
+                      (click)="deleteResponse(idx)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <app-response-form [responseForm]="responseForm"
+                             [canChooseAllResponseTypes]="canChooseAllResponseTypes(idx)">
+          </app-response-form>
+          <mat-divider></mat-divider>
+          <button mat-stroked-button
+                  color="accent"
+                  [disabled]="!responsesFormArray.valid"
+                  (click)="addResponse()"
+                  *ngIf="responsesFormArray.length === (idx + 1)">
+            <mat-icon>add</mat-icon>
+            Ajouter un autre type de réponse
+          </button>
+        </mat-expansion-panel>
+      </ng-container>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
+          <mat-panel-title>
+            <h3>Questions synonymes</h3><span class="chatbot-badge">{{ knowledgesFormArray.length }}</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container *ngFor="let knowledgeForm of knowledgesFormArray.controls; let idx = index">
+          <app-knowledge-form [knowledgeForm]="knowledgeForm"
+                              (deleteKnowledge)="deleteKnowledge(idx)">
+          </app-knowledge-form>
+        </ng-container>
+        <button mat-stroked-button
+                color="accent"
+                [disabled]="!knowledgesFormArray.valid"
+                (click)="addKnowledge()">
+          <mat-icon>add</mat-icon>
+          Ajouter une question synonyme
+        </button>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
+          <mat-panel-title>
+            <h3>Connaissances liées</h3>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="actions">
+      <button mat-stroked-button
+              color="accent" [routerLink]="'/base_documentaire'">
+        Annuler
+      </button>
+      <button mat-flat-button
+              color="accent"
+              (click)="saveIntent()"
+              [disabled]="!intentForm.valid">
+        Enregistrer
+      </button>
+    </div>
+  </form>
+</div>

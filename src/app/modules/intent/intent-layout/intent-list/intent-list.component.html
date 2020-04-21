@@ -27,7 +27,7 @@
 
         <div class="actions">
           <div>
-            3 réponses 5 liens
+            {{ intent.responses.length }} réponses
           </div>
           <button mat-icon-button
                   aria-label="Modifier la connaissance"
@@ -44,8 +44,7 @@
         </div>
       </app-chatbot-list-item>
       <div *ngIf="intent.id === intentSelected" class="intent-detail">
-        <h3>Modifier une connaissance</h3>
-        <app-create-edit-intent [intent]="intent"></app-create-edit-intent>
+        <app-intent-form [intent]="intent"></app-intent-form>
       </div>
     </div>
   </div>

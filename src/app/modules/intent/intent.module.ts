@@ -10,6 +10,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { CreateEditIntentComponent } from './create-edit-intent/create-edit-intent.component';
 import { WarningsDialogComponent } from './intent-file/warnings-dialog/warnings-dialog.component';
+import { IntentFormComponent } from './create-edit-intent/intent-form/intent-form.component';
+import { QuestionFormComponent } from './create-edit-intent/intent-form/question-form/question-form.component';
+import { ResponseFormComponent } from './create-edit-intent/intent-form/response-form/response-form.component';
+import { ImageFileFormComponent } from './create-edit-intent/intent-form/response-form/image-file-form/image-file-form.component';
+import { FileItemComponent } from './create-edit-intent/intent-form/response-form/file-item/file-item.component';
+import { MediaListDialogComponent } from './create-edit-intent/intent-form/response-form/media-list/media-list-dialog.component';
+import { QuickReplyFormComponent } from './create-edit-intent/intent-form/response-form/quick-reply-form/quick-reply-form.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { KnowledgeFormComponent } from './create-edit-intent/intent-form/knowledge-form/knowledge-form.component';
 
 @NgModule({
   declarations: [
@@ -18,17 +27,27 @@ import { WarningsDialogComponent } from './intent-file/warnings-dialog/warnings-
     IntentLayoutComponent,
     IntentFileComponent,
     CreateEditIntentComponent,
-    WarningsDialogComponent
+    WarningsDialogComponent,
+    IntentFormComponent,
+    QuestionFormComponent,
+    ResponseFormComponent,
+    ImageFileFormComponent,
+    FileItemComponent,
+    MediaListDialogComponent,
+    QuickReplyFormComponent,
+    KnowledgeFormComponent
   ],
   imports: [
     CommonModule,
     IntentRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    NgxMatSelectSearchModule
   ],
   entryComponents: [
-    WarningsDialogComponent
+    WarningsDialogComponent,
+    MediaListDialogComponent
   ],
   providers: [
     {provide: Window, useValue: window},

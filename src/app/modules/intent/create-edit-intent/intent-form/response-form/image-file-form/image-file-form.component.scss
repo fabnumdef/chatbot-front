@@ -1,0 +1,28 @@
+.image-file-form {
+  display: flex;
+  align-items: center;
+
+  & > * {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+    &:nth-child(1) {
+      width: 35%;
+    }
+
+    &:nth-child(2) {
+      width: 10%;
+      align-items: center;
+    }
+
+    &:nth-child(3) {
+      width: 55%;
+    }
+  }
+
+  .mat-form-field ::ng-deep.mat-form-field-wrapper {
+    padding: 0;
+  }
+
+}
