@@ -1,13 +1,14 @@
 @import 'src/styles/variables';
 
 .intent-file {
-  .mat-card {
-    margin-bottom: 20px;
-  }
-
   .info-row {
     display: flex;
     align-items: center;
+    font-weight: 700;
+
+    .mat-icon {
+      margin-right: 15px;
+    }
   }
 
   .option-row {
@@ -18,25 +19,21 @@
 
   .file-row {
     display: flex;
-
-    & > * {
-      flex: 1;
-    }
+    flex-direction: column;
+    border: 1px solid $input-border-color;
 
     .file-wrapper {
       width: 100%;
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
-      border: 1px solid $input-border-color;
+      background-color: $white;
+      padding: 10px 20px;
+      box-sizing: border-box;
 
       .file-name {
         display: flex;
-        background-color: $grey-lighter;
-        padding: 20px;
-        width: 100%;
-        box-sizing: border-box;
+        align-items: center;
 
         .mat-icon {
           margin-right: 10px;
@@ -46,24 +43,23 @@
       .file-buttons {
         display: flex;
         align-items: center;
-        padding: 20px;
 
         & > *:not(:last-child) {
           margin-right: 20px;
         }
       }
+    }
 
-      .file-status {
-        padding: 10px 20px;
-        font-size: 12px;
+    .file-status {
+      padding: 10px 20px;
+      font-size: 12px;
 
-        .valid {
-          color: $primary-color;
-        }
+      .valid {
+        color: $primary-color;
+      }
 
-        .error {
-          color: $accent-color;
-        }
+      .error {
+        color: $error-color;
       }
     }
 
@@ -72,7 +68,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      padding: 0 20px;
+      padding: 20px;
 
       .feedback-content {
         display: flex;
@@ -88,14 +84,14 @@
           margin-right: 15px;
 
           &.error {
-            background-color: $accent-color;
+            background-color: $error-color;
           }
         }
 
         .message {
           a {
             text-decoration: underline;
-            color: $accent-color;
+            color: $error-color;
             cursor: pointer;
           }
         }
@@ -121,16 +117,20 @@
     display: flex;
     width: 100%;
     box-shadow: $shadow-uniform;
-    border-radius: 3px;
+    border-radius: $border-radius;
     align-items: center;
     justify-content: space-between;
     padding: 20px;
     box-sizing: border-box;
+    background-color: $white;
 
     .badge {
-      background-color: $blue-lighter;
+      background-color: $primary-color-50;
       padding: 6px 34px;
+      text-transform: uppercase;
+      color: $primary-color;
       font-weight: bold;
+      border-radius: $border-radius;
     }
   }
 }

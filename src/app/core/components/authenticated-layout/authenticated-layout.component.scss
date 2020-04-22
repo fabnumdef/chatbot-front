@@ -7,6 +7,7 @@
 
   .mat-drawer {
     border: none;
+    box-shadow: $shadow-uniform;
   }
 
   ::ng-deep.mat-drawer-content {
@@ -14,10 +15,9 @@
 
     .content {
       max-width: 90%;
-      margin: auto;
-      margin-top: 40px;
-      // 100% - footer height - margin-top
-      min-height: calc(100% - 70px - 40px);
+      margin: 40px auto;
+      // 100% - footer height - margin-top - margin-bottom
+      min-height: calc(100% - 70px - 40px - 40px);
     }
   }
 }
