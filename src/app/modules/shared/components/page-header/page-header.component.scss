@@ -1,0 +1,23 @@
+:host {
+  display: block;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+
+  .actions {
+    display: flex;
+    align-items: center;
+
+    & > *:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+}
+
+.mat-divider {
+  margin: 0 0 20px 0;
+}

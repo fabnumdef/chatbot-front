@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { ToastrModule } from 'ngx-toastr';
-import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MaterialModule } from '../modules/material/material.module';
 import { SideMenuComponent } from './components/authenticated-layout/side-menu/side-menu.component';
@@ -18,7 +17,6 @@ import { SideMenuComponent } from './components/authenticated-layout/side-menu/s
   declarations: [
     NotAuthenticatedLayoutComponent,
     AuthenticatedLayoutComponent,
-    HeaderComponent,
     FooterComponent,
     SideMenuComponent
   ],

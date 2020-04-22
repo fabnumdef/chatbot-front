@@ -1,0 +1,20 @@
+<div class="page-header">
+  <h2>{{ title }}</h2>
+  <div class="actions">
+    <button mat-flat-button
+            color="accent"
+            class="small">
+      <mat-icon>help_outline</mat-icon>
+      Aide
+    </button>
+    <button mat-button
+            color="primary"
+            class="chatbot-button"
+            *ngIf="auth.isAuthenticated()"
+            (click)="auth.logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      {{ auth.user?.firstName }} {{ auth.user?.lastName }}
+    </button>
+  </div>
+</div>
+<mat-divider></mat-divider>

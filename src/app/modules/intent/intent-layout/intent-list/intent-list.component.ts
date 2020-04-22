@@ -47,7 +47,7 @@ export class IntentListComponent implements OnInit {
   }
 
   isIntentInError(intent: Intent) {
-    return intent.knowledges.length < 1;
+    return intent.knowledges?.length < 1;
   }
 
 }

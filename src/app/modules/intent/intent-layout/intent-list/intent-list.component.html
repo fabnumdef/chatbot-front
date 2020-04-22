@@ -1,4 +1,19 @@
 <div class="intent-list">
+  <div class="actions">
+    <button mat-stroked-button
+            color="accent"
+            [routerLink]="'/base_documentaire/fichier'">
+      <mat-icon>file_copy</mat-icon>
+      Importer / exporter des connaissances
+    </button>
+    <button mat-flat-button
+            color="accent"
+            [routerLink]="'/base_documentaire/creer'">
+      <mat-icon>add</mat-icon>
+      Créer nouvelle connaissance
+    </button>
+  </div>
+  <app-intent-filter></app-intent-filter>
   <div class="chatbot-list">
     <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
     <div class="empty-list" *ngIf="!(loading$ | async) && (intents$ | async).length < 1">
@@ -27,7 +42,7 @@
 
         <div class="actions">
           <div>
-            {{ intent.responses.length }} réponses
+            {{ intent.responses?.length }} réponses
           </div>
           <button mat-icon-button
                   aria-label="Modifier la connaissance"

@@ -4,27 +4,26 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 40px 0 0 20px;
-  width: 220px;
+  padding: 20px;
+  width: 270px;
   height: 100%;
-  background-color: $grey-lighter;
+  background-color: $white;
   box-sizing: border-box;
 
-  > button {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+  .header {
+    cursor: pointer;
+    height: 80px;
 
-    ::ng-deep.mat-button-wrapper {
-      justify-content: flex-start;
-      font-family: $title-font;
-
-      .mat-icon {
-        margin-right: 10px;
-      }
+    img {
+      max-height: 100%;
     }
+  }
 
-    &.active {
-      background-color: $white;
-    }
+  button {
+    margin-bottom: 15px;
+  }
+
+  .mat-divider {
+    margin: 20px 0;
   }
 }

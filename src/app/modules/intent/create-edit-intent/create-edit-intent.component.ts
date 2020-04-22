@@ -8,13 +8,12 @@ import { Intent } from '@model/intent.model';
 })
 export class CreateEditIntentComponent implements OnInit {
 
-  private intent: Intent;
+  intent: Intent;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    // TODO Edit
     this.intent = new Intent();
   }
 

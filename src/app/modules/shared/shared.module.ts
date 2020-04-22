@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ChatbotListItemComponent } from './components/chatbot-list-item/chatbot-list-item.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { MaterialModule } from '../material/material.module';
+import { PageHeaderComponent } from './components/page-header/page-header.component';
 
 @NgModule({
   declarations: [
     ChatbotListItemComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PageHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -15,7 +17,8 @@ import { MaterialModule } from '../material/material.module';
   ],
   exports: [
     ChatbotListItemComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PageHeaderComponent
   ],
   entryComponents: [
     ConfirmDialogComponent

@@ -1,4 +1,21 @@
 <div class="media-list">
+  <div class="actions">
+    <button mat-stroked-button
+            color="accent"
+            [disabled]="processing$ | async"
+            (click)="uploader.click()">
+      <mat-icon *ngIf="!(processing$ | async)">add_circle_outline</mat-icon>
+      <mat-spinner *ngIf="processing$ | async"
+                   aria-label="Chargement et vérification du fichier"
+                   [diameter]="24"></mat-spinner>
+      Ajouter un nouveau média
+    </button>
+  </div>
+  <input hidden
+         type="file"
+         #uploader
+         (change)="uploadMedia($event)"/>
+  <app-media-filter></app-media-filter>
   <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
   <div class="empty-list" *ngIf="!(loading$ | async) && (medias$ | async).length < 1">
     Base de média vide.

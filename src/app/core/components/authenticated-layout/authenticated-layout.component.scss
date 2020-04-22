@@ -1,6 +1,8 @@
+@import 'src/styles/variables';
+
 .mat-drawer-container.body {
   // full height - header height
-  height: calc(100vh - 100px);
+  height: 100vh;
   background-color: transparent;
 
   .mat-drawer {
@@ -8,6 +10,8 @@
   }
 
   ::ng-deep.mat-drawer-content {
+    background-color: $grey-lighter;
+
     .content {
       max-width: 90%;
       margin: auto;

@@ -15,6 +15,7 @@ $blue-lighter: #F5F6FA;
 $blue-light: #EFF1F7;
 
 $warning-color: #ff7f00;
+$error-color: map-get($chatbot-warn, 500);
 
 $shadow-uniform: 0 0 10px 0 rgba(0, 0, 0, 0.15);
 

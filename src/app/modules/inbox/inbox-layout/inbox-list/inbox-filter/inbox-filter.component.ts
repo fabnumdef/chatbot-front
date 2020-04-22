@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DestroyObservable } from '../../../../core/utils/destroy-observable';
+import { DestroyObservable } from '@core/utils/destroy-observable';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { InboxService } from '../../../../core/services/inbox.service';
+import { InboxService } from '@core/services/inbox.service';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 @Component({

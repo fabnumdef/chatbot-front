@@ -1,45 +1,49 @@
 <div class="side-menu">
+  <div class="header" [routerLink]="'/'">
+    <img src="assets/img/logo_fabrique_chatbot.png" alt="logo fabrique à chatbots">
+  </div>
+  <mat-divider></mat-divider>
   <button mat-button
-          [color]="inbox.isActive ? 'accent' : 'primary'"
-          [class]="inbox.isActive ? 'active' : ''"
+          [color]="inbox.isActive ? 'primary' : null"
           [routerLink]="'/inbox'"
           routerLinkActive
+          class="chatbot-button"
           #inbox="routerLinkActive">
     <mat-icon fontSet="material-icons-outlined">inbox</mat-icon>
     Inbox
   </button>
   <button mat-button
-          [color]="intents.isActive ? 'accent' : 'primary'"
-          [class]="intents.isActive ? 'active' : ''"
+          [color]="intents.isActive ? 'primary' : null"
           [routerLink]="'/base_documentaire'"
           routerLinkActive
+          class="chatbot-button"
           #intents="routerLinkActive">
     <mat-icon fontSet="material-icons-outlined">description</mat-icon>
     Base documentaire
   </button>
   <button mat-button
-          [color]="medias.isActive ? 'accent' : 'primary'"
-          [class]="medias.isActive ? 'active' : ''"
+          [color]="medias.isActive ? 'primary' : null"
           [routerLink]="'/mediatheque'"
           routerLinkActive
+          class="chatbot-button"
           #medias="routerLinkActive">
     <mat-icon fontSet="material-icons-outlined">collections</mat-icon>
     Médiathèque
   </button>
   <button mat-button
-          [color]="stats.isActive ? 'accent' : 'primary'"
-          [class]="stats.isActive ? 'active' : ''"
+          [color]="stats.isActive ? 'primary' : null"
           [routerLink]="'/statistiques'"
           routerLinkActive
+          class="chatbot-button"
           #stats="routerLinkActive">
     <mat-icon fontSet="material-icons-outlined">insert_chart_outlined</mat-icon>
     Statistiques
   </button>
   <button mat-button
-          [color]="config.isActive ? 'accent' : 'primary'"
-          [class]="config.isActive ? 'active' : ''"
+          [color]="config.isActive ? 'primary' : null"
           [routerLink]="'/configuration'"
           routerLinkActive
+          class="chatbot-button"
           #config="routerLinkActive">
     <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
     Configuration

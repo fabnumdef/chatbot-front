@@ -1,9 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { InboxLayoutComponent } from './inbox-layout/inbox-layout.component';
+import { InboxListComponent } from './inbox-layout/inbox-list/inbox-list.component';
 
 const routes: Routes = [
-  {path: '', component: InboxLayoutComponent}
+  {
+    path: '',
+    component: InboxLayoutComponent,
+    children: [
+      {path: '', component: InboxListComponent}
+    ]
+  }
 ];
 
 @NgModule({

@@ -3,7 +3,17 @@
 $border-radius: 3px;
 
 .intent-list {
+  .actions {
+    margin-bottom: 20px;
+
+    & > *:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+
   .chatbot-list {
+    margin-top: 20px;
+
     & > * {
       margin-bottom: 20px;
       box-shadow: $shadow-uniform;

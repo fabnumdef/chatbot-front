@@ -1,4 +1,5 @@
 <div class="inbox-list">
+  <app-inbox-filter></app-inbox-filter>
   <div class="chatbot-list">
     <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
     <div class="empty-list" *ngIf="!(loading$ | async) && (inboxes$ | async).length < 1">

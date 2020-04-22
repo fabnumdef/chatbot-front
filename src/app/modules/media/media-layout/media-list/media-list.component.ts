@@ -27,6 +27,15 @@ export class MediaListComponent implements OnInit {
     this._mediaService.delete(media).subscribe();
   }
 
+  uploadMedia($event) {
+    const file: File = $event.target.files[0];
+    if (!file) {
+      return;
+    }
+    this._mediaService.createMedia(file).subscribe();
+    $event.target.value = '';
+  }
+
   get mediaPath() {
     return `${this._window.location.origin}/media/`;
   }
