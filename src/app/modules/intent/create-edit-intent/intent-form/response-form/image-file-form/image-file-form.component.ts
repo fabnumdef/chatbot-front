@@ -2,7 +2,6 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Media } from '@model/media.model';
 import { ResponseType } from '@enum/response-type.enum';
-import { MediaService } from '@core/services/media.service';
 
 @Component({
   selector: 'app-image-file-form',
@@ -14,7 +13,7 @@ export class ImageFileFormComponent implements OnInit {
   @Input() responseFormControl: FormControl;
   @Input() responseType: ResponseType;
 
-  url: string;
+  url: string = null;
   media: Media;
 
   constructor(@Inject(Window) private _window: Window) {
@@ -54,12 +53,11 @@ export class ImageFileFormComponent implements OnInit {
 
   private _initResponse() {
     const value = this.responseFormControl.value;
-    console.log('VALUE', value);
-    if (value.includes(this.mediaPath)) {
+    if (!!value && value.includes(this.mediaPath)) {
       this.media = <Media> {
         file: value
       };
-    } else if (value) {
+    } else if (!!value) {
       this.url = value;
     }
   }

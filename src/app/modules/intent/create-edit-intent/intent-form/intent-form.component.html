@@ -1,7 +1,10 @@
 <div class="intent-form">
-  <h3>{{ getTitle() }}</h3>
+  <div class="chatbot-title">
+    <h3>{{ getTitle() }}</h3>
+  </div>
   <form [formGroup]="intentForm" *ngIf="intentForm">
     <mat-checkbox #expiresCheckbox
+                  color="primary"
                   [checked]="!!controls.expiresAt.value"
                   (change)="resetValue('expiresAt')">
       Contenu variable
@@ -19,19 +22,8 @@
       <mat-expansion-panel disabled [expanded]="true">
         <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
           <mat-panel-title>
-            <h3>Votre question</h3>
+            <h4>Votre question<span class="red">*</span></h4>
           </mat-panel-title>
-          <mat-panel-description>
-            <a target="_blank"
-               href="https://fabrique-a-chatbots.gitbook.io/fabrique-a-chatbots/base-documentaire/description#question">
-              <button mat-stroked-button
-                      type="button"
-                      color="primary">
-                <mat-icon>help_outline</mat-icon>
-                Aide gitbook
-              </button>
-            </a>
-          </mat-panel-description>
         </mat-expansion-panel-header>
         <app-question-form [questionForm]="intentForm"></app-question-form>
       </mat-expansion-panel>
@@ -40,7 +32,7 @@
         <mat-expansion-panel disabled [expanded]="true">
           <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
             <mat-panel-title>
-              <h3>Votre réponse {{ idx + 1 }}</h3>
+              <h4>Votre réponse {{ idx + 1 }}<span class="red">*</span></h4>
             </mat-panel-title>
             <mat-panel-description>
               <button mat-icon-button
@@ -55,7 +47,6 @@
           <app-response-form [responseForm]="responseForm"
                              [canChooseAllResponseTypes]="canChooseAllResponseTypes(idx)">
           </app-response-form>
-          <mat-divider></mat-divider>
           <button mat-stroked-button
                   color="accent"
                   [disabled]="!responsesFormArray.valid"
@@ -70,7 +61,7 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
           <mat-panel-title>
-            <h3>Questions synonymes</h3><span class="chatbot-badge">{{ knowledgesFormArray.length }}</span>
+            <h4>Questions synonymes</h4><span class="chatbot-badge">{{ knowledgesFormArray.length }}</span>
           </mat-panel-title>
         </mat-expansion-panel-header>
 
@@ -91,7 +82,7 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
           <mat-panel-title>
-            <h3>Connaissances liées</h3>
+            <h4>Connaissances liées</h4>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <p>I'm visible because I am open</p>

@@ -17,7 +17,7 @@ export class IntentFormComponent implements OnInit {
 
   intentForm: FormGroup;
 
-  panelHeight = '64px';
+  panelHeight = '30px';
 
   constructor(private _fb: FormBuilder,
               private _intentService: IntentService) {

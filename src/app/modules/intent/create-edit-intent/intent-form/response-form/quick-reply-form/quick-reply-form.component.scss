@@ -1,24 +1,19 @@
-@import '../../../../../../../styles/variables';
-
-$border-radius: 5px;
+@import 'src/styles/variables';
 
 .quick-reply-form {
   .quick-reply-item {
-    background-color: $primary-color-200;
     position: relative;
-    border-radius: $border-radius;
-    padding: 30px 15px 0 15px;
 
     .quick-reply-badge {
-      position: absolute;
-      top: 0;
-      left: 0;
       background-color: $primary-color;
       color: $white;
-      border-top-left-radius: $border-radius;
-      border-bottom-right-radius: $border-radius;
+      border-radius: $border-radius;
       padding: 2px 20px;
       font-size: 12px;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 15px;
+      text-transform: uppercase;
     }
 
     form {

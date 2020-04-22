@@ -2,18 +2,24 @@
 
 .intent-form {
   .mat-accordion .mat-expansion-panel {
-    box-shadow: $shadow-uniform;
+    box-shadow: none;
+    background: none;
 
     .mat-expansion-panel-header {
-      background-color: $primary-color-200;
+      background-color: $primary-color-50;
+      color: $primary-color;
 
       .mat-expansion-panel-header-title {
         align-items: center;
       }
 
-      h3 {
-        margin: 0 15px 0 0;
+      h4 {
+        margin: 0;
       }
+    }
+
+    ::ng-deep.mat-expansion-panel-body {
+      padding: 16px 0;
     }
   }
 

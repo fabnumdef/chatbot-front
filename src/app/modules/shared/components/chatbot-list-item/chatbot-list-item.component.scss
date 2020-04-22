@@ -6,11 +6,10 @@
   position: relative;
 }
 
-$border-radius: 3px;
-
 .chatbot-list-item {
   border-radius: $border-radius;
   padding: 15px;
+  background-color: $white;
 
   ::ng-deep {
     &.body {
@@ -35,7 +34,7 @@ $border-radius: 3px;
       display: flex;
 
       .badge {
-        border-radius: $border-radius;
+        border-radius: 100px;
         padding: 2px 30px;
         border: 2px solid transparent;
         font-weight: bold;
@@ -50,14 +49,19 @@ $border-radius: 3px;
           color: $white;
         }
 
+        &-stroked-primary {
+          border-color: $primary-color;
+          color: $primary-color;
+        }
+
         &-warning {
           color: $warning-color;
           border-color: $warning-color;
         }
 
         &-error {
-          color: $accent-color;
-          border-color: $accent-color;
+          color: $error-color;
+          border-color: $error-color;
         }
       }
     }
@@ -72,22 +76,11 @@ $border-radius: 3px;
     }
 
     &.actions {
-      color: $primary-color;
       display: flex;
       align-items: center;
 
       > * {
         margin: 0 10px;
-
-        &:not(:first-child):before {
-          content: '';
-          width: 0;
-          height: 50%;
-          position: absolute;
-          border: 1px solid $input-border-color;
-          top: 25%;
-          left: -10px;
-        }
       }
     }
   }
