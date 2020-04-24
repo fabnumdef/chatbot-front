@@ -26,7 +26,8 @@ export class IntentFileComponent implements OnInit {
               public fileService: FileService,
               private _dialog: MatDialog,
               private _toastService: ToastrService,
-              @Inject(Window) private _window: Window) {
+              @Inject(Window) private _window: Window,
+              private _toast: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -41,6 +42,11 @@ export class IntentFileComponent implements OnInit {
   checkFile($event) {
     const file = $event.target.files[0];
     if (!file) {
+      return;
+    }
+    const filesize = (file.size / 1024 / 1024);
+    if (filesize > 10) {
+      this._toast.error('Le poids du fichier doit être inférieur à 10Mb.', 'Fichier volumineux');
       return;
     }
     this.fileTemplateCheckResume = null;

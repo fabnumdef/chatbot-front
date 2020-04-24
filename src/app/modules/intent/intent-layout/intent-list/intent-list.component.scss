@@ -14,13 +14,13 @@
 
     & > * {
       margin-bottom: 20px;
-      box-shadow: $shadow-uniform;
       border-radius: $border-radius;
     }
 
     .intent-detail {
       padding: 15px;
       background-color: $white;
+      box-shadow: $shadow-uniform;
     }
   }
 

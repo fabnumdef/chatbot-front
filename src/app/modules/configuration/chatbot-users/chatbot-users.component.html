@@ -1,0 +1,74 @@
+<div class="chatbot-users">
+  <div class="chatbot-title">
+    <h3>Utilisateurs</h3>
+  </div>
+
+  <div class="table-wrapper">
+    <table mat-table [dataSource]="users$">
+
+      <ng-container matColumnDef="firstname">
+        <th mat-header-cell *matHeaderCellDef>
+          Prénom
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastname">
+        <th mat-header-cell *matHeaderCellDef>
+          Nom
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>
+          Email
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.email}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>
+          Rôle
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.role}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>
+          Création
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.createdAt | date: 'dd/MM/yyyy'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button
+                  color="accent"
+                  matTooltip="Supprimer"
+                  [disabled]="isUserAdmin(row)"
+                  (click)="deleteUser(row)"
+                  aria-label="Bouton pour supprimer l'utilisateur">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
+  </div>
+
+  <app-user-form *ngIf="addUser" (cancel)="addUser = !addUser"></app-user-form>
+
+  <button mat-stroked-button
+          color="accent"
+          *ngIf="!addUser"
+          (click)="addUser = !addUser">
+    <mat-icon>add</mat-icon>
+    Ajouter un utilisateur
+  </button>
+</div>

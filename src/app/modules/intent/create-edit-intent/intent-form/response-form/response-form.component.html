@@ -22,7 +22,7 @@
           Vous n'avez pas saisi de réponse.
         </mat-error>
         <mat-error *ngIf="controls.response.hasError('maxLength')">
-          La réponse est trop longue, elle doit faire au maximum 2000 charactères.
+          La réponse est trop longue, elle doit faire au maximum 2000 caractères.
         </mat-error>
       </mat-form-field>
       <app-image-file-form *ngSwitchCase="responseType.image"

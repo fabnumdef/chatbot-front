@@ -4,16 +4,29 @@ import { ConfigurationLayoutComponent } from './configuration-layout/configurati
 import { ConfigurationRoutingModule } from './configuration.routing';
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
+import { ChatbotAccessComponent } from './chatbot-access/chatbot-access.component';
+import { ChatbotConfigComponent } from './chatbot-config/chatbot-config.component';
+import { ChatbotUsersComponent } from './chatbot-users/chatbot-users.component';
+import { UserFormComponent } from './chatbot-users/user-form/user-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
-    ConfigurationLayoutComponent
+    ConfigurationLayoutComponent,
+    ChatbotAccessComponent,
+    ChatbotConfigComponent,
+    ChatbotUsersComponent,
+    UserFormComponent,
   ],
   imports: [
     CommonModule,
     ConfigurationRoutingModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    ColorPickerModule
   ]
 })
 export class ConfigurationModule { }

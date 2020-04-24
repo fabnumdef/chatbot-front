@@ -1,7 +1,13 @@
 @import "src/styles/variables";
 
 .media-list {
+  .actions {
+    margin-bottom: 20px;
+  }
+
   .chatbot-list {
+    margin-top: 20px;
+
     & > * {
       margin-bottom: 20px;
     }

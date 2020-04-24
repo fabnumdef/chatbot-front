@@ -1,4 +1,4 @@
-@import "../../../../../../styles/variables";
+@import 'src/styles/variables';
 
 :host {
   display: block;
@@ -8,7 +8,7 @@
   padding: 10px;
   border-radius: 5px;
   box-shadow: $shadow-uniform;
-  width: fit-content;
+  background-color: $white;
 
   .mat-form-field {
     ::ng-deep.mat-form-field-wrapper {

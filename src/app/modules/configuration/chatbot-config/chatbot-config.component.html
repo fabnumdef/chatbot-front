@@ -1,0 +1,109 @@
+<div class="chatbot-config">
+  <div class="chatbot-title">
+    <h3>Configuration du chatbot</h3>
+  </div>
+
+  <form [formGroup]="configForm" *ngIf="configForm">
+    <div class="chatbot-subtitle">
+      <h4>Peronnalisation</h4>
+    </div>
+
+    <div class="personnalisation-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Nom</mat-label>
+        <input matInput
+               placeholder="Saisir..."
+               formControlName="name"
+               maxlength="50"
+               required>
+        <mat-error *ngIf="controls.name.hasError('required')">
+          Vous n'avez pas saisi de nom.
+        </mat-error>
+        <mat-error *ngIf="controls.name.hasError('maxlength')">
+          Le nom est trop long, il doit faire au maximum 50 caractères.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="color-picker-div" (click)="colorPickerPrimary.click()">
+        <label>
+          Choisir la couleur primaire (en-tête)
+          <div>
+            <input #colorPickerPrimary
+                   class="colorpicker color-picker-icon"
+                   maxlength="20"
+                   [colorPicker]="controls.primaryColor.value"
+                   [style.background]="controls.primaryColor.value"
+                   (colorPickerChange)="controls.primaryColor.setValue($event)"/>
+          </div>
+        </label>
+      </div>
+      <div class="color-picker-div" (click)="colorPickerSecondary.click()">
+        <label>
+          Choisir la couleur secondaire (bas de page)
+          <div>
+            <input #colorPickerSecondary
+                   class="colorpicker color-picker-icon"
+                   maxlength="20"
+                   [colorPicker]="controls.secondaryColor.value"
+                   [style.background]="controls.secondaryColor.value"
+                   (colorPickerChange)="controls.secondaryColor.setValue($event)"/>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="chatbot-subtitle">
+      <h4>Description</h4>
+    </div>
+
+    <div class="description-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Problématique</mat-label>
+        <textarea matInput
+                  placeholder="Saisir..."
+                  formControlName="problematic"
+                  maxlength="200"
+                  required>
+      </textarea>
+        <mat-error *ngIf="controls.problematic.hasError('required')">
+          Vous n'avez pas saisi de problématique.
+        </mat-error>
+        <mat-error *ngIf="controls.problematic.hasError('maxlength')">
+          La problématique est trop longue, elle doit faire au maximum 200 caractères.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Audience</mat-label>
+        <textarea matInput
+                  placeholder="Saisir..."
+                  formControlName="audience"
+                  maxlength="200"
+                  required>
+      </textarea>
+        <mat-error *ngIf="controls.audience.hasError('required')">
+          Vous n'avez pas saisi d'audience.
+        </mat-error>
+        <mat-error *ngIf="controls.audience.hasError('maxlength')">
+          L'audience est trop longue, elle doit faire au maximum 200 caractères.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Solution</mat-label>
+        <textarea matInput
+                  placeholder="Saisir..."
+                  formControlName="solution"
+                  maxlength="200"
+                  required>
+      </textarea>
+        <mat-error *ngIf="controls.solution.hasError('required')">
+          Vous n'avez pas saisi de solution.
+        </mat-error>
+        <mat-error *ngIf="controls.solution.hasError('maxlength')">
+          La solution est trop longue, elle doit faire au maximum 200 caractères.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Intent } from '../models/intent.model';
+import { Intent } from '@model/intent.model';
 import { ApiService } from './api.service';
 
 @Injectable({

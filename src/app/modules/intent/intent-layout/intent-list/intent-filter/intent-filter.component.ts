@@ -7,7 +7,7 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-intent-filter',
   templateUrl: './intent-filter.component.html',
-  styleUrls: ['./intent-filter.component.scss']
+  styleUrls: ['./intent-filter.component.scss'],
 })
 export class IntentFilterComponent extends DestroyObservable implements OnInit {
 

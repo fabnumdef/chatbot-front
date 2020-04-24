@@ -3,8 +3,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { finalize } from 'rxjs/operators';
-import { FileTemplateCheckResume } from '../models/file-template-check-resume.model';
-import { ImportFile } from '../models/import-file.model';
+import { FileTemplateCheckResume } from '@model/file-template-check-resume.model';
+import { ImportFile } from '@model/import-file.model';
 import { FileHistoric } from '@model/file-historic.model';
 
 @Injectable({

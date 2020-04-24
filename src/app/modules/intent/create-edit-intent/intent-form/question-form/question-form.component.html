@@ -11,7 +11,7 @@
         Vous n'avez pas saisi de question.
       </mat-error>
       <mat-error *ngIf="controls.mainQuestion.hasError('maxLength')">
-        La question est trop longue, elle doit faire au maximum 255 charactères.
+        La question est trop longue, elle doit faire au maximum 255 caractères.
       </mat-error>
     </mat-form-field>
 
@@ -26,10 +26,10 @@
         Vous n'avez pas saisi d'identifiant.
       </mat-error>
       <mat-error *ngIf="controls.id.hasError('pattern')">
-        L'identifiant ne doit contenir que des charactères alphanumériques ainsi que des tirets.
+        L'identifiant ne doit contenir que des caractères alphanumériques ainsi que des tirets.
       </mat-error>
       <mat-error *ngIf="controls.id.hasError('maxLength')">
-        L'identifiant est trop long, il doit faire au maximum 100 charactères.
+        L'identifiant est trop long, il doit faire au maximum 100 caractères.
       </mat-error>
     </mat-form-field>
 
@@ -46,7 +46,7 @@
         </mat-option>
       </mat-autocomplete>
       <mat-error *ngIf="controls.category.hasError('maxLength')">
-        La catégorie est trop longue, elle doit faire au maximum 255 charactères.
+        La catégorie est trop longue, elle doit faire au maximum 255 caractères.
       </mat-error>
     </mat-form-field>
   </form>

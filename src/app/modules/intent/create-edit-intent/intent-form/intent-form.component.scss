@@ -1,6 +1,23 @@
 @import 'src/styles/variables';
 
 .intent-form {
+
+  form {
+    .mat-checkbox {
+      ::ng-deep.mat-checkbox-label {
+        display: flex;
+        align-items: center;
+        height: 59px;
+      }
+
+      .mat-form-field {
+        ::ng-deep.mat-form-field-wrapper {
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+
   .mat-accordion .mat-expansion-panel {
     box-shadow: none;
     background: none;

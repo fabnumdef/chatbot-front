@@ -7,15 +7,15 @@
                   color="primary"
                   [checked]="!!controls.expiresAt.value"
                   (change)="resetValue('expiresAt')">
-      Contenu variable
-      <ng-container *ngIf="expiresCheckbox.checked">
-        jusqu'au
-        <mat-form-field appearance="outline">
-          <input matInput [matDatepicker]="picker" formControlName="expiresAt">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </ng-container>
+      Contenu variable <span *ngIf="expiresCheckbox.checked">&nbsp;jusqu'au</span>
+      <mat-form-field appearance="outline"
+                      *ngIf="expiresCheckbox.checked"
+                      (click)="$event.preventDefault()"
+                      class="chatbot-datepicker">
+        <input matInput [matDatepicker]="picker" formControlName="expiresAt">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
     </mat-checkbox>
 
     <mat-accordion [multi]="true">
