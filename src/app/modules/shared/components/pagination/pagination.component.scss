@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .active-page {
+    font-weight: bold;
+    font-size: 20px;
+  }
+}

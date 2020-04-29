@@ -76,29 +76,8 @@ export abstract class ApiService<T extends any> {
     this._entities$.next(auxArray);
   }
 
-  public load(store = true): Observable<T[]> {
-    this._loading$.next(true);
-    return this._h.get<T[]>(this._url, this._setOptions()).pipe(
-      tap(data => {
-        if (store) {
-          this._entities$.next(data);
-        }
-      }),
-      finalize(() => {
-        this._loading$.next(false);
-      })
-    );
-  }
-
   public resetFilters() {
     this.currentSearch = '';
-  }
-
-  protected _setOptions() {
-    const params = new HttpParams()
-      .set('query', this.currentSearch ? this.currentSearch : '');
-
-    return {params};
   }
 
   /************************

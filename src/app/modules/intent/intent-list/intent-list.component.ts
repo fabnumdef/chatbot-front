@@ -3,7 +3,7 @@ import { IntentService } from '@core/services/intent.service';
 import { Observable } from 'rxjs';
 import { Intent } from '@model/intent.model';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { filter } from 'rxjs/operators';
 
 @Component({

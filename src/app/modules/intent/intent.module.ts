@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IntentListComponent } from './intent-layout/intent-list/intent-list.component';
 import { IntentRoutingModule } from './intent.routing';
-import { IntentFilterComponent } from './intent-layout/intent-list/intent-filter/intent-filter.component';
 import { IntentLayoutComponent } from './intent-layout/intent-layout.component';
 import { MaterialModule } from '../material/material.module';
 import { IntentFileComponent } from './intent-file/intent-file.component';
@@ -19,6 +17,8 @@ import { MediaListDialogComponent } from './create-edit-intent/intent-form/respo
 import { QuickReplyFormComponent } from './create-edit-intent/intent-form/response-form/quick-reply-form/quick-reply-form.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { KnowledgeFormComponent } from './create-edit-intent/intent-form/knowledge-form/knowledge-form.component';
+import { IntentFilterComponent } from './intent-list/intent-filter/intent-filter.component';
+import { IntentListComponent } from './intent-list/intent-list.component';
 
 @NgModule({
   declarations: [

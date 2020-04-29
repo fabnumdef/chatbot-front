@@ -1,0 +1,75 @@
+@import "src/styles/variables";
+@import "src/styles/pagination";
+
+.media-list {
+  & > .actions {
+    margin-bottom: 20px;
+  }
+
+  .empty-list {
+    margin-top: 20px;
+  }
+
+  .chatbot-list {
+    margin-top: 20px;
+
+    & > * {
+      margin-bottom: 20px;
+    }
+
+    ::ng-deep {
+      .file-preview {
+        height: 65px;
+        width: 120px;
+        background-color: $grey-light;
+        border-radius: $border-radius;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .content-wrapper {
+        width: 100%;
+        justify-content: flex-start;
+
+        & > * {
+          margin-right: 20px;
+          box-sizing: border-box;
+        }
+
+        & > *:nth-child(1) {
+          width: 20%;
+          overflow: hidden;
+        }
+
+        & > *:nth-child(2) {
+          width: 50%;
+          overflow: hidden;
+        }
+
+        & > *:nth-child(3) {
+          width: 10%;
+        }
+
+        & > *:nth-child(4) {
+          width: 20%;
+        }
+      }
+    }
+
+    .media-detail {
+      padding: 15px;
+      background-color: $white;
+      box-shadow: $shadow-uniform;
+    }
+  }
+
+  .empty-list {
+    text-align: center;
+    font-family: $title-font;
+    font-size: 24px;
+    color: $grey;
+  }
+}

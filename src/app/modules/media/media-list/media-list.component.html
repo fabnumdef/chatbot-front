@@ -1,0 +1,75 @@
+<div class="media-list">
+  <div class="actions">
+    <button mat-flat-button
+            color="accent"
+            [disabled]="processing$ | async"
+            (click)="uploader.click()">
+      <mat-icon *ngIf="!(processing$ | async)">add</mat-icon>
+      <mat-spinner *ngIf="processing$ | async"
+                   aria-label="Chargement et vérification du fichier"
+                   [diameter]="24"></mat-spinner>
+      Importer un nouveau média
+    </button>
+  </div>
+  <input hidden
+         type="file"
+         #uploader
+         (change)="uploadMedia($event)"/>
+  <app-media-filter></app-media-filter>
+  <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
+  <div class="empty-list" *ngIf="!(loading$ | async) && (medias$ | async).length < 1">
+    Base de média vide.
+  </div>
+  <div class="chatbot-list" *ngIf="medias$">
+    <div class="pagination-info" *ngIf="pagination">
+      {{ (pagination.currentPage - 1) * pagination.size + 1}}
+      - {{ (pagination.currentPage - 1) * pagination.size + pagination.itemCount }} sur {{ pagination.totalElements }}
+      médias
+    </div>
+    <div *ngFor="let media of medias$ | async">
+      <app-chatbot-list-item>
+        <a target="_blank" [href]="mediaPath + media.file">
+          <div class="file-preview">
+            <img *ngIf="isFileImage(media)" [src]="mediaPath + media.file">
+          </div>
+        </a>
+
+        <div>{{ decodeURI(media.file) }}</div>
+
+        <div>{{ getMediaExtension(media) }}</div>
+
+        <div>{{ media.createdAt | date:'dd/MM/yyyy à HH:mm' }}</div>
+
+        <div class="actions">
+          <button mat-icon-button
+                  class="chatbot-icon-btn"
+                  [color]="media.id === mediaLink ? 'primary' : null"
+                  (click)="selectMedia(media.id, true)"
+                  aria-label="Voir connaissances liées">
+            <mat-icon>link</mat-icon>
+          </button>
+          <button mat-icon-button
+                  class="chatbot-icon-btn"
+                  [color]="media.id === mediaReplace ? 'primary' : null"
+                  (click)="selectMedia(media.id, false)"
+                  aria-label="Remplacer le fichier">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+          <button mat-icon-button
+                  class="chatbot-icon-btn"
+                  aria-label="Supprimer le fichier"
+                  (click)="deleteMedia(media)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </app-chatbot-list-item>
+      <div *ngIf="media.id === mediaLink || media.id === mediaReplace" class="media-detail">
+        <app-media-intents *ngIf="media.id === mediaLink"></app-media-intents>
+        <app-replace-media *ngIf="media.id === mediaReplace"
+                           (replaceMedia)="replaceMedia(media.id, $event)"></app-replace-media>
+      </div>
+    </div>
+    <app-pagination [pagination]="pagination"
+                    (changePage)="mediaService.load($event).subscribe()"></app-pagination>
+  </div>
+</div>

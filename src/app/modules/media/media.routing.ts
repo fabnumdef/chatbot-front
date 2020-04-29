@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MediaLayoutComponent } from './media-layout/media-layout.component';
-import { MediaListComponent } from './media-layout/media-list/media-list.component';
+import { MediaListComponent } from './media-list/media-list.component';
 
 const routes: Routes = [
   {

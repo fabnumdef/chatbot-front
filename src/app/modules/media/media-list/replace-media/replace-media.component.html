@@ -1,0 +1,41 @@
+<div class="replace-media">
+  <div class="chatbot-title">
+    <h3>Remplacer un média</h3>
+  </div>
+  <p class="red info-row">
+    <mat-icon>warning</mat-icon>
+    Le media sera remplacé dans toutes les connaissances où il est présent.
+  </p>
+  <div *ngIf="replaceFile">
+    <div class="file-wrapper">
+      <div class="file-icon">
+        <mat-icon color="primary">insert_drive_file</mat-icon>
+      </div>
+      <div class="file-name">
+        {{ replaceFile?.name }}
+      </div>
+      <div class="file-actions">
+        <button mat-icon-button
+                (click)="uploader.click()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="actions">
+      <button mat-flat-button
+              color="accent"
+              (click)="onReplaceMedia()">
+        Remplacer le média
+      </button>
+    </div>
+  </div>
+  <input hidden
+         type="file"
+         #uploader
+         (change)="uploadMedia($event)"/>
+  <div class="file-upload" (click)="uploader.click()" *ngIf="!replaceFile">
+    <button mat-flat-button color="accent">
+      Télécharger via votre ordinateur
+    </button>
+  </div>
+</div>

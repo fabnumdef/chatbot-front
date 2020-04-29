@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IntentLayoutComponent } from './intent-layout/intent-layout.component';
 import { IntentFileComponent } from './intent-file/intent-file.component';
 import { CreateEditIntentComponent } from './create-edit-intent/create-edit-intent.component';
-import { IntentListComponent } from './intent-layout/intent-list/intent-list.component';
+import { IntentListComponent } from './intent-list/intent-list.component';
 
 const routes: Routes = [
   {

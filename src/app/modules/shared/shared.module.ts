@@ -4,12 +4,14 @@ import { ChatbotListItemComponent } from './components/chatbot-list-item/chatbot
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { MaterialModule } from '../material/material.module';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
     ChatbotListItemComponent,
     ConfirmDialogComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
   exports: [
     ChatbotListItemComponent,
     ConfirmDialogComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    PaginationComponent
   ],
   entryComponents: [
     ConfirmDialogComponent

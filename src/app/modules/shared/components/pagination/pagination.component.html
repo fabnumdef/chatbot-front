@@ -1,0 +1,24 @@
+<div class="pagination" *ngIf="pagination">
+  <button mat-icon-button
+          class="chatbot-icon-btn"
+          [disabled]="pagination.currentPage <= 1"
+          aria-label="Page précédente"
+          (click)="onChangePage(pagination.currentPage - 1)">
+    <mat-icon>navigate_before</mat-icon>
+  </button>
+  <ng-container *ngFor="let pageNumber of pagesToShow()">
+    <button mat-icon-button
+            [ngClass]="{'active-page': pagination.currentPage === pageNumber}"
+            [color]="pagination.currentPage === pageNumber ? 'primary' : null"
+            (click)="onChangePage(pageNumber)">
+      {{ pageNumber }}
+    </button>
+  </ng-container>
+  <button mat-icon-button
+          class="chatbot-icon-btn"
+          [disabled]="pagination.last"
+          aria-label="Page suivante"
+          (click)="onChangePage(pagination.currentPage + 1)">
+    <mat-icon>navigate_next</mat-icon>
+  </button>
+</div>

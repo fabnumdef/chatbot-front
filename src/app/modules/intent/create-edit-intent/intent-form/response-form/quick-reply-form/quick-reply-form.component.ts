@@ -26,7 +26,7 @@ export class QuickReplyFormComponent extends DestroyObservable implements OnInit
 
   ngOnInit(): void {
     this._intentService.resetFilters();
-    this._intentService.load(false).subscribe(intents => {
+    this._intentService.loadAll().subscribe(intents => {
       this.intents = intents;
       this._initSelectFilter();
       this._initFormArray();

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Inbox } from '../../../../core/models/inbox.model';
-import { InboxService } from '../../../../core/services/inbox.service';
+import { Inbox } from '@model/inbox.model';
+import { InboxService } from '@core/services/inbox.service';
 
 @Component({
   selector: 'app-inbox-list',

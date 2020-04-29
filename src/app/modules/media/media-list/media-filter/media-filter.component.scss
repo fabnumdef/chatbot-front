@@ -10,6 +10,14 @@
   box-shadow: $shadow-uniform;
   background-color: $white;
 
+  form {
+    display: flex;
+
+    & > *:nth-child(1) {
+      flex: 2;
+    }
+  }
+
   .mat-form-field {
     ::ng-deep.mat-form-field-wrapper {
       padding-bottom: 0;

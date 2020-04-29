@@ -1,0 +1,63 @@
+@import "src/styles/variables";
+
+.replace-media {
+  .info-row {
+    display: flex;
+    align-items: center;
+
+    .mat-icon {
+      margin-right: 15px;
+    }
+  }
+
+  .file-wrapper {
+    width: 100%;
+    height: 54px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid $input-border-color;
+    border-radius: $border-radius;
+    margin-bottom: 20px;
+
+    .file-icon {
+      background-color: $grey-lighter;
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+    }
+
+    .file-name {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      overflow: hidden;
+      flex: 1;
+      padding: 0 15px;
+    }
+
+    .file-actions {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .file-upload {
+    height: 54px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed $input-border-color;
+    border-radius: $border-radius;
+    cursor: pointer;
+  }
+
+  .actions {
+    width: 100%;
+    text-align: right;
+  }
+}
