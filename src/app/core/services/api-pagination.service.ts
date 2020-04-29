@@ -1,15 +1,11 @@
-import { Injectable } from '@angular/core';
 import { ApiService } from '@core/services/api.service';
-import { BehaviorSubject, EMPTY, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { PaginationHelper } from '@model/pagination-helper.model';
 import { PaginatedResult } from '@model/paginated-result.model';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class ApiPaginationService<T extends any> extends ApiService<T> {
 
   protected _entities$ = new BehaviorSubject<T[]>([]);
@@ -22,10 +18,10 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
   public currentSearch = '';
 
   protected constructor(private _httpClient: HttpClient,
-                        protected _u: string,
+                        protected _url: string,
                         private _router: Router,
                         public entitiesByPage: number = 20) {
-    super(_httpClient, _u);
+    super(_httpClient, _url);
     this._pagination = new PaginationHelper(entitiesByPage);
   }
 
