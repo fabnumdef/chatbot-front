@@ -24,6 +24,9 @@
         background-color: $grey-light;
         border-radius: $border-radius;
         overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         img {
           width: 100%;
