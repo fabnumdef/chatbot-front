@@ -18,10 +18,10 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
   public currentSearch = '';
 
   protected constructor(private _httpClient: HttpClient,
-                        protected _url: string,
+                        protected _u: string,
                         private _router: Router,
                         public entitiesByPage: number = 20) {
-    super(_httpClient, _url);
+    super(_httpClient, _u);
     this._pagination = new PaginationHelper(entitiesByPage);
   }
 
