@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '@core/services/config.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Config } from '@model/config.model';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chatbot-config',
@@ -18,10 +19,15 @@ export class ChatbotConfigComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._configService.getConfig().subscribe(config => {
-      this.chatbotConfig = config;
-      this._initForm();
-    });
+    this._configService.getConfig()
+      .pipe(finalize(() => {
+        this._initForm();
+      }))
+      .subscribe(config => {
+        this.chatbotConfig = config;
+      }, () => {
+        this.chatbotConfig = new Config();
+      });
   }
 
   get controls() {
