@@ -13,5 +13,21 @@ export class IntentService extends ApiPaginationService<Intent> {
   constructor(private _http: HttpClient,
               private _r: Router) {
     super(_http, '/intent', _r);
+    this._initFilters();
+  }
+
+  private _initFilters() {
+    this.currentFilters = [
+      {
+        attribute: 'category',
+        operator: 'IN',
+        value: null
+      },
+      {
+        attribute: 'expiresAt',
+        operator: '<=',
+        value: null
+      }
+    ];
   }
 }

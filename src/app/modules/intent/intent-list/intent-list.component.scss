@@ -1,4 +1,5 @@
 @import 'src/styles/variables';
+@import 'src/styles/pagination';
 
 .intent-list {
   .actions {
@@ -7,6 +8,10 @@
     & > *:not(:last-child) {
       margin-right: 15px;
     }
+  }
+
+  .empty-list {
+    margin-top: 20px;
   }
 
   .chatbot-list {
