@@ -9,28 +9,30 @@
              aria-label="Champ de recherche"
              placeholder="Rechercher...">
       <button mat-button
-              *ngIf="queryFormControl.value"
+              *ngIf="controls.query.value"
               matSuffix
               mat-icon-button
               class="reset-query-btn"
               aria-label="Reset champ de recherche"
-              (click)="queryFormControl.reset()">
+              (click)="controls.query.reset()">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="category">
       <mat-label>Catégories</mat-label>
-      <mat-select multiple formControlName="category">
+      <mat-select multiple formControlName="categories">
         <mat-option *ngFor="let category of categories$ | async" [value]="category">{{ category }}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-checkbox #expiresAt color="primary" (change)="expiresAtFormControls.reset(null)">
-      Contenu variable <span *ngIf="expiresAt.checked">&nbsp;jusqu'au</span>
+    <mat-checkbox color="primary"
+                  formControlName="expires"
+                  (change)="controls.expiresAt.reset(null)">
+      Contenu variable <span *ngIf="controls.expires.value">&nbsp;jusqu'au</span>
       <mat-form-field appearance="outline"
                       class="chatbot-datepicker"
-                      *ngIf="expiresAt.checked"
+                      *ngIf="controls.expires.value"
                       (click)="$event.preventDefault()">
         <input matInput
                [matDatepicker]="picker"

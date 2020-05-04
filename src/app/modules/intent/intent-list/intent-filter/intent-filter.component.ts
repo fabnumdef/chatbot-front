@@ -28,7 +28,8 @@ export class IntentFilterComponent extends DestroyObservable implements OnInit {
     this.categories$ = this._refDataService.categories$;
     this.intentFilters = this._fb.group({
       query: [this._intentService.currentSearch],
-      category: [[]],
+      categories: [[]],
+      expires: [false],
       expiresAt: [null]
     });
     this.intentFilters.valueChanges
@@ -38,19 +39,15 @@ export class IntentFilterComponent extends DestroyObservable implements OnInit {
         distinctUntilChanged())
       .subscribe(value => {
         this._intentService.currentSearch = value.query;
-        value.expiresAt = !!value.expiresAt ? `timestamp '${value.expiresAt.toISOString()}'` : null;
-        this._intentService.currentFilters = FilterHelper.setFilterValues(this._intentService.currentFilters, value);
+        delete value.query;
+        value.expiresAt = value.expiresAt ? value.expiresAt.toLocaleDateString() : null;
+        this._intentService.currentFilters = value;
         this._intentService.load().subscribe();
       });
     this._intentService.load().subscribe();
   }
 
-  get queryFormControl() {
-    return this.intentFilters.get('query');
+  get controls() {
+    return this.intentFilters.controls;
   }
-
-  get expiresAtFormControls() {
-    return this.intentFilters.get('expiresAt');
-  }
-
 }
