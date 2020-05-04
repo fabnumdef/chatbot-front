@@ -5,7 +5,6 @@ import { IntentService } from '@core/services/intent.service';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { RefDataService } from '@core/services/ref-data.service';
 import { BehaviorSubject } from 'rxjs';
-import { FilterHelper } from '@model/filter-helper.model';
 
 @Component({
   selector: 'app-intent-filter',
