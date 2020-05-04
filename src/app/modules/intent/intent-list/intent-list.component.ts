@@ -5,6 +5,7 @@ import { Intent } from '@model/intent.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { filter } from 'rxjs/operators';
+import { PaginationHelper } from '@model/pagination-helper.model';
 
 @Component({
   selector: 'app-intent-list',
@@ -14,16 +15,18 @@ import { filter } from 'rxjs/operators';
 export class IntentListComponent implements OnInit {
 
   intents$: Observable<Intent[]>;
+  pagination: PaginationHelper;
   loading$: Observable<boolean>;
   intentSelected: string = null;
 
-  constructor(private _intentService: IntentService,
+  constructor(public intentService: IntentService,
               private _dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.loading$ = this._intentService.loading$;
-    this.intents$ = this._intentService.entities$;
+    this.loading$ = this.intentService.loading$;
+    this.intents$ = this.intentService.entities$;
+    this.pagination = this.intentService.pagination;
   }
 
   selectIntent(intentId: string) {
@@ -41,7 +44,7 @@ export class IntentListComponent implements OnInit {
     dialogRef.afterClosed()
       .pipe(filter(r => !!r))
       .subscribe(() => {
-        this._intentService.delete(intent).subscribe();
+        this.intentService.delete(intent).subscribe();
       });
 
   }

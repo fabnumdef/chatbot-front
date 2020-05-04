@@ -14,10 +14,15 @@
     </button>
   </div>
   <app-intent-filter></app-intent-filter>
-  <div class="chatbot-list">
-    <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
-    <div class="empty-list" *ngIf="!(loading$ | async) && (intents$ | async).length < 1">
-      Base de connaissance vide.
+  <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
+  <div class="empty-list" *ngIf="!(loading$ | async) && (intents$ | async).length < 1">
+    Base de connaissance vide.
+  </div>
+  <div class="chatbot-list" *ngIf="(intents$ | async).length > 0">
+    <div class="pagination-info" *ngIf="pagination">
+      {{ (pagination.currentPage - 1) * pagination.size + 1}}
+      - {{ (pagination.currentPage - 1) * pagination.size + pagination.itemCount }} sur {{ pagination.totalElements }}
+      connaissances
     </div>
     <div *ngFor="let intent of intents$ | async">
       <app-chatbot-list-item>
@@ -65,5 +70,7 @@
         <app-intent-form [intent]="intent"></app-intent-form>
       </div>
     </div>
+    <app-pagination [pagination]="pagination"
+                    (changePage)="intentService.load($event).subscribe()"></app-pagination>
   </div>
 </div>

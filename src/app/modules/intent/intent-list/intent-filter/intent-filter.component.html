@@ -3,7 +3,7 @@
   <form [formGroup]="intentFilters" *ngIf="intentFilters">
     <mat-form-field appearance="outline" class="query">
       <mat-label>Mots-clés</mat-label>
-      <mat-icon matSuffix color="primary">search</mat-icon>
+      <mat-icon matPrefix color="primary">search</mat-icon>
       <input matInput
              formControlName="query"
              aria-label="Champ de recherche"
@@ -21,23 +21,20 @@
 
     <mat-form-field appearance="outline" class="category">
       <mat-label>Catégories</mat-label>
-      <mat-select multiple formControlName="categories">
-        <mat-option value="10px">10px</mat-option>
-        <mat-option value="12px">12px</mat-option>
-        <mat-option value="14px">14px</mat-option>
-        <mat-option value="16px">16px</mat-option>
-        <mat-option value="18px">18px</mat-option>
-        <mat-option value="20px">20px</mat-option>
+      <mat-select multiple formControlName="category">
+        <mat-option *ngFor="let category of categories$ | async" [value]="category">{{ category }}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-checkbox #expiresAt color="primary">
+    <mat-checkbox #expiresAt color="primary" (change)="expiresAtFormControls.reset(null)">
       Contenu variable <span *ngIf="expiresAt.checked">&nbsp;jusqu'au</span>
       <mat-form-field appearance="outline"
                       class="chatbot-datepicker"
                       *ngIf="expiresAt.checked"
                       (click)="$event.preventDefault()">
-        <input matInput [matDatepicker]="picker">
+        <input matInput
+               [matDatepicker]="picker"
+               formControlName="expiresAt">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>

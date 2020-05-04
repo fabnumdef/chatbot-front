@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { DestroyObservable } from '@core/utils/destroy-observable';
 import { IntentService } from '@core/services/intent.service';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { RefDataService } from '@core/services/ref-data.service';
+import { BehaviorSubject } from 'rxjs';
+import { FilterHelper } from '@model/filter-helper.model';
 
 @Component({
   selector: 'app-intent-filter',
@@ -12,16 +15,21 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 export class IntentFilterComponent extends DestroyObservable implements OnInit {
 
   intentFilters: FormGroup;
+  categories$: BehaviorSubject<string[]>;
 
   constructor(private _fb: FormBuilder,
-              private _intentService: IntentService) {
+              private _intentService: IntentService,
+              private _refDataService: RefDataService) {
     super();
   }
 
   ngOnInit(): void {
+    this._refDataService.loadCategories().then();
+    this.categories$ = this._refDataService.categories$;
     this.intentFilters = this._fb.group({
       query: [this._intentService.currentSearch],
-      categories: [[]]
+      category: [[]],
+      expiresAt: [null]
     });
     this.intentFilters.valueChanges
       .pipe(
@@ -30,6 +38,8 @@ export class IntentFilterComponent extends DestroyObservable implements OnInit {
         distinctUntilChanged())
       .subscribe(value => {
         this._intentService.currentSearch = value.query;
+        value.expiresAt = !!value.expiresAt ? `timestamp '${value.expiresAt.toISOString()}'` : null;
+        this._intentService.currentFilters = FilterHelper.setFilterValues(this._intentService.currentFilters, value);
         this._intentService.load().subscribe();
       });
     this._intentService.load().subscribe();
@@ -37,6 +47,10 @@ export class IntentFilterComponent extends DestroyObservable implements OnInit {
 
   get queryFormControl() {
     return this.intentFilters.get('query');
+  }
+
+  get expiresAtFormControls() {
+    return this.intentFilters.get('expiresAt');
   }
 
 }

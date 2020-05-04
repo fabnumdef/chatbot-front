@@ -5,6 +5,8 @@ import { PaginationHelper } from '@model/pagination-helper.model';
 import { PaginatedResult } from '@model/paginated-result.model';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { PaginationFilter } from '@model/pagination-filter.model';
+import { FilterHelper } from '@model/filter-helper.model';
 
 export class ApiPaginationService<T extends any> extends ApiService<T> {
 
@@ -16,6 +18,7 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
   protected _pagination: PaginationHelper;
 
   public currentSearch = '';
+  public currentFilters: PaginationFilter[];
 
   protected constructor(private _httpClient: HttpClient,
                         protected _u: string,
@@ -46,22 +49,25 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
 
   public getEntities(needMoreData: boolean): Observable<PaginatedResult<T>> {
     this._loading$.next(true);
-    return this._httpClient.get<PaginatedResult<T>>(`${this._url}/search`, this.setOptions())
-      .pipe(
-        tap(result => {
-          this._pagination.onLoaded(result);
-          this._lastPage$.next(this._pagination.last);
+    return this._httpClient.post<PaginatedResult<T>>(
+      `${this._url}/search`,
+      FilterHelper.clearFilters(this.currentFilters),
+      this.setOptions()
+    ).pipe(
+      tap(result => {
+        this._pagination.onLoaded(result);
+        this._lastPage$.next(this._pagination.last);
 
-          if (needMoreData) {
-            this._entities$.next([...this._entities$.value, ...result.items]);
-          } else {
-            this._entities$.next(result.items);
-          }
-        }),
-        finalize(() => {
-          this._loading$.next(false);
-        })
-      );
+        if (needMoreData) {
+          this._entities$.next([...this._entities$.value, ...result.items]);
+        } else {
+          this._entities$.next(result.items);
+        }
+      }),
+      finalize(() => {
+        this._loading$.next(false);
+      })
+    );
   }
 
   // public getMoreEntities(): Observable<PaginatedResult<T>> {
