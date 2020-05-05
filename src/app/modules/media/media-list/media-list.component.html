@@ -46,11 +46,15 @@
         <div>{{ media.size / 1000 }} MB</div>
 
         <div class="actions">
+          <div *ngIf="media.intents && media.intents.length > 0">
+            {{ media.intents?.length }} connaissance(s)
+          </div>
           <button mat-icon-button
                   class="chatbot-icon-btn"
                   [color]="media.id === mediaLink ? 'primary' : null"
                   [matTooltip]="'Connaissances liées'"
                   (click)="selectMedia(media.id, true)"
+                  *ngIf="media.intents && media.intents.length > 0"
                   aria-label="Voir connaissances liées">
             <mat-icon>link</mat-icon>
           </button>
