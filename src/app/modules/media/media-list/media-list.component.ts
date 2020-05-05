@@ -7,6 +7,7 @@ import { PaginationHelper } from '@model/pagination-helper.model';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { filter } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
+import { Utils } from '@core/utils/utils';
 
 @Component({
   selector: 'app-media-list',
@@ -22,6 +23,7 @@ export class MediaListComponent implements OnInit {
   decodeURI = decodeURI;
   mediaReplace: number;
   mediaLink: number;
+  utils = Utils;
 
   constructor(public mediaService: MediaService,
               @Inject(Window) private _window: Window,
@@ -84,15 +86,5 @@ export class MediaListComponent implements OnInit {
 
   get mediaPath() {
     return `${this._window.location.origin}/media/`;
-  }
-
-  getMediaExtension(media: Media) {
-    const regex = /(?:\.([^.]+))?$/;
-    return regex.exec(media.file)[1]?.toUpperCase();
-  }
-
-  isFileImage(media: Media) {
-    const ext = this.getMediaExtension(media);
-    return ['JPG', 'JPEG', 'GIF', 'PNG'].includes(ext);
   }
 }

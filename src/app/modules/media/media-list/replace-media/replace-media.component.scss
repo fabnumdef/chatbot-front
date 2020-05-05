@@ -46,7 +46,7 @@
   }
 
   .file-upload {
-    height: 54px;
+    height: 210px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -54,10 +54,15 @@
     border: 1px dashed $input-border-color;
     border-radius: $border-radius;
     cursor: pointer;
+
+    img {
+      height: 90%;
+    }
   }
 
   .actions {
     width: 100%;
     text-align: right;
+    margin-top: 20px;
   }
 }

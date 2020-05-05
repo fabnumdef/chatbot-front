@@ -54,14 +54,14 @@
                   aria-label="Modifier la connaissance"
                   [color]="intent.id === intentSelected ? 'primary' : null"
                   (click)="selectIntent(intent.id)"
-                  [matTooltip]="'Modifier la connaissance'">
+                  [matTooltip]="'Editer'">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button
                   class="chatbot-icon-btn"
                   aria-label="Archiver la connaissance"
                   (click)="archiveIntent(intent)"
-                  [matTooltip]="'Archiver la connaissance'">
+                  [matTooltip]="'Supprimer'">
             <mat-icon>delete</mat-icon>
           </button>
         </div>

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Intent } from '@model/intent.model';
-import { ApiService } from './api.service';
 import { ApiPaginationService } from '@core/services/api-pagination.service';
 import { Router } from '@angular/router';
 
@@ -13,21 +12,5 @@ export class IntentService extends ApiPaginationService<Intent> {
   constructor(private _http: HttpClient,
               private _r: Router) {
     super(_http, '/intent', _r);
-    this._initFilters();
-  }
-
-  private _initFilters() {
-    this.currentFilters = [
-      {
-        attribute: 'category',
-        operator: 'IN',
-        value: null
-      },
-      {
-        attribute: 'expiresAt',
-        operator: '<=',
-        value: null
-      }
-    ];
   }
 }

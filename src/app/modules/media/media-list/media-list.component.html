@@ -30,20 +30,26 @@
       <app-chatbot-list-item>
         <a target="_blank" [href]="mediaPath + media.file">
           <div class="file-preview">
-            <img *ngIf="isFileImage(media)" [src]="mediaPath + media.file">
+            <img *ngIf="utils.isFileImage(media.file); else showIcon" [src]="mediaPath + media.file">
+            <ng-template #showIcon>
+              <mat-icon>insert_photo</mat-icon>
+            </ng-template>
           </div>
         </a>
 
         <div>{{ decodeURI(media.file) }}</div>
 
-        <div>{{ getMediaExtension(media) }}</div>
+        <div>Ajouté par {{ media.addedBy }}</div>
 
-        <div>{{ media.createdAt | date:'dd/MM/yyyy à HH:mm' }}</div>
+        <div>Le {{ media.createdAt | date:'dd/MM/yyyy' }}</div>
+
+        <div>{{ media.size / 1000 }} MB</div>
 
         <div class="actions">
           <button mat-icon-button
                   class="chatbot-icon-btn"
                   [color]="media.id === mediaLink ? 'primary' : null"
+                  [matTooltip]="'Connaissances liées'"
                   (click)="selectMedia(media.id, true)"
                   aria-label="Voir connaissances liées">
             <mat-icon>link</mat-icon>
@@ -52,19 +58,23 @@
                   class="chatbot-icon-btn"
                   [color]="media.id === mediaReplace ? 'primary' : null"
                   (click)="selectMedia(media.id, false)"
-                  aria-label="Remplacer le fichier">
+                  [matTooltip]="'Remplacer média'"
+                  aria-label="Remplacer le média">
             <mat-icon>autorenew</mat-icon>
           </button>
           <button mat-icon-button
                   class="chatbot-icon-btn"
-                  aria-label="Supprimer le fichier"
+                  [matTooltip]="'Supprimer'"
+                  aria-label="Supprimer le média"
                   (click)="deleteMedia(media)">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
       </app-chatbot-list-item>
       <div *ngIf="media.id === mediaLink || media.id === mediaReplace" class="media-detail">
-        <app-media-intents *ngIf="media.id === mediaLink"></app-media-intents>
+        <app-media-intents *ngIf="media.id === mediaLink"
+                           [intents]="media.intents">
+        </app-media-intents>
         <app-replace-media *ngIf="media.id === mediaReplace"
                            (replaceMedia)="replaceMedia(media.id, $event)"></app-replace-media>
       </div>

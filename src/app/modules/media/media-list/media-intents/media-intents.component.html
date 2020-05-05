@@ -1,1 +1,27 @@
-<p>media-intents works!</p>
+<div class="media-intents">
+  <div class="chatbot-title">
+    <h3>Connaissances dans lesquelles se retrouve le média</h3>
+  </div>
+  <div *ngIf="intents && intents.length > 0; else noIntents"
+       class="intents-list">
+    <ng-container *ngFor="let intent of intents; let idx = index">
+      <mat-divider *ngIf="idx > 0"></mat-divider>
+      <div class="intent-item">
+        <div>{{ intent.mainQuestion }}</div>
+        <div class="chatbot-badge" *ngIf="intent.category">{{ intent.category }}</div>
+        <button mat-button
+                (click)="goToIntent(intent)"
+                class="back-button"
+                color="accent">
+          <span class="back-text">Accéder à la connaissance</span>
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+  <ng-template #noIntents>
+    <div class="no-intents">
+      Aucune connaissance liée à ce Média.
+    </div>
+  </ng-template>
+</div>

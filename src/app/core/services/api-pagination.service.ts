@@ -126,5 +126,6 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
 
   resetFilters() {
     this.currentSearch = '';
+    this.currentFilters = null;
   }
 }

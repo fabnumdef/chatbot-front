@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Intent } from '@model/intent.model';
+import { IntentService } from '@core/services/intent.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-media-intents',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MediaIntentsComponent implements OnInit {
 
-  constructor() { }
+  @Input() intents: Intent[];
+
+  constructor(private _intentService: IntentService,
+              private _router: Router) {
+  }
 
   ngOnInit(): void {
+  }
+
+  goToIntent(intent: Intent): void {
+    this._intentService.resetFilters();
+    this._intentService.currentSearch = intent.id;
+    this._router.navigateByUrl('base_documentaire');
   }
 
 }

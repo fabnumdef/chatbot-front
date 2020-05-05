@@ -1,0 +1,39 @@
+@import 'src/styles/variables';
+
+.media-intents {
+  .no-intents {
+    text-align: center;
+    font-family: $title-font;
+    font-size: 24px;
+    color: $grey;
+  }
+
+  .intents-list {
+    border-radius: $border-radius;
+    border: 1px solid $grey-light;
+    max-height: 300px;
+    overflow: auto;
+
+    .mat-divider {
+      width: 95%;
+      margin: auto;
+    }
+
+    .intent-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 95%;
+      margin: 10px auto;
+
+      .chatbot-badge {
+        padding: 2px 30px;
+        font-weight: bold;
+      }
+
+      & > *:nth-child(1) {
+        width: 50%;
+      }
+    }
+  }
+}

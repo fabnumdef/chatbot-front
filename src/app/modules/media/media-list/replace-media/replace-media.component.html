@@ -21,21 +21,22 @@
         </button>
       </div>
     </div>
-    <div class="actions">
-      <button mat-flat-button
-              color="accent"
-              (click)="onReplaceMedia()">
-        Remplacer le média
-      </button>
-    </div>
   </div>
   <input hidden
          type="file"
          #uploader
          (change)="uploadMedia($event)"/>
-  <div class="file-upload" (click)="uploader.click()" *ngIf="!replaceFile">
-    <button mat-flat-button color="accent">
+  <div class="file-upload" (click)="uploader.click()" *ngIf="!replaceFile || !!imgPreview">
+    <button mat-flat-button color="accent" *ngIf="!replaceFile">
       Télécharger via votre ordinateur
+    </button>
+    <img [src]="imgPreview" *ngIf="imgPreview">
+  </div>
+  <div class="actions" *ngIf="replaceFile">
+    <button mat-flat-button
+            color="accent"
+            (click)="onReplaceMedia()">
+      Remplacer le média
     </button>
   </div>
 </div>

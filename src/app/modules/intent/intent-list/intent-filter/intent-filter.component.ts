@@ -5,6 +5,7 @@ import { IntentService } from '@core/services/intent.service';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { RefDataService } from '@core/services/ref-data.service';
 import { BehaviorSubject } from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-intent-filter',
@@ -27,9 +28,9 @@ export class IntentFilterComponent extends DestroyObservable implements OnInit {
     this.categories$ = this._refDataService.categories$;
     this.intentFilters = this._fb.group({
       query: [this._intentService.currentSearch],
-      categories: [[]],
-      expires: [false],
-      expiresAt: [null]
+      categories: [this._intentService.currentFilters?.categories ? this._intentService.currentFilters.categories : []],
+      expires: [this._intentService.currentFilters?.expires ? this._intentService.currentFilters.expires : false],
+      expiresAt: [this._intentService.currentFilters?.expiresAt ? moment(this._intentService.currentFilters.expiresAt, 'DD/MM/yyyy') : null]
     });
     this.intentFilters.valueChanges
       .pipe(
@@ -39,7 +40,7 @@ export class IntentFilterComponent extends DestroyObservable implements OnInit {
       .subscribe(value => {
         this._intentService.currentSearch = value.query;
         delete value.query;
-        value.expiresAt = value.expiresAt ? value.expiresAt.toLocaleDateString() : null;
+        value.expiresAt = value.expiresAt ? value.expiresAt.format('DD/MM/yyyy') : null;
         this._intentService.currentFilters = value;
         this._intentService.load().subscribe();
       });
