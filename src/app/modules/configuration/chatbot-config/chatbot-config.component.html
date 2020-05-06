@@ -1,14 +1,13 @@
 <div class="chatbot-config">
   <div class="chatbot-title">
-    <h3>Configuration du chatbot</h3>
+    <h3>Personnalisation du chatbot</h3>
   </div>
 
   <form [formGroup]="configForm" *ngIf="configForm">
-    <div class="chatbot-subtitle">
-      <h4>Peronnalisation</h4>
-    </div>
-
     <div class="personnalisation-row">
+      <div class="chatbot-subtitle">
+        <h4>Quelle est l'identité votre chatbot ?</h4>
+      </div>
       <mat-form-field appearance="outline">
         <mat-label>Nom</mat-label>
         <input matInput
@@ -24,6 +23,28 @@
         </mat-error>
       </mat-form-field>
 
+      <mat-form-field appearance="outline">
+        <mat-label>Fonction</mat-label>
+        <input matInput
+               placeholder="Saisir..."
+               formControlName="function"
+               maxlength="50"
+               required>
+        <mat-error *ngIf="controls.function.hasError('required')">
+          Vous n'avez pas saisi de fonction.
+        </mat-error>
+        <mat-error *ngIf="controls.function.hasError('maxlength')">
+          La fonction est trop longue, elle doit faire au maximum 50 caractères.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="chatbot-subtitle">
+        <h4>Quelle est l'icône de votre chatbot ?</h4>
+      </div>
+
+      <div class="chatbot-subtitle">
+        <h4>Quelles sont vos couleurs ?</h4>
+      </div>
       <div class="color-picker-div" (click)="colorPickerPrimary.click()">
         <label>
           Choisir la couleur primaire (en-tête)
@@ -52,11 +73,14 @@
       </div>
     </div>
 
-    <div class="chatbot-subtitle">
-      <h4>Description</h4>
+    <div class="chatbot-title">
+      <h3>Description du chatbot</h3>
     </div>
 
     <div class="description-row">
+      <div class="chatbot-subtitle">
+        <h4>A quelle problématique répond votre chatbot ?</h4>
+      </div>
       <mat-form-field appearance="outline">
         <mat-label>Problématique</mat-label>
         <textarea matInput
@@ -73,6 +97,9 @@
         </mat-error>
       </mat-form-field>
 
+      <div class="chatbot-subtitle">
+        <h4>A qui s'adresse votre chatbot ?</h4>
+      </div>
       <mat-form-field appearance="outline">
         <mat-label>Audience</mat-label>
         <textarea matInput
@@ -89,6 +116,9 @@
         </mat-error>
       </mat-form-field>
 
+      <div class="chatbot-subtitle">
+        <h4>Quelle solution propose votre chatbot ?</h4>
+      </div>
       <mat-form-field appearance="outline">
         <mat-label>Solution</mat-label>
         <textarea matInput

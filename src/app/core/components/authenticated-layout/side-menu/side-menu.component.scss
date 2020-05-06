@@ -1,10 +1,11 @@
-@import "src/styles/variables";
+@import 'src/styles/variables';
 
 .side-menu {
+  $padding-menu: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 20px;
+  padding: $padding-menu;
   width: 270px;
   height: 100%;
   background-color: $white;
@@ -16,6 +17,27 @@
 
     img {
       height: 60px;
+    }
+  }
+
+  .chatbot {
+    display: flex;
+    align-items: center;
+    background-color: $grey-lighter;
+    height: 40px;
+    // Full width
+    width: 100%;
+    padding: 0 $padding-menu;
+    margin-left: -$padding-menu;
+    margin-bottom: 20px;
+
+    &-icon {
+      width: 20px;
+      height: 20px;
+      background-color: $white;
+      border-radius: 100px;
+      overflow: hidden;
+      margin-right: 20px;
     }
   }
 

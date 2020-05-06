@@ -12,9 +12,15 @@ export class ConfigService {
 
   private _url: string;
   protected _loading$ = new BehaviorSubject<boolean>(false);
+  public config$ = new BehaviorSubject<Config>(null);
 
   constructor(private _http: HttpClient) {
     this._url = `${environment.api_endpoint}/config`;
+    this.getConfig().subscribe(config => {
+      this.config$.next(config);
+    }, () => {
+      this.config$.next(new Config());
+    });
   }
 
   getConfig(): Observable<Config> {

@@ -31,7 +31,8 @@ import { SideMenuComponent } from './components/authenticated-layout/side-menu/s
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: Window, useValue: window},
   ]
 })
 export class CoreModule { }

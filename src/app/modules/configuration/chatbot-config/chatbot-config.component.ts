@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '@core/services/config.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Config } from '@model/config.model';
-import { finalize } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chatbot-config',
@@ -19,15 +19,12 @@ export class ChatbotConfigComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._configService.getConfig()
-      .pipe(finalize(() => {
-        this._initForm();
-      }))
-      .subscribe(config => {
-        this.chatbotConfig = config;
-      }, () => {
-        this.chatbotConfig = new Config();
-      });
+    this._configService.config$.pipe(
+      filter(c => !!c)
+    ).subscribe(config => {
+      this.chatbotConfig = config;
+      this._initForm();
+    });
   }
 
   get controls() {
@@ -37,6 +34,8 @@ export class ChatbotConfigComponent implements OnInit {
   private _initForm() {
     this.configForm = this._fb.group({
       name: [this.chatbotConfig.name, [Validators.required, Validators.maxLength(50)]],
+      function: [this.chatbotConfig.function, [Validators.required, Validators.maxLength(50)]],
+      icon: [this.chatbotConfig.icon, [Validators.required, Validators.maxLength(50)]],
       primaryColor: [this.chatbotConfig.primaryColor, [Validators.required, Validators.maxLength(20)]],
       secondaryColor: [this.chatbotConfig.secondaryColor, [Validators.required, Validators.maxLength(20)]],
       problematic: [this.chatbotConfig.problematic, [Validators.required, Validators.maxLength(200)]],

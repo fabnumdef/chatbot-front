@@ -1,15 +1,7 @@
 @import 'src/styles/variables';
 
 .chatbot-config {
-  .personnalisation-row {
-    display: flex;
-
-    & > *:not(:last-child) {
-      margin-right: 15px;
-    }
-  }
-
-  .description-row {
+  .description-row, .personnalisation-row {
     display: flex;
     flex-direction: column;
 
