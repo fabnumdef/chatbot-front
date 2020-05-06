@@ -27,6 +27,13 @@ export class IntentListComponent implements OnInit {
     this.loading$ = this.intentService.loading$;
     this.intents$ = this.intentService.entities$;
     this.pagination = this.intentService.pagination;
+
+    this.intents$.subscribe(intents => {
+      this.intentSelected = null;
+      if (intents && intents.length === 1) {
+        this.intentSelected = intents[0].id;
+      }
+    });
   }
 
   selectIntent(intentId: string) {

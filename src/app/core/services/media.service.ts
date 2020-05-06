@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { finalize, tap } from 'rxjs/operators';
 import { Media } from '@model/media.model';
-import { ApiService } from './api.service';
 import { ApiPaginationService } from '@core/services/api-pagination.service';
 import { Router } from '@angular/router';
 

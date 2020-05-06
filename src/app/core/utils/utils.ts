@@ -1,4 +1,4 @@
-import { Media } from '@model/media.model';
+import { FormGroup } from '@angular/forms';
 
 export class Utils {
   static isFileImage(fileName: string) {
@@ -9,5 +9,15 @@ export class Utils {
   static getMediaExtension(fileName) {
     const regex = /(?:\.([^.]+))?$/;
     return regex.exec(fileName)[1]?.toUpperCase();
+  }
+
+  static getDirtyValues(formGroup: FormGroup): any {
+    const dirtyFormValues = {};
+    formGroup['_forEachChild']((control, name) => {
+      if (control.dirty) {
+        dirtyFormValues[name] = control.value;
+      }
+    });
+    return dirtyFormValues;
   }
 }
