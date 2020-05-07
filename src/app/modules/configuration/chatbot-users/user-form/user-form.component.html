@@ -60,14 +60,15 @@
   <div class="actions">
     <button mat-flat-button
             color="accent"
+            *ngIf="isNewUser"
             (click)="onCancel()">
       Annuler
     </button>
     <button mat-stroked-button
             color="accent"
-            [disabled]="!userForm.valid"
+            [disabled]="!userForm.valid || !userForm.dirty"
             (click)="addUser()">
-      Ajouter
+      {{ isNewUser ? 'Ajouter' : 'Modifier' }}
     </button>
   </div>
 </div>

@@ -16,8 +16,8 @@ export class ChatbotUsersComponent implements OnInit {
 
   users$: BehaviorSubject<User[]>;
   loading$: BehaviorSubject<boolean>;
-  displayedColumns = ['firstname' , 'lastname', 'email', 'role', 'createdAt', 'actions'];
   addUser = false;
+  userSelected: string = null;
 
   constructor(private _userService: UserService,
               private _dialog: MatDialog) {
@@ -47,6 +47,10 @@ export class ChatbotUsersComponent implements OnInit {
       .subscribe(() => {
         this._userService.delete(user).subscribe();
       });
+  }
+
+  selectUser(userEmail: string) {
+    this.userSelected = (this.userSelected === userEmail) ? null : userEmail;
   }
 
 }

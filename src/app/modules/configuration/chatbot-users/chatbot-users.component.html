@@ -3,63 +3,41 @@
     <h3>Utilisateurs</h3>
   </div>
 
-  <div class="table-wrapper">
-    <table mat-table [dataSource]="users$">
+  <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
+  <div *ngFor="let user of users$ | async" class="user-item">
+    <app-chatbot-list-item>
+      <div>
+        <mat-icon>person</mat-icon> &nbsp; {{ user.firstName }} {{ user.lastName }}
+      </div>
+      <div>
+        {{ user.email }}
+      </div>
+      <div>
+        {{ user.role }}
+      </div>
 
-      <ng-container matColumnDef="firstname">
-        <th mat-header-cell *matHeaderCellDef>
-          Prénom
-        </th>
-        <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="lastname">
-        <th mat-header-cell *matHeaderCellDef>
-          Nom
-        </th>
-        <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>
-          Email
-        </th>
-        <td mat-cell *matCellDef="let row">{{row.email}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef>
-          Rôle
-        </th>
-        <td mat-cell *matCellDef="let row">{{row.role}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef>
-          Création
-        </th>
-        <td mat-cell *matCellDef="let row">{{row.createdAt | date: 'dd/MM/yyyy'}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>
-        </th>
-        <td mat-cell *matCellDef="let row">
-          <button mat-icon-button
-                  color="accent"
-                  matTooltip="Supprimer"
-                  [disabled]="isUserAdmin(row)"
-                  (click)="deleteUser(row)"
-                  aria-label="Bouton pour supprimer l'utilisateur">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
+      <div class="actions">
+        <button mat-icon-button
+                class="chatbot-icon-btn"
+                matTooltip="Editer"
+                [color]="user.email === userSelected ? 'primary' : null"
+                (click)="selectUser(user.email)"
+                aria-label="Modifier l'utilisateur">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button
+                class="chatbot-icon-btn"
+                matTooltip="Supprimer"
+                [disabled]="isUserAdmin(user)"
+                (click)="deleteUser(user)"
+                aria-label="Bouton pour supprimer l'utilisateur">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </app-chatbot-list-item>
+    <div *ngIf="user.email === userSelected" class="user-detail">
+      <app-user-form [user]="user" (cancel)="userSelected = null">></app-user-form>
+    </div>
   </div>
 
   <app-user-form *ngIf="addUser" (cancel)="addUser = !addUser"></app-user-form>

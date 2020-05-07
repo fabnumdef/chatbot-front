@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserRole } from '@enum/user-role.enum';
 import { UserService } from '@core/services/user.service';
+import { User } from '@model/user.model';
 
 @Component({
   selector: 'app-user-form',
@@ -13,6 +14,7 @@ export class UserFormComponent implements OnInit {
   userForm: FormGroup;
   userRole = Object.keys(UserRole);
 
+  @Input() user: User = new User();
   @Output() cancel: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private _fb: FormBuilder,
@@ -28,21 +30,27 @@ export class UserFormComponent implements OnInit {
   }
 
   addUser() {
-    this._userService.create(this.userForm.getRawValue()).subscribe(() => {
-      this.cancel.emit(true);
-    });
+    (this.isNewUser ? this._userService.create(this.userForm.getRawValue()) : this._userService.save(this.userForm.getRawValue()))
+      .subscribe(() => {
+        this.cancel.emit(true);
+      });
   }
 
   onCancel() {
     this.cancel.emit(true);
   }
 
+  get isNewUser(): boolean {
+    return this.userForm.controls.isNewUser.value;
+  }
+
   private _initForm() {
     this.userForm = this._fb.group({
-      firstName: ['', [Validators.required, Validators.maxLength(50)]],
-      lastName: ['', [Validators.required, Validators.maxLength(50)]],
-      email: ['', [Validators.required, Validators.maxLength(255), Validators.email]],
-      role: [UserRole.reader, [Validators.required]]
+      isNewUser: [!this.user.email],
+      firstName: [this.user.firstName, [Validators.required, Validators.maxLength(50)]],
+      lastName: [this.user.lastName, [Validators.required, Validators.maxLength(50)]],
+      email: [this.user.email, [Validators.required, Validators.maxLength(255), Validators.email]],
+      role: [this.user.role, [Validators.required]]
     });
   }
 

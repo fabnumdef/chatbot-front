@@ -1,4 +1,26 @@
+@import 'src/styles/variables';
+
 .chatbot-users {
+  .user-item {
+    margin-bottom: 20px;
+    font-weight: bold;
+
+    ::ng-deep.content-wrapper > * {
+      display: flex;
+      align-items: center;
+    }
+
+    .actions {
+      width: 25%;
+    }
+
+    .user-detail {
+      padding: 15px;
+      background-color: $white;
+      box-shadow: $shadow-uniform;
+    }
+  }
+
   .table-wrapper {
     .mat-table {
       width: 100%;
