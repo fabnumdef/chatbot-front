@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthenticatedLayoutComponent } from './core/components/authenticated-layout/authenticated-layout.component';
-import { NotAuthenticatedLayoutComponent } from './core/components/not-authenticated-layout/not-authenticated-layout.component';
-import { AuthGuard } from './core/guards/auth.guard';
+import { AuthenticatedLayoutComponent } from '@core/components/authenticated-layout/authenticated-layout.component';
+import { NotAuthenticatedLayoutComponent } from '@core/components/not-authenticated-layout/not-authenticated-layout.component';
+import { AuthGuard } from '@core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -16,7 +16,7 @@ const routes: Routes = [
         loadChildren: () => import('./modules/inbox/inbox.module').then(m => m.InboxModule)
       },
       {
-        path: 'base_documentaire',
+        path: 'connaissances',
         loadChildren: () => import('./modules/intent/intent.module').then(m => m.IntentModule)
       },
       {

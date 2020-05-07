@@ -34,15 +34,25 @@
             <mat-panel-title>
               <h4>Votre réponse {{ idx + 1 }}<span class="red">*</span></h4>
             </mat-panel-title>
-            <mat-panel-description>
-              <button mat-icon-button
-                      aria-label="Suppression de la réponse"
+            <button mat-icon-button [matMenuTriggerFor]="responseMenu">
+              <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #responseMenu="matMenu" xPosition="before">
+              <a target="_blank"
+                 class="no-decoration"
+                 href="https://fabrique-a-chatbots.gitbook.io/fabrique-a-chatbots/base-documentaire/exemples-1">
+                <button mat-menu-item>
+                  <mat-icon>help_outline</mat-icon>
+                  Aide
+                </button>
+              </a>
+              <button mat-menu-item
                       [disabled]="!canDeleteResponse(idx)"
-                      color="accent"
                       (click)="deleteResponse(idx)">
                 <mat-icon>delete</mat-icon>
+                Supprimer
               </button>
-            </mat-panel-description>
+            </mat-menu>
           </mat-expansion-panel-header>
           <app-response-form [responseForm]="responseForm"
                              [canChooseAllResponseTypes]="canChooseAllResponseTypes(idx)">
@@ -61,7 +71,11 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
           <mat-panel-title>
-            <h4>Questions synonymes</h4><span class="chatbot-badge">{{ knowledgesFormArray.length }}</span>
+            <h4>Questions synonymes</h4> &nbsp;
+            <span class="chatbot-badge"
+                  [ngClass]="{'chatbot-badge-error': knowledgesFormArray.length < 1}">
+              {{ knowledgesFormArray.length }}
+            </span>
           </mat-panel-title>
         </mat-expansion-panel-header>
 
@@ -91,14 +105,15 @@
 
     <div class="actions">
       <button mat-stroked-button
-              color="accent" [routerLink]="'/base_documentaire'">
+              color="accent"
+              (click)="cancel()">
         Annuler
       </button>
       <button mat-flat-button
               color="accent"
               (click)="saveIntent()"
-              [disabled]="!intentForm.valid">
-        Enregistrer
+              [disabled]="!intentForm.valid || !intentForm.dirty">
+        Valider
       </button>
     </div>
   </form>

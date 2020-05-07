@@ -1,7 +1,7 @@
 <div class="media-list-dialog">
   <h2>Insérer un fichier</h2>
   <div class="media-items">
-    <ng-container *ngFor="let media of medias$ | async">
+    <ng-container *ngFor="let media of medias">
       <div class="media-item"
            (click)="selectMedia(media)"
            [ngClass]="{'media-item-selected': isMediaSelected(media)}">

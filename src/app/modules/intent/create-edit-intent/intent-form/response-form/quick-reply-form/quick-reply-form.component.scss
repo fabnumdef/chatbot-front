@@ -16,6 +16,14 @@
       text-transform: uppercase;
     }
 
+    &:nth-child(3n + 2) .quick-reply-badge {
+      background-color: $success-color;
+    }
+
+    &:nth-child(3n + 3) .quick-reply-badge {
+      background-color: $warning-color;
+    }
+
     form {
       display: flex;
       align-items: center;

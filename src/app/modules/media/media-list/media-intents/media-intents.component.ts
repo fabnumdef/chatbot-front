@@ -22,7 +22,7 @@ export class MediaIntentsComponent implements OnInit {
   goToIntent(intent: Intent): void {
     this._intentService.resetFilters();
     this._intentService.currentSearch = intent.id;
-    this._router.navigateByUrl('base_documentaire');
+    this._router.navigateByUrl('connaissances');
   }
 
 }

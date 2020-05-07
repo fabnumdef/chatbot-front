@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class ApiPaginationService<T extends any> extends ApiService<T> {
 
   protected _entities$ = new BehaviorSubject<T[]>([]);
+  protected _fullEntities$ = new BehaviorSubject<T[]>([]);
   protected _loading$ = new BehaviorSubject<boolean>(false);
   protected _processing$ = new BehaviorSubject<boolean>(false);
   protected _loaded$ = new BehaviorSubject<boolean>(false);
@@ -39,6 +40,9 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
   public loadAll(): Observable<T[]> {
     this._loading$.next(true);
     return this._httpClient.get<T[]>(this._url).pipe(
+      tap(data => {
+        this._fullEntities$.next(data);
+      }),
       finalize(() => {
         this._loading$.next(false);
       })
@@ -122,6 +126,14 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
 
   get pagination() {
     return this._pagination;
+  }
+
+  get fullEntities$(): BehaviorSubject<T[]> {
+    return this._fullEntities$;
+  }
+
+  get fullEntities(): T[] {
+    return this._fullEntities$.value;
   }
 
   resetFilters() {

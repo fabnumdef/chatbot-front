@@ -13,7 +13,8 @@ import { Media } from '@model/media.model';
 export class FileItemComponent implements OnInit {
 
   @Input() disabled = false;
-  media: Media;
+  @Input() media: Media = null;
+  @Input() onlyImages = false;
 
   @Output() mediaChange = new EventEmitter<Media>();
 
@@ -24,7 +25,11 @@ export class FileItemComponent implements OnInit {
   }
 
   openMediaList() {
-    const dialogRef = this._dialog.open(MediaListDialogComponent, {});
+    const dialogRef = this._dialog.open(MediaListDialogComponent, {
+      data: {
+        onlyImages: this.onlyImages
+      }
+    });
 
     dialogRef.afterClosed().pipe(
       filter(v => !!v),

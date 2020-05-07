@@ -2,13 +2,13 @@
   <div class="actions">
     <button mat-stroked-button
             color="accent"
-            [routerLink]="'/base_documentaire/fichier'">
+            [routerLink]="'/connaissances/fichier'">
       <mat-icon>file_copy</mat-icon>
       Importer / exporter des connaissances
     </button>
     <button mat-flat-button
             color="accent"
-            [routerLink]="'/base_documentaire/creer'">
+            [routerLink]="'/connaissances/creer'">
       <mat-icon>add</mat-icon>
       Créer nouvelle connaissance
     </button>
@@ -67,7 +67,7 @@
         </div>
       </app-chatbot-list-item>
       <div *ngIf="intent.id === intentSelected" class="intent-detail">
-        <app-intent-form [intent]="intent"></app-intent-form>
+        <app-intent-form [intent]="intent" (close)="intentSelected = null"></app-intent-form>
       </div>
     </div>
     <app-pagination [pagination]="pagination"

@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MediaService } from '@core/services/media.service';
 import { Media } from '@model/media.model';
 import { Observable } from 'rxjs';
+import { Utils } from '@core/utils/utils';
 
 @Component({
   selector: 'app-media-list',
@@ -11,17 +12,23 @@ import { Observable } from 'rxjs';
 })
 export class MediaListDialogComponent implements OnInit {
 
-  medias$: Observable<Media[]>;
+  medias: Media[] = [];
   mediaSelected: Media;
+  onlyImages = false;
 
-  constructor(public dialogRef: MatDialogRef<MediaListDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private _mediaService: MediaService) {
+    this.onlyImages = data.onlyImages ? data.onlyImages : false;
   }
 
   ngOnInit(): void {
-    this._mediaService.load().subscribe();
-    this.medias$ = this._mediaService.entities$;
+    this._mediaService.loadAll().subscribe();
+    this._mediaService.fullEntities$.subscribe(medias => {
+      if (this.onlyImages) {
+        return this.medias = medias.filter(m => Utils.isFileImage(m.file));
+      }
+      this.medias = medias;
+    });
   }
 
   selectMedia(media: Media) {

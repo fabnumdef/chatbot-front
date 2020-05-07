@@ -87,4 +87,9 @@ body {
   border-radius: 13px;
   text-align: center;
   margin-right: 15px;
+  font-size: 12px;
+
+  &-error {
+    background-color: $error-color;
+  }
 }

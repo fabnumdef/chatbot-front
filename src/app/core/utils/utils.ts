@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 export class Utils {
   static isFileImage(fileName: string) {
     const ext = Utils.getMediaExtension(fileName);
-    return ['JPG', 'JPEG', 'GIF', 'PNG'].includes(ext);
+    return ['JPG', 'JPEG', 'GIF', 'PNG', 'SVG'].includes(ext);
   }
 
   static getMediaExtension(fileName) {

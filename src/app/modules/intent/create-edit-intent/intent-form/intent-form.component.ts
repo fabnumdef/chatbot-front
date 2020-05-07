@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Intent } from '@model/intent.model';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Response } from '@model/response.model';
 import { ResponseType } from '@enum/response-type.enum';
 import { Knowledge } from '@model/knowledge.model';
 import { IntentService } from '@core/services/intent.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-intent-form',
@@ -14,12 +16,15 @@ import { IntentService } from '@core/services/intent.service';
 export class IntentFormComponent implements OnInit {
 
   @Input() intent: Intent;
+  @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   intentForm: FormGroup;
 
   panelHeight = '30px';
 
   constructor(private _fb: FormBuilder,
+              private _toastr: ToastrService,
+              private _router: Router,
               private _intentService: IntentService) {
   }
 
@@ -91,8 +96,16 @@ export class IntentFormComponent implements OnInit {
 
   saveIntent() {
     this._intentService.create(this.intentForm.getRawValue()).subscribe(intent => {
-      console.log('INTENT CREATED', intent);
+      this._toastr.success('Connaissance sauvegardée');
+      this.close.emit(true);
     });
+  }
+
+  cancel() {
+    if (this.isNewIntent) {
+      return this._router.navigateByUrl('/connaissances');
+    }
+    this.close.emit(true);
   }
 
   private _initForm() {

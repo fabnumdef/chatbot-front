@@ -1,3 +1,5 @@
+@import 'src/styles/variables';
+
 .image-file-form {
   display: flex;
   align-items: center;
@@ -24,5 +26,19 @@
   .mat-form-field ::ng-deep.mat-form-field-wrapper {
     padding: 0;
   }
+}
 
+.img-preview {
+  height: 210px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed $input-border-color;
+  border-radius: $border-radius;
+  cursor: pointer;
+
+  img {
+    height: 90%;
+  }
 }

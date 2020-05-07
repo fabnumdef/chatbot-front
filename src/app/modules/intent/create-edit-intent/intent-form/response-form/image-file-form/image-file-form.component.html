@@ -18,6 +18,11 @@
   <div>
     <label>{{ getMediaLabel() }}</label>
     <app-file-item (mediaChange)="mediaChange($event)"
+                   [onlyImages]="isImage"
+                   [media]="media"
                    [disabled]="!!url"></app-file-item>
   </div>
+</div>
+<div *ngIf="isImage && responseFormControl.value" class="img-preview">
+  <img [src]="responseFormControl.value">
 </div>

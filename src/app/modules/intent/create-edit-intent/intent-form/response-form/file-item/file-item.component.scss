@@ -1,20 +1,19 @@
-@import '../../../../../../../styles/variables';
+@import 'src/styles/variables';
 
 :host {
   display: block;
 }
 
-$border-radius: 5px;
-
 .file-item {
   width: 100%;
-  height: $input-height;
+  height: 56px;
   border: 2px solid transparent;
   border-radius: $border-radius;
   transition: border-color 0.2s;
   display: flex;
   align-items: center;
   margin: .25em 0;
+  box-sizing: border-box;
 
   &:hover {
     border-color: $input-border-color-hover;
@@ -31,7 +30,7 @@ $border-radius: 5px;
     border-radius: $border-radius;
 
     .file-icon {
-      background-color: $primary-color-200;
+      background-color: $primary-color-50;
       border-top-left-radius: $border-radius;
       border-bottom-left-radius: $border-radius;
       display: flex;
