@@ -1,45 +1,77 @@
 <div class="inbox-list">
   <app-inbox-filter></app-inbox-filter>
+  <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
+  <div class="empty-list" *ngIf="!(loading$ | async) && (inboxes$ | async).length < 1">
+    Aucun message à traiter.
+  </div>
   <div class="chatbot-list">
-    <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
-    <div class="empty-list" *ngIf="!(loading$ | async) && (inboxes$ | async).length < 1">
-      Aucun message à traiter.
+    <div class="pagination-info" *ngIf="pagination">
+      {{ (pagination.currentPage - 1) * pagination.size + 1}}
+      - {{ (pagination.currentPage - 1) * pagination.size + pagination.itemCount }} sur {{ pagination.totalElements }}
+      questions
     </div>
-    <app-chatbot-list-item *ngFor="let inbox of inboxes$ | async">
-      <div class="badge">
-        {{ inbox.status }}
-      </div>
-      <div class="title">
-        {{ inbox.question }}
-      </div>
-      <div class="hint">
-        Reçu le {{ inbox.timestamp * 1000 | date:'dd/MM/yyyy à HH:mm' }}
-      </div>
+    <div *ngFor="let inbox of inboxes$ | async">
+      <app-chatbot-list-item>
+        <div class="badge" [ngClass]="getBadgeClass(inbox.status)">
+          {{ inboxStatus_Fr[inbox.status] }}
+        </div>
+        <div class="title">
+          {{ inbox.question }}
+        </div>
+        <div class="hint">
+          Posté il y a {{ getDiffDate(inbox) }}
+        </div>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Cars</mat-label>
-        <mat-select>
-          <mat-option value="volvo">Volvo</mat-option>
-          <mat-option value="saab">Saab</mat-option>
-          <mat-option value="mercedes">Mercedes</mat-option>
-          <mat-option value="audi">Audi</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Assigner à</mat-label>
+          <mat-select>
+            <mat-option value="volvo">Volvo</mat-option>
+            <mat-option value="saab">Saab</mat-option>
+            <mat-option value="mercedes">Mercedes</mat-option>
+            <mat-option value="audi">Audi</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <div class="actions">
-        <button mat-icon-button
-                aria-label="Example icon-button with a heart icon">
-          <mat-icon>link</mat-icon>
-        </button>
-        <button mat-icon-button
-                aria-label="Example icon-button with a heart icon">
-          <mat-icon>chat</mat-icon>
-        </button>
-        <button mat-icon-button
-                aria-label="Example icon-button with a heart icon">
-          <mat-icon>delete</mat-icon>
-        </button>
+        <div class="actions">
+          <button mat-icon-button
+                  class="chatbot-icon-btn"
+                  aria-label="Voir la connaissance liée"
+                  [color]="inbox.id === inboxIntent ? 'primary' : null"
+                  (click)="selectInbox(inbox.id, true)"
+                  [matTooltip]="'Connaissance liée'">
+            <mat-icon>link</mat-icon>
+          </button>
+          <button mat-icon-button
+                  class="chatbot-icon-btn"
+                  aria-label="Voir la discussion"
+                  [color]="inbox.id === inboxPreview ? 'primary' : null"
+                  (click)="selectInbox(inbox.id, false)"
+                  [matTooltip]="'Voir la discussion'">
+            <mat-icon>chat</mat-icon>
+          </button>
+          <button mat-icon-button
+                  class="chatbot-icon-btn"
+                  [matTooltip]="'Archiver la discussion'"
+                  (click)="archiveInbox(inbox)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button
+                  class="chatbot-icon-btn"
+                  [matTooltip]="'Valider la connaissance'"
+                  (click)="validateInbox(inbox)">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+        </div>
+      </app-chatbot-list-item>
+      <div *ngIf="inbox.id === inboxPreview || inbox.id === inboxIntent" class="inbox-detail">
+        <app-inbox-intent *ngIf="inbox.id === inboxIntent"
+                          [inbox]="inbox">
+        </app-inbox-intent>
+        <app-inbox-preview *ngIf="inbox.id === inboxPreview">
+        </app-inbox-preview>
       </div>
-    </app-chatbot-list-item>
+    </div>
+    <app-pagination [pagination]="pagination"
+                    (changePage)="inboxService.load($event).subscribe()"></app-pagination>
   </div>
 </div>

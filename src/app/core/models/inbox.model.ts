@@ -1,4 +1,5 @@
 import { Intent } from './intent.model';
+import { InboxStatus } from '@enum/inbox-status.enum';
 
 export class Inbox {
   id: number;
@@ -6,6 +7,6 @@ export class Inbox {
   question: string;
   response: any;
   timestamp: number;
-  status: string;
+  status: InboxStatus;
   intent: Intent;
 }

@@ -71,7 +71,7 @@ export abstract class ApiService<T extends any> {
     this._entities$.next(auxArray);
   }
 
-  private deleteToEntityArray(deletedItem) {
+  protected deleteToEntityArray(deletedItem) {
     const auxArray = this._entities$.value.filter(m => m[this._idAttribute] !== deletedItem[this._idAttribute]);
     this._entities$.next(auxArray);
   }

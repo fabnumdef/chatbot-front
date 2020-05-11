@@ -1,13 +1,33 @@
 @import "src/styles/variables";
+@import 'src/styles/pagination';
 
 .inbox-list {
   .chatbot-list {
+    margin-top: 20px;
+
     & > * {
       margin-bottom: 20px;
+    }
+
+    ::ng-deep {
+      .body > div:first-child {
+        flex: 1;
+      }
+
+      &.content-wrapper {
+        max-width: 250px;
+      }
+    }
+
+    .inbox-detail {
+      padding: 15px;
+      background-color: $white;
+      box-shadow: $shadow-uniform;
     }
   }
 
   .empty-list {
+    margin-top: 20px;
     text-align: center;
     font-family: $title-font;
     font-size: 24px;

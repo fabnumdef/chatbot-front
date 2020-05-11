@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Intent } from '@model/intent.model';
 import { takeUntil } from 'rxjs/operators';
 import { DestroyObservable } from '@core/utils/destroy-observable';
@@ -25,7 +25,6 @@ export class QuickReplyFormComponent extends DestroyObservable implements OnInit
   }
 
   ngOnInit(): void {
-    this._intentService.resetFilters();
     this._intentService.loadAll().subscribe(intents => {
       this.intents = intents;
       this._initSelectFilter();
@@ -107,5 +106,4 @@ export class QuickReplyFormComponent extends DestroyObservable implements OnInit
         .toLowerCase().indexOf(search) > -1)
     );
   }
-
 }

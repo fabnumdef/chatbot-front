@@ -7,19 +7,25 @@ import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InboxFilterComponent } from './inbox-list/inbox-filter/inbox-filter.component';
 import { InboxListComponent } from './inbox-list/inbox-list.component';
+import { InboxIntentComponent } from './inbox-list/inbox-intent/inbox-intent.component';
+import { InboxPreviewComponent } from './inbox-list/inbox-preview/inbox-preview.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
   declarations: [
     InboxLayoutComponent,
     InboxFilterComponent,
-    InboxListComponent
+    InboxListComponent,
+    InboxIntentComponent,
+    InboxPreviewComponent
   ],
   imports: [
     CommonModule,
     InboxRoutingModule,
     MaterialModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class InboxModule {
