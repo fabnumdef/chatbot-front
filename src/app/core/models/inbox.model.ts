@@ -5,7 +5,7 @@ export class Inbox {
   id: number;
   confidence: number;
   question: string;
-  response: any;
+  response: any[];
   timestamp: number;
   status: InboxStatus;
   intent: Intent;

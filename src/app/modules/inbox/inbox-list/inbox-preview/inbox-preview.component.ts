@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Inbox } from '@model/inbox.model';
 
 @Component({
   selector: 'app-inbox-preview',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InboxPreviewComponent implements OnInit {
 
+  @Input() inbox: Inbox;
+
   constructor() { }
 
   ngOnInit(): void {
+    // TODO: TMP
+    // @ts-ignore
+    this.inbox.response = JSON.parse(this.inbox.response);
   }
 
 }

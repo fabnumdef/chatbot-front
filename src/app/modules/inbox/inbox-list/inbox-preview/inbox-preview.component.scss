@@ -1,0 +1,75 @@
+@import 'src/styles/variables';
+
+.inbox-preview {
+  .conversation-wrapper {
+    padding: 10px 20px 20px 20px;
+    border: 1px solid $grey-light;
+    border-radius: $border-radius;
+
+    $margin-message: 10px;
+    $border-radius-message: 20px;
+
+    .text-message {
+      padding: 5px 15px;
+      border-radius: $border-radius-message;
+      margin-top: $margin-message;
+      width: fit-content;
+      color: $white;
+    }
+
+    .image-message {
+      border-radius: $border-radius-message;
+      margin-top: $margin-message;
+      line-height: 0;
+    }
+
+    .button-message {
+      display: flex;
+
+      .button {
+        padding: 5px 15px;
+        border-radius: $border-radius-message;
+        margin-top: $margin-message;
+        border: 1px solid $grey-light;
+
+        &:not(:first-child) {
+          margin-left: 15px;
+        }
+      }
+    }
+
+    .user-message {
+      display: flex;
+      justify-content: flex-end;
+
+      .text-message {
+        background-color: $grey;
+        border-top-right-radius: 0;
+      }
+    }
+
+    .bot-message {
+      display: flex;
+
+      .messages-wrapper {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .text-message {
+        background-color: $primary-color;
+        border-top-left-radius: 0;
+      }
+
+      .image-message {
+        border-top-left-radius: 0;
+        max-width: 500px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

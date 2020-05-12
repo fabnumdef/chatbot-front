@@ -1,1 +1,31 @@
-<p>inbox-preview works!</p>
+<div class="inbox-preview">
+  <div class="chatbot-title">
+    <h3>Visualisation de la discussion</h3>
+  </div>
+  <div class="conversation-wrapper">
+    <div class="user-message">
+      <div class="text-message">
+        {{ inbox.question }}
+      </div>
+    </div>
+    <div class="bot-message">
+      <div class="icon">
+      </div>
+      <div class="messages-wrapper">
+        <ng-container *ngFor="let response of inbox.response">
+          <div class="text-message" *ngIf="!!response.text">
+            {{ response.text }}
+          </div>
+          <div class="image-message" *ngIf="!!response.data?.image">
+            <img [src]="response.data?.image" alt="Image envoyée par le chatbot" />
+          </div>
+          <div class="button-message" *ngIf="!!response.data?.buttons">
+            <div class="button" *ngFor="let button of response.data.buttons">
+              {{ button.title }}
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

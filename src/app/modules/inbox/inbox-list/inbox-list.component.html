@@ -67,7 +67,8 @@
         <app-inbox-intent *ngIf="inbox.id === inboxIntent"
                           [inbox]="inbox">
         </app-inbox-intent>
-        <app-inbox-preview *ngIf="inbox.id === inboxPreview">
+        <app-inbox-preview *ngIf="inbox.id === inboxPreview"
+                           [inbox]="inbox">
         </app-inbox-preview>
       </div>
     </div>
