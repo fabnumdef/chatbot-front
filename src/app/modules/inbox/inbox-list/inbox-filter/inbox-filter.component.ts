@@ -6,6 +6,8 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { IntentService } from '@core/services/intent.service';
 import { RefDataService } from '@core/services/ref-data.service';
+import { InboxStatus, InboxStatus_Fr } from '@enum/inbox-status.enum';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-inbox-filter',
@@ -16,7 +18,8 @@ export class InboxFilterComponent extends DestroyObservable implements OnInit {
 
   inboxFilters: FormGroup;
   categories$: BehaviorSubject<string[]>;
-
+  statutes = Object.keys(InboxStatus);
+  inboxStatus_Fr = InboxStatus_Fr;
 
   constructor(private _fb: FormBuilder,
               private _inboxService: InboxService,
@@ -30,6 +33,9 @@ export class InboxFilterComponent extends DestroyObservable implements OnInit {
     this.inboxFilters = this._fb.group({
       query: [this._inboxService.currentSearch],
       categories: [this._inboxService.currentFilters?.categories ? this._inboxService.currentFilters.categories : []],
+      statutes: [this._inboxService.currentFilters?.statutes ? this._inboxService.currentFilters.statutes : []],
+      startDate: [this._inboxService.currentFilters?.startDate ? moment(this._inboxService.currentFilters.startDate, 'DD/MM/yyyy') : null],
+      endDate: [this._inboxService.currentFilters?.endDate ? moment(this._inboxService.currentFilters.endDate, 'DD/MM/yyyy') : null]
     });
     this.inboxFilters.valueChanges
       .pipe(
@@ -38,6 +44,10 @@ export class InboxFilterComponent extends DestroyObservable implements OnInit {
         distinctUntilChanged())
       .subscribe(value => {
         this._inboxService.currentSearch = value.query;
+        delete value.query;
+        value.startDate = value.startDate ? value.startDate.format('DD/MM/yyyy') : null;
+        value.endDate = value.endDate ? value.endDate.format('DD/MM/yyyy') : null;
+        this._inboxService.currentFilters = value;
         this._inboxService.load().subscribe();
       });
     this._inboxService.load().subscribe();

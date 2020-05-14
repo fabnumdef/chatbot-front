@@ -16,7 +16,8 @@ import { Router } from '@angular/router';
 export class IntentFormComponent implements OnInit {
 
   @Input() intent: Intent;
-  @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() redirect = true;
+  @Output() close: EventEmitter<Intent> = new EventEmitter<Intent>();
 
   intentForm: FormGroup;
 
@@ -97,15 +98,15 @@ export class IntentFormComponent implements OnInit {
   saveIntent() {
     this._intentService.create(this.intentForm.getRawValue()).subscribe(intent => {
       this._toastr.success('Connaissance sauvegardée');
-      this.close.emit(true);
+      this.close.emit(intent);
     });
   }
 
   cancel() {
-    if (this.isNewIntent) {
+    if (this.isNewIntent && this.redirect) {
       return this._router.navigateByUrl('/connaissances');
     }
-    this.close.emit(true);
+    this.close.emit(null);
   }
 
   private _initForm() {

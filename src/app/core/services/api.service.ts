@@ -11,7 +11,7 @@ export abstract class ApiService<T extends any> {
 
   public currentSearch = '';
 
-  constructor(private _h: HttpClient, protected _url: string, private _idAttribute = 'id') {
+  constructor(private _h: HttpClient, protected _url: string, protected _idAttribute = 'id') {
     this._url = `${environment.api_endpoint}${this._url}`;
   }
 
@@ -64,7 +64,7 @@ export abstract class ApiService<T extends any> {
   protected updateEntityArray(newItem) {
     const auxArray = this._entities$.value.map(entity => {
       if (entity[this._idAttribute] === newItem[this._idAttribute]) {
-        return newItem;
+        return {...entity, ...newItem};
       }
       return entity;
     });

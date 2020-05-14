@@ -6,11 +6,15 @@ import { UserRole } from '@enum/user-role.enum';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
+import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 
 @Component({
   selector: 'app-chatbot-users',
   templateUrl: './chatbot-users.component.html',
-  styleUrls: ['./chatbot-users.component.scss']
+  styleUrls: ['./chatbot-users.component.scss'],
+  animations: [
+    detailInOutAnimation
+  ]
 })
 export class ChatbotUsersComponent implements OnInit {
 

@@ -12,10 +12,10 @@
   </div>
 
   <div class="chatbot-subtitle">
-    <h4>Exporter la base de connaissance</h4>
+    <h4>Exporter les connaissances</h4>
   </div>
   <p>
-    Exporter la base de connaissance vous permet d'avoir un fichier excel rempli.
+    Exporter les connaissances vous permet d'avoir un fichier excel rempli.
     Il contiendra toutes les modifications apportées via le back office depuis sa date d'importation.
   </p>
   <button mat-flat-button
@@ -26,15 +26,15 @@
     <mat-spinner *ngIf="fileService.loading$ | async"
                  aria-label="Export du fichier en cours"
                  [diameter]="24"></mat-spinner>
-    Exporter la base de connaissance
+    Exporter les connaissances
   </button>
 
   <div class="chatbot-subtitle">
-    <h4>Importer une nouvelle base de connaissance</h4>
+    <h4>Importer des nouvelles connaissances</h4>
   </div>
   <p>
-    Importer un nouveau fichier base de connaissance premet de mettre à jour celui actuellement en place.
-    Dans ce cas, la base de connaissance remplacée est automatiquement archivée dans l'historique.
+    Importer un nouveau fichier de connaissances permet de mettre à jour celui actuellement en place.
+    Dans ce cas, les connaissances remplacées sont automatiquement archivées dans l'historique.
   </p>
   <p class="red info-row">
     <mat-icon>warning</mat-icon>
@@ -48,7 +48,7 @@
   <div class="option-row">
     <form [formGroup]="importFileFormGroup" *ngIf="importFileFormGroup">
       <mat-radio-group
-        aria-label="Doit-on conserver les connaissances qui ne sont pas présentes dans la base de connaissance ?"
+        aria-label="Doit-on conserver les connaissances qui ne sont pas présentes dans le fichier d'import ?"
         labelPosition="before"
         formControlName="deleteIntents"
         color="primary">
@@ -64,7 +64,7 @@
       <mat-spinner *ngIf="fileService.loading$ | async"
                    aria-label="Chargement et vérification du fichier"
                    [diameter]="24"></mat-spinner>
-      Importer la base de connaissance
+      Importer les connaissances
     </button>
   </div>
   <input hidden
@@ -155,15 +155,15 @@
             color="accent">
       <mat-icon *ngIf="!(fileService.loading$ | async)">cloud_upload</mat-icon>
       <mat-spinner *ngIf="fileService.loading$ | async"
-                   aria-label="Import de la base de connaissance"
+                   aria-label="Import des connaissances"
                    [diameter]="24"></mat-spinner>
-      Mettre à jour la base de connaissance
+      Mettre à jour les connaissances
     </button>
   </div>
 
 
   <div class="chatbot-title">
-    <h3>Historique des bases de connaissances</h3>
+    <h3>Historique des connaissances</h3>
   </div>
   <div class="historic-file" *ngFor="let historicFile of historicFiles">
     <div class="badge">
@@ -176,7 +176,7 @@
       <button mat-stroked-button
               color="accent">
         <mat-icon>get_app</mat-icon>
-        Exporter la base de connaissance archivée
+        Exporter les connaissances archivées
       </button>
     </a>
   </div>

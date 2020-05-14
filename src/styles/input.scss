@@ -21,3 +21,23 @@
     }
   }
 }
+
+.chatbot-range-datepicker {
+  border-radius: $border-radius;
+  border: 1px solid $input-border-color;
+  display: flex;
+  align-items: center;
+  color: $grey;
+  height: $input-height;
+  box-sizing: border-box;
+  padding: 0 5.5px;
+  margin: 3.5px 0;
+
+  .mat-form-field .mat-form-field-wrapper {
+    padding: 0;
+
+    .mat-form-field-infix {
+      padding: 0.5em 0;
+    }
+  }
+}

@@ -25,10 +25,9 @@
         <mat-form-field appearance="outline">
           <mat-label>Assigner à</mat-label>
           <mat-select>
-            <mat-option value="volvo">Volvo</mat-option>
-            <mat-option value="saab">Saab</mat-option>
-            <mat-option value="mercedes">Mercedes</mat-option>
-            <mat-option value="audi">Audi</mat-option>
+            <mat-option value="volvo" *ngFor="let user of users$ | async">
+              {{ user.firstName }} {{ user.lastName }} <span class="primary-color">{{ user.role }}</span>
+            </mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -62,15 +61,18 @@
             <mat-icon>check_circle</mat-icon>
           </button>
         </div>
+        <div *ngIf="inbox.id === inboxPreview || inbox.id === inboxIntent"
+             class="detail"
+             [@detailInOutAnimation]>
+          <app-inbox-intent *ngIf="inbox.id === inboxIntent"
+                            [inbox]="inbox"
+                            (close)="inboxIntent = null">
+          </app-inbox-intent>
+          <app-inbox-preview *ngIf="inbox.id === inboxPreview"
+                             [inbox]="inbox">
+          </app-inbox-preview>
+        </div>
       </app-chatbot-list-item>
-      <div *ngIf="inbox.id === inboxPreview || inbox.id === inboxIntent" class="inbox-detail">
-        <app-inbox-intent *ngIf="inbox.id === inboxIntent"
-                          [inbox]="inbox">
-        </app-inbox-intent>
-        <app-inbox-preview *ngIf="inbox.id === inboxPreview"
-                           [inbox]="inbox">
-        </app-inbox-preview>
-      </div>
     </div>
     <app-pagination [pagination]="pagination"
                     (changePage)="inboxService.load($event).subscribe()"></app-pagination>

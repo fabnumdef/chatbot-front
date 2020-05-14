@@ -34,10 +34,12 @@
           <mat-icon>delete</mat-icon>
         </button>
       </div>
+      <div *ngIf="user.email === userSelected"
+           class="detail"
+           [@detailInOutAnimation]>
+        <app-user-form [user]="user" (cancel)="userSelected = null">></app-user-form>
+      </div>
     </app-chatbot-list-item>
-    <div *ngIf="user.email === userSelected" class="user-detail">
-      <app-user-form [user]="user" (cancel)="userSelected = null">></app-user-form>
-    </div>
   </div>
 
   <app-user-form *ngIf="addUser" (cancel)="addUser = !addUser"></app-user-form>

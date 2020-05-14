@@ -13,9 +13,6 @@ export class InboxPreviewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // TODO: TMP
-    // @ts-ignore
-    this.inbox.response = JSON.parse(this.inbox.response);
   }
 
 }

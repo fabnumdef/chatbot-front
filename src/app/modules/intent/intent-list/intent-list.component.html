@@ -16,7 +16,7 @@
   <app-intent-filter></app-intent-filter>
   <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
   <div class="empty-list" *ngIf="!(loading$ | async) && (intents$ | async).length < 1">
-    Base de connaissance vide.
+    Aucune connaissances.
   </div>
   <div class="chatbot-list" *ngIf="(intents$ | async).length > 0">
     <div class="pagination-info" *ngIf="pagination">
@@ -65,10 +65,12 @@
             <mat-icon>delete</mat-icon>
           </button>
         </div>
+        <div *ngIf="intent.id === intentSelected"
+             class="detail"
+             [@detailInOutAnimation]>
+          <app-intent-form [intent]="intent" (close)="intentSelected = null"></app-intent-form>
+        </div>
       </app-chatbot-list-item>
-      <div *ngIf="intent.id === intentSelected" class="intent-detail">
-        <app-intent-form [intent]="intent" (close)="intentSelected = null"></app-intent-form>
-      </div>
     </div>
     <app-pagination [pagination]="pagination"
                     (changePage)="intentService.load($event).subscribe()"></app-pagination>

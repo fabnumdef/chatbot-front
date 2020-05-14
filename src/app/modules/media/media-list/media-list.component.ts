@@ -8,11 +8,15 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
 import { filter } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { Utils } from '@core/utils/utils';
+import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 
 @Component({
   selector: 'app-media-list',
   templateUrl: './media-list.component.html',
-  styleUrls: ['./media-list.component.scss']
+  styleUrls: ['./media-list.component.scss'],
+  animations: [
+    detailInOutAnimation
+  ]
 })
 export class MediaListComponent implements OnInit {
 

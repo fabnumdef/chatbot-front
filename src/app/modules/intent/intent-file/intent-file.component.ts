@@ -65,7 +65,7 @@ export class IntentFileComponent implements OnInit {
         this.resetFile();
       }))
       .subscribe((response: ImportResponse) => {
-        this._toastService.success(`La base de connaissance a bien été importée.
+        this._toastService.success(`Les connaissances ont bien été importées.
         ${response.intents} connaissances ont été ajoutées ou modifiées.`);
       });
   }

@@ -25,5 +25,38 @@
         <mat-option *ngFor="let category of categories$ | async" [value]="category">{{ category }}</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <mat-form-field appearance="outline" class="statutes">
+      <mat-label>Statuts</mat-label>
+      <mat-select multiple formControlName="statutes">
+        <mat-option *ngFor="let status of statutes" [value]="status">{{ inboxStatus_Fr[status] }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="range-datepicker">
+      <div class="chatbot-range-datepicker">
+        Questions reçues du
+
+        <mat-form-field appearance="outline"
+                        class="chatbot-datepicker">
+          <input matInput
+                 [matDatepicker]="picker"
+                 formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        au
+
+        <mat-form-field appearance="outline"
+                        class="chatbot-datepicker">
+          <input matInput
+                 [matDatepicker]="picker2"
+                 formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
   </form>
 </div>

@@ -1,31 +1,57 @@
 <div class="inbox-intent">
-  <div class="chatbot-title">
-    <h3>Connaissance liée</h3>
-  </div>
-  <h4>Lier la question en recherchant une connaissance existante</h4>
-  <form [formGroup]="intentForm" *ngIf="intentForm">
-    <mat-form-field appearance="outline">
-      <mat-label>Connaissance</mat-label>
-      <mat-select placeholder="Choisir une connaissance..."
-                  formControlName="intent"
-                  required>
-        <mat-option>
-          <ngx-mat-select-search [formControl]="intentFilterCtrl"
-                                 placeholderLabel="Recherche une connaissance..."
-                                 noEntriesFoundLabel="'Aucune connaissance trouvée'">
-          </ngx-mat-select-search>
-        </mat-option>
-        <mat-option *ngFor="let intent of filteredIntents$ | async" [value]="intent">
-          {{ intent.category ? intent.category + ' - ' : ''}}{{intent.mainQuestion ? intent.mainQuestion : intent.id}}
-        </mat-option>
-      </mat-select>
-<!--      <mat-error *ngIf="quickReplyForm.controls.intent.hasError('required')">-->
-<!--        Vous n'avez pas saisi de connaissance.-->
-<!--      </mat-error>-->
-    </mat-form-field>
-  </form>
+  <ng-container *ngIf="!addIntent; else newIntentDiv">
+    <div class="chatbot-title">
+      <h3>Connaissance liée</h3>
+    </div>
+    <h4>Lier la question en recherchant une connaissance existante</h4>
+    <form [formGroup]="intentForm" *ngIf="intentForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Connaissance</mat-label>
+        <mat-select placeholder="Choisir une connaissance..."
+                    formControlName="intent"
+                    required>
+          <mat-option>
+            <ngx-mat-select-search [formControl]="intentFilterCtrl"
+                                   placeholderLabel="Recherche une connaissance..."
+                                   noEntriesFoundLabel="'Aucune connaissance trouvée'">
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let intent of filteredIntents$ | async" [value]="intent">
+            {{ intent.category ? intent.category + ' - ' : ''}}{{intent.mainQuestion ? intent.mainQuestion : intent.id}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-flat-button
+              color="accent"
+              (click)="editIntent(intentForm.value.intent)"
+              [disabled]="!intentForm.valid || !intentForm.dirty">
+        <mat-icon>edit</mat-icon>
+        Modifier
+      </button>
+    </form>
 
-  <div class="chatbot-title">
-    <h3>Créer une nouvelle connaissance</h3>
-  </div>
+    <div class="chatbot-title">
+      <h3>Créer une nouvelle connaissance</h3>
+    </div>
+    <p>Aucune réponse à cette question n'est présente dans les connaissances existantes. Vous devez créer une nouvelle
+      connaissance pour apporter une réponse à cette question.</p>
+    <button mat-flat-button
+            color="accent"
+            (click)="addIntent = true">
+      <mat-icon>add</mat-icon>
+      Créer une nouvelle connaissance
+    </button>
+  </ng-container>
+  <ng-template #newIntentDiv>
+    <button mat-button
+            (click)="addIntent = false"
+            class="back-button"
+            color="accent">
+      <mat-icon>arrow_back</mat-icon>
+      <span class="back-text">Retour</span>
+    </button>
+    <app-intent-form [intent]="newIntent"
+                     [redirect]="false"
+                     (close)="editIntent($event)"></app-intent-form>
+  </ng-template>
 </div>
