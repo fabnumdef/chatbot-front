@@ -12,5 +12,6 @@ export class IntentService extends ApiPaginationService<Intent> {
   constructor(private _http: HttpClient,
               private _r: Router) {
     super(_http, '/intent', _r);
+    this.loadAll().subscribe();
   }
 }

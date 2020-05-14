@@ -8,10 +8,7 @@ import { Router } from '@angular/router';
 
 export class ApiPaginationService<T extends any> extends ApiService<T> {
 
-  protected _entities$ = new BehaviorSubject<T[]>([]);
   protected _fullEntities$ = new BehaviorSubject<T[]>([]);
-  protected _loading$ = new BehaviorSubject<boolean>(false);
-  protected _processing$ = new BehaviorSubject<boolean>(false);
   protected _loaded$ = new BehaviorSubject<boolean>(false);
   protected _lastPage$ = new BehaviorSubject<boolean>(false);
   protected _pagination: PaginationHelper;
@@ -99,10 +96,6 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
     return {params};
   }
 
-  public updateFilters(filters: any) {
-    // this.currentFilters = [].concat(FilterHelper.updateFields(this.currentFilters, filters));
-  }
-
   /************************
    ********* CRUD *********
    ************************/
@@ -118,6 +111,36 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
         }
         return throwError(err);
       }));
+  }
+
+  // ====== Update Observable ======
+  protected updateEntityArray(newItem) {
+    const arrays = [this._entities$, this._fullEntities$];
+    for (let i = 0; i < arrays.length; i++) {
+      const array = arrays[i];
+      if (!array || !array.value) {
+        continue;
+      }
+      const auxArray = array.value.map(entity => {
+        if (entity[this._idAttribute] === newItem[this._idAttribute]) {
+          return {...entity, ...newItem};
+        }
+        return entity;
+      });
+      array.next(auxArray);
+    }
+  }
+
+  protected deleteToEntityArray(deletedItem) {
+    const arrays = [this._entities$, this._fullEntities$];
+    for (let i = 0; i < arrays.length; i++) {
+      const array = arrays[i];
+      if (!array || !array.value) {
+        continue;
+      }
+      const auxArray = array.value.filter(m => m[this._idAttribute] !== deletedItem[this._idAttribute]);
+      array.next(auxArray);
+    }
   }
 
   /************************

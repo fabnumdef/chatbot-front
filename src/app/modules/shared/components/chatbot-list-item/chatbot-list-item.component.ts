@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { detailInOutAnimation } from './chatbot-list-item.animation';
 
 @Component({
   selector: 'app-chatbot-list-item',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatbotListItemComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

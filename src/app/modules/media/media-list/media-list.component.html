@@ -74,14 +74,16 @@
             <mat-icon>delete</mat-icon>
           </button>
         </div>
+        <div *ngIf="media.id === mediaLink || media.id === mediaReplace"
+             class="detail"
+             [@detailInOutAnimation]>
+          <app-media-intents *ngIf="media.id === mediaLink"
+                             [intents]="media.intents">
+          </app-media-intents>
+          <app-replace-media *ngIf="media.id === mediaReplace"
+                             (replaceMedia)="replaceMedia(media.id, $event)"></app-replace-media>
+        </div>
       </app-chatbot-list-item>
-      <div *ngIf="media.id === mediaLink || media.id === mediaReplace" class="media-detail">
-        <app-media-intents *ngIf="media.id === mediaLink"
-                           [intents]="media.intents">
-        </app-media-intents>
-        <app-replace-media *ngIf="media.id === mediaReplace"
-                           (replaceMedia)="replaceMedia(media.id, $event)"></app-replace-media>
-      </div>
     </div>
     <app-pagination [pagination]="pagination"
                     (changePage)="mediaService.load($event).subscribe()"></app-pagination>

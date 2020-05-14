@@ -11,6 +11,7 @@
   padding: 15px;
   background-color: $white;
   box-shadow: $shadow-uniform;
+  overflow: hidden;
 
   ::ng-deep {
     &.body {

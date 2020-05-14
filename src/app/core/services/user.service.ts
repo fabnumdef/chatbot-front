@@ -11,6 +11,7 @@ import { finalize, tap } from 'rxjs/operators';
 export class UserService extends ApiService<User> {
   constructor(private _httpClient: HttpClient) {
     super(_httpClient, '/user', 'email');
+    this.load().subscribe();
   }
 
   public load(): Observable<User[]> {

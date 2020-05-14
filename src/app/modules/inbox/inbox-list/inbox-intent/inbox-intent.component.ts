@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Inbox } from '@model/inbox.model';
 import { Intent } from '@model/intent.model';
 import { IntentService } from '@core/services/intent.service';
@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { DestroyObservable } from '@core/utils/destroy-observable';
+import { InboxService } from '@core/services/inbox.service';
 
 @Component({
   selector: 'app-inbox-intent',
@@ -15,22 +16,36 @@ import { DestroyObservable } from '@core/utils/destroy-observable';
 export class InboxIntentComponent extends DestroyObservable implements OnInit {
 
   @Input() inbox: Inbox;
+  @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
   intents$: BehaviorSubject<Intent[]>;
   intentForm: FormGroup;
   filteredIntents$: BehaviorSubject<Intent[]> = new BehaviorSubject<Intent[]>([]);
+  addIntent = false;
+  newIntent = new Intent();
   public intentFilterCtrl: FormControl = new FormControl();
 
   constructor(private _fb: FormBuilder,
-              private _intentService: IntentService) {
+              private _intentService: IntentService,
+              private _inboxService: InboxService) {
     super();
   }
 
   ngOnInit(): void {
-    this._intentService.loadAll().subscribe(() => {
+    this.intents$ = this._intentService.fullEntities$;
+    this._intentService.fullEntities$.subscribe(() => {
       this._initSelectFilter();
       this._initFormGroup();
     });
-    this.intents$ = this._intentService.fullEntities$;
+    this.newIntent.mainQuestion = this.inbox.question;
+  }
+
+  editIntent(intent) {
+    if (!intent) {
+      return;
+    }
+    this._inboxService.save(<Inbox> {id: this.inbox.id, intent: intent}).subscribe(() => {
+      this.close.emit(true);
+    });
   }
 
   private _initFormGroup() {

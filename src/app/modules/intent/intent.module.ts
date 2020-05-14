@@ -51,6 +51,9 @@ import { IntentListComponent } from './intent-list/intent-list.component';
   ],
   providers: [
     {provide: Window, useValue: window},
+  ],
+  exports: [
+    IntentFormComponent
   ]
 })
 export class IntentModule { }

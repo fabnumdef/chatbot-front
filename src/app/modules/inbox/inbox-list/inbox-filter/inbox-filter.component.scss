@@ -23,5 +23,15 @@
     .category {
       width: 33%;
     }
+
+    .statutes {
+      width: calc(100% - 476px);
+    }
+
+    .range-datepicker {
+      width: 476px;
+      box-sizing: border-box;
+      padding-left: 20px;
+    }
   }
 }

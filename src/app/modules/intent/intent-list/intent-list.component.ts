@@ -6,11 +6,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { filter } from 'rxjs/operators';
 import { PaginationHelper } from '@model/pagination-helper.model';
+import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 
 @Component({
   selector: 'app-intent-list',
   templateUrl: './intent-list.component.html',
-  styleUrls: ['./intent-list.component.scss']
+  styleUrls: ['./intent-list.component.scss'],
+  animations: [
+    detailInOutAnimation
+  ]
 })
 export class IntentListComponent implements OnInit {
 

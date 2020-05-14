@@ -10,6 +10,7 @@ import { InboxListComponent } from './inbox-list/inbox-list.component';
 import { InboxIntentComponent } from './inbox-list/inbox-intent/inbox-intent.component';
 import { InboxPreviewComponent } from './inbox-list/inbox-preview/inbox-preview.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { IntentModule } from '../intent/intent.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MaterialModule,
     SharedModule,
     ReactiveFormsModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    IntentModule
   ]
 })
 export class InboxModule {
