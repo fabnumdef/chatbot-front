@@ -1,0 +1,118 @@
+<div class="stats-graph">
+  <div class="chatbot-title">
+    <h3>Statistiques globales</h3> 
+  </div>
+
+  <div class="line-stats">
+    
+    <div class="kpi-stats">
+      <div class="kpi-box">
+        <div class="title-kpi bggreen">
+          Nombre de questions posées
+        </div>
+        <div class="content-kpi">
+          <div class="global cgreen">
+            <b>457 questions posées en Avril 2020</b>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row">
+            <div>
+              <b>Maximal</b>
+            </div>
+            <div class="row-kpi">
+              <div>- Lundi 13 Avril 2020</div>
+              <div>- 68 questions posées</div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row">
+            <div>
+              <b>Minimal</b>
+            </div>
+            <div class="row-kpi">
+              <div>- Samedi 18 Avril 2020</div>
+              <div>- 3 questions posées</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="kpi-box">
+        <div class="title-kpi bgyellow">
+          Volume de la base de connaissance
+        </div>
+        <div class="content-kpi">
+          <div class="global cyellow">
+            <b>148 questions ajoutées en Avril 2020</b>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row">
+            <div>
+              <b>Maximal</b>
+            </div>
+            <div class="row-kpi">
+              <div>- Lundi 13 Avril 2020</div>
+              <div>- 15 questions ajoutées</div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row">
+            <div>
+              <b>Minimal</b>
+            </div>
+            <div class="row-kpi">
+              <div>- Samedi 18 Avril 2020</div>
+              <div>- 0 questions posées</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="kpi-box">
+        <div class="title-kpi bgpink">
+          Nombre de visiteurs
+        </div>
+        <div class="content-kpi">
+          <div class="global cpink">
+            <b>1802 visiteurs en Avril 2020</b>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row">
+            <div>
+              <b>Maximal</b>
+            </div>
+            <div class="row-kpi">
+              <div>- Lundi 13 Avril 2020</div>
+              <div>- 68 visiteurs</div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row">
+            <div>
+              <b>Minimal</b>
+            </div>
+            <div class="row-kpi">
+              <div>- Samedi 18 Avril 2020</div>
+              <div>- 3 visiteurs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="linechart">
+      <canvas
+        baseChart
+        [chartType]="'line'"
+        [datasets]="chartData"
+        [colors]="chartColors"
+        [labels]="chartLabels"
+        [options]="chartOptions"
+        [legend]="true">
+      </canvas>
+    </div>
+    
+  </div>
+   
+</div>
+  

@@ -1,0 +1,18 @@
+<div class="stats-best-questions">
+  <div class="chatbot-title">
+    <h3>Questions les plus posées</h3> 
+  </div>  
+
+  <div class="barchart">
+    <canvas
+        baseChart
+        [chartType]="'bar'"
+        [datasets]="chartData"
+        [labels]="false"
+        [options]="chartOptions"
+        [legend]="true"
+        (chartClick)="onChartClick($event)">
+    </canvas>
+  </div>
+</div>
+  

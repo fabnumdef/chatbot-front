@@ -1,0 +1,15 @@
+<div class="stats-worst-questions">
+  <div class="chatbot-title">
+    <h3>Questions jamais posées</h3> 
+  </div>
+  <div class="worst-question-wrapper">
+
+    <div class="question" *ngFor="let question of worstQuestions">
+      <div class="text">
+        {{question}}
+      </div>
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+</div>
+  
