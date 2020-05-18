@@ -9,6 +9,8 @@ import { filter } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { Utils } from '@core/utils/utils';
 import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
+import { ConfigService } from '@core/services/config.service';
+import { Config } from '@model/config.model';
 
 @Component({
   selector: 'app-media-list',
@@ -24,7 +26,8 @@ export class MediaListComponent implements OnInit {
   pagination: PaginationHelper;
   loading$: Observable<boolean>;
   processing$: Observable<boolean>;
-  decodeURI = decodeURI;
+  config$: Observable<Config>;
+  unescape = unescape;
   mediaReplace: number;
   mediaLink: number;
   utils = Utils;
@@ -32,7 +35,8 @@ export class MediaListComponent implements OnInit {
   constructor(public mediaService: MediaService,
               @Inject(Window) private _window: Window,
               private _toast: ToastrService,
-              private _dialog: MatDialog) {
+              private _dialog: MatDialog,
+              private _configService: ConfigService) {
   }
 
   ngOnInit(): void {
@@ -40,6 +44,7 @@ export class MediaListComponent implements OnInit {
     this.processing$ = this.mediaService.processing$;
     this.medias$ = this.mediaService.entities$;
     this.pagination = this.mediaService.pagination;
+    this.config$ = this._configService.config$;
   }
 
   deleteMedia(media: Media) {
@@ -69,16 +74,18 @@ export class MediaListComponent implements OnInit {
   }
 
   uploadMedia($event) {
-    const file: File = $event.target.files[0];
-    if (!file) {
+    const files: File[] = $event.target.files;
+    if (!files || files.length < 1) {
       return;
     }
-    const filesize = (file.size / 1024 / 1024);
-    if (filesize > 5) {
-      this._toast.error('Le poids du fichier doit être inférieur à 5Mb.', 'Fichier volumineux');
-      return;
-    }
-    this.mediaService.createMedia(file).subscribe();
+    Array.prototype.forEach.call(files, file => {
+      const filesize = (file.size / 1024 / 1024);
+      if (filesize > 5) {
+        this._toast.error('Les poids des fichiers doivent être inférieur à 5Mb.', 'Fichier volumineux');
+        return;
+      }
+    });
+    this.mediaService.createMedia(files).subscribe();
     $event.target.value = '';
   }
 
@@ -86,6 +93,10 @@ export class MediaListComponent implements OnInit {
     this.mediaService.replace(mediaId, file).subscribe(() => {
       this.mediaReplace = null;
     });
+  }
+
+  export() {
+    this.mediaService.export().subscribe();
   }
 
   get mediaPath() {

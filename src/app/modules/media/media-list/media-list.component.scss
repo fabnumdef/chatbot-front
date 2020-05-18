@@ -4,6 +4,49 @@
 .media-list {
   & > .actions {
     margin-bottom: 20px;
+
+    & > *:not(:first-child) {
+      margin-left: 20px;
+    }
+  }
+
+  .media-size {
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: $shadow-uniform;
+    background-color: $white;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+
+    h3 {
+      margin: 0;
+      min-width: 160px;
+    }
+
+    & > *:nth-child(2) {
+      min-width: 160px;
+    }
+
+    .mat-progress-bar {
+      height: 10px;
+      border-radius: 10px;
+
+      ::ng-deep {
+        .mat-progress-bar-buffer {
+          background-color: $grey-lighter;
+        }
+
+        .mat-progress-bar-fill {
+          border-radius: 10px;
+          overflow: hidden;
+
+          &:after {
+            background-color: $success-color;
+          }
+        }
+      }
+    }
   }
 
   .empty-list {

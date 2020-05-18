@@ -7,4 +7,5 @@ export class Config {
   problematic: string;
   audience: string;
   solution: string;
+  mediaSize: number;
 }

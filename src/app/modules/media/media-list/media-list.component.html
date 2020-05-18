@@ -1,5 +1,15 @@
 <div class="media-list">
   <div class="actions">
+    <button mat-stroked-button
+            color="accent"
+            [disabled]="processing$ | async"
+            (click)="export()">
+      <mat-icon *ngIf="!(processing$ | async)">file_copy</mat-icon>
+      <mat-spinner *ngIf="processing$ | async"
+                   aria-label="Export des médias en cours"
+                   [diameter]="24"></mat-spinner>
+      Exporter tous les médias
+    </button>
     <button mat-flat-button
             color="accent"
             [disabled]="processing$ | async"
@@ -13,8 +23,13 @@
   </div>
   <input hidden
          type="file"
+         multiple
          #uploader
          (change)="uploadMedia($event)"/>
+  <div class="media-size" *ngIf="(config$ | async)">
+    <h3>Espace de stockage :</h3><div> {{ (config$ | async).mediaSize }} Go utilisés sur 5 Go</div>
+    <mat-progress-bar mode="determinate" [value]="((config$ | async).mediaSize / 5)*100"></mat-progress-bar>
+  </div>
   <app-media-filter></app-media-filter>
   <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
   <div class="empty-list" *ngIf="!(loading$ | async) && (medias$ | async).length < 1">
@@ -37,7 +52,7 @@
           </div>
         </a>
 
-        <div>{{ decodeURI(media.file) }}</div>
+        <div>{{ unescape(media.file) }}</div>
 
         <div>Ajouté par {{ media.addedBy }}</div>
 

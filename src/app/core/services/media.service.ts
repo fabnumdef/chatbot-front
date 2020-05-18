@@ -15,9 +15,11 @@ export class MediaService extends ApiPaginationService<Media> {
     super(_http, '/media', _r);
   }
 
-  public createMedia(file: File): Observable<Media> {
+  public createMedia(files: File[]): Observable<Media[]> {
     const formData: FormData = new FormData();
-    formData.append('file', file, file.name);
+    for (let i = 0; i < files.length; i++) {
+      formData.append('files', files[i], files[i]['name']);
+    }
 
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
@@ -28,9 +30,9 @@ export class MediaService extends ApiPaginationService<Media> {
     };
 
     this._loading$.next(true);
-    return this._http.post<Media>(this._url, formData, options).pipe(
-      tap(entity => {
-        const auxArray = [...this._entities$.value, entity];
+    return this._http.post<Media[]>(this._url, formData, options).pipe(
+      tap(entities => {
+        const auxArray = [...this._entities$.value, ...entities];
         this._entities$.next(auxArray);
       }),
       finalize(() => {
@@ -58,6 +60,25 @@ export class MediaService extends ApiPaginationService<Media> {
       }),
       finalize(() => {
         this._loading$.next(false);
+      })
+    );
+  }
+
+  public export(): Observable<any> {
+    this._processing$.next(true);
+    return this._http.get(`${this._url}/export`, {responseType: 'blob' as 'json'}).pipe(
+      tap((response: any) => {
+        const dataType = response.type;
+        const binaryData = [];
+        binaryData.push(response);
+        const downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+        downloadLink.setAttribute('download', 'MEDIATHEQUE.zip');
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+      }),
+      finalize(() => {
+        this._processing$.next(false);
       })
     );
   }
