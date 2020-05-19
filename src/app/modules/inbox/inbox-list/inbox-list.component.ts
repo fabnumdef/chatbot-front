@@ -48,7 +48,7 @@ export class InboxListComponent implements OnInit {
   getBadgeClass(status: InboxStatus) {
     switch (status) {
       case InboxStatus.pending:
-        return 'badge-warning';
+        return 'badge-staked-warning';
     }
   }
 

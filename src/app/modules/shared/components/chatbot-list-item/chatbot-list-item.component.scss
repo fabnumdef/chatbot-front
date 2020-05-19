@@ -71,6 +71,42 @@
       }
     }
 
+    &.badges-staked {
+      display: flex;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+
+      .badge-staked {
+        border-top-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+        padding: 2px 30px;
+        font-weight: bold;
+        text-transform: uppercase;
+
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
+
+        &-primary {
+          background-color: $primary-color;
+          border-color: $primary-color;
+          color: $white;
+        }
+
+        &-warning {
+          background-color: $warning-color;
+          color: $white;
+        }
+
+        &-error {
+          background-color: $error-color;
+          color: $white;
+        }
+      }
+    }
+
     &.title {
       font-weight: bold;
     }
