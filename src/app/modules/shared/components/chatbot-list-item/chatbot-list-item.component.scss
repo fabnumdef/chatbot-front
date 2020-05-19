@@ -100,8 +100,18 @@
           color: $white;
         }
 
+        &-success {
+          background-color: $success-color;
+          color: $white;
+        }
+
         &-error {
           background-color: $error-color;
+          color: $white;
+        }
+
+        &-black {
+          background-color: $black;
           color: $white;
         }
       }

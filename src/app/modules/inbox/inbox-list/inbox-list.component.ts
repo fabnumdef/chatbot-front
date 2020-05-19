@@ -49,6 +49,12 @@ export class InboxListComponent implements OnInit {
     switch (status) {
       case InboxStatus.pending:
         return 'badge-staked-warning';
+      case InboxStatus.to_verify:
+        return 'badge-staked-success';
+      case InboxStatus.confirmed:
+        return 'badge-staked-black';
+      case InboxStatus.archived:
+        return 'badge-staked-black';
     }
   }
 

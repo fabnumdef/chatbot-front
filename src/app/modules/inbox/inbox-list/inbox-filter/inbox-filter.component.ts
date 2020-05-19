@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DestroyObservable } from '@core/utils/destroy-observable';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { InboxService } from '@core/services/inbox.service';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, startWith, takeUntil } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
-import { IntentService } from '@core/services/intent.service';
 import { RefDataService } from '@core/services/ref-data.service';
 import { InboxStatus, InboxStatus_Fr } from '@enum/inbox-status.enum';
 import * as moment from 'moment';
@@ -33,12 +32,14 @@ export class InboxFilterComponent extends DestroyObservable implements OnInit {
     this.inboxFilters = this._fb.group({
       query: [this._inboxService.currentSearch],
       categories: [this._inboxService.currentFilters?.categories ? this._inboxService.currentFilters.categories : []],
-      statutes: [this._inboxService.currentFilters?.statutes ? this._inboxService.currentFilters.statutes : []],
+      statutes: [this._inboxService.currentFilters?.statutes ?
+        this._inboxService.currentFilters.statutes : [InboxStatus.pending, InboxStatus.to_verify]],
       startDate: [this._inboxService.currentFilters?.startDate ? moment(this._inboxService.currentFilters.startDate, 'DD/MM/yyyy') : null],
       endDate: [this._inboxService.currentFilters?.endDate ? moment(this._inboxService.currentFilters.endDate, 'DD/MM/yyyy') : null]
     });
     this.inboxFilters.valueChanges
       .pipe(
+        startWith(this.inboxFilters.value),
         takeUntil(this.destroy$),
         debounceTime(300),
         distinctUntilChanged())
@@ -50,7 +51,6 @@ export class InboxFilterComponent extends DestroyObservable implements OnInit {
         this._inboxService.currentFilters = value;
         this._inboxService.load().subscribe();
       });
-    this._inboxService.load().subscribe();
   }
 
   get controls() {
