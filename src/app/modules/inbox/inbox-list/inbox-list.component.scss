@@ -2,6 +2,10 @@
 @import 'src/styles/pagination';
 
 .inbox-list {
+  app-update-chatbot {
+    margin-top: 20px;
+  }
+
   .chatbot-list {
     margin-top: 20px;
 

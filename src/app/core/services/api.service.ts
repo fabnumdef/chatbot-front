@@ -41,8 +41,7 @@ export abstract class ApiService<T extends any> {
     this._processing$.next(true);
     return this._h.post<T>(this._url, item).pipe(
       tap(entity => {
-        const auxArray = [...this._entities$.value, entity];
-        this._entities$.next(auxArray);
+        this.updateEntityArray(entity);
       }),
       finalize(() => {
         this._processing$.next(false);
@@ -62,12 +61,17 @@ export abstract class ApiService<T extends any> {
 
   // ====== Update Observable ======
   protected updateEntityArray(newItem) {
-    const auxArray = this._entities$.value.map(entity => {
+    let entityFind = false;
+    let auxArray = this._entities$.value.map(entity => {
       if (entity[this._idAttribute] === newItem[this._idAttribute]) {
+        entityFind = true;
         return {...entity, ...newItem};
       }
       return entity;
     });
+    if (!entityFind) {
+      auxArray = [...this._entities$.value, newItem];
+    }
     this._entities$.next(auxArray);
   }
 

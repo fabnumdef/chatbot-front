@@ -1,0 +1,19 @@
+<div class="update-chatbot">
+  <mat-icon color="primary">info</mat-icon>
+  <div class="text">
+    <div class="primary-color"><b>Information importante</b></div>
+    <div>
+      Les modifications ou créations de connaissances seront prises en compte après avoir fait une mise à jour du chatbot.
+      <br/>La mise à jour peut prendre un certain temps.
+    </div>
+  </div>
+  <div>
+    <button mat-stroked-button
+            color="accent"
+            [disabled]="loading$ | async"
+            (click)="trainRasa()">
+      <mat-icon>sync</mat-icon>
+      Mise à jour
+    </button>
+  </div>
+</div>

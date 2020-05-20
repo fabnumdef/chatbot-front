@@ -5,13 +5,15 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { MaterialModule } from '../material/material.module';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { UpdateChatbotComponent } from './components/update-chatbot/update-chatbot.component';
 
 @NgModule({
   declarations: [
     ChatbotListItemComponent,
     ConfirmDialogComponent,
     PageHeaderComponent,
-    PaginationComponent
+    PaginationComponent,
+    UpdateChatbotComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     ChatbotListItemComponent,
     ConfirmDialogComponent,
     PageHeaderComponent,
-    PaginationComponent
+    PaginationComponent,
+    UpdateChatbotComponent
   ],
   entryComponents: [
     ConfirmDialogComponent

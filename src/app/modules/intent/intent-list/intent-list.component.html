@@ -14,6 +14,7 @@
     </button>
   </div>
   <app-intent-filter></app-intent-filter>
+  <app-update-chatbot></app-update-chatbot>
   <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
   <div class="empty-list" *ngIf="!(loading$ | async) && (intents$ | async).length < 1">
     Aucune connaissances.

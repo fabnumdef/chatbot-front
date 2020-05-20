@@ -1,5 +1,6 @@
 <div class="inbox-list">
   <app-inbox-filter></app-inbox-filter>
+  <app-update-chatbot></app-update-chatbot>
   <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
   <div class="empty-list" *ngIf="!(loading$ | async) && (inboxes$ | async).length < 1">
     Aucun message à traiter.
