@@ -4,7 +4,7 @@ import { Intent } from '@model/intent.model';
 import { IntentService } from '@core/services/intent.service';
 import { BehaviorSubject } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { DestroyObservable } from '@core/utils/destroy-observable';
 import { InboxService } from '@core/services/inbox.service';
 
@@ -32,7 +32,7 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
 
   ngOnInit(): void {
     this.intents$ = this._intentService.fullEntities$;
-    this._intentService.fullEntities$.subscribe(() => {
+    this._intentService.fullEntities$.pipe(filter(e => e.length > 0)).subscribe(() => {
       this._initSelectFilter();
       this._initFormGroup();
     });
@@ -58,7 +58,10 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
   private _initSelectFilter() {
     this.filteredIntents$.next(this.intents$.value.slice());
     this.intentFilterCtrl.valueChanges
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        takeUntil(this.destroy$),
+        distinctUntilChanged()
+      )
       .subscribe(() => {
         this._filterIntents();
       });
@@ -78,8 +81,10 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
     }
     // filter the intents
     this.filteredIntents$.next(
-      this.intents$.value.filter(intent => (intent.category ? `${intent.category} - ` : '' + intent.mainQuestion)
-        .toLowerCase().indexOf(search) > -1)
+      this.intents$.value.filter(intent => {
+        return (`${intent.category ? `${intent.category} - ` : ''}${intent.mainQuestion}`)
+          .toLowerCase().indexOf(search) > -1;
+      })
     );
   }
 

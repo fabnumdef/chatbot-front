@@ -21,6 +21,9 @@
         <div class="hint">
           Posté il y a {{ getDiffDate(inbox) }}
         </div>
+        <div class="subtitle">
+          <mat-icon color="primary">link</mat-icon>&nbsp;{{ inbox.intent?.mainQuestion }}
+        </div>
 
         <mat-form-field appearance="outline">
           <mat-label>Assigner à</mat-label>
@@ -48,17 +51,18 @@
                   [matTooltip]="'Voir la discussion'">
             <mat-icon>chat</mat-icon>
           </button>
+          <mat-divider vertical></mat-divider>
           <button mat-icon-button
-                  class="chatbot-icon-btn"
-                  [matTooltip]="'Archiver la discussion'"
-                  (click)="archiveInbox(inbox)">
-            <mat-icon>delete</mat-icon>
-          </button>
-          <button mat-icon-button
-                  class="chatbot-icon-btn"
+                  class="chatbot-icon-btn chatbot-icon-btn-success"
                   [matTooltip]="'Valider la connaissance'"
                   (click)="validateInbox(inbox)">
             <mat-icon>check_circle</mat-icon>
+          </button>
+          <button mat-icon-button
+                  class="chatbot-icon-btn chatbot-icon-btn-error"
+                  [matTooltip]="'Archiver la discussion'"
+                  (click)="archiveInbox(inbox)">
+            <mat-icon>delete</mat-icon>
           </button>
         </div>
         <div *ngIf="inbox.id === inboxPreview || inbox.id === inboxIntent"

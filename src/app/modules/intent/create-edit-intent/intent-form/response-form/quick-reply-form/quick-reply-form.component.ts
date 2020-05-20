@@ -102,8 +102,10 @@ export class QuickReplyFormComponent extends DestroyObservable implements OnInit
     }
     // filter the intents
     this.filteredIntents$.next(
-      this.intents.filter(intent => (intent.category ? `${intent.category} - ` : '' + intent.mainQuestion)
-        .toLowerCase().indexOf(search) > -1)
+      this.intents.filter(intent => {
+        return (`${intent.category ? `${intent.category} - ` : ''}${intent.mainQuestion}`)
+          .toLowerCase().indexOf(search) > -1;
+      })
     );
   }
 }

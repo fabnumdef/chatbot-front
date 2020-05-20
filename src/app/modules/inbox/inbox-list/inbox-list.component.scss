@@ -17,6 +17,27 @@
       &.content-wrapper {
         max-width: 250px;
       }
+
+      .actions {
+        .mat-divider {
+          height: 30px;
+        }
+      }
+
+      .title-wrapper {
+        margin-top: 20px;
+      }
+
+      .subtitle {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .mat-form-field-wrapper {
+        margin: 0;
+        padding: 0;
+      }
     }
   }
 
