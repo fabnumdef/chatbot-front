@@ -1,4 +1,4 @@
-<div class="update-chatbot">
+<div class="update-chatbot" *ngIf="(config$ | async).needTraining">
   <mat-icon color="primary">info</mat-icon>
   <div class="text">
     <div class="primary-color"><b>Information importante</b></div>

@@ -8,4 +8,6 @@ export class Config {
   audience: string;
   solution: string;
   mediaSize: number;
+  trainingRasa: boolean;
+  needTraining: boolean;
 }

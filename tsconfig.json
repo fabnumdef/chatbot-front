@@ -16,7 +16,7 @@
         "src/app/core/models/*"
       ],
       "@enum/*": [
-        "src/app/core/enums/*"
+        "src/app/core/enums/index"
       ],
       "@core/*": [
         "src/app/core/*"
