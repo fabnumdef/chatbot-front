@@ -26,7 +26,7 @@
           <mat-icon color="primary">link</mat-icon>&nbsp;{{ inbox.intent?.mainQuestion }}
         </div>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="no-margin">
           <mat-label>Assigner à</mat-label>
           <mat-select>
             <mat-option value="volvo" *ngFor="let user of users$ | async">
