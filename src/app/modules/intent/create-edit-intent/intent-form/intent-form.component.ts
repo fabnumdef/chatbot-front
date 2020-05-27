@@ -65,30 +65,24 @@ export class IntentFormComponent implements OnInit {
     this.knowledgesFormArray.push(this._getKnowledgeForm(new Knowledge()));
   }
 
-  canChooseAllResponseTypes(idx: number): boolean {
-    const formGroup = <FormGroup> this.responsesFormArray.at(idx - 1);
-    if (!formGroup) {
-      return false;
-    }
-    return formGroup.getRawValue().responseType === ResponseType.text;
+  showResponseForm(idx: number): boolean {
+    const nextResponse: Response = this.responsesFormArray.at(idx + 1)?.value;
+    const response: Response = this.responsesFormArray.at(idx).value;
+    return (response.responseType !== ResponseType.text || !nextResponse ||
+      ![ResponseType.image, ResponseType.quick_reply, ResponseType.button].includes(nextResponse.responseType));
   }
 
-  canDeleteResponse(idx: number): boolean {
-    if (this.responsesFormArray.length <= 1) {
-      return false;
-    }
-    const formGroup = <FormGroup> this.responsesFormArray.at(idx);
-    if (formGroup.getRawValue().responseType !== ResponseType.text) {
-      return true;
-    }
-    const previousFormGroup = <FormGroup> this.responsesFormArray.at(idx - 1);
-    const nextFormGroup = <FormGroup> this.responsesFormArray.at(idx + 1);
-    return previousFormGroup && previousFormGroup.getRawValue().responseType === ResponseType.text ||
-      nextFormGroup && nextFormGroup.getRawValue().responseType === ResponseType.text;
+  canDeleteResponse(): boolean {
+    return !(this.responsesFormArray.length <= 1 || (this.responsesFormArray.length === 2 && !this.showResponseForm(1)));
   }
 
   deleteResponse(idx: number): void {
-    this.responsesFormArray.removeAt(idx);
+    if (idx > 0 && !this.showResponseForm(idx - 1)) {
+      this.responsesFormArray.removeAt(idx);
+      this.responsesFormArray.removeAt(idx - 1);
+    } else {
+      this.responsesFormArray.removeAt(idx);
+    }
   }
 
   deleteKnowledge(idx: number): void {

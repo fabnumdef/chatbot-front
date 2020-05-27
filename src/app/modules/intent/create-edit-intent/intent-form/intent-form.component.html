@@ -29,7 +29,7 @@
       </mat-expansion-panel>
 
       <ng-container *ngFor="let responseForm of responsesFormArray.controls; let idx = index">
-        <mat-expansion-panel disabled [expanded]="true">
+        <mat-expansion-panel disabled [expanded]="true" *ngIf="showResponseForm(idx)">
           <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
             <mat-panel-title>
               <h4>Votre réponse {{ idx + 1 }}<span class="red">*</span></h4>
@@ -47,15 +47,15 @@
                 </button>
               </a>
               <button mat-menu-item
-                      [disabled]="!canDeleteResponse(idx)"
+                      [disabled]="!canDeleteResponse()"
                       (click)="deleteResponse(idx)">
                 <mat-icon>delete</mat-icon>
                 Supprimer
               </button>
             </mat-menu>
           </mat-expansion-panel-header>
-          <app-response-form [responseForm]="responseForm"
-                             [canChooseAllResponseTypes]="canChooseAllResponseTypes(idx)">
+          <app-response-form [responseFormArray]="responsesFormArray"
+                             [index]="idx">
           </app-response-form>
           <button mat-stroked-button
                   color="accent"

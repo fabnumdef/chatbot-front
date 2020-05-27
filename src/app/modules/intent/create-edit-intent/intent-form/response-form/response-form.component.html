@@ -9,6 +9,25 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <ng-container *ngIf="previousResponseForm && showText">
+      <form [formGroup]="previousResponseForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Texte</mat-label>
+          <textarea matInput
+                    placeholder="Saisir ..."
+                    formControlName="response"
+                    maxlength="2000"
+                    required>
+        </textarea>
+          <mat-error *ngIf="controls.response.hasError('required')">
+            Vous n'avez pas saisi de réponse.
+          </mat-error>
+          <mat-error *ngIf="controls.response.hasError('maxLength')">
+            La réponse est trop longue, elle doit faire au maximum 2000 caractères.
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </ng-container>
     <ng-container [ngSwitch]="responseTypeValue">
       <mat-form-field appearance="outline" *ngSwitchCase="responseType.text">
         <mat-label>Texte</mat-label>
