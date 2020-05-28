@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from '@core/services/user.service';
 import { User } from '@model/user.model';
 import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
+import { ConfigService } from '@core/services/config.service';
 
 @Component({
   selector: 'app-inbox-list',
@@ -31,6 +32,7 @@ export class InboxListComponent implements OnInit {
 
   constructor(public inboxService: InboxService,
               private _toastr: ToastrService,
+              private _configService: ConfigService,
               private _userService: UserService) { }
 
   ngOnInit(): void {
@@ -70,12 +72,14 @@ export class InboxListComponent implements OnInit {
 
   archiveInbox(inbox: Inbox) {
     this.inboxService.delete(inbox).subscribe(() => {
+      this._configService.getConfig().subscribe();
       this._toastr.success(`La discussion a été archivée.`);
     });
   }
 
   validateInbox(inbox: Inbox) {
     this.inboxService.validate(inbox).subscribe(() => {
+      this._configService.getConfig().subscribe();
       this._toastr.success(`La discussion a été validée et archivée.`);
     });
   }

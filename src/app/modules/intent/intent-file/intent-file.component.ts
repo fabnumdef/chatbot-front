@@ -9,6 +9,7 @@ import { FileHistoric } from '@model/file-historic.model';
 import { finalize } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { ImportResponse } from '@model/import-response.model';
+import { ConfigService } from '@core/services/config.service';
 
 @Component({
   selector: 'app-intent-file',
@@ -26,6 +27,7 @@ export class IntentFileComponent implements OnInit {
               public fileService: FileService,
               private _dialog: MatDialog,
               private _toastService: ToastrService,
+              private _configService: ConfigService,
               @Inject(Window) private _window: Window,
               private _toast: ToastrService) {
   }
@@ -67,6 +69,7 @@ export class IntentFileComponent implements OnInit {
       .subscribe((response: ImportResponse) => {
         this._toastService.success(`Les connaissances ont bien été importées.
         ${response.intents} connaissances ont été ajoutées ou modifiées.`);
+        this._configService.getConfig().subscribe();
       });
   }
 

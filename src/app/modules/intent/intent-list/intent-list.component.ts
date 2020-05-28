@@ -8,6 +8,7 @@ import { filter } from 'rxjs/operators';
 import { PaginationHelper } from '@model/pagination-helper.model';
 import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 import { IntentStatus_Fr } from '@enum/*';
+import { ConfigService } from '@core/services/config.service';
 
 @Component({
   selector: 'app-intent-list',
@@ -26,6 +27,7 @@ export class IntentListComponent implements OnInit {
   intentStatusFr = IntentStatus_Fr;
 
   constructor(public intentService: IntentService,
+              private _configService: ConfigService,
               private _dialog: MatDialog) {
   }
 
@@ -56,8 +58,9 @@ export class IntentListComponent implements OnInit {
 
     dialogRef.afterClosed()
       .pipe(filter(r => !!r))
-      .subscribe(() => {
-        this.intentService.delete(intent).subscribe();
+      .subscribe(async () => {
+        await this.intentService.delete(intent).subscribe();
+        this._configService.getConfig().subscribe();
       });
 
   }

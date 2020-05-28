@@ -7,6 +7,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { DestroyObservable } from '@core/utils/destroy-observable';
 import { InboxService } from '@core/services/inbox.service';
+import { ConfigService } from '@core/services/config.service';
 
 @Component({
   selector: 'app-inbox-intent',
@@ -26,6 +27,7 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
 
   constructor(private _fb: FormBuilder,
               private _intentService: IntentService,
+              private _configService: ConfigService,
               private _inboxService: InboxService) {
     super();
   }
@@ -44,6 +46,7 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
       return;
     }
     this._inboxService.save(<Inbox> {id: this.inbox.id, intent: intent}).subscribe(() => {
+      this._configService.getConfig().subscribe();
       this.close.emit(true);
     });
   }

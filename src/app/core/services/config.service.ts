@@ -16,8 +16,7 @@ export class ConfigService {
 
   constructor(private _http: HttpClient) {
     this._url = `${environment.api_endpoint}/config`;
-    this.getConfig().subscribe(config => {
-      this.config$.next(config);
+    this.getConfig().subscribe(() => {
     }, () => {
       this.config$.next(new Config());
     });
@@ -26,6 +25,9 @@ export class ConfigService {
   getConfig(): Observable<Config> {
     this._loading$.next(true);
     return this._http.get<Config>(this._url).pipe(
+      tap(config => {
+        this.config$.next(config);
+      }),
       finalize(() => {
         this._loading$.next(false);
       })

@@ -7,6 +7,7 @@ import { Knowledge } from '@model/knowledge.model';
 import { IntentService } from '@core/services/intent.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { ConfigService } from '@core/services/config.service';
 
 @Component({
   selector: 'app-intent-form',
@@ -26,7 +27,8 @@ export class IntentFormComponent implements OnInit {
   constructor(private _fb: FormBuilder,
               private _toastr: ToastrService,
               private _router: Router,
-              private _intentService: IntentService) {
+              private _intentService: IntentService,
+              private _configService: ConfigService) {
   }
 
   ngOnInit(): void {
@@ -90,7 +92,8 @@ export class IntentFormComponent implements OnInit {
   }
 
   saveIntent() {
-    this._intentService.create(this.intentForm.getRawValue()).subscribe(intent => {
+    this._intentService.create({...this.intentForm.getRawValue(), ...{status: this.intent.status}}).subscribe(intent => {
+      this._configService.getConfig().subscribe();
       this._toastr.success('Connaissance sauvegardée');
       this.close.emit(intent);
     });
