@@ -19,7 +19,7 @@ export class ChatbotComponent implements OnInit {
             WebChat.default.init({
     embedded: true,
     selector: "#webchat",
-    initPayload: "/get_started",
+    initPayload: "phrase_presentation",
     socketUrl: "http://217.182.65.146:5005",
     socketPath: "/socket.io/",
     title: "FaC",
