@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MediaService } from '@core/services/media.service';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { DestroyObservable } from '@core/utils/destroy-observable';
   templateUrl: './media-filter.component.html',
   styleUrls: ['./media-filter.component.scss']
 })
-export class MediaFilterComponent extends DestroyObservable implements OnInit {
+export class MediaFilterComponent extends DestroyObservable implements OnInit, OnDestroy {
 
   mediaFilters: FormGroup;
 
@@ -32,6 +32,10 @@ export class MediaFilterComponent extends DestroyObservable implements OnInit {
         this._mediaService.load().subscribe();
       });
     this._mediaService.load().subscribe();
+  }
+
+  ngOnDestroy() {
+    this._mediaService.resetFilters();
   }
 
   get queryFormControl() {

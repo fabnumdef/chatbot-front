@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DestroyObservable } from '@core/utils/destroy-observable';
 import { IntentService } from '@core/services/intent.service';
@@ -12,7 +12,7 @@ import * as moment from 'moment';
   templateUrl: './intent-filter.component.html',
   styleUrls: ['./intent-filter.component.scss'],
 })
-export class IntentFilterComponent extends DestroyObservable implements OnInit {
+export class IntentFilterComponent extends DestroyObservable implements OnInit, OnDestroy {
 
   intentFilters: FormGroup;
   categories$: BehaviorSubject<string[]>;
@@ -45,6 +45,10 @@ export class IntentFilterComponent extends DestroyObservable implements OnInit {
         this._intentService.load().subscribe();
       });
     this._intentService.load().subscribe();
+  }
+
+  ngOnDestroy() {
+    this._intentService.resetFilters();
   }
 
   get controls() {

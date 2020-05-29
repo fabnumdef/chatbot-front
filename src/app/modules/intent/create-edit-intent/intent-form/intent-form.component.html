@@ -2,6 +2,10 @@
   <div class="chatbot-title">
     <h3>{{ getTitle() }}</h3>
   </div>
+  <div *ngIf="!isNewIntent && intent.knowledges.length < 1" class="intent-error">
+    <mat-icon color="accent">report_problem</mat-icon> &nbsp;
+    Aucune question synonyme n'a été ajoutée. Le chatbot aura du mal à reconnaître cette connaissance.
+  </div>
   <form [formGroup]="intentForm" *ngIf="intentForm">
     <mat-checkbox #expiresCheckbox
                   color="primary"
@@ -32,7 +36,7 @@
         <mat-expansion-panel disabled [expanded]="true" *ngIf="showResponseForm(idx)">
           <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
             <mat-panel-title>
-              <h4>Votre réponse {{ idx + 1 }}<span class="red">*</span></h4>
+              <h4>Votre réponse {{ getResponseIdx(idx) }}<span class="red">*</span></h4>
             </mat-panel-title>
             <button mat-icon-button [matMenuTriggerFor]="responseMenu">
               <mat-icon>more_horiz</mat-icon>

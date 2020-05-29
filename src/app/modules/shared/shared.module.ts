@@ -6,6 +6,7 @@ import { MaterialModule } from '../material/material.module';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { UpdateChatbotComponent } from './components/update-chatbot/update-chatbot.component';
+import { ReversePipe } from './pipes/reverse.pipe';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { UpdateChatbotComponent } from './components/update-chatbot/update-chatb
     ConfirmDialogComponent,
     PageHeaderComponent,
     PaginationComponent,
-    UpdateChatbotComponent
+    UpdateChatbotComponent,
+    ReversePipe
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { UpdateChatbotComponent } from './components/update-chatbot/update-chatb
     ConfirmDialogComponent,
     PageHeaderComponent,
     PaginationComponent,
-    UpdateChatbotComponent
+    UpdateChatbotComponent,
+    ReversePipe
   ],
   entryComponents: [
     ConfirmDialogComponent

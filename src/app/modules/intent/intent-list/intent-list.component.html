@@ -27,10 +27,6 @@
     </div>
     <div *ngFor="let intent of intents$ | async">
       <app-chatbot-list-item>
-        <div class="badge"
-             *ngIf="intent.status">
-          {{ intentStatusFr[intent.status] }}
-        </div>
         <div class="badge badge-primary"
              *ngIf="intent.category">
           {{ intent.category }}
@@ -42,6 +38,10 @@
         <div class="badge badge-error"
              *ngIf="isIntentInError(intent)">
           Connaissance incomplète
+        </div>
+        <div class="badge badge-light"
+             *ngIf="intent.status && intent.status !== intentStatus.active">
+          {{ intentStatusFr[intent.status] }}
         </div>
         <div class="title">
           {{ intent.mainQuestion ? intent.mainQuestion : intent.id }}

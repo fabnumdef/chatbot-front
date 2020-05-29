@@ -132,5 +132,13 @@
       font-weight: bold;
       border-radius: $border-radius;
     }
+
+    &:not(:first-child) {
+      margin-top: 15px;
+    }
+  }
+
+  .spacer {
+    padding: 10px 0;
   }
 }

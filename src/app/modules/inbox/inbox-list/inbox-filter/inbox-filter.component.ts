@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DestroyObservable } from '@core/utils/destroy-observable';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { InboxService } from '@core/services/inbox.service';
@@ -13,7 +13,7 @@ import * as moment from 'moment';
   templateUrl: './inbox-filter.component.html',
   styleUrls: ['./inbox-filter.component.scss']
 })
-export class InboxFilterComponent extends DestroyObservable implements OnInit {
+export class InboxFilterComponent extends DestroyObservable implements OnInit, OnDestroy {
 
   inboxFilters: FormGroup;
   categories$: BehaviorSubject<string[]>;
@@ -51,6 +51,10 @@ export class InboxFilterComponent extends DestroyObservable implements OnInit {
         this._inboxService.currentFilters = value;
         this._inboxService.load().subscribe();
       });
+  }
+
+  ngOnDestroy() {
+    this._inboxService.resetFilters();
   }
 
   get controls() {

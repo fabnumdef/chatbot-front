@@ -59,6 +59,16 @@ export class IntentFormComponent implements OnInit {
     return this.isNewIntent ? 'Créer une nouvelle connaissance' : 'Modifier une connaissance';
   }
 
+  getResponseIdx(idx: number) {
+    let idxToReturn = 0;
+    for (let i = 0; i <= idx; i++) {
+      if (this.showResponseForm(i)) {
+        idxToReturn++;
+      }
+    }
+    return idxToReturn;
+  }
+
   addResponse() {
     this.responsesFormArray.push(this._getResponseForm(new Response()));
   }

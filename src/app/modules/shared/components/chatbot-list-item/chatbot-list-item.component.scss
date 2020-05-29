@@ -40,7 +40,7 @@
 
       .badge {
         border-radius: 100px;
-        padding: 2px 30px;
+        padding: 2px 10px;
         border: 2px solid transparent;
         font-weight: bold;
 
@@ -67,6 +67,12 @@
         &-error {
           color: $error-color;
           border-color: $error-color;
+        }
+
+        &-light {
+          font-weight: normal;
+          font-style: italic;
+          color: $grey;
         }
       }
     }

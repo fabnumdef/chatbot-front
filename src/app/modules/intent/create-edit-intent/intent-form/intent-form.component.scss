@@ -2,6 +2,14 @@
 
 .intent-form {
 
+  .intent-error {
+    border: 1px solid $error-color;
+    border-radius: $border-radius;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+  }
+
   form {
     .mat-checkbox {
       ::ng-deep.mat-checkbox-label {

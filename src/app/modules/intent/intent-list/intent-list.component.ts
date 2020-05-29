@@ -7,7 +7,7 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
 import { filter } from 'rxjs/operators';
 import { PaginationHelper } from '@model/pagination-helper.model';
 import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
-import { IntentStatus_Fr } from '@enum/*';
+import { IntentStatus, IntentStatus_Fr } from '@enum/*';
 import { ConfigService } from '@core/services/config.service';
 
 @Component({
@@ -24,6 +24,7 @@ export class IntentListComponent implements OnInit {
   pagination: PaginationHelper;
   loading$: Observable<boolean>;
   intentSelected: string = null;
+  intentStatus = IntentStatus;
   intentStatusFr = IntentStatus_Fr;
 
   constructor(public intentService: IntentService,

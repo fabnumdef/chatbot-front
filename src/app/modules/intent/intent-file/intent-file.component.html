@@ -28,6 +28,7 @@
                  [diameter]="24"></mat-spinner>
     Exporter les connaissances
   </button>
+  <div class="spacer"></div>
 
   <div class="chatbot-subtitle">
     <h4>Importer des nouvelles connaissances</h4>
@@ -38,7 +39,7 @@
   </p>
   <p class="red info-row">
     <mat-icon>warning</mat-icon>
-    Pour une nouvelle connaissance, l'ID doit aussi être nouveau sur le fichier excel.
+    Pour une nouvelle connaissance, l'identifiant doit aussi être nouveau sur le fichier excel.
   </p>
   <p>
     <b>
@@ -160,12 +161,12 @@
       Mettre à jour les connaissances
     </button>
   </div>
-
+  <div class="spacer"></div>
 
   <div class="chatbot-title">
     <h3>Historique des connaissances</h3>
   </div>
-  <div class="historic-file" *ngFor="let historicFile of historicFiles">
+  <div class="historic-file" *ngFor="let historicFile of historicFiles | reverse">
     <div class="badge">
       Version {{ historicFile.id }}
     </div>
