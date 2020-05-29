@@ -39,7 +39,7 @@ export class IntentListComponent implements OnInit {
 
     this.intents$.subscribe(intents => {
       this.intentSelected = null;
-      if (intents && intents.length === 1) {
+      if (intents && intents.length === 1 && this.pagination.currentPage <= 1) {
         this.intentSelected = intents[0].id;
       }
     });
