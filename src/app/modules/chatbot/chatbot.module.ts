@@ -10,6 +10,9 @@ import { ChatbotRoutingModule } from './chatbot.routing';
   imports: [
     CommonModule,
     ChatbotRoutingModule
-  ]
+  ],
+  providers: [
+    {provide: Window, useValue: window},
+  ],
 })
 export class ChatbotModule { }

@@ -10,7 +10,8 @@ import { DOCUMENT } from '@angular/common';
 export class ChatbotComponent implements OnInit {
 
   constructor(private _renderer2: Renderer2,
-              @Inject(DOCUMENT) private _document: Document) {
+              @Inject(DOCUMENT) private _document: Document,
+              @Inject(Window) private _window: Window) {
   }
 
   ngOnInit(): void {
@@ -20,7 +21,7 @@ export class ChatbotComponent implements OnInit {
     embedded: true,
     selector: "#webchat",
     initPayload: "phrase_presentation",
-    socketUrl: "http://217.182.65.146:5005",
+    socketUrl: "${this._window.location.origin}:5005",
     socketPath: "/socket.io/",
     title: "FaC",
     subtitle: "Fabrique Numérique",
