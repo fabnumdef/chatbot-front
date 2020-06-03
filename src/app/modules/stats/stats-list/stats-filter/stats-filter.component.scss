@@ -25,15 +25,14 @@
             align-items: center;
             width: 100%;
 
-            .datepickers {
-                border: 1px solid $grey-light;
-                border-radius: 5px;
-                margin-left: 10px;
-                width: 30%;
-                
-                .datepicker {
-                    width: 45%;
+            .range-datepicker {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                .chatbot-range-datepicker {
                     padding-left: 10px;
+                    margin-left: 10px;
                 }
             }
         }

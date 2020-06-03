@@ -15,12 +15,14 @@
     .kpi-stats {
       display: flex;
       width: 100%;
+      flex-wrap: wrap;
       justify-content: space-between;
       padding-bottom: 20px;
 
       .kpi-box {
         display: flex;
         width: 30%;
+        min-width: 300px;
         flex-direction: column;
         
 
@@ -37,31 +39,38 @@
         .content-kpi {
           display: flex;
           flex-direction: column;
-          height: auto;
-          width: 100%;
+          height: 192px;
+          width: auto;
           border-radius: 5px;
           background-color: $white;
           margin-top: 10px;
-
-          mat-divider {
-            margin-left: 20px;
-            margin-right: 20px;
-          }
+          padding-left: 20px;
+          padding-right: 20px;
 
           .global {
             display: flex;
             justify-content: center;
-            margin: 15px;
+            padding: 15px 0px;
           }
 
           .row {
             display: flex;
             flex-direction: row;
-            justify-content: space-around;
+            //justify-content: space-around;
             padding: 15px;
+            padding-left: 0px;
+
+            .type {
+              width: 35%;
+            }
 
             .row-kpi {
               font-size: 13px;
+              width: 65%;
+
+              .kpi {
+                
+              }
             }
           }
         }
@@ -99,6 +108,10 @@
     .cpink {
       color: #fab7b9;
     }
+  }
+
+  .downloadButton {
+    margin-top: 10px;
   }
 
 }
