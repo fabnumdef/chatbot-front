@@ -14,16 +14,19 @@ export class StatsFilterComponent extends DestroyObservable implements OnInit {
 
   statsFilters: FormGroup;
 
-  constructor(/*private _fb: FormBuilder,
-              private _statsService: StatsService*/) {
+  constructor(private _fb: FormBuilder,
+              private _statsService: StatsService) {
     super();
   }
 
   ngOnInit(): void {
-    /*this.statsFilters = this._fb.group({
-      startDate: [this._statsService.currentFilters?.startDate ? moment(this._statsService.currentFilters.startDate, 'DD/MM/yyyy') : null],
-      endDate: [this._statsService.currentFilters?.endDate ? moment(this._statsService.currentFilters.endDate, 'DD/MM/yyyy') : null]
+    this.statsFilters = this._fb.group({
+      startDate: null,
+      endDate: null
+      /*startDate: [this._statsService.currentFilters?.startDate ? moment(this._statsService.currentFilters.startDate, 'DD/MM/yyyy'): null],
+      endDate: [this._statsService.currentFilters?.endDate ? moment(this._statsService.currentFilters.endDate, 'DD/MM/yyyy') : null]*/
     });
+    /*
     this.statsFilters.valueChanges
       .pipe(
         takeUntil(this.destroy$),

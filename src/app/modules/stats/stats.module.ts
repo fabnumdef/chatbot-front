@@ -4,6 +4,7 @@ import { StatsLayoutComponent } from './stats-layout/stats-layout.component';
 import { StatsRoutingModule } from './stats.routing';
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { StatsListComponent } from './stats-list/stats-list.component';
 import { StatsFilterComponent } from './stats-list/stats-filter/stats-filter.component';
 import { StatsGraphComponent } from './stats-list/stats-graph/stats-graph.component';
@@ -28,7 +29,8 @@ import { ChartsModule } from 'ng2-charts';
     StatsRoutingModule,
     MaterialModule,
     SharedModule,
-    ChartsModule
+    ChartsModule,
+    ReactiveFormsModule
   ]
 })
 export class StatsModule { }

@@ -10,14 +10,13 @@ export class StatsService  {
 
   private _url = `${environment.api_endpoint}/stats`;
   protected _loading$ = new BehaviorSubject<boolean>(false);
-  private data: any;
 
   constructor(private _http: HttpClient) {
   }
 
   getGraphData(): Observable<Object> {
     this._loading$.next(true);
-    return this.data = this._http.get(this._url + '/linedata');
+    return this._http.get(this._url + '/linedata');
   }
 
 }
