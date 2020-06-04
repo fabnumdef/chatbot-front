@@ -1,25 +1,39 @@
 @import 'src/styles/variables';
 
 .image-file-form {
-  display: flex;
-  align-items: center;
+  &-badge {
+    background-color: $primary-color;
+    color: $white;
+    border-radius: $border-radius;
+    padding: 2px 20px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+  }
 
-  & > * {
-    box-sizing: border-box;
+  .form {
     display: flex;
-    flex-direction: column;
+    align-items: center;
 
-    &:nth-child(1) {
-      width: 35%;
-    }
+    & > * {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
 
-    &:nth-child(2) {
-      width: 10%;
-      align-items: center;
-    }
+      &:nth-child(1) {
+        width: 35%;
+      }
 
-    &:nth-child(3) {
-      width: 55%;
+      &:nth-child(2) {
+        width: 10%;
+        align-items: center;
+      }
+
+      &:nth-child(3) {
+        width: 55%;
+      }
     }
   }
 

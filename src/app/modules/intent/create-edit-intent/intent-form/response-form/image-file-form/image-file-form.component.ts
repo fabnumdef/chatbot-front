@@ -15,6 +15,7 @@ export class ImageFileFormComponent implements OnInit {
   @Input() responseFormControl: FormControl;
   @Input() responseType: ResponseType;
 
+  btnText: string = null;
   url: string = null;
   media: Media = null;
 
@@ -35,6 +36,13 @@ export class ImageFileFormComponent implements OnInit {
     return this.responseType === ResponseType.image;
   }
 
+  getBadgeLabel() {
+    if (this.isImage) {
+      return 'Image';
+    }
+    return 'Lien / Fichier';
+  }
+
   getInputLabel() {
     if (this.isImage) {
       return 'Insérer un lien vers une image extérieure';
@@ -49,26 +57,55 @@ export class ImageFileFormComponent implements OnInit {
     return 'Téléchargez un fichier de la médiathèque';
   }
 
+  btnTextChange($event) {
+    this.btnText = $event.target.value;
+    if (!this.btnText || (!this.url && !this.media)) {
+      this.responseFormControl.setValue(null);
+      return;
+    }
+    if (this.url) {
+      this.responseFormControl.setValue(`${this.btnText} <${this.url}>`);
+    } else if (this.media) {
+      this.responseFormControl.setValue(`${this.btnText} <${this.mediaPath + this.media.file}>`);
+    }
+    this.responseFormControl.markAsDirty();
+  }
+
   urlChange($event) {
     this.url = $event.target.value;
-    this.responseFormControl.setValue(this.url);
+    if (!this.btnText || (!this.url && !this.media)) {
+      this.responseFormControl.setValue(null);
+      return;
+    }
+    this.responseFormControl.setValue(`${this.btnText} <${this.url}>`);
     this.responseFormControl.markAsDirty();
   }
 
   mediaChange(media: Media) {
     this.media = media;
-    this.responseFormControl.setValue(media ? this.mediaPath + this.media.file : null);
+    if (!this.btnText || (!this.url && !this.media)) {
+      this.responseFormControl.setValue(null);
+      return;
+    }
+    this.responseFormControl.setValue(media ? `${this.btnText} <${this.mediaPath + this.media.file}>` : null);
     this.responseFormControl.markAsDirty();
   }
 
   private _initResponse() {
     const value = this.responseFormControl.value;
-    if (!!value && value.includes(this.mediaPath)) {
-      this.media = <Media> {
-        file: value.replace(this.mediaPath, '')
-      };
+    let file;
+    if (this.isImage) {
+      file = value;
     } else if (!!value) {
-      this.url = value;
+      file = value.substring(value.indexOf('<') + 1, value.indexOf('>')).trim();
+      this.btnText = value.substring(0, value.indexOf('<')).trim();
+    }
+    if (!!file && file.includes(this.mediaPath)) {
+      this.media = <Media> {
+        file: file.replace(this.mediaPath, '')
+      };
+    } else if (!!file) {
+      this.url = file;
     }
   }
 
