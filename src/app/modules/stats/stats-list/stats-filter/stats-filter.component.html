@@ -1,0 +1,28 @@
+<div class="stats-filter">
+  <h3>Données</h3>
+  <form [formGroup]="statsFilters">
+    <div class="filter-content">
+
+      <div class="range-datepicker">
+        
+        Données des derniers jours ou
+        <div class="chatbot-range-datepicker">
+          du
+          <mat-form-field appearance="outline" class="chatbot-datepicker">
+            <input matInput [matDatepicker]="picker" formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          au
+          <mat-form-field appearance="outline" class="chatbot-datepicker">
+            <input matInput [matDatepicker]="picker2" formControlName="endDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+  
+</div>
+  

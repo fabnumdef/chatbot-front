@@ -1,0 +1,118 @@
+@import 'src/styles/variables';
+
+:host {
+    display: block;
+  }
+  
+.stats-graph {
+
+  .line-stats {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+
+    .kpi-stats {
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding-bottom: 20px;
+
+      .kpi-box {
+        display: flex;
+        width: 30%;
+        min-width: 300px;
+        flex-direction: column;
+        
+
+        .title-kpi {
+          display: flex;
+          color: $white;
+          align-items: center;
+          justify-content: center;
+          border-radius: 5px;
+          height: 30px;
+          width: 100%;
+        }
+
+        .content-kpi {
+          display: flex;
+          flex-direction: column;
+          height: 192px;
+          width: auto;
+          border-radius: 5px;
+          background-color: $white;
+          margin-top: 10px;
+          padding-left: 20px;
+          padding-right: 20px;
+
+          .global {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0px;
+          }
+
+          .row {
+            display: flex;
+            flex-direction: row;
+            //justify-content: space-around;
+            padding: 15px;
+            padding-left: 0px;
+
+            .type {
+              width: 35%;
+            }
+
+            .row-kpi {
+              font-size: 13px;
+              width: 65%;
+
+              .kpi {
+                
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    .linechart {
+      border-radius: 5px;
+      background-color: $white;
+      width: auto;
+      height: 300px;
+      padding: 15px;
+    }
+
+    .bggreen {
+      background-color: #40b374;
+    }
+
+    .cgreen {
+      color: #40b374;
+    }
+    
+    .bgyellow {
+      background-color: #fab754;
+    }
+
+    .cyellow {
+      color: #fab754;
+    }
+
+    .bgpink {
+      background-color: #fab7b9;
+    }
+
+    .cpink {
+      color: #fab7b9;
+    }
+  }
+
+  .downloadButton {
+    margin-top: 10px;
+  }
+
+}
+  
