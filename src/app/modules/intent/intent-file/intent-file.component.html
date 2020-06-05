@@ -173,7 +173,7 @@
     <div class="date">
       Crée le {{ historicFile.createdAt | date: 'dd/MM/yyyy HH:mm' }}
     </div>
-    <a target="_blank" [href]="historicFilePath + historicFile.name">
+    <a target="_blank" rel="noopener" [href]="historicFilePath + historicFile.name">
       <button mat-stroked-button
               color="accent">
         <mat-icon>get_app</mat-icon>
