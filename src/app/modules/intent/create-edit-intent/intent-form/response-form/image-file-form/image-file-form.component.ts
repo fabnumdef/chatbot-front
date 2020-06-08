@@ -73,7 +73,7 @@ export class ImageFileFormComponent implements OnInit {
 
   urlChange($event) {
     this.url = $event.target.value;
-    if (!this.btnText || (!this.url && !this.media)) {
+    if (!this.isImage && (!this.btnText || (!this.url && !this.media))) {
       this.responseFormControl.setValue(null);
       return;
     }
@@ -83,7 +83,7 @@ export class ImageFileFormComponent implements OnInit {
 
   mediaChange(media: Media) {
     this.media = media;
-    if (!this.btnText || (!this.url && !this.media)) {
+    if (!this.isImage && (!this.btnText || (!this.url && !this.media))) {
       this.responseFormControl.setValue(null);
       return;
     }
