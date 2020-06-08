@@ -73,7 +73,9 @@
         <div *ngIf="intent.id === intentSelected"
              class="detail"
              [@detailInOutAnimation]>
-          <app-intent-form [intent]="intent" (close)="intentSelected = null"></app-intent-form>
+          <app-intent-form [intent]="intent"
+                           (close)="intentSelected = null"
+                           [redirect]="false"></app-intent-form>
         </div>
       </app-chatbot-list-item>
     </div>
