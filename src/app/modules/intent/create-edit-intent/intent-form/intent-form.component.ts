@@ -106,6 +106,9 @@ export class IntentFormComponent implements OnInit {
       this._configService.getConfig().subscribe();
       this._toastr.success('Connaissance sauvegardée');
       this.close.emit(intent);
+      if (this.redirect) {
+        this._router.navigateByUrl('/connaissances');
+      }
     });
   }
 
