@@ -22,6 +22,31 @@
   }
 }
 
+form.form-disabled-invisible {
+  .mat-form-field-appearance-outline.mat-form-field-disabled:not(.easy-input-visible) {
+    .mat-form-field-outline>div {
+      background: transparent;
+      border: none;
+    }
+
+    .mat-form-field-infix input,
+    .mat-form-field-infix textarea {
+      color: #4d4d4d;
+    }
+
+    .mat-form-field-hint-wrapper {
+      margin-left: -0.5em;
+    }
+
+    .mat-select {
+      &.mat-select-disabled .mat-select-arrow {
+        width: 0;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
 .chatbot-range-datepicker {
   border-radius: $border-radius;
   border: 1px solid $input-border-color;

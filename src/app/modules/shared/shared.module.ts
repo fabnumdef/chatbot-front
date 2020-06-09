@@ -7,6 +7,7 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { UpdateChatbotComponent } from './components/update-chatbot/update-chatbot.component';
 import { ReversePipe } from './pipes/reverse.pipe';
+import { HasRoleDirective } from './directives/has-role.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ReversePipe } from './pipes/reverse.pipe';
     PageHeaderComponent,
     PaginationComponent,
     UpdateChatbotComponent,
-    ReversePipe
+    ReversePipe,
+    HasRoleDirective
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { ReversePipe } from './pipes/reverse.pipe';
     PageHeaderComponent,
     PaginationComponent,
     UpdateChatbotComponent,
-    ReversePipe
+    ReversePipe,
+    HasRoleDirective
   ],
   entryComponents: [
     ConfirmDialogComponent

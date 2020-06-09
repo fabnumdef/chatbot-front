@@ -1,6 +1,7 @@
 <div class="intent-list">
   <div class="actions">
     <button mat-stroked-button
+            *appHasRole="'admin'"
             color="accent"
             [routerLink]="'/connaissances/fichier'">
       <mat-icon>file_copy</mat-icon>

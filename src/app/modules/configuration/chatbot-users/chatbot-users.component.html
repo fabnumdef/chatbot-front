@@ -16,7 +16,7 @@
         {{ user.role }}
       </div>
 
-      <div class="actions">
+      <div class="actions" *appHasRole="'admin'">
         <button mat-icon-button
                 class="chatbot-icon-btn"
                 matTooltip="Editer"
@@ -44,11 +44,13 @@
 
   <app-user-form *ngIf="addUser" (cancel)="addUser = !addUser"></app-user-form>
 
-  <button mat-stroked-button
-          color="accent"
-          *ngIf="!addUser"
-          (click)="addUser = !addUser">
-    <mat-icon>add</mat-icon>
-    Ajouter un utilisateur
-  </button>
+  <ng-container *appHasRole="'admin'">
+    <button mat-stroked-button
+            color="accent"
+            *ngIf="!addUser"
+            (click)="addUser = !addUser">
+      <mat-icon>add</mat-icon>
+      Ajouter un utilisateur
+    </button>
+  </ng-container>
 </div>

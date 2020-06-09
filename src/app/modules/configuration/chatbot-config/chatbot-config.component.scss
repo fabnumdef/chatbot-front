@@ -115,19 +115,24 @@
       justify-content: space-between;
       align-items: center;
       height: $input-height;
-      border: 1px solid $input-border-color;
       border-radius: 5px;
-      cursor: pointer;
       box-sizing: border-box;
-    }
-
-    &:hover {
-      border-color: $input-border-color-hover;
     }
 
     .color-picker-icon {
       height: 30px;
       width: 30px;
+    }
+
+    &:not(.color-picker-div-disabled) {
+      &:hover {
+        border-color: $input-border-color-hover;
+      }
+
+      label {
+        border: 1px solid $input-border-color;
+        cursor: pointer;
+      }
     }
   }
 }

@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Utils } from '@core/utils/utils';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-chatbot-config',
@@ -26,6 +27,7 @@ export class ChatbotConfigComponent implements OnInit {
               private _http: HttpClient,
               private _sanitizer: DomSanitizer,
               private _toastr: ToastrService,
+              private _authService: AuthService,
               @Inject(Window) private _window: Window) {
   }
 
@@ -123,6 +125,11 @@ export class ChatbotConfigComponent implements OnInit {
       this._storeIcon(file);
       this.customizationForm.markAsPristine();
     });
+
+    if (this._authService.user.role !== 'admin') {
+      this.customizationForm.disable();
+      this.descriptionForm.disable();
+    }
   }
 
 }

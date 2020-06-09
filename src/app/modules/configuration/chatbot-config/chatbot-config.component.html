@@ -3,7 +3,7 @@
     <h3>Personnalisation du chatbot</h3>
   </div>
 
-  <form [formGroup]="customizationForm" *ngIf="customizationForm">
+  <form [formGroup]="customizationForm" *ngIf="customizationForm" class="form-disabled-invisible">
     <div class="personnalisation-row">
       <div class="form">
         <div class="chatbot-subtitle">
@@ -41,10 +41,10 @@
         <div class="chatbot-subtitle">
           <h4>Quelle est l'icône de votre chatbot ?</h4>
         </div>
-        <div>
+        <div *appHasRole="'admin'">
           Choisir l'icône qui vous convient dans la bibliothèque ci-dessous.
         </div>
-        <div class="icons-wrapper" data-cy="PresetIcons">
+        <div class="icons-wrapper" data-cy="PresetIcons" *appHasRole="'admin'">
           <div class="icon"
                *ngFor="let icon of icons"
                data-cy="PresetIcon"
@@ -52,10 +52,10 @@
             <img [src]="'assets/img/icons/' + icon" [alt]="'Proposition de logo: ' + icon">
           </div>
         </div>
-        <div>
+        <div *appHasRole="'admin'">
           Ou importer votre propre icône <span class="hint">(*format jpg ou png)</span>
         </div>
-        <div>
+        <div *appHasRole="'admin'">
           <button mat-flat-button
                   color="accent"
                   *ngIf="!customizationControls.icon.value; else iconFileWrapper"
@@ -82,7 +82,7 @@
                 {{ customizationControls.icon?.value?.name }}
               </div>
             </div>
-            <div>
+            <div *appHasRole="'admin'">
               <button mat-stroked-button
                       color="accent"
                       data-cy="DeleteIconBtn"
@@ -102,26 +102,32 @@
         <div class="chatbot-subtitle">
           <h4>Quelles sont vos couleurs ?</h4>
         </div>
-        <div class="color-picker-div" (click)="colorPickerPrimary.click()">
+        <div class="color-picker-div"
+             (click)="colorPickerPrimary.click()"
+             [ngClass]="{'color-picker-div-disabled': customizationForm.disabled}">
           <label>
             Choisir la couleur primaire (en-tête)
             <div>
               <input #colorPickerPrimary
                      class="colorpicker color-picker-icon"
                      maxlength="20"
+                     [disabled]="customizationForm.disabled"
                      [colorPicker]="customizationControls.primaryColor.value"
                      [style.background]="customizationControls.primaryColor.value"
                      (colorPickerChange)="customizationControls.primaryColor.setValue($event); customizationControls.primaryColor.markAsDirty()"/>
             </div>
           </label>
         </div>
-        <div class="color-picker-div" (click)="colorPickerSecondary.click()">
+        <div class="color-picker-div"
+             (click)="colorPickerSecondary.click()"
+             [ngClass]="{'color-picker-div-disabled': customizationForm.disabled}">
           <label>
             Choisir la couleur secondaire (bas de page)
             <div>
               <input #colorPickerSecondary
                      class="colorpicker color-picker-icon"
                      maxlength="20"
+                     [disabled]="customizationForm.disabled"
                      [colorPicker]="customizationControls.secondaryColor.value"
                      [style.background]="customizationControls.secondaryColor.value"
                      (colorPickerChange)="customizationControls.secondaryColor.setValue($event); customizationControls.secondaryColor.markAsDirty()"/>
@@ -135,15 +141,17 @@
       </div>
     </div>
   </form>
-  <button mat-stroked-button
-          color="accent"
-          *ngIf="customizationForm"
-          (click)="saveCustomization()"
-          [disabled]="!customizationForm.dirty">
-    Enregistrer
-  </button>
+  <ng-container *appHasRole="'admin'">
+    <button mat-stroked-button
+            color="accent"
+            *ngIf="customizationForm"
+            (click)="saveCustomization()"
+            [disabled]="!customizationForm.dirty">
+      Enregistrer
+    </button>
+  </ng-container>
 
-  <form [formGroup]="descriptionForm" *ngIf="descriptionForm">
+  <form [formGroup]="descriptionForm" *ngIf="descriptionForm" class="form-disabled-invisible">
     <div class="chatbot-title">
       <h3>Description du chatbot</h3>
     </div>
@@ -204,11 +212,13 @@
       </mat-form-field>
     </div>
   </form>
-  <button mat-stroked-button
-          color="accent"
-          (click)="saveDescription()"
-          *ngIf="descriptionForm"
-          [disabled]="!descriptionForm.dirty">
-    Enregistrer
-  </button>
+  <ng-container *appHasRole="'admin'">
+    <button mat-stroked-button
+            color="accent"
+            (click)="saveDescription()"
+            *ngIf="descriptionForm"
+            [disabled]="!descriptionForm.dirty">
+      Enregistrer
+    </button>
+  </ng-container>
 </div>

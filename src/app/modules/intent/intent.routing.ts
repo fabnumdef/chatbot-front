@@ -12,7 +12,13 @@ const routes: Routes = [
     children: [
       {path: '', component: IntentListComponent},
       {path: 'creer', component: CreateEditIntentComponent},
-      {path: 'fichier', component: IntentFileComponent},
+      {
+        path: 'fichier',
+        component: IntentFileComponent,
+        data: {
+          allowedRole: 'admin'
+        }
+      },
     ]
   }
 ];
