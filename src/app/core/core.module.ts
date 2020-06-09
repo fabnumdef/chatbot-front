@@ -35,4 +35,5 @@ import { SideMenuComponent } from './components/authenticated-layout/side-menu/s
     {provide: Window, useValue: window},
   ]
 })
-export class CoreModule { }
+export class CoreModule {
+}

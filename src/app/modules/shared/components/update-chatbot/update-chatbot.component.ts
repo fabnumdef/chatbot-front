@@ -23,6 +23,7 @@ export class UpdateChatbotComponent implements OnInit {
 
   trainRasa() {
     this._rasaService.train().subscribe();
+    this._configService.config$.next({...this._configService.config$.getValue(), ...{trainingRasa: true}});
     this._configService.getContinuousConfig(true);
   }
 
