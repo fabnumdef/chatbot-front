@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Inbox } from '@model/inbox.model';
 import { InboxService } from '@core/services/inbox.service';
 import { PaginationHelper } from '@model/pagination-helper.model';
@@ -21,7 +21,7 @@ import { ConfigService } from '@core/services/config.service';
 })
 export class InboxListComponent implements OnInit {
 
-  inboxes$: Observable<Inbox[]>;
+  inboxes$: BehaviorSubject<Inbox[]>;
   loading$: Observable<boolean>;
   processing$: Observable<boolean>;
   users$: Observable<User[]>;
@@ -33,7 +33,8 @@ export class InboxListComponent implements OnInit {
   constructor(public inboxService: InboxService,
               private _toastr: ToastrService,
               private _configService: ConfigService,
-              private _userService: UserService) { }
+              private _userService: UserService) {
+  }
 
   ngOnInit(): void {
     this.loading$ = this.inboxService.loading$;
@@ -74,6 +75,7 @@ export class InboxListComponent implements OnInit {
     this.inboxService.delete(inbox).subscribe(() => {
       this._configService.getConfig().subscribe();
       this._toastr.success(`La discussion a été archivée.`);
+      this._reloadInbox();
     });
   }
 
@@ -81,7 +83,14 @@ export class InboxListComponent implements OnInit {
     this.inboxService.validate(inbox).subscribe(() => {
       this._configService.getConfig().subscribe();
       this._toastr.success(`La discussion a été validée et archivée.`);
+      this._reloadInbox();
     });
+  }
+
+  private _reloadInbox() {
+    if (this.inboxes$.value.length < 1) {
+      this.inboxService.load(this.pagination.currentPage).subscribe();
+    }
   }
 
 }
