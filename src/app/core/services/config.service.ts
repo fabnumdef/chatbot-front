@@ -4,6 +4,8 @@ import { environment } from '../../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Config } from '@model/config.model';
 import { finalize, tap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+import { IntentService } from '@core/services/intent.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +15,17 @@ export class ConfigService {
   private _url: string;
   protected _loading$ = new BehaviorSubject<boolean>(false);
   public config$ = new BehaviorSubject<Config>(null);
+  private _configInterval;
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient,
+              private _toastr: ToastrService,
+              private _intentService: IntentService) {
     this._url = `${environment.api_endpoint}/config`;
     this.getConfig().subscribe(() => {
     }, () => {
       this.config$.next(new Config());
     });
+    this.getContinuousConfig();
   }
 
   getConfig(): Observable<Config> {
@@ -76,5 +82,24 @@ export class ConfigService {
         this._loading$.next(false);
       })
     );
+  }
+
+  getContinuousConfig(fast = false) {
+    if (this._configInterval) {
+      clearInterval(this._configInterval);
+    }
+    this._configInterval = setInterval(() => {
+      this.getConfig().subscribe(config => {
+        if (config.trainingRasa && !fast) {
+          clearInterval(this._configInterval);
+          this.getContinuousConfig(true);
+        } else if (!config.trainingRasa && fast) {
+          clearInterval(this._configInterval);
+          this.getContinuousConfig();
+          this._intentService.reload();
+          this._toastr.success('La mise à jour du chatbot est terminée.');
+        }
+      });
+    }, fast ? 10000 : 30000);
   }
 }

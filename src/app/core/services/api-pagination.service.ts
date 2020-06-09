@@ -46,6 +46,10 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
     );
   }
 
+  public reload() {
+    this.load(this.pagination.currentPage).subscribe();
+  }
+
   public getEntities(needMoreData: boolean): Observable<PaginatedResult<T>> {
     this._loading$.next(true);
     return this._httpClient.post<PaginatedResult<T>>(

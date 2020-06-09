@@ -89,7 +89,7 @@ export class InboxListComponent implements OnInit {
 
   private _reloadInbox() {
     if (this.inboxes$.value.length < 1) {
-      this.inboxService.load(this.pagination.currentPage).subscribe();
+      this.inboxService.reload();
     }
   }
 

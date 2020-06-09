@@ -11,7 +11,6 @@ import { Config } from '@model/config.model';
 })
 export class UpdateChatbotComponent implements OnInit {
 
-  loading$: Observable<boolean>;
   config$: Observable<Config>;
 
   constructor(private _rasaService: RasaService,
@@ -19,12 +18,12 @@ export class UpdateChatbotComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loading$ = this._rasaService.loading$;
     this.config$ = this._configService.config$;
   }
 
   trainRasa() {
     this._rasaService.train().subscribe();
+    this._configService.getContinuousConfig(true);
   }
 
 }

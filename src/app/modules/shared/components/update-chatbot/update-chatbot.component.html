@@ -10,9 +10,9 @@
   <div>
     <button mat-stroked-button
             color="accent"
-            [disabled]="loading$ | async"
+            [disabled]="(config$ | async).trainingRasa"
             (click)="trainRasa()">
-      <mat-icon>sync</mat-icon>
+      <mat-icon [ngClass]="{'icon-rotate': (config$ | async).trainingRasa}">refresh</mat-icon>
       Mise à jour
     </button>
   </div>
