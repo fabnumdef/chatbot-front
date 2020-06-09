@@ -19,7 +19,7 @@ export class ChatbotConfigComponent implements OnInit {
   customizationForm: FormGroup;
   descriptionForm: FormGroup;
   chatbotConfig: Config;
-  icons = ['avion.svg', 'bateau.svg', 'camion.svg', 'tank.svg', 'parachute.svg', 'femme.svg', 'homme.svg'];
+  icons = ['avion.png', 'bateau.png', 'camion.png', 'tank.png', 'parachute.png', 'femme.png', 'homme.png'];
   iconPreview = null;
 
   constructor(private _configService: ConfigService,
