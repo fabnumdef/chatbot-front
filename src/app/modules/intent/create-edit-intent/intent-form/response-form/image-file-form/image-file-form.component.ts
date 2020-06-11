@@ -87,7 +87,11 @@ export class ImageFileFormComponent implements OnInit {
       this.responseFormControl.setValue(null);
       return;
     }
-    this.responseFormControl.setValue(media ? `${this.btnText} <${this.mediaPath + this.media.file}>` : null);
+    if (this.isImage) {
+      this.responseFormControl.setValue(media ? `${this.mediaPath + this.media.file}` : null);
+    } else {
+      this.responseFormControl.setValue(media ? `${this.btnText} <${this.mediaPath + this.media.file}>` : null);
+    }
     this.responseFormControl.markAsDirty();
   }
 
