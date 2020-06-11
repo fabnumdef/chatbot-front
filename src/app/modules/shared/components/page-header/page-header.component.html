@@ -8,7 +8,7 @@
               color="accent"
               class="small">
         <mat-icon>help_outline</mat-icon>
-        Aide
+        Voir la documentation
       </button>
     </a>
     <button mat-button
@@ -17,7 +17,7 @@
             *ngIf="auth.isAuthenticated()"
             (click)="auth.logout()">
       <mat-icon>exit_to_app</mat-icon>
-      {{ auth.user?.firstName }} {{ auth.user?.lastName }}
+      Déconnexion
     </button>
   </div>
 </div>

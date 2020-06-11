@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserRole } from '@enum/user-role.enum';
+import { UserRole, UserRole_Fr } from '@enum/user-role.enum';
 import { UserService } from '@core/services/user.service';
 import { User } from '@model/user.model';
 
@@ -13,6 +13,7 @@ export class UserFormComponent implements OnInit {
 
   userForm: FormGroup;
   userRole = Object.keys(UserRole);
+  userRole_Fr = UserRole_Fr;
 
   @Input() user: User = new User();
   @Output() cancel: EventEmitter<boolean> = new EventEmitter<boolean>();

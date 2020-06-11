@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '@core/services/user.service';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '@model/user.model';
-import { UserRole } from '@enum/user-role.enum';
+import { UserRole, UserRole_Fr } from '@enum/user-role.enum';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
@@ -22,6 +22,7 @@ export class ChatbotUsersComponent implements OnInit {
   loading$: BehaviorSubject<boolean>;
   addUser = false;
   userSelected: string = null;
+  userRole_Fr = UserRole_Fr;
 
   constructor(private _userService: UserService,
               private _dialog: MatDialog) {

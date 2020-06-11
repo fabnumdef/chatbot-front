@@ -50,7 +50,7 @@
       <mat-select formControlName="role"
                   placeholder="Choisir..."
                   required>
-        <mat-option *ngFor="let role of userRole" [value]="role">{{ role }}</mat-option>
+        <mat-option *ngFor="let role of userRole" [value]="role">{{ userRole_Fr[role] }}</mat-option>
       </mat-select>
       <mat-error *ngIf="controls.role.hasError('required')">
         Vous n'avez pas choisi de rôle.

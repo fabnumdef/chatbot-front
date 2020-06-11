@@ -13,7 +13,7 @@
         {{ user.email }}
       </div>
       <div>
-        {{ user.role }}
+        {{ userRole_Fr[user.role] }}
       </div>
 
       <div class="actions" *appHasRole="'admin'">

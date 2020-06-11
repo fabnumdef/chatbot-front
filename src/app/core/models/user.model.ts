@@ -5,6 +5,6 @@ export class User {
   firstName: string;
   lastName: string;
 
-  role: UserRole = UserRole.reader;
+  role: UserRole = UserRole.writer;
   createdAt: string;
 }

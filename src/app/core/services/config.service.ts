@@ -6,6 +6,7 @@ import { Config } from '@model/config.model';
 import { finalize, tap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { IntentService } from '@core/services/intent.service';
+import { AuthService } from '@core/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class ConfigService {
 
   constructor(private _http: HttpClient,
               private _toastr: ToastrService,
-              private _intentService: IntentService) {
+              private _intentService: IntentService,
+              private _auth: AuthService) {
     this._url = `${environment.api_endpoint}/config`;
     this.getConfig().subscribe(() => {
     }, () => {
@@ -89,6 +91,9 @@ export class ConfigService {
       clearInterval(this._configInterval);
     }
     this._configInterval = setInterval(() => {
+      if (!this._auth.isAuthenticated()) {
+        return;
+      }
       this.getConfig().subscribe(config => {
         if (config.trainingRasa && !fast) {
           clearInterval(this._configInterval);
