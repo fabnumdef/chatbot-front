@@ -6,7 +6,6 @@ export class Config {
   secondaryColor: string;
   problematic: string;
   audience: string;
-  solution: string;
   mediaSize: number;
   trainingRasa: boolean;
   needTraining: boolean;

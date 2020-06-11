@@ -192,24 +192,6 @@
           L'audience est trop longue, elle doit faire au maximum 200 caractères.
         </mat-error>
       </mat-form-field>
-
-      <div class="chatbot-subtitle">
-        <h4>Quelle solution propose votre chatbot ?</h4>
-      </div>
-      <mat-form-field appearance="outline">
-        <textarea matInput
-                  placeholder="Saisir..."
-                  formControlName="solution"
-                  maxlength="200"
-                  required>
-      </textarea>
-        <mat-error *ngIf="descriptionControls.solution.hasError('required')">
-          Vous n'avez pas saisi de solution.
-        </mat-error>
-        <mat-error *ngIf="descriptionControls.solution.hasError('maxlength')">
-          La solution est trop longue, elle doit faire au maximum 200 caractères.
-        </mat-error>
-      </mat-form-field>
     </div>
   </form>
   <ng-container *appHasRole="'admin'">

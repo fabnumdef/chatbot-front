@@ -114,7 +114,6 @@ export class ChatbotConfigComponent implements OnInit {
     this.descriptionForm = this._fb.group({
       problematic: [this.chatbotConfig.problematic, [Validators.required, Validators.maxLength(200)]],
       audience: [this.chatbotConfig.audience, [Validators.required, Validators.maxLength(200)]],
-      solution: [this.chatbotConfig.solution, [Validators.required, Validators.maxLength(200)]],
     });
 
     if (!this.chatbotConfig.icon) {

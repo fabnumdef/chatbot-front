@@ -66,9 +66,6 @@ export class ConfigService {
     if (partialConfig.audience) {
       formData.append('audience', partialConfig.audience);
     }
-    if (partialConfig.solution) {
-      formData.append('solution', partialConfig.solution);
-    }
 
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
