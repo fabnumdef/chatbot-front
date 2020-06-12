@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { StatsService } from '@core/services/stats.service';
 import { map } from 'rxjs/operators';
 import { BaseChartDirective } from 'ng2-charts';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { graphDetailInOutAnimation } from '../../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 import * as moment from 'moment';
 import 'moment/locale/fr';
+import { ReplaySubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-stats-graph',
@@ -14,10 +16,11 @@ import 'moment/locale/fr';
     graphDetailInOutAnimation
   ]
 })
-export class StatsGraphComponent implements OnInit {
+export class StatsGraphComponent  implements OnInit, OnDestroy {
 
   @ViewChild(BaseChartDirective)
   public chart: BaseChartDirective;
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
   data: any;
   startDate: Date;
   endDate: Date;
@@ -31,6 +34,7 @@ export class StatsGraphComponent implements OnInit {
   questionDisplay = true;
   visitorsDisplay = true;
   intentDisplay = true;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   chartOptions = {
     responsive: true,
@@ -85,21 +89,41 @@ export class StatsGraphComponent implements OnInit {
       pointBorderColor: '#fff',
     }];
 
-  constructor(private _statsService: StatsService) {
-    this.startDate = new Date('2020-05-01');
-    this.endDate = new Date('2020-06-01');
-    moment.locale('fr');
+  constructor(public _statsService: StatsService) {
+    this.getGraph(null);
+  }
 
-    while (this.startDate <= this.endDate) {
-      this.chartLabels.push(new Date(this.startDate.setDate(this.startDate.getDate() + 1)).toLocaleDateString('en-US'));
-      this.dataset1.push(0);
-      this.dataset2.push(0);
-      this.dataset3.push(0);
+  ngOnInit(): void {
+    this._statsService._currentFilters$
+      .pipe(
+        takeUntil(this.destroy$))
+      .subscribe(
+      (value) => {
+        this.getGraph(value);
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
+  getGraph(dates) {
+    this.startDate = dates?.startDate ? moment(dates.startDate).toDate() : moment().subtract(1, 'month').toDate();
+    this.endDate = dates?.endDate ? moment(dates.endDate).toDate() : moment().toDate();
+
+    if (this.startDate > this.endDate) {
+      this.startDate = this.endDate;
     }
-    this.data = this._statsService.getGraphData().pipe(map((response: any) => response));
+    this.setXAxis(this.startDate, this.endDate);
+
+    this._statsService.setCurrentFilters(
+      dates?.startDate,
+      dates?.endDate);
+    this.data = this._statsService.getGraphData(this._statsService.getCurrentFilters());
     this.data.subscribe(
       (result) => {
-
         this.parsedData = this.parseData(result);
         this.parsedData['question'].forEach(elem => {
           const position = this.chartLabels.indexOf(elem.date);
@@ -131,7 +155,19 @@ export class StatsGraphComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
+  setXAxis(start, end) {
+    let current = start ? start : this.startDate;
+    this.dataset1 = [];
+    this.dataset2 = [];
+    this.dataset3 = [];
+    this.chartLabels = [];
+    while (current <= (end ? end : this.endDate)) {
+      this.chartLabels.push(new Date(current).toLocaleDateString('en-US'));
+      this.dataset1.push(0);
+      this.dataset2.push(0);
+      this.dataset3.push(0);
+      current = moment(current).add(1, 'day').toDate();
+    }
   }
 
   parseData(dataToParse) {
@@ -252,7 +288,7 @@ export class StatsGraphComponent implements OnInit {
     anchor.download = name;
   }
 
-  download(){
+  download() {
     const btn: HTMLElement = document.getElementById('downloadGraphBtn');
     btn.click();
   }

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DestroyObservable } from '@core/utils/destroy-observable';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { StatsService } from '@core/services/stats.service';
+import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
 @Component({
@@ -10,7 +11,7 @@ import * as moment from 'moment';
   templateUrl: './stats-filter.component.html',
   styleUrls: ['./stats-filter.component.scss']
 })
-export class StatsFilterComponent extends DestroyObservable implements OnInit {
+export class StatsFilterComponent extends DestroyObservable implements OnInit, OnDestroy {
 
   statsFilters: FormGroup;
 
@@ -21,24 +22,30 @@ export class StatsFilterComponent extends DestroyObservable implements OnInit {
 
   ngOnInit(): void {
     this.statsFilters = this._fb.group({
-      startDate: null,
-      endDate: null
-      /*startDate: [this._statsService.currentFilters?.startDate ? moment(this._statsService.currentFilters.startDate, 'DD/MM/yyyy'): null],
-      endDate: [this._statsService.currentFilters?.endDate ? moment(this._statsService.currentFilters.endDate, 'DD/MM/yyyy') : null]*/
+      startDate: [
+        // this._statsService.currentFilters?.startDate ? moment(this._statsService.currentFilters.startDate, 'YYYY-MM-DD').toDate() : null
+        null
+      ],
+      endDate: [
+        // this._statsService.currentFilters?.endDate ? moment(this._statsService.currentFilters.endDate, 'YYYY-MM-DD').toDate() : null
+        null
+      ]
     });
-    /*
+
     this.statsFilters.valueChanges
       .pipe(
         takeUntil(this.destroy$),
         debounceTime(300),
         distinctUntilChanged())
       .subscribe(value => {
-        value.startDate = value.startDate ? value.startDate.format('DD/MM/yyyy') : null;
-        value.endDate = value.endDate ? value.endDate.format('DD/MM/yyyy') : null;
-        this._statsService.currentFilters = value;
-        this._statsService.load().subscribe();
+        value.startDate = value.startDate ? moment(value.startDate).format('yyyy-MM-DD') : null;
+        value.endDate = value.endDate ? moment(value.endDate).format('yyyy-MM-DD') : null;
+        this._statsService._currentFilters$.next(value);
       });
-    this._statsService.load().subscribe();*/
+}
+
+  ngOnDestroy() {
+    this._statsService.resetFilters();
   }
 
 }

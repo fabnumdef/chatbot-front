@@ -6,9 +6,13 @@ import { Component, Inject, OnInit } from '@angular/core';
     styleUrls: ['./stats-list.component.scss']
   })
 export class StatsListComponent implements OnInit {
-    constructor() {
+
+  public startDate: string;
+  public endDate: string;
+
+  constructor() {
     }
 
-    ngOnInit(): void {
-      }
+  ngOnInit(): void {
+    }
 }
