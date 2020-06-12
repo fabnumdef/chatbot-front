@@ -27,6 +27,7 @@ export class ChatbotComponent implements OnInit {
     subtitle: "Fabrique Numérique",
     inputTextFieldHint: "Posez votre question ...",
     showFullScreenButton: false,
+    storage: "session",
     profileAvatar: "https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-M0MbNyvjB7hr1guybEn%2F-M1fqT6lWaJK92SFPP4O%2F-M1fvDFAcMuCf7Cn-Y2Z%2Fdirty_logo-removebg-preview.png?alt=media&token=07396d0a-86a0-4eee-94cb-6fd4ee729a0f"
   })
         `;
