@@ -9,4 +9,5 @@ export class Config {
   mediaSize: number;
   trainingRasa: boolean;
   needTraining: boolean;
+  lastTrainingAt: string;
 }

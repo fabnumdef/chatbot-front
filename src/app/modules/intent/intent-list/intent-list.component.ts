@@ -28,7 +28,7 @@ export class IntentListComponent implements OnInit {
   intentStatusFr = IntentStatus_Fr;
 
   constructor(public intentService: IntentService,
-              private _configService: ConfigService,
+              public configService: ConfigService,
               private _dialog: MatDialog) {
   }
 
@@ -61,7 +61,7 @@ export class IntentListComponent implements OnInit {
       .pipe(filter(r => !!r))
       .subscribe(async () => {
         await this.intentService.delete(intent).subscribe();
-        this._configService.getConfig().subscribe();
+        this.configService.getConfig().subscribe();
       });
 
   }

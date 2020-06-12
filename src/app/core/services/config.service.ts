@@ -102,6 +102,6 @@ export class ConfigService {
           this._toastr.success('La mise à jour du chatbot est terminée.');
         }
       });
-    }, fast ? 10000 : 30000);
+    }, fast ? 30000 : 60000);
   }
 }

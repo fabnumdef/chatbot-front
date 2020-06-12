@@ -4,9 +4,16 @@
 .intent-list {
   .actions {
     margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
 
-    & > *:not(:last-child) {
+    & > *:first-child > *:not(:last-child) {
       margin-right: 15px;
+    }
+
+    & > *:not(:first-child) {
+      color: $grey;
+      font-size: 12px;
     }
   }
 

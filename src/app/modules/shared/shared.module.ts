@@ -5,7 +5,6 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { MaterialModule } from '../material/material.module';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
-import { UpdateChatbotComponent } from './components/update-chatbot/update-chatbot.component';
 import { ReversePipe } from './pipes/reverse.pipe';
 import { HasRoleDirective } from './directives/has-role.directive';
 
@@ -15,7 +14,6 @@ import { HasRoleDirective } from './directives/has-role.directive';
     ConfirmDialogComponent,
     PageHeaderComponent,
     PaginationComponent,
-    UpdateChatbotComponent,
     ReversePipe,
     HasRoleDirective
   ],
@@ -28,7 +26,6 @@ import { HasRoleDirective } from './directives/has-role.directive';
     ConfirmDialogComponent,
     PageHeaderComponent,
     PaginationComponent,
-    UpdateChatbotComponent,
     ReversePipe,
     HasRoleDirective
   ],

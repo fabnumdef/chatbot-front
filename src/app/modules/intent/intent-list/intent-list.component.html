@@ -1,21 +1,25 @@
 <div class="intent-list">
   <div class="actions">
-    <button mat-stroked-button
-            *appHasRole="'admin'"
-            color="accent"
-            [routerLink]="'/connaissances/fichier'">
-      <mat-icon>file_copy</mat-icon>
-      Exporter / importer des connaissances
-    </button>
-    <button mat-flat-button
-            color="accent"
-            [routerLink]="'/connaissances/creer'">
-      <mat-icon>add</mat-icon>
-      Créer nouvelle connaissance
-    </button>
+    <div>
+      <button mat-stroked-button
+              *appHasRole="'admin'"
+              color="accent"
+              [routerLink]="'/connaissances/fichier'">
+        <mat-icon>file_copy</mat-icon>
+        Exporter / importer des connaissances
+      </button>
+      <button mat-flat-button
+              color="accent"
+              [routerLink]="'/connaissances/creer'">
+        <mat-icon>add</mat-icon>
+        Créer nouvelle connaissance
+      </button>
+    </div>
+    <div>
+      {{ (configService.config$ | async)?.lastTrainingAt | date }}
+    </div>
   </div>
   <app-intent-filter></app-intent-filter>
-  <app-update-chatbot></app-update-chatbot>
   <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
   <div class="empty-list" *ngIf="!(loading$ | async) && (intents$ | async).length < 1">
     Aucune connaissances.
