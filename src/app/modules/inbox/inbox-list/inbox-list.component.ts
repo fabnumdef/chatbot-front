@@ -73,7 +73,6 @@ export class InboxListComponent implements OnInit {
 
   archiveInbox(inbox: Inbox) {
     this.inboxService.delete(inbox).subscribe(() => {
-      this._configService.getConfig().subscribe();
       this._toastr.success(`La discussion a été archivée.`);
       this._reloadInbox();
     });
@@ -81,7 +80,6 @@ export class InboxListComponent implements OnInit {
 
   validateInbox(inbox: Inbox) {
     this.inboxService.validate(inbox).subscribe(() => {
-      this._configService.getConfig().subscribe();
       this._toastr.success(`La discussion a été validée et archivée.`);
       this._reloadInbox();
     });
