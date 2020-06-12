@@ -20,6 +20,12 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
+      <div class="chatbot-info" *ngIf="expiresCheckbox.checked">
+        <mat-icon>info</mat-icon>
+        <div>
+          Configurez un rappel sur les connaissances nécessitant d'être mis à jour.
+        </div>
+      </div>
     </mat-checkbox>
 
     <mat-accordion [multi]="true">

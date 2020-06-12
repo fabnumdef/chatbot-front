@@ -122,3 +122,16 @@ mat-icon.mat-icon.icon-rotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.chatbot-info {
+  padding: 10px;
+  border: 1px solid $primary-color;
+  color: $primary-color;
+  display: flex;
+  align-items: center;
+  border-radius: $border-radius;
+
+  .mat-icon {
+    margin-right: 10px;
+  }
+}

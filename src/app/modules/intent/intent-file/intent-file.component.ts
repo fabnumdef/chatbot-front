@@ -21,6 +21,7 @@ export class IntentFileComponent implements OnInit {
   importFileFormGroup: FormGroup;
   fileTemplateCheckResume: FileTemplateCheckResume;
   historicFiles: FileHistoric[];
+  historicFilesFiltered: FileHistoric[];
   objectKeys = Object.keys;
 
   constructor(private _fb: FormBuilder,
@@ -108,6 +109,13 @@ export class IntentFileComponent implements OnInit {
     });
   }
 
+  showFullHistoric() {
+    if (!this.historicFilesFiltered || this.historicFilesFiltered.length > 3) {
+      return this.historicFilesFiltered = this.historicFiles.splice(this.historicFiles.length - 3, 3);
+    }
+    this.historicFilesFiltered = this.historicFiles;
+  }
+
   /**
    * PRIVATE FUNCTIONS
    */
@@ -130,6 +138,7 @@ export class IntentFileComponent implements OnInit {
   private _getHistoric() {
     this.fileService.getHistoric().subscribe(files => {
       this.historicFiles = files;
+      this.showFullHistoric();
     });
   }
 

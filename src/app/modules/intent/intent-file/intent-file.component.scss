@@ -1,20 +1,15 @@
 @import 'src/styles/variables';
 
 .intent-file {
-  .info-row {
-    display: flex;
-    align-items: center;
-    font-weight: 700;
-
-    .mat-icon {
-      margin-right: 15px;
-    }
-  }
-
   .option-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .chatbot-info {
+    width: 234px;
+    margin-top: 15px;
   }
 
   .file-row {
@@ -123,6 +118,7 @@
     padding: 20px;
     box-sizing: border-box;
     background-color: $white;
+    margin-bottom: 15px;
 
     .badge {
       background-color: $primary-color-50;
@@ -131,10 +127,6 @@
       color: $primary-color;
       font-weight: bold;
       border-radius: $border-radius;
-    }
-
-    &:not(:first-child) {
-      margin-top: 15px;
     }
   }
 
