@@ -38,15 +38,21 @@
         <app-question-form [questionForm]="intentForm"></app-question-form>
       </mat-expansion-panel>
 
-      <ng-container *ngFor="let responseForm of responsesFormArray.controls; let idx = index">
-        <mat-expansion-panel disabled [expanded]="true" *ngIf="showResponseForm(idx)">
-          <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
-            <mat-panel-title>
-              <h4>Votre réponse {{ getResponseIdx(idx) }}<span class="red">*</span></h4>
-            </mat-panel-title>
-            <button mat-icon-button [matMenuTriggerFor]="responseMenu">
-              <mat-icon>more_horiz</mat-icon>
-            </button>
+      <mat-expansion-panel [expanded]="isNewIntent">
+        <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
+          <mat-panel-title>
+            <h4>Réponse<span class="red">*</span></h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div *ngFor="let responseForm of responsesFormArray.controls; let idx = index">
+          <ng-container *ngIf="showResponseForm(idx)">
+            <div class="response-header">
+              <h5>Votre réponse {{ getResponseIdx(idx) }}</h5>
+              <button mat-icon-button [matMenuTriggerFor]="responseMenu">
+                <mat-icon>more_horiz</mat-icon>
+              </button>
+            </div>
             <mat-menu #responseMenu="matMenu" xPosition="before">
               <a target="_blank"
                  rel="noopener"
@@ -64,20 +70,20 @@
                 Supprimer
               </button>
             </mat-menu>
-          </mat-expansion-panel-header>
-          <app-response-form [responseFormArray]="responsesFormArray"
-                             [index]="idx">
-          </app-response-form>
-          <button mat-stroked-button
-                  color="accent"
-                  [disabled]="!responsesFormArray.valid"
-                  (click)="addResponse()"
-                  *ngIf="responsesFormArray.length === (idx + 1)">
-            <mat-icon>add</mat-icon>
-            Ajouter un autre type de réponse
-          </button>
-        </mat-expansion-panel>
-      </ng-container>
+            <app-response-form [responseFormArray]="responsesFormArray"
+                               [index]="idx">
+            </app-response-form>
+            <button mat-stroked-button
+                    color="accent"
+                    [disabled]="!responsesFormArray.valid"
+                    (click)="addResponse()"
+                    *ngIf="responsesFormArray.length === (idx + 1)">
+              <mat-icon>add</mat-icon>
+              Ajouter un autre type de réponse
+            </button>
+          </ng-container>
+        </div>
+      </mat-expansion-panel>
 
       <mat-expansion-panel>
         <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">

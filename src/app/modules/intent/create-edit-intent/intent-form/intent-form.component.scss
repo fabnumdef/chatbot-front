@@ -55,6 +55,11 @@
     }
   }
 
+  .response-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .actions {
     display: flex;
     justify-content: flex-end;

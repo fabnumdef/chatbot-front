@@ -3,10 +3,14 @@
 .quick-reply-form {
   .quick-reply-item {
     position: relative;
+    background-color: $white;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: $border-radius;
 
     .quick-reply-badge {
-      background-color: $primary-color;
-      color: $white;
+      background-color: $primary-color-50;
+      color: $primary-color;
       border-radius: $border-radius;
       padding: 2px 20px;
       font-size: 12px;
@@ -14,14 +18,6 @@
       display: inline-block;
       margin-bottom: 15px;
       text-transform: uppercase;
-    }
-
-    &:nth-child(3n + 2) .quick-reply-badge {
-      background-color: $success-color;
-    }
-
-    &:nth-child(3n + 3) .quick-reply-badge {
-      background-color: $warning-color;
     }
 
     form {
