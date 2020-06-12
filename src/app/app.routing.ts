@@ -12,7 +12,7 @@ const routes: Routes = [
     canActivateChild: [AuthGuard],
     children: [
       {
-        path: 'inbox',
+        path: 'requetes',
         loadChildren: () => import('./modules/inbox/inbox.module').then(m => m.InboxModule)
       },
       {
@@ -33,7 +33,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/inbox',
+        redirectTo: '/requetes',
         pathMatch: 'full'
       },
     ]
