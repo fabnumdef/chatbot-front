@@ -17,6 +17,7 @@
             </ngx-mat-select-search>
           </mat-option>
           <mat-option *ngFor="let intent of filteredIntents$ | async" [value]="intent">
+            <span class="confidence">{{ intent.confidence ? '(' + intent.confidence + '%)' : ''}}</span>
             {{ intent.category ? intent.category + ' - ' : ''}}{{intent.mainQuestion ? intent.mainQuestion : intent.id}}
           </mat-option>
         </mat-select>

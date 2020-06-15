@@ -18,7 +18,7 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
 
   @Input() inbox: Inbox;
   @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
-  intents$: BehaviorSubject<Intent[]>;
+  intents: Intent[];
   intentForm: FormGroup;
   filteredIntents$: BehaviorSubject<Intent[]> = new BehaviorSubject<Intent[]>([]);
   addIntent = false;
@@ -33,8 +33,15 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
   }
 
   ngOnInit(): void {
-    this.intents$ = this._intentService.fullEntities$;
-    this._intentService.fullEntities$.pipe(filter(e => e.length > 0)).subscribe(() => {
+    this._intentService.fullEntities$.pipe(filter(e => e.length > 0)).subscribe(intents => {
+      this.intents = intents.map(i => {
+        i.confidence = this.inbox.intentRanking?.find(ir => ir.name === i.id)?.confidence;
+        i.confidence = i.confidence ? Math.round(i.confidence * 100) : 0;
+        return i;
+      });
+      this.intents.sort(function(a, b) {
+        return a.confidence > b.confidence ? -1 : b.confidence > a.confidence ? 1 : 0;
+      });
       this._initSelectFilter();
       this._initFormGroup();
     });
@@ -52,14 +59,14 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
   }
 
   private _initFormGroup() {
-    const intent = this.intents$.value.find(i => i.id === this.inbox.intent?.id);
+    const intent = this.intents.find(i => i.id === this.inbox.intent?.id);
     this.intentForm = this._fb.group({
       intent: [intent ? intent : null, Validators.required]
     });
   }
 
   private _initSelectFilter() {
-    this.filteredIntents$.next(this.intents$.value.slice());
+    this.filteredIntents$.next(this.intents.slice());
     this.intentFilterCtrl.valueChanges
       .pipe(
         takeUntil(this.destroy$),
@@ -71,20 +78,20 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
   }
 
   private _filterIntents() {
-    if (!this.intents$.value) {
+    if (!this.intents) {
       return;
     }
     // get the search keyword
     let search = this.intentFilterCtrl.value;
     if (!search) {
-      this.filteredIntents$.next(this.intents$.value.slice());
+      this.filteredIntents$.next(this.intents.slice());
       return;
     } else {
       search = search.toLowerCase();
     }
     // filter the intents
     this.filteredIntents$.next(
-      this.intents$.value.filter(intent => {
+      this.intents.filter(intent => {
         return (`${intent.category ? `${intent.category} - ` : ''}${intent.mainQuestion}`)
           .toLowerCase().indexOf(search) > -1;
       })

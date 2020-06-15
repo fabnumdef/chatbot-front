@@ -15,6 +15,9 @@ export class Intent {
   updatedAt: Date;
   expiresAt: Date;
 
+  // For inbox
+  confidence?: number;
+
   constructor() {
     this.responses = [new Response()];
     this.knowledges = [];

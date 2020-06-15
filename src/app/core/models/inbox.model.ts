@@ -4,6 +4,7 @@ import { InboxStatus } from '@enum/inbox-status.enum';
 export class Inbox {
   id: number;
   confidence: number;
+  intentRanking: {name: string, confidence: number}[];
   question: string;
   response: any[];
   timestamp: number;
