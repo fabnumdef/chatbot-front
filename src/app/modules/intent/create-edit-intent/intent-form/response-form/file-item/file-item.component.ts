@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { WarningsDialogComponent } from '../../../../intent-file/warnings-dialog/warnings-dialog.component';
 import { MediaListDialogComponent } from '../media-list/media-list-dialog.component';
 import { filter, tap } from 'rxjs/operators';
 import { Media } from '@model/media.model';

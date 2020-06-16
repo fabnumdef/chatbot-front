@@ -11,6 +11,7 @@ import { InboxIntentComponent } from './inbox-list/inbox-intent/inbox-intent.com
 import { InboxPreviewComponent } from './inbox-list/inbox-preview/inbox-preview.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { IntentModule } from '../intent/intent.module';
+import { InboxAssignationDialogComponent } from './inbox-list/inbox-assignation-dialog/inbox-assignation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { IntentModule } from '../intent/intent.module';
     InboxFilterComponent,
     InboxListComponent,
     InboxIntentComponent,
-    InboxPreviewComponent
+    InboxPreviewComponent,
+    InboxAssignationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,9 @@ import { IntentModule } from '../intent/intent.module';
     ReactiveFormsModule,
     NgxMatSelectSearchModule,
     IntentModule
+  ],
+  entryComponents: [
+    InboxAssignationDialogComponent
   ]
 })
 export class InboxModule {

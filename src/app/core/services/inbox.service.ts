@@ -5,6 +5,7 @@ import { ApiPaginationService } from '@core/services/api-pagination.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
+import { User } from '@model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,18 @@ export class InboxService extends ApiPaginationService<Inbox> {
     return this._http.post<Inbox>(`${this._url}/${inbox.id}/validate`, {}).pipe(
       tap(() => {
         this.deleteToEntityArray(inbox);
+      }),
+      finalize(() => {
+        this._processing$.next(false);
+      }));
+  }
+
+  public assign(inbox: Inbox, user?: User): Observable<Inbox> {
+    this._processing$.next(true);
+    return this._http.post<Inbox>(`${this._url}/${inbox.id}/assign/${user ? user.email : ''}`, {}).pipe(
+      tap(() => {
+        inbox.user = user;
+        this.updateEntityArray(inbox);
       }),
       finalize(() => {
         this._processing$.next(false);

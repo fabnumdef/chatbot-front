@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { RefDataService } from '@core/services/ref-data.service';
 import { InboxStatus, InboxStatus_Fr } from '@enum/inbox-status.enum';
 import * as moment from 'moment';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-inbox-filter',
@@ -22,7 +23,8 @@ export class InboxFilterComponent extends DestroyObservable implements OnInit, O
 
   constructor(private _fb: FormBuilder,
               private _inboxService: InboxService,
-              private _refDataService: RefDataService) {
+              private _refDataService: RefDataService,
+              private _authService: AuthService) {
     super();
   }
 
@@ -35,7 +37,8 @@ export class InboxFilterComponent extends DestroyObservable implements OnInit, O
       statutes: [this._inboxService.currentFilters?.statutes ?
         this._inboxService.currentFilters.statutes : [InboxStatus.pending, InboxStatus.to_verify]],
       startDate: [this._inboxService.currentFilters?.startDate ? moment(this._inboxService.currentFilters.startDate, 'DD/MM/yyyy') : null],
-      endDate: [this._inboxService.currentFilters?.endDate ? moment(this._inboxService.currentFilters.endDate, 'DD/MM/yyyy') : null]
+      endDate: [this._inboxService.currentFilters?.endDate ? moment(this._inboxService.currentFilters.endDate, 'DD/MM/yyyy') : null],
+      assignedTo: [this._inboxService.currentFilters?.assignedTo]
     });
     this.inboxFilters.valueChanges
       .pipe(
@@ -48,6 +51,7 @@ export class InboxFilterComponent extends DestroyObservable implements OnInit, O
         delete value.query;
         value.startDate = value.startDate ? value.startDate.format('DD/MM/yyyy') : null;
         value.endDate = value.endDate ? value.endDate.format('DD/MM/yyyy') : null;
+        value.assignedTo = value.assignedTo ? this._authService.user.email : null;
         this._inboxService.currentFilters = value;
         this._inboxService.load().subscribe();
       });

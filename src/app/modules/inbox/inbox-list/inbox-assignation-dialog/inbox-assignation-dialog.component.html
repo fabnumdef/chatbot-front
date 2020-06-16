@@ -1,0 +1,38 @@
+<div class="assignation-dialog">
+  <h1>Demande à une personne extérieur</h1>
+
+  <form [formGroup]="assignationForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput
+             placeholder="Saisir..."
+             formControlName="email"
+             maxlength="255"
+             required>
+      <mat-error *ngIf="controls.email.hasError('required')">
+        Vous n'avez pas saisi d'email.
+      </mat-error>
+      <mat-error *ngIf="controls.email.hasError('email')">
+        L'email saisi est incorrect.
+      </mat-error>
+      <mat-error *ngIf="controls.email.hasError('maxlength')">
+        L'email est trop long, il doit faire au maximum 255 caractères.
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+  <div class="actions">
+    <button mat-flat-button
+            color="accent"
+            type="button"
+            [mat-dialog-close]="false">
+      Annuler
+    </button>
+    <button mat-stroked-button
+            color="accent"
+            [disabled]="!assignationForm.valid"
+            (click)="sendEmail()">
+      Confirmer
+    </button>
+  </div>
+</div>

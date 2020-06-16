@@ -40,6 +40,9 @@
       <mat-error *ngIf="controls.email.hasError('required')">
         Vous n'avez pas saisi d'email.
       </mat-error>
+      <mat-error *ngIf="controls.email.hasError('email')">
+        L'email saisi est incorrect.
+      </mat-error>
       <mat-error *ngIf="controls.email.hasError('maxlength')">
         L'email est trop long, il doit faire au maximum 255 caractères.
       </mat-error>

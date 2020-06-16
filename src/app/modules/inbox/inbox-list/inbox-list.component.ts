@@ -10,6 +10,10 @@ import { UserService } from '@core/services/user.service';
 import { User } from '@model/user.model';
 import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 import { ConfigService } from '@core/services/config.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MediaListDialogComponent } from '../../intent/create-edit-intent/intent-form/response-form/media-list/media-list-dialog.component';
+import { InboxAssignationDialogComponent } from './inbox-assignation-dialog/inbox-assignation-dialog.component';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-inbox-list',
@@ -33,7 +37,8 @@ export class InboxListComponent implements OnInit {
   constructor(public inboxService: InboxService,
               private _toastr: ToastrService,
               private _configService: ConfigService,
-              private _userService: UserService) {
+              private _userService: UserService,
+              private _dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -73,16 +78,38 @@ export class InboxListComponent implements OnInit {
 
   archiveInbox(inbox: Inbox) {
     this.inboxService.delete(inbox).subscribe(() => {
-      this._toastr.success(`La discussion a été archivée.`);
+      this._toastr.success(`La requête a été archivée.`);
       this._reloadInbox();
     });
   }
 
   validateInbox(inbox: Inbox) {
     this.inboxService.validate(inbox).subscribe(() => {
-      this._toastr.success(`La discussion a été validée et archivée.`);
+      this._toastr.success(`La requête a été validée et archivée.`);
       this._reloadInbox();
     });
+  }
+
+  assignationChange(user: User, inbox: Inbox) {
+    if (!user) {
+      return;
+    }
+    this.inboxService.assign(inbox, user).subscribe(() => {
+      this._toastr.success(`La requête a été assignée.`);
+    });
+  }
+
+  assignationExtern(inbox: Inbox) {
+    this.inboxService.assign(inbox, null).subscribe();
+    this._dialog.open(InboxAssignationDialogComponent, {
+      data: {
+        inbox: inbox
+      }
+    });
+  }
+
+  compareByEmails(user1: User, user2: User) {
+    return user1?.email === user2?.email;
   }
 
   private _reloadInbox() {
