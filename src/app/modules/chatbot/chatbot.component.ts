@@ -1,6 +1,7 @@
 /* tslint:disable */
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { ConfigService } from '@core/services/config.service';
 
 @Component({
   selector: 'app-chatbot',
@@ -11,7 +12,8 @@ export class ChatbotComponent implements OnInit {
 
   constructor(private _renderer2: Renderer2,
               @Inject(DOCUMENT) private _document: Document,
-              @Inject(Window) private _window: Window) {
+              @Inject(Window) private _window: Window,
+              private _configService: ConfigService) {
   }
 
   ngOnInit(): void {
@@ -24,11 +26,11 @@ export class ChatbotComponent implements OnInit {
     socketUrl: "${this._window.location.origin}:5005",
     socketPath: "/socket.io/",
     storage: "session",
-    title: "FaC",
-    subtitle: "Fabrique Numérique",
+    title: "${this._configService.config$.value?.name}",
+    subtitle: "${this._configService.config$.value?.function}",
     inputTextFieldHint: "Posez votre question ...",
     showFullScreenButton: false,
-    profileAvatar: "https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-M0MbNyvjB7hr1guybEn%2F-M1fqT6lWaJK92SFPP4O%2F-M1fvDFAcMuCf7Cn-Y2Z%2Fdirty_logo-removebg-preview.png?alt=media&token=07396d0a-86a0-4eee-94cb-6fd4ee729a0f"
+    profileAvatar: "${this._window.location.origin}/media/${this._configService.config$.value?.icon}"
   })
         `;
 
