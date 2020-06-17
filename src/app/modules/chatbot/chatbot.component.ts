@@ -2,6 +2,7 @@
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ConfigService } from '@core/services/config.service';
+import { PublicConfigService } from '@core/services/public-config.service';
 
 @Component({
   selector: 'app-chatbot',
@@ -13,7 +14,7 @@ export class ChatbotComponent implements OnInit {
   constructor(private _renderer2: Renderer2,
               @Inject(DOCUMENT) private _document: Document,
               @Inject(Window) private _window: Window,
-              private _configService: ConfigService) {
+              private _publicConfigService: PublicConfigService) {
   }
 
   ngOnInit(): void {
@@ -26,11 +27,11 @@ export class ChatbotComponent implements OnInit {
     socketUrl: "${this._window.location.origin}:5005",
     socketPath: "/socket.io/",
     storage: "session",
-    title: "${this._configService.config$.value?.name}",
-    subtitle: "${this._configService.config$.value?.function}",
+    title: "${this._publicConfigService.config$.value?.name}",
+    subtitle: "${this._publicConfigService.config$.value?.function}",
     inputTextFieldHint: "Posez votre question ...",
     showFullScreenButton: false,
-    profileAvatar: "${this._window.location.origin}/media/${this._configService.config$.value?.icon}"
+    profileAvatar: "${this._window.location.origin}/media/${this._publicConfigService.config$.value?.icon}"
   })
         `;
 
