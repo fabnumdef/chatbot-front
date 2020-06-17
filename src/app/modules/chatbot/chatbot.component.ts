@@ -1,8 +1,8 @@
 /* tslint:disable */
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ConfigService } from '@core/services/config.service';
 import { PublicConfigService } from '@core/services/public-config.service';
+import { filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chatbot',
@@ -18,8 +18,11 @@ export class ChatbotComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const script = this._renderer2.createElement('script');
-    script.text = `
+    this._publicConfigService.config$.pipe(
+      filter(c => !!c),
+      tap(() => {
+        const script = this._renderer2.createElement('script');
+        script.text = `
             WebChat.default.init({
     embedded: true,
     selector: "#webchat",
@@ -27,15 +30,17 @@ export class ChatbotComponent implements OnInit {
     socketUrl: "${this._window.location.origin}:5005",
     socketPath: "/socket.io/",
     storage: "session",
-    title: "${this._publicConfigService.config$.value?.name}",
-    subtitle: "${this._publicConfigService.config$.value?.function}",
+    title: "${this._publicConfigService.config.name}",
+    subtitle: "${this._publicConfigService.config.function}",
     inputTextFieldHint: "Posez votre question ...",
     showFullScreenButton: false,
-    profileAvatar: "${this._window.location.origin}/media/${this._publicConfigService.config$.value?.icon}"
+    profileAvatar: "${this._window.location.origin}/media/${this._publicConfigService.config.icon}"
   })
         `;
 
-    this._renderer2.appendChild(this._document.body, script);
+        this._renderer2.appendChild(this._document.body, script);
+      })
+    ).subscribe();
   }
 
 }
