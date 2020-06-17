@@ -77,7 +77,7 @@
       }
     }
     
-    .linechart {
+    .chart {
       border-radius: 5px;
       background-color: $white;
       width: auto;
@@ -87,24 +87,45 @@
 
     .bggreen {
       background-color: #40b374;
+      transition: 0.25s;
     }
-
+    .bggreenNeg {
+      background-color: #cacaca;
+    }
+    .bggreenNeg:hover {
+      background-color: #40b374;
+      transition: 0.25s;
+    }
     .cgreen {
       color: #40b374;
     }
     
     .bgyellow {
       background-color: #fab754;
+      transition: 0.25s;
     }
-
+    .bgyellowNeg {
+      background-color: #cacaca;
+      transition: 0.25s;
+    }
+    .bgyellowNeg:hover {
+      background-color: #fab754;
+    }
     .cyellow {
       color: #fab754;
     }
 
     .bgpink {
       background-color: #fab7b9;
+      transition: 0.25s;
     }
-
+    .bgpinkNeg {
+      background-color: #cacaca;
+      transition: 0.25s;
+    }
+    .bgpinkNeg:hover {
+      background-color: #fab7b9;
+    }
     .cpink {
       color: #fab7b9;
     }

@@ -14,6 +14,7 @@ import * as moment from 'moment';
 export class StatsFilterComponent extends DestroyObservable implements OnInit, OnDestroy {
 
   statsFilters: FormGroup;
+  today = new Date();
 
   constructor(private _fb: FormBuilder,
               private _statsService: StatsService) {
@@ -21,6 +22,7 @@ export class StatsFilterComponent extends DestroyObservable implements OnInit, O
   }
 
   ngOnInit(): void {
+    this.today.setDate(this.today.getDate());
     this.statsFilters = this._fb.group({
       startDate: [
         // this._statsService.currentFilters?.startDate ? moment(this._statsService.currentFilters.startDate, 'YYYY-MM-DD').toDate() : null
@@ -40,6 +42,7 @@ export class StatsFilterComponent extends DestroyObservable implements OnInit, O
       .subscribe(value => {
         value.startDate = value.startDate ? moment(value.startDate).format('yyyy-MM-DD') : null;
         value.endDate = value.endDate ? moment(value.endDate).format('yyyy-MM-DD') : null;
+        this._statsService.setCurrentFilters(value.startDate, value.endDate);
         this._statsService._currentFilters$.next(value);
       });
 }

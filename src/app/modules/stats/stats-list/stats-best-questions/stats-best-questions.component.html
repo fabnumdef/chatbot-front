@@ -13,5 +13,17 @@
         [legend]="true">
     </canvas>
   </div>
+
+  <button mat-stroked-button
+      class="downloadButton"
+      color="accent"
+      type="button"
+      (click)="download()">
+      <mat-icon>get_app</mat-icon>
+      Exporter le graphique
+  </button>
+
+  <a href="#" id="downloadBestQuestBtn" (click)="downloadCanvasBest($event)" hidden> DOWNLOAD THIS</a>
+   
 </div>
   
