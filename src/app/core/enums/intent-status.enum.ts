@@ -8,9 +8,9 @@ export enum IntentStatus {
 }
 
 export enum IntentStatus_Fr {
-  to_deploy = 'À déployer',
+  to_deploy = 'Prochainement mis à jour',
   active = 'Actif',
-  active_modified = 'Actif modifié',
+  active_modified = 'Prochainement mis à jour',
   in_training = 'Mise à jour en cours',
   to_archive = 'Actif à archiver',
   archived = 'Archivé'
