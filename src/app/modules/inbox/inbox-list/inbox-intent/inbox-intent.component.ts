@@ -92,7 +92,7 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
     // filter the intents
     this.filteredIntents$.next(
       this.intents.filter(intent => {
-        return (`${intent.category ? `${intent.category} - ` : ''}${intent.mainQuestion}`)
+        return (`${intent.category ? `${intent.category} - ` : ''}${intent.mainQuestion ? intent.mainQuestion : intent.id}`)
           .toLowerCase().indexOf(search) > -1;
       })
     );
