@@ -1,3 +1,4 @@
+import { DestroyObservable } from '@core/utils/destroy-observable';
 import { StatsService } from '@core/services/stats.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
@@ -8,12 +9,13 @@ import { Subject } from 'rxjs';
   templateUrl: './stats-worst-questions.component.html',
   styleUrls: ['./stats-worst-questions.component.scss']
 })
-export class StatsWorstQuestionsComponent implements OnInit, OnDestroy {
+export class StatsWorstQuestionsComponent extends DestroyObservable implements OnInit {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   worstQuestions: Array<string> = [];
 
   constructor(public _statsService: StatsService) {
+    super();
   }
 
   ngOnInit(): void {
@@ -27,11 +29,6 @@ export class StatsWorstQuestionsComponent implements OnInit, OnDestroy {
         this.getData(value);
       }
     );
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 
   getData(dates) {

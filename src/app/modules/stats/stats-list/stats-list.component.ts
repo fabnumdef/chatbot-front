@@ -7,9 +7,6 @@ import { Component, Inject, OnInit } from '@angular/core';
   })
 export class StatsListComponent implements OnInit {
 
-  public startDate: string;
-  public endDate: string;
-
   constructor() {
     }
 

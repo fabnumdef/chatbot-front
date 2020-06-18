@@ -1,3 +1,4 @@
+import { DestroyObservable } from '@core/utils/destroy-observable';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { StatsService } from '@core/services/stats.service';
 import { BaseChartDirective } from 'ng2-charts';
@@ -15,7 +16,7 @@ import { Subject } from 'rxjs';
     graphDetailInOutAnimation
   ]
 })
-export class StatsGraphComponent implements OnInit, OnDestroy {
+export class StatsGraphComponent extends DestroyObservable implements OnInit {
 
   @ViewChild(BaseChartDirective)
   public chart: BaseChartDirective;
@@ -87,10 +88,12 @@ export class StatsGraphComponent implements OnInit, OnDestroy {
     }];
 
   constructor(public _statsService: StatsService) {
-    this.getGraph(null);
+    super();
   }
 
   ngOnInit(): void {
+    this.getGraph(null);
+    // If you want to add time filter
     this._statsService._currentFilters$
       .pipe(
         takeUntil(this.destroy$))
@@ -99,11 +102,6 @@ export class StatsGraphComponent implements OnInit, OnDestroy {
         this.getGraph(value);
       }
     );
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 
   getGraph(dates) {

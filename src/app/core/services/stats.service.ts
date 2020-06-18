@@ -38,14 +38,8 @@ export class StatsService  {
   }
 
   setCurrentFilters(startDate, endDate) {
-    if (!startDate) {
-      //startDate = moment().subtract(1, 'month').format('YYYY-MM-DD').toString();
-      startDate = null;
-    }
-    if (!endDate) {
-      //endDate = moment().format('YYYY-MM-DD').toString();
-      endDate = null;
-    }
+    startDate = startDate ? startDate : null;
+    endDate = endDate ? endDate : null;
     this.currentFilters = {
       startDate: startDate,
       endDate: endDate
