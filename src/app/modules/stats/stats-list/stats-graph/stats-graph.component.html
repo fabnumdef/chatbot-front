@@ -8,13 +8,14 @@
     <div class="kpi-stats">
       <div class="kpi-box">
         <button mat-flat-button
+                  [ngClass]="{'bggreen': questionDisplay === true, 'bggreenNeg': questionDisplay === false}"
                   class="title-kpi bggreen"
                   (click)="displayQuestionPanel()">
                   Nombre de questions posées
           </button>
         <div class="content-kpi" *ngIf="questionDisplay === true" [@detailInOutAnimation]>
           <div class="global cgreen">
-            <b>{{questionsPanel['count']}} questions posées en Avril 2020</b>
+            <b>{{questionsPanel['count']}} questions posées</b>
           </div>
           <mat-divider></mat-divider>
           <div class="row">
@@ -39,47 +40,17 @@
         </div>
 
       </div>
+
       <div class="kpi-box">
         <button mat-flat-button
-                  class="title-kpi bgyellow"
-                  (click)="displayIntentPanel()">
-                  Volume de la base de connaissance
-          </button>
-        <div class="content-kpi" *ngIf="intentDisplay === true" [@detailInOutAnimation]>
-          <div class="global cyellow">
-            <b>{{intentPanel['count']}} questions ajoutées en Avril 2020</b>
-          </div>
-          <mat-divider></mat-divider>
-          <div class="row">
-            <div class="type">
-              <b>Maximal</b>
-            </div>
-            <div class="row-kpi">
-              <div>- {{intentPanel['maxDay'] | titlecase}}</div>
-              <div>- {{intentPanel['maxNb']}} questions ajoutées</div>
-            </div>
-          </div>
-          <mat-divider></mat-divider>
-          <div class="row">
-            <div class="type">
-              <b>Minimal</b>
-            </div>
-            <div class="row-kpi">
-              <div>- {{intentPanel['minDay'] | titlecase}}</div>
-              <div>- {{intentPanel['minNb']}} questions posées</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="kpi-box">
-        <button mat-flat-button
-                  class="title-kpi bgpink"
-                  (click)="displayVisitorPanel()">
-                  Nombre de visiteurs
+                [ngClass]="{'bgpink': visitorsDisplay === true, 'bgpinkNeg': visitorsDisplay === false}"
+                class="title-kpi"
+                (click)="displayVisitorPanel()">
+                Nombre de visiteurs
           </button>
         <div class="content-kpi" *ngIf="visitorsDisplay === true" [@detailInOutAnimation]>
           <div class="global cpink">
-            <b>{{visitorsPanel['count']}} visiteurs en Avril 2020</b>
+            <b>{{visitorsPanel['count']}} visiteurs</b>
           </div>
           <mat-divider></mat-divider>
           <div class="row">
@@ -103,10 +74,46 @@
           </div>
         </div>
       </div>
+
+      <div class="kpi-box">
+        <button mat-flat-button
+                  [ngClass]="{'bgyellow': intentDisplay === true, 'bgyellowNeg': intentDisplay === false}"
+                  class="title-kpi"
+                  (click)="displayIntentPanel()">
+                  Volume de la base de connaissance
+          </button>
+        <div class="content-kpi" *ngIf="intentDisplay === true" [@detailInOutAnimation]>
+          <div class="global cyellow">
+            <b>{{intentPanel['count']}} questions ajoutées</b>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row">
+            <div class="type">
+              <b>Maximal</b>
+            </div>
+            <div class="row-kpi">
+              <div>- {{intentPanel['maxDay'] | titlecase}}</div>
+              <div>- {{intentPanel['maxNb']}} questions ajoutées</div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row">
+            <div class="type">
+              <b>Minimal</b>
+            </div>
+            <div class="row-kpi">
+              <div>- {{intentPanel['minDay'] | titlecase}}</div>
+              <div>- {{intentPanel['minNb']}} questions posées</div>
+            </div>
+          </div>
+        </div>
+      </div>
       
+      
+
     </div>
 
-    <div class="linechart">
+    <div class="chart">
       <canvas
         baseChart
         [chartType]="'line'"

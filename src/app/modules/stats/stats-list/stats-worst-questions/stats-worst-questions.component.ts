@@ -1,32 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { DestroyObservable } from '@core/utils/destroy-observable';
+import { StatsService } from '@core/services/stats.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-stats-worst-questions',
   templateUrl: './stats-worst-questions.component.html',
   styleUrls: ['./stats-worst-questions.component.scss']
 })
-export class StatsWorstQuestionsComponent implements OnInit {
+export class StatsWorstQuestionsComponent extends DestroyObservable implements OnInit {
 
-  worstQuestions: Array<string> = [
-    'Quelles sont les conditions de travail avec la crise du coronavirus ?',
-    'Comment poser mes congés ?',
-    'Quelles sont les conditions pour déménager Outremer ?',
-    'Comment changer de poste ?',
-    'Lorem ipsum est istes opus nexis orem ipsum est istes opus',
-    'Lorem ipsum est istes opus nexis orem ipsum est istes opus',
-    'Lorem ipsum est istes opus nexis orem ipsum est istes opus',
-    'Lorem ipsum est istes opus nexis orem ipsum est istes opus',
-    'Lorem ipsum est istes opus nexis orem ipsum est istes opus',
-    'Lorem ipsum est istes opus nexis orem ipsum est istes opus',
-    'Lorem ipsum est istes opus nexis orem ipsum est istes opus',
-  ];
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  worstQuestions: Array<string> = [];
 
-  constructor() {
+  constructor(public _statsService: StatsService) {
+    super();
   }
 
   ngOnInit(): void {
+    this.getData(null);
+    this._statsService._currentFilters$
+      .pipe(
+        takeUntil(this.destroy$))
+      .subscribe(
+      (value) => {
+        this._statsService.setCurrentFilters(value?.startDate, value?.endDate);
+        this.getData(value);
+      }
+    );
+  }
+
+  getData(dates) {
+    this._statsService.getWorstQuestionsData().subscribe(
+      (value) => {
+        this.worstQuestions = [];
+        value['lessAskedQuestions'].forEach(elem => {
+          this.worstQuestions.push(elem['question']);
+        });
+      }
+    );
   }
 
 }

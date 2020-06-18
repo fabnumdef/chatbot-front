@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { DestroyObservable } from '@core/utils/destroy-observable';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { StatsService } from '@core/services/stats.service';
-import { map } from 'rxjs/operators';
 import { BaseChartDirective } from 'ng2-charts';
+import { takeUntil } from 'rxjs/operators';
 import { graphDetailInOutAnimation } from '../../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 import * as moment from 'moment';
 import 'moment/locale/fr';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-stats-graph',
@@ -14,11 +16,10 @@ import 'moment/locale/fr';
     graphDetailInOutAnimation
   ]
 })
-export class StatsGraphComponent implements OnInit {
+export class StatsGraphComponent extends DestroyObservable implements OnInit {
 
   @ViewChild(BaseChartDirective)
   public chart: BaseChartDirective;
-  data: any;
   startDate: Date;
   endDate: Date;
   dataset1 = [];
@@ -30,7 +31,8 @@ export class StatsGraphComponent implements OnInit {
   parsedData: Object;
   questionDisplay = true;
   visitorsDisplay = true;
-  intentDisplay = true;
+  intentDisplay = false;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   chartOptions = {
     responsive: true,
@@ -75,42 +77,55 @@ export class StatsGraphComponent implements OnInit {
       pointBorderColor: '#fff',
     },
     { // second color
-      borderColor: '#fab754',
-      pointBackgroundColor: '#fab754',
-      pointBorderColor: '#fff',
-    },
-    { // third color
       borderColor: '#fab7b9',
       pointBackgroundColor: '#fab7b9',
       pointBorderColor: '#fff',
+    },
+    { // third color
+      borderColor: '#fab754',
+      pointBackgroundColor: '#fab754',
+      pointBorderColor: '#fff',
     }];
 
-  constructor(private _statsService: StatsService) {
-    this.startDate = new Date('2020-05-01');
-    this.endDate = new Date('2020-06-01');
-    moment.locale('fr');
+  constructor(public _statsService: StatsService) {
+    super();
+  }
 
-    while (this.startDate <= this.endDate) {
-      this.chartLabels.push(new Date(this.startDate.setDate(this.startDate.getDate() + 1)).toLocaleDateString('en-US'));
-      this.dataset1.push(0);
-      this.dataset2.push(0);
-      this.dataset3.push(0);
+  ngOnInit(): void {
+    this.getGraph(null);
+    // If you want to add time filter
+    this._statsService._currentFilters$
+      .pipe(
+        takeUntil(this.destroy$))
+      .subscribe(
+      (value) => {
+        this.getGraph(value);
+      }
+    );
+  }
+
+  getGraph(dates) {
+    this.startDate = dates?.startDate ? moment(dates.startDate).toDate() : moment().subtract(1, 'month').toDate();
+    this.endDate = dates?.endDate ? moment(dates.endDate).toDate() : moment().toDate();
+
+    if (this.startDate > this.endDate) {
+      this.startDate = this.endDate;
     }
-    this.data = this._statsService.getGraphData().pipe(map((response: any) => response));
-    this.data.subscribe(
-      (result) => {
+    this.setXAxis(this.startDate, this.endDate);
 
+    this._statsService.getGraphData().subscribe(
+      (result) => {
         this.parsedData = this.parseData(result);
         this.parsedData['question'].forEach(elem => {
-          const position = this.chartLabels.indexOf(elem.date);
+          const position = this.chartLabels.indexOf(elem.date) + 1;
           this.dataset1[position] = Number(elem.count);
         });
         this.parsedData['visitors'].forEach(elem => {
-          const position = this.chartLabels.indexOf(elem.date);
+          const position = this.chartLabels.indexOf(elem.date) + 1;
           this.dataset2[position] = Number(elem.count);
         });
         this.parsedData['intents'].forEach(elem => {
-          const position = this.chartLabels.indexOf(elem.date);
+          const position = this.chartLabels.indexOf(elem.date) + 1;
           this.dataset3[position] = Number(elem.count);
         });
 
@@ -121,17 +136,30 @@ export class StatsGraphComponent implements OnInit {
         if (this.questionDisplay) {
           this.chartData.push({ data: this.dataset1, label: 'Questions posées', fill: false });
         }
-        if (this.intentDisplay) {
-          this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false });
-        }
         if (this.visitorsDisplay) {
           this.chartData.push({ data: this.dataset2, label: 'Nb visiteurs', fill: false});
+        }
+        if (this.intentDisplay) {
+          this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false });
         }
       }
     );
   }
 
-  ngOnInit(): void {
+  setXAxis(start, end) {
+    const current = start ? new Date(start) : this.startDate;
+    this.dataset1 = [];
+    this.dataset2 = [];
+    this.dataset3 = [];
+    this.chartLabels = [];
+    while (current <= (end ? end : this.endDate)) {
+      // Warning on this string
+      this.chartLabels.push(current.toLocaleDateString('en-US'));
+      this.dataset1.push(0);
+      this.dataset2.push(0);
+      this.dataset3.push(0);
+      current.setDate(current.getDate() + 1);
+    }
   }
 
   parseData(dataToParse) {
@@ -185,15 +213,15 @@ export class StatsGraphComponent implements OnInit {
     } else {
       this.chartData.push({ data: [], label: 'Questions posées', fill: false });
     }
-    if (this.intentDisplay) {
-      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false });
-    } else {
-      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false });
-    }
     if (this.visitorsDisplay) {
       this.chartData.push({ data: this.dataset2, label: 'Nb visiteurs', fill: false});
     } else {
       this.chartData.push({ data: [], label: 'Nb visiteurs', fill: false });
+    }
+    if (this.intentDisplay) {
+      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false });
+    } else {
+      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false });
     }
     this.updateChart();
   }
@@ -206,15 +234,15 @@ export class StatsGraphComponent implements OnInit {
     } else {
       this.chartData.push({ data: [], label: 'Questions posées', fill: false });
     }
-    if (this.intentDisplay) {
-      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false });
-    } else {
-      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false });
-    }
     if (this.visitorsDisplay) {
       this.chartData.push({ data: this.dataset2, label: 'Nb visiteurs', fill: false});
     } else {
       this.chartData.push({ data: [], label: 'Nb visiteurs', fill: false });
+    }
+    if (this.intentDisplay) {
+      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false });
+    } else {
+      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false });
     }
     this.updateChart();
   }
@@ -227,15 +255,15 @@ export class StatsGraphComponent implements OnInit {
     } else {
       this.chartData.push({ data: [], label: 'Questions posées', fill: false });
     }
-    if (this.intentDisplay) {
-      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false });
-    } else {
-      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false });
-    }
     if (this.visitorsDisplay) {
       this.chartData.push({ data: this.dataset2, label: 'Nb visiteurs', fill: false});
     } else {
       this.chartData.push({ data: [], label: 'Nb visiteurs', fill: false });
+    }
+    if (this.intentDisplay) {
+      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false });
+    } else {
+      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false });
     }
     this.updateChart();
   }
@@ -252,7 +280,7 @@ export class StatsGraphComponent implements OnInit {
     anchor.download = name;
   }
 
-  download(){
+  download() {
     const btn: HTMLElement = document.getElementById('downloadGraphBtn');
     btn.click();
   }
