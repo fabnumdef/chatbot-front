@@ -6,7 +6,7 @@
              placeholder="Saisir..."
              formControlName="mainQuestion"
              maxlength="255"
-             required>
+             [required]="isRequired(controls.mainQuestion)">
       <mat-error *ngIf="controls.mainQuestion.hasError('required')">
         Vous n'avez pas saisi de question.
       </mat-error>

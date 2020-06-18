@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { RefDataService } from '@core/services/ref-data.service';
@@ -32,5 +32,10 @@ export class QuestionFormComponent implements OnInit {
           this.categories$.value.filter(option => option.toLowerCase().indexOf(category.toLowerCase()) === 0) :
           this.categories$.value.slice())
       );
+  }
+
+  isRequired(controls: AbstractControl) {
+    // @ts-ignore
+    return !!controls.validator('')?.hasOwnProperty('required');
   }
 }

@@ -123,12 +123,16 @@ export class IntentFormComponent implements OnInit {
     this.intentForm = this._fb.group({
       isNewIntent: [!this.intent.id],
       id: [this.intent.id, [Validators.required, Validators.pattern('[a-zA-Z0-9_-]*'), Validators.maxLength(100)]],
-      mainQuestion: [this.intent.mainQuestion, [Validators.required, Validators.maxLength(255)]],
+      mainQuestion: [this.intent.mainQuestion, [Validators.maxLength(255)]],
       category: [this.intent.category, [Validators.maxLength(255)]],
       responses: this._fb.array(this._initResponsesForm()),
       knowledges: this._fb.array(this._initKnowledgesForm()),
       expiresAt: [this.intent.expiresAt]
     });
+
+    if (!['phrase_presentation', 'phrase_hors_sujet'].includes(this.intent.id)) {
+      this.intentForm.get('mainQuestion').setValidators(Validators.required);
+    }
   }
 
   private _initResponsesForm(): FormGroup[] {
