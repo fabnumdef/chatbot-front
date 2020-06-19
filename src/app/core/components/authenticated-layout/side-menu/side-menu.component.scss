@@ -22,27 +22,54 @@
 
   .chatbot {
     display: flex;
-    align-items: center;
-    background-color: $grey-lighter;
-    height: 40px;
-    // Full width
-    width: 100%;
-    padding: 0 $padding-menu;
-    margin-left: -$padding-menu;
-    margin-bottom: 20px;
+    flex-direction: column;
+    border: 1px solid $grey-light;
+    margin: 20px -10px;
+    border-radius: 4px;
+    padding: 0 10px;
 
-    &-icon {
-      width: 20px;
-      height: 20px;
-      background-color: $white;
-      border-radius: 100px;
-      overflow: hidden;
-      margin-right: 20px;
+    .chatbot-name {
+      display: flex;
+      align-items: center;
+      height: 40px;
+      // Full width
+      width: 100%;
+      padding: 5px 10px;
+      //margin-left: -$padding-menu;
+      //margin-bottom: 20px;
+  
+      &-icon {
+        width: 20px;
+        height: 20px;
+        background-color: $white;
+        border-radius: 100px;
+        overflow: hidden;
+        margin-right: 20px;
+  
+        img {
+          max-width: 100%;
+        }
+      }
 
-      img {
-        max-width: 100%;
+      h3 {
+        margin: 0;
+        color: $black;
       }
     }
+
+    .mat-divider {
+      margin: 0px;
+    }
+
+    .chatbot-preview {
+      padding: 10px 0px;
+      
+      button {
+        margin-bottom: 0px;
+      }
+    }
+
+    
   }
 
   button {
