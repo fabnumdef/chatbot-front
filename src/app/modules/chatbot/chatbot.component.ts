@@ -27,7 +27,7 @@ export class ChatbotComponent implements OnInit {
     embedded: true,
     selector: "#webchat",
     initPayload: "/phrase_presentation",
-    socketUrl: "http://217.182.65.146:5005",
+    socketUrl: "${this._window.location.origin}:5005",
     socketPath: "/socket.io/",
     params: {
       storage: "session",
