@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MediaService } from '@core/services/media.service';
 import { Media } from '@model/media.model';
-import { Observable } from 'rxjs';
 import { Utils } from '@core/utils/utils';
 
 @Component({
@@ -15,8 +14,11 @@ export class MediaListDialogComponent implements OnInit {
   medias: Media[] = [];
   mediaSelected: Media;
   onlyImages = false;
+  unescape = unescape;
+  utils = Utils;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              @Inject(Window) private _window: Window,
               private _mediaService: MediaService) {
     this.onlyImages = data.onlyImages ? data.onlyImages : false;
   }
@@ -40,6 +42,14 @@ export class MediaListDialogComponent implements OnInit {
 
   isMediaSelected(media: Media): boolean {
     return media.id === this.mediaSelected?.id;
+  }
+
+  getMediaPath(media: Media) {
+    return `${this.mediaPath}${encodeURI(media.file)}`;
+  }
+
+  get mediaPath() {
+    return `${this._window.location.origin}/media/`;
   }
 
 }
