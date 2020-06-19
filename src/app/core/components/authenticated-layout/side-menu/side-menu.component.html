@@ -2,11 +2,23 @@
   <div class="header" [routerLink]="'/'">
     <img src="assets/img/logo_fabrique_chatbot.svg" alt="logo fabrique à chatbots">
   </div>
-  <div class="chatbot" *ngIf="chatbotConfig">
-    <div class="chatbot-icon">
-      <img [src]="getMediaPath(chatbotConfig.icon)" alt="Icône du chatbot">
+  <div class="chatbot">
+    <div class="chatbot-name" *ngIf="chatbotConfig">
+      <div class="chatbot-name-icon">
+        <img [src]="getMediaPath(chatbotConfig.icon)" alt="Icône du chatbot">
+      </div>
+      <h3>{{ chatbotConfig.name }}</h3>
     </div>
-    {{ chatbotConfig.name }}
+    <mat-divider></mat-divider>
+    <div class="chatbot-preview">
+      <button mat-button
+          [routerLink]="'/chatbot'"
+          routerLinkActive
+          class="chatbot-button">
+        <mat-icon fontSet="material-icons-outlined">visibility</mat-icon>
+        Visualisation du bot
+      </button>
+    </div>
   </div>
   <button mat-button
           [color]="inbox.isActive ? 'primary' : null"
