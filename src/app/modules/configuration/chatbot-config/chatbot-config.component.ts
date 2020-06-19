@@ -119,7 +119,7 @@ export class ChatbotConfigComponent implements OnInit {
     if (!this.chatbotConfig.icon) {
       return;
     }
-    this._http.get(`${this.mediaPath}${this.chatbotConfig.icon}`, {responseType: 'blob'}).subscribe((file: any) => {
+    this._http.get(`${this.mediaPath}${encodeURI(this.chatbotConfig.icon)}`, {responseType: 'blob'}).subscribe((file: any) => {
       file.name = this.chatbotConfig.icon;
       this._storeIcon(file);
       this.customizationForm.markAsPristine();

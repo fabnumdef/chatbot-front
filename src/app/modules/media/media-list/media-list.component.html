@@ -43,9 +43,9 @@
     </div>
     <div *ngFor="let media of medias$ | async">
       <app-chatbot-list-item>
-        <a target="_blank" rel="noopener" [href]="mediaPath + media.file">
+        <a target="_blank" rel="noopener" [href]="getMediaPath(media)">
           <div class="file-preview">
-            <img *ngIf="utils.isFileImage(media.file); else showIcon" [src]="mediaPath + media.file">
+            <img *ngIf="utils.isFileImage(media.file); else showIcon" [src]="getMediaPath(media)">
             <ng-template #showIcon>
               <mat-icon>insert_photo</mat-icon>
             </ng-template>

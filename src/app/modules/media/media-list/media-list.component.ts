@@ -99,6 +99,10 @@ export class MediaListComponent implements OnInit {
     this.mediaService.export().subscribe();
   }
 
+  getMediaPath(media: Media) {
+    return `${this.mediaPath}${encodeURI(media.file)}`;
+  }
+
   get mediaPath() {
     return `${this._window.location.origin}/media/`;
   }

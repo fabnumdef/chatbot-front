@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ConfigService } from '@core/services/config.service';
 import { Config } from '@model/config.model';
 import { filter } from 'rxjs/operators';
+import { Media } from '@model/media.model';
 
 @Component({
   selector: 'app-side-menu',
@@ -22,6 +23,10 @@ export class SideMenuComponent implements OnInit {
     ).subscribe(config => {
       this.chatbotConfig = config;
     });
+  }
+
+  getMediaPath(file: string) {
+    return `${this.mediaPath}${encodeURI(file)}`;
   }
 
   get mediaPath() {
