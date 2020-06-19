@@ -15,7 +15,7 @@
         <div class="badge-staked" [ngClass]="getBadgeClass(inbox.status)">
           {{ inboxStatus_Fr[inbox.status] }}
         </div>
-        <div class="title">
+        <div class="title" (click)="selectInbox(inbox.id, true)">
           {{ inbox.question }}
         </div>
         <div class="hint">

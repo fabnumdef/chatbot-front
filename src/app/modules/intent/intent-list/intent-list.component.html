@@ -48,7 +48,7 @@
              *ngIf="intent.status && intent.status !== intentStatus.active">
           {{ intentStatusFr[intent.status] }}
         </div>
-        <div class="title">
+        <div class="title" (click)="selectIntent(intent.id)">
           {{ intent.mainQuestion ? intent.mainQuestion : intent.id }}
         </div>
         <div class="hint">
