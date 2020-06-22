@@ -167,6 +167,9 @@
   <div class="chatbot-title">
     <h3>Historique des connaissances</h3>
   </div>
+  <p>
+    Une sauvegarde des connaissances actives est effectuée chaque nuit si il y a eu des changements dans la journée.
+  </p>
   <div class="historic-file" *ngFor="let historicFile of historicFilesFiltered | reverse">
     <div class="badge">
       Version {{ historicFile.id }}

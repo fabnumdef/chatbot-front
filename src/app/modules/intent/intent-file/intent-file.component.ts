@@ -111,7 +111,7 @@ export class IntentFileComponent implements OnInit {
 
   showFullHistoric() {
     if (!this.historicFilesFiltered || this.historicFilesFiltered.length > 3) {
-      return this.historicFilesFiltered = this.historicFiles.splice(this.historicFiles.length - 3, 3);
+      return this.historicFilesFiltered = this.historicFiles.slice(this.historicFiles.length - 3, this.historicFiles.length);
     }
     this.historicFilesFiltered = this.historicFiles;
   }
