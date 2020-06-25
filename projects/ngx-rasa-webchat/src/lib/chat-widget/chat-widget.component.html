@@ -1,0 +1,94 @@
+<div class="wrapper" [ngClass]="{'wrapper-embedded': embedded}">
+  <ngx-rasa-chat-side-menu *ngIf="embedded"
+                           [botName]="botName"
+                           [botAvatar]="botAvatar"
+                           [companyLogo]="companyLogo"
+                           [botSubtitle]="botSubtitle"
+                           [botDescription]="botDescription"
+                           [botColor]="botColor">
+  </ngx-rasa-chat-side-menu>
+  <div class="chat-box" *ngIf="visible" [@fadeInOut]="visible" [ngStyle]="{'background-color': botColor}">
+    <div class="chat-box-header">
+      <div class="">
+        <div class="close-bot">
+          <button class="chat-button-header" (click)="toggleChat()">✕</button>
+        </div>
+        <ngx-rasa-chat-avatar [image]="botAvatar" [header]="true"></ngx-rasa-chat-avatar>
+        <div class="operator-header">
+          <h3>
+            {{botName}}
+          </h3>
+          <h4 *ngIf="botSubtitle">
+            {{botSubtitle}}
+          </h4>
+        </div>
+      </div>
+    </div>
+    <div class="chat-box-main">
+      <div class="chat-message-bottom" #bottom></div>
+      <ng-container *ngFor="let message of messages; let idx = index">
+        <div class="chat-message"
+             [ngClass]="{'chat-message-received': message.from === 'received', 'chat-message-full-width': message.type !== messageType.text}"
+             [@fadeIn]
+             [class.chat-message-sent]="message.from === 'sent'">
+          <div>
+            <ngx-rasa-chat-avatar [image]="message.from === 'received' ? botAvatar : userAvatar"
+                                  class="chat-message-from-avatar"
+                                  *ngIf="isFirstMessage(messages[idx + 1], message.from)"></ngx-rasa-chat-avatar>
+            <ng-container [ngSwitch]="message.type">
+              <div class="chat-message-text"
+                   *ngSwitchCase="messageType.text"
+                   [ngStyle]="{'background-color': message.from === 'received'? botColor : userColor}">
+                {{message.text}}
+              </div>
+              <div class="chat-message-text"
+                   *ngSwitchCase="messageType.quick_reply"
+                   [ngStyle]="{'background-color': message.from === 'received'? botColor : userColor}">
+                {{message.text}}
+              </div>
+              <div class="chat-message-quick-replies"
+                   *ngSwitchCase="messageType.quick_reply"
+                   [ngStyle]="{'color': message.from === 'received'? botColor : userColor,
+                   'border-color': message.from === 'received'? botColor : userColor}">
+                <div *ngFor="let quickReply of message.quick_replies"
+                     (mouseover)="quickReplyDiv.style.backgroundColor = message.from === 'received'? botColor : userColor"
+                     (mouseleave)="quickReplyDiv.style.backgroundColor = ''"
+                     #quickReplyDiv
+                     class="chat-message-quick-reply"
+                     (click)="quickReplyClick(quickReply.payload)">
+                  {{quickReply.title}}
+                </div>
+              </div>
+              <div *ngSwitchCase="messageType.image" class="chat-message-image">
+                <a target="_blank" [href]="message.text">
+                  <div [ngStyle]="{'background-image' : 'url(' + message.text + ')'}">
+                  </div>
+                </a>
+              </div>
+            </ng-container>
+          </div>
+          <div class="chat-message-date"
+               *ngIf="isLastMessage(messages[idx - 1], message.from)">
+            {{message.date | date: 'dd/MM/yyyy HH:mm'}}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="chat-box-footer" [ngStyle]="{'background-color': userColor}">
+      <ngx-rasa-chat-input (send)="sendMessage($event)" (dismiss)="toggleChat()" [focus]="focus"
+                           [placeholder]="inputPlaceholder"></ngx-rasa-chat-input>
+    </div>
+  </div>
+  <button class="chat-button" (click)="toggleChat()" [ngStyle]="{'background-color': botColor}" *ngIf="!embedded">
+    <span [@fadeIn] *ngIf="visible">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z"
+                                                                                               fill="none"/><path
+        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+    </span>
+    <span [@fadeIn] *ngIf="!visible">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z"
+                                                                                               fill="none"/><path
+        d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+    </span>
+  </button>
+</div>

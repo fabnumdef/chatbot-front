@@ -1,1 +1,14 @@
-<div id="webchat"></div>
+<div class="chatbot" *ngIf="publicConfigService.config">
+  <ngx-rasa-chat-widget [socketUrl]="window.location.origin"
+                        [socketPath]="'/socket-chatbot/'"
+                        [initPayload]="'/phrase_presentation'"
+                        [botAvatar]="window.location.origin + '/media/'  + publicConfigService.config.icon"
+                        [botName]="publicConfigService.config.name"
+                        [botSubtitle]="publicConfigService.config.function"
+                        [botColor]="publicConfigService.config.primaryColor"
+                        [userColor]="publicConfigService.config.secondaryColor"
+                        [storage]="'session'"
+                        [embedded]="true"
+                        [inputPlaceholder]="'Posez votre question ...'">
+  </ngx-rasa-chat-widget>
+</div>

@@ -20,6 +20,10 @@
       ],
       "@core/*": [
         "src/app/core/*"
+      ],
+      "ngx-rasa-webchat": [
+        "dist/ngx-rasa-webchat/ngx-rasa-webchat",
+        "dist/ngx-rasa-webchat"
       ]
     },
     "typeRoots": [
