@@ -55,7 +55,7 @@
                      (mouseleave)="quickReplyDiv.style.backgroundColor = ''"
                      #quickReplyDiv
                      class="chat-message-quick-reply"
-                     (click)="quickReplyClick(quickReply.payload)">
+                     (click)="quickReplyClick(quickReply.payload, quickReply.title)">
                   {{quickReply.title}}
                 </div>
               </div>

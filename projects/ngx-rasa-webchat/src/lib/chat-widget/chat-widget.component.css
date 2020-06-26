@@ -167,6 +167,7 @@
 .chat-message-quick-replies {
   margin-top: 10px;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .chat-message-quick-reply {
