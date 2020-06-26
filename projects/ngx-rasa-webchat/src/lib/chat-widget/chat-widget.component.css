@@ -80,6 +80,9 @@
 
 .chat-box-header {
   padding: 10px 20px;
+}
+
+.chat-box-header > * {
   color: #fff;
 }
 
