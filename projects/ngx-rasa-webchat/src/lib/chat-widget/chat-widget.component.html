@@ -10,7 +10,7 @@
   <div class="chat-box" *ngIf="visible" [@fadeInOut]="visible" [ngStyle]="{'background-color': botColor}">
     <div class="chat-box-header">
       <div class="">
-        <div class="close-bot">
+        <div class="close-bot" *ngIf="!embedded">
           <button class="chat-button-header" (click)="toggleChat()">✕</button>
         </div>
         <ngx-rasa-chat-avatar [image]="botAvatar" [header]="true"></ngx-rasa-chat-avatar>

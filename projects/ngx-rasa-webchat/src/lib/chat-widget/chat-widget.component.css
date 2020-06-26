@@ -119,6 +119,7 @@
   flex-direction: column;
   height: 50px;
   justify-content: center;
+  color: #ffffff;
 }
 
 .operator-header h3 {

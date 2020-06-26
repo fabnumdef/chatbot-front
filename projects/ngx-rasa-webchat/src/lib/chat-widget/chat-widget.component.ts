@@ -27,7 +27,7 @@ export class ChatWidgetComponent implements OnInit {
   @Input() public inputPlaceholder = 'Tapez votre message ...';
   @Input() public botColor = '#6E91F0';
   @Input() public userColor = '#EBECEF';
-  @Input() public embedded = true;
+  @Input() public embedded = false;
   @Input() public storage = 'session';
 
   private _visible = false;
