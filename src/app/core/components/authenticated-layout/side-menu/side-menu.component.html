@@ -11,13 +11,13 @@
     </div>
     <mat-divider></mat-divider>
     <div class="chatbot-preview">
-      <button mat-button
-          [routerLink]="'/chatbot'"
-          routerLinkActive
-          class="chatbot-button">
-        <mat-icon fontSet="material-icons-outlined">visibility</mat-icon>
-        Visualisation du bot
-      </button>
+      <a target="_blank" [href]="window.location.origin + '/chatbot'">
+        <button mat-button
+                class="chatbot-button">
+          <mat-icon fontSet="material-icons-outlined">visibility</mat-icon>
+          Visualisation du bot
+        </button>
+      </a>
     </div>
   </div>
   <button mat-button

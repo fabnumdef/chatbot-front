@@ -23,7 +23,7 @@ export class IntentListComponent implements OnInit {
   intents$: Observable<Intent[]>;
   pagination: PaginationHelper;
   loading$: Observable<boolean>;
-  intentSelected: string = null;
+  intentsSelected: string[] = [];
   intentStatus = IntentStatus;
   intentStatusFr = IntentStatus_Fr;
 
@@ -38,15 +38,19 @@ export class IntentListComponent implements OnInit {
     this.pagination = this.intentService.pagination;
 
     this.intents$.subscribe(intents => {
-      this.intentSelected = null;
+      this.intentsSelected = [];
       if (intents && intents.length === 1 && this.pagination.currentPage <= 1) {
-        this.intentSelected = intents[0].id;
+        this.intentsSelected = [intents[0].id];
       }
     });
   }
 
   selectIntent(intentId: string) {
-    this.intentSelected = (this.intentSelected === intentId) ? null : intentId;
+    if (this.intentsSelected.includes(intentId)) {
+      this.intentsSelected = this.intentsSelected.filter(i => i !== intentId);
+    } else {
+      this.intentsSelected.push(intentId);
+    }
   }
 
   archiveIntent(intent: Intent) {

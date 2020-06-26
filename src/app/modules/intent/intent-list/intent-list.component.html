@@ -62,7 +62,7 @@
           <button mat-icon-button
                   class="chatbot-icon-btn"
                   aria-label="Modifier la connaissance"
-                  [color]="intent.id === intentSelected ? 'primary' : null"
+                  [color]="intentsSelected.includes(intent.id) ? 'primary' : null"
                   (click)="selectIntent(intent.id)"
                   [matTooltip]="'Editer'">
             <mat-icon>edit</mat-icon>
@@ -75,11 +75,11 @@
             <mat-icon>delete</mat-icon>
           </button>
         </div>
-        <div *ngIf="intent.id === intentSelected"
+        <div *ngIf="intentsSelected.includes(intent.id)"
              class="detail"
              [@detailInOutAnimation]>
           <app-intent-form [intent]="intent"
-                           (close)="intentSelected = null"
+                           (close)="selectIntent(intent.id)"
                            [redirect]="false"></app-intent-form>
         </div>
       </app-chatbot-list-item>

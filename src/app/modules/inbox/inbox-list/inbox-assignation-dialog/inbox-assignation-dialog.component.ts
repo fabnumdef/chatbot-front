@@ -30,11 +30,11 @@ export class InboxAssignationDialogComponent implements OnInit {
   }
 
   sendEmail(): void {
-    window.open(`mailto:${this.controls.email.value}?subject=${encodeURI('Demande de renseignement')}&body=${encodeURI(`
+    window.open(`mailto:${this.controls.email.value}?subject=${encodeURI('CHATBOT - Demande d\'information')}&body=${encodeURI(`
     Bonjour,
 
     Nous aurions besoin d'informations afin de pouvoir répondre à une question.
-    Cette question nous a été posée, auriez-vous sa réponse ?
+    La question ci-dessous nous a été posée, auriez-vous sa réponse ?
 
     ${this.inbox.question}
 

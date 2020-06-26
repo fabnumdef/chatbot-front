@@ -32,13 +32,13 @@
       <mat-expansion-panel disabled [expanded]="true">
         <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
           <mat-panel-title>
-            <h4>Votre question<span class="red">*</span></h4>
+            <h4>Question<span class="red">*</span></h4>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <app-question-form [questionForm]="intentForm"></app-question-form>
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="isNewIntent">
+      <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header [collapsedHeight]="panelHeight" [expandedHeight]="panelHeight">
           <mat-panel-title>
             <h4>Réponse<span class="red">*</span></h4>
@@ -48,7 +48,7 @@
         <div *ngFor="let responseForm of responsesFormArray.controls; let idx = index">
           <ng-container *ngIf="showResponseForm(idx)">
             <div class="response-header">
-              <h5>Votre réponse {{ getResponseIdx(idx) }}</h5>
+              <h5>Réponse {{ getResponseIdx(idx) }}</h5>
               <button mat-icon-button [matMenuTriggerFor]="responseMenu">
                 <mat-icon>more_horiz</mat-icon>
               </button>

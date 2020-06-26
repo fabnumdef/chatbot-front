@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ConfigService } from '@core/services/config.service';
 import { Config } from '@model/config.model';
 import { filter } from 'rxjs/operators';
-import { Media } from '@model/media.model';
 
 @Component({
   selector: 'app-side-menu',
@@ -14,7 +13,7 @@ export class SideMenuComponent implements OnInit {
   chatbotConfig: Config;
 
   constructor(private _configService: ConfigService,
-              @Inject(Window) private _window: Window) {
+              @Inject(Window) public window: Window) {
   }
 
   ngOnInit(): void {
@@ -30,7 +29,7 @@ export class SideMenuComponent implements OnInit {
   }
 
   get mediaPath() {
-    return `${this._window.location.origin}/media/`;
+    return `${this.window.location.origin}/media/`;
   }
 
 }

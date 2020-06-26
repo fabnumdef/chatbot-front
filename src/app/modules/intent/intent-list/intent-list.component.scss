@@ -12,13 +12,8 @@
     }
 
     & > *:not(:first-child) {
-      color: $grey;
       font-size: 12px;
     }
-  }
-
-  app-update-chatbot {
-    margin-top: 20px;
   }
 
   .empty-list {
@@ -34,7 +29,7 @@
     }
 
     .actions {
-      width: 240px;
+      width: 210px;
     }
   }
 
