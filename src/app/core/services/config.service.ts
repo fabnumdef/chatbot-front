@@ -5,7 +5,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Config } from '@model/config.model';
 import { finalize, tap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import { IntentService } from '@core/services/intent.service';
 import { AuthService } from '@core/services/auth.service';
 
 @Injectable({
@@ -20,7 +19,6 @@ export class ConfigService {
 
   constructor(private _http: HttpClient,
               private _toastr: ToastrService,
-              private _intentService: IntentService,
               private _auth: AuthService) {
     this._url = `${environment.api_endpoint}/config`;
     this.getConfig().subscribe(() => {
@@ -98,7 +96,6 @@ export class ConfigService {
         } else if (!config.trainingRasa && fast) {
           clearInterval(this._configInterval);
           this.getContinuousConfig();
-          this._intentService.reload();
           this._toastr.success('La mise à jour du chatbot est terminée.');
         }
       });
