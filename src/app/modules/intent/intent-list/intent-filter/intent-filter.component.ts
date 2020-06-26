@@ -24,7 +24,6 @@ export class IntentFilterComponent extends DestroyObservable implements OnInit, 
   }
 
   ngOnInit(): void {
-    this._refDataService.loadCategories().then();
     this.categories$ = this._refDataService.categories$;
     this.intentFilters = this._fb.group({
       query: [this._intentService.currentSearch],

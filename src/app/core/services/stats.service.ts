@@ -44,8 +44,8 @@ export class StatsService  {
       startDate: startDate,
       endDate: endDate
     };
-
   }
+
   getCurrentFilters() {
     return this.currentFilters;
   }

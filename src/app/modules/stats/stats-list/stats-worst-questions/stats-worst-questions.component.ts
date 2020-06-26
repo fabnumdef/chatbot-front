@@ -19,7 +19,6 @@ export class StatsWorstQuestionsComponent extends DestroyObservable implements O
   }
 
   ngOnInit(): void {
-    this.getData(null);
     this._statsService._currentFilters$
       .pipe(
         takeUntil(this.destroy$))

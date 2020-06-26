@@ -57,7 +57,6 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
   }
 
   ngOnInit(): void {
-    this.getGraph(null);
     // If you want to add time filter
     this._statsService._currentFilters$
       .pipe(

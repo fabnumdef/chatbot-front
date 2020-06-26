@@ -15,7 +15,7 @@ export class RefDataService {
   categories$ = new BehaviorSubject<string[]>([]);
 
   constructor(private _http: HttpClient) {
-    this.loadCategories();
+    this.loadCategories().then();
   }
 
   loadCategories(): Promise<string[]> {
@@ -28,5 +28,12 @@ export class RefDataService {
         this._loading$.next(false);
       })
     ).toPromise();
+  }
+
+  reloadCategories(category: string) {
+    if (!category || this.categories$.getValue().includes(category)) {
+      return;
+    }
+    this.loadCategories().then();
   }
 }

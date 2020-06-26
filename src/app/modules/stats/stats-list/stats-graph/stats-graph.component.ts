@@ -92,7 +92,6 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getGraph(null);
     // If you want to add time filter
     this._statsService._currentFilters$
       .pipe(

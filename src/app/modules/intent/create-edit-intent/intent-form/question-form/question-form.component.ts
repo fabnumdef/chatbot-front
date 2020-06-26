@@ -24,7 +24,6 @@ export class QuestionFormComponent implements OnInit {
 
   async ngOnInit() {
     this.categories$ = this._refDataService.categories$;
-    await this._refDataService.loadCategories();
     this.filteredCategories$ = this.questionForm.get('category').valueChanges
       .pipe(
         startWith(''),

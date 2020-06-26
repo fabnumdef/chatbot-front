@@ -105,7 +105,6 @@ export class ChatWidgetComponent implements OnInit {
       .getMessages()
       .subscribe((message) => {
         setTimeout(() => {
-          console.log(message);
           if (message.text && (!message.quick_replies || message.quick_replies.length < 1)) {
             this.addMessage(message.text, MessageType.text, 'received');
           } else if (message.text && message.quick_replies && message.quick_replies.length > 0) {

@@ -29,7 +29,6 @@ export class InboxFilterComponent extends DestroyObservable implements OnInit, O
   }
 
   ngOnInit(): void {
-    this._refDataService.loadCategories().then();
     this.categories$ = this._refDataService.categories$;
     this.inboxFilters = this._fb.group({
       query: [this._inboxService.currentSearch],

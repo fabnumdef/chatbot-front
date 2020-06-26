@@ -16,10 +16,8 @@ export class ChatbotComponent implements OnInit {
 
   ngOnInit() {
     this.chatbotHeight = this.window.innerHeight;
-    console.log(this.chatbotHeight);
     this.window.onresize = () => {
       this.chatbotHeight = this.window.innerHeight;
-      console.log(this.chatbotHeight);
     };
   }
 

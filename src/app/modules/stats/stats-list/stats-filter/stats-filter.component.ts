@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { DestroyObservable } from '@core/utils/destroy-observable';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { StatsService } from '@core/services/stats.service';
-import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
 @Component({

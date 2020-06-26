@@ -21,7 +21,6 @@ export class StatsKpiComponent extends DestroyObservable implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData(null);
     // If you want to add time filter
     this._statsService._currentFilters$
       .pipe(
