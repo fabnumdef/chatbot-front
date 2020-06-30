@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Inbox } from '@model/inbox.model';
 import { Intent } from '@model/intent.model';
@@ -8,6 +9,7 @@ import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { DestroyObservable } from '@core/utils/destroy-observable';
 import { InboxService } from '@core/services/inbox.service';
 import { ConfigService } from '@core/services/config.service';
+import { RefDataService } from '@core/services/ref-data.service';
 
 @Component({
   selector: 'app-inbox-intent',
@@ -19,7 +21,9 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
   @Input() inbox: Inbox;
   @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
   intents: Intent[];
+  allIntents: Intent[];
   intentForm: FormGroup;
+  categories$: BehaviorSubject<string[]>;
   filteredIntents$: BehaviorSubject<Intent[]> = new BehaviorSubject<Intent[]>([]);
   addIntent = false;
   modifyIntent = false;
@@ -30,11 +34,13 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
   constructor(private _fb: FormBuilder,
               private _intentService: IntentService,
               private _configService: ConfigService,
-              private _inboxService: InboxService) {
+              private _inboxService: InboxService,
+              private _refDataService: RefDataService) {
     super();
   }
 
   ngOnInit(): void {
+    this.categories$ = this._refDataService.categories$;
     this._intentService.fullEntities$.pipe(filter(e => e.length > 0)).subscribe(intents => {
       this.intents = intents.map(i => {
         i.confidence = this.inbox.intentRanking?.find(ir => ir.name === i.id)?.confidence;
@@ -46,6 +52,7 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
       });
       this._initSelectFilter();
       this._initFormGroup();
+      this.allIntents = this.intents;
     });
     this.newIntent.mainQuestion = this.inbox.question;
   }
@@ -67,6 +74,18 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
       this.intentToEdit = intent;
       this.modifyIntent = true;
     });
+  }
+
+  getFilteredIntents(category) {
+    this.intents = this.allIntents;
+    let filteredItems: Intent[];
+    this.intents.forEach((intent, index) => {
+      filteredItems = this.intents.filter((item: Intent) => {
+        return item.category.includes(category);
+      });
+    });
+    this.intents = filteredItems;
+    this._initSelectFilter();
   }
 
   private _initFormGroup() {
