@@ -1,206 +1,216 @@
 <div class="chatbot-config">
-  <div class="chatbot-title">
-    <h3>Personnalisation du chatbot</h3>
-  </div>
+  <mat-accordion [multi]="true">
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header collapsedHeight="28px" expandedHeight="28px">
+        <mat-panel-title>
+          <h3>Personnalisation du chatbot</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
 
-  <form [formGroup]="customizationForm" *ngIf="customizationForm" class="form-disabled-invisible">
-    <div class="personnalisation-row">
-      <div class="form">
-        <div class="chatbot-subtitle">
-          <h4>Quelle est l'identité votre chatbot ?</h4>
-        </div>
-        <mat-form-field appearance="outline">
-          <mat-label>Nom</mat-label>
-          <input matInput
-                 placeholder="Saisir..."
-                 formControlName="name"
-                 maxlength="50"
-                 required>
-          <mat-error *ngIf="customizationControls.name.hasError('required')">
-            Vous n'avez pas saisi de nom.
-          </mat-error>
-          <mat-error *ngIf="customizationControls.name.hasError('maxlength')">
-            Le nom est trop long, il doit faire au maximum 50 caractères.
-          </mat-error>
-        </mat-form-field>
+      <form [formGroup]="customizationForm" *ngIf="customizationForm" class="form-disabled-invisible">
+        <div class="personnalisation-row">
+          <div class="form">
+            <div class="chatbot-subtitle">
+              <h4>Quelle est l'identité votre chatbot ?</h4>
+            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Nom</mat-label>
+              <input matInput
+                     placeholder="Saisir..."
+                     formControlName="name"
+                     maxlength="50"
+                     required>
+              <mat-error *ngIf="customizationControls.name.hasError('required')">
+                Vous n'avez pas saisi de nom.
+              </mat-error>
+              <mat-error *ngIf="customizationControls.name.hasError('maxlength')">
+                Le nom est trop long, il doit faire au maximum 50 caractères.
+              </mat-error>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Fonction</mat-label>
-          <input matInput
-                 placeholder="Saisir..."
-                 formControlName="function"
-                 maxlength="50">
-          <mat-error *ngIf="customizationControls.function.hasError('required')">
-            Vous n'avez pas saisi de fonction.
-          </mat-error>
-          <mat-error *ngIf="customizationControls.function.hasError('maxlength')">
-            La fonction est trop longue, elle doit faire au maximum 50 caractères.
-          </mat-error>
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Fonction</mat-label>
+              <input matInput
+                     placeholder="Saisir..."
+                     formControlName="function"
+                     maxlength="50">
+              <mat-error *ngIf="customizationControls.function.hasError('required')">
+                Vous n'avez pas saisi de fonction.
+              </mat-error>
+              <mat-error *ngIf="customizationControls.function.hasError('maxlength')">
+                La fonction est trop longue, elle doit faire au maximum 50 caractères.
+              </mat-error>
+            </mat-form-field>
 
-        <div class="chatbot-subtitle">
-          <h4>Quelle est l'icône de votre chatbot ?</h4>
-        </div>
-        <div *appHasRole="'admin'">
-          Choisir l'icône qui vous convient dans la bibliothèque ci-dessous.
-        </div>
-        <div class="icons-wrapper" data-cy="PresetIcons" *appHasRole="'admin'">
-          <div class="icon"
-               *ngFor="let icon of icons"
-               data-cy="PresetIcon"
-               (click)="selectIcon(icon)">
-            <img [src]="'assets/img/icons/' + icon" [alt]="'Proposition de logo: ' + icon">
-          </div>
-        </div>
-        <div *appHasRole="'admin'">
-          Ou importer votre propre icône <span class="hint">(*format jpg ou png)</span>
-        </div>
-        <div *appHasRole="'admin'">
-          <button mat-flat-button
-                  color="accent"
-                  *ngIf="!customizationControls.icon.value; else iconFileWrapper"
-                  class="import-btn"
-                  data-cy="ImportIconBtn"
-                  (click)="iconUploader.click()">
-            Importer une icône
-          </button>
-        </div>
-        <input hidden
-               type="file"
-               #iconUploader
-               data-cy="ImportIconInput"
-               (change)="uploadIcon($event)"
-               [accept]="'.jpg, .png'"/>
-
-        <ng-template #iconFileWrapper>
-          <div class="icon-file-wrapper" data-cy="SelectedIconWrapper">
-            <div>
-              <div class="icon">
-                <img [src]="iconPreview" *ngIf="iconPreview">
-              </div>
-              <div class="file-name" data-cy="IconName">
-                {{ customizationControls.icon?.value?.name }}
+            <div class="chatbot-subtitle">
+              <h4>Quelle est l'icône de votre chatbot ?</h4>
+            </div>
+            <div *appHasRole="'admin'">
+              Choisir l'icône qui vous convient dans la bibliothèque ci-dessous.
+            </div>
+            <div class="icons-wrapper" data-cy="PresetIcons" *appHasRole="'admin'">
+              <div class="icon"
+                   *ngFor="let icon of icons"
+                   data-cy="PresetIcon"
+                   (click)="selectIcon(icon)">
+                <img [src]="'assets/img/icons/' + icon" [alt]="'Proposition de logo: ' + icon">
               </div>
             </div>
             <div *appHasRole="'admin'">
-              <button mat-stroked-button
-                      color="accent"
-                      data-cy="DeleteIconBtn"
-                      (click)="resetIconFile()">
-                Supprimer
-              </button>
+              Ou importer votre propre icône <span class="hint">(*format jpg ou png)</span>
+            </div>
+            <div *appHasRole="'admin'">
               <button mat-flat-button
                       color="accent"
-                      data-cy="UpdateIconBtn"
+                      *ngIf="!customizationControls.icon.value; else iconFileWrapper"
+                      class="import-btn"
+                      data-cy="ImportIconBtn"
                       (click)="iconUploader.click()">
-                Remplacer fichier
+                Importer une icône
               </button>
             </div>
+            <input hidden
+                   type="file"
+                   #iconUploader
+                   data-cy="ImportIconInput"
+                   (change)="uploadIcon($event)"
+                   [accept]="'.jpg, .png'"/>
+
+            <ng-template #iconFileWrapper>
+              <div class="icon-file-wrapper" data-cy="SelectedIconWrapper">
+                <div>
+                  <div class="icon">
+                    <img [src]="iconPreview" *ngIf="iconPreview">
+                  </div>
+                  <div class="file-name" data-cy="IconName">
+                    {{ customizationControls.icon?.value?.name }}
+                  </div>
+                </div>
+                <div *appHasRole="'admin'">
+                  <button mat-stroked-button
+                          color="accent"
+                          data-cy="DeleteIconBtn"
+                          (click)="resetIconFile()">
+                    Supprimer
+                  </button>
+                  <button mat-flat-button
+                          color="accent"
+                          data-cy="UpdateIconBtn"
+                          (click)="iconUploader.click()">
+                    Remplacer fichier
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+
+            <div class="chatbot-subtitle">
+              <h4>Quelles sont vos couleurs ?</h4>
+            </div>
+            <div class="color-picker-div"
+                 (click)="colorPickerPrimary.click()"
+                 [ngClass]="{'color-picker-div-disabled': customizationForm.disabled}">
+              <label>
+                Choisir la couleur primaire (en-tête)
+                <div>
+                  <input #colorPickerPrimary
+                         class="colorpicker color-picker-icon"
+                         maxlength="20"
+                         [disabled]="customizationForm.disabled"
+                         [colorPicker]="customizationControls.primaryColor.value"
+                         [style.background]="customizationControls.primaryColor.value"
+                         (colorPickerChange)="customizationControls.primaryColor.setValue($event); customizationControls.primaryColor.markAsDirty()"/>
+                </div>
+              </label>
+            </div>
+            <div class="color-picker-div"
+                 (click)="colorPickerSecondary.click()"
+                 [ngClass]="{'color-picker-div-disabled': customizationForm.disabled}">
+              <label>
+                Choisir la couleur secondaire (bas de page)
+                <div>
+                  <input #colorPickerSecondary
+                         class="colorpicker color-picker-icon"
+                         maxlength="20"
+                         [disabled]="customizationForm.disabled"
+                         [colorPicker]="customizationControls.secondaryColor.value"
+                         [style.background]="customizationControls.secondaryColor.value"
+                         (colorPickerChange)="customizationControls.secondaryColor.setValue($event); customizationControls.secondaryColor.markAsDirty()"/>
+                </div>
+              </label>
+            </div>
           </div>
-        </ng-template>
-
-        <div class="chatbot-subtitle">
-          <h4>Quelles sont vos couleurs ?</h4>
+          <div class="preview">
+            <app-chatbot-preview [chatbot]="customizationForm.getRawValue()" [iconSrc]="iconPreview">
+            </app-chatbot-preview>
+          </div>
         </div>
-        <div class="color-picker-div"
-             (click)="colorPickerPrimary.click()"
-             [ngClass]="{'color-picker-div-disabled': customizationForm.disabled}">
-          <label>
-            Choisir la couleur primaire (en-tête)
-            <div>
-              <input #colorPickerPrimary
-                     class="colorpicker color-picker-icon"
-                     maxlength="20"
-                     [disabled]="customizationForm.disabled"
-                     [colorPicker]="customizationControls.primaryColor.value"
-                     [style.background]="customizationControls.primaryColor.value"
-                     (colorPickerChange)="customizationControls.primaryColor.setValue($event); customizationControls.primaryColor.markAsDirty()"/>
-            </div>
-          </label>
-        </div>
-        <div class="color-picker-div"
-             (click)="colorPickerSecondary.click()"
-             [ngClass]="{'color-picker-div-disabled': customizationForm.disabled}">
-          <label>
-            Choisir la couleur secondaire (bas de page)
-            <div>
-              <input #colorPickerSecondary
-                     class="colorpicker color-picker-icon"
-                     maxlength="20"
-                     [disabled]="customizationForm.disabled"
-                     [colorPicker]="customizationControls.secondaryColor.value"
-                     [style.background]="customizationControls.secondaryColor.value"
-                     (colorPickerChange)="customizationControls.secondaryColor.setValue($event); customizationControls.secondaryColor.markAsDirty()"/>
-            </div>
-          </label>
-        </div>
-      </div>
-      <div class="preview">
-        <app-chatbot-preview [chatbot]="customizationForm.getRawValue()" [iconSrc]="iconPreview">
-        </app-chatbot-preview>
-      </div>
-    </div>
-  </form>
-  <ng-container *appHasRole="'admin'">
-    <button mat-stroked-button
-            color="accent"
-            *ngIf="customizationForm"
-            (click)="saveCustomization()"
-            [disabled]="!customizationForm.dirty">
-      Enregistrer
-    </button>
-  </ng-container>
+      </form>
+      <ng-container *appHasRole="'admin'">
+        <button mat-stroked-button
+                color="accent"
+                *ngIf="customizationForm"
+                (click)="saveCustomization()"
+                [disabled]="!customizationForm.dirty">
+          Enregistrer
+        </button>
+      </ng-container>
+    </mat-expansion-panel>
 
-  <form [formGroup]="descriptionForm" *ngIf="descriptionForm" class="form-disabled-invisible">
-    <div class="chatbot-title">
-      <h3>Description du chatbot</h3>
-    </div>
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header collapsedHeight="28px" expandedHeight="28px">
+        <mat-panel-title>
+          <h3>Description du chatbot</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
 
-    <div class="description-row">
-      <div class="chatbot-subtitle">
-        <h4>A quelle problématique répond votre chatbot ?</h4>
-      </div>
-      <mat-form-field appearance="outline">
-        <textarea matInput
-                  placeholder="Saisir..."
-                  formControlName="problematic"
-                  maxlength="200"
-                  required>
-      </textarea>
-        <mat-error *ngIf="descriptionControls.problematic.hasError('required')">
-          Vous n'avez pas saisi de problématique.
-        </mat-error>
-        <mat-error *ngIf="descriptionControls.problematic.hasError('maxlength')">
-          La problématique est trop longue, elle doit faire au maximum 200 caractères.
-        </mat-error>
-      </mat-form-field>
+      <form [formGroup]="descriptionForm" *ngIf="descriptionForm" class="form-disabled-invisible">
+        <div class="description-row">
+          <div class="chatbot-subtitle">
+            <h4>A quelle problématique répond votre chatbot ?</h4>
+          </div>
+          <mat-form-field appearance="outline">
+            <textarea matInput
+                      placeholder="Saisir..."
+                      formControlName="problematic"
+                      maxlength="200"
+                      required>
+            </textarea>
+            <mat-error *ngIf="descriptionControls.problematic.hasError('required')">
+              Vous n'avez pas saisi de problématique.
+            </mat-error>
+            <mat-error *ngIf="descriptionControls.problematic.hasError('maxlength')">
+              La problématique est trop longue, elle doit faire au maximum 200 caractères.
+            </mat-error>
+          </mat-form-field>
 
-      <div class="chatbot-subtitle">
-        <h4>A qui s'adresse votre chatbot ?</h4>
-      </div>
-      <mat-form-field appearance="outline">
+          <div class="chatbot-subtitle">
+            <h4>A qui s'adresse votre chatbot ?</h4>
+          </div>
+          <mat-form-field appearance="outline">
         <textarea matInput
                   placeholder="Saisir..."
                   formControlName="audience"
                   maxlength="200"
                   required>
       </textarea>
-        <mat-error *ngIf="descriptionControls.audience.hasError('required')">
-          Vous n'avez pas saisi d'audience.
-        </mat-error>
-        <mat-error *ngIf="descriptionControls.audience.hasError('maxlength')">
-          L'audience est trop longue, elle doit faire au maximum 200 caractères.
-        </mat-error>
-      </mat-form-field>
-    </div>
-  </form>
-  <ng-container *appHasRole="'admin'">
-    <button mat-stroked-button
-            color="accent"
-            (click)="saveDescription()"
-            *ngIf="descriptionForm"
-            [disabled]="!descriptionForm.dirty">
-      Enregistrer
-    </button>
-  </ng-container>
+            <mat-error *ngIf="descriptionControls.audience.hasError('required')">
+              Vous n'avez pas saisi d'audience.
+            </mat-error>
+            <mat-error *ngIf="descriptionControls.audience.hasError('maxlength')">
+              L'audience est trop longue, elle doit faire au maximum 200 caractères.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+      <ng-container *appHasRole="'admin'">
+        <button mat-stroked-button
+                color="accent"
+                (click)="saveDescription()"
+                *ngIf="descriptionForm"
+                [disabled]="!descriptionForm.dirty">
+          Enregistrer
+        </button>
+      </ng-container>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

@@ -1,56 +1,62 @@
 <div class="chatbot-users">
-  <div class="chatbot-title">
-    <h3>Utilisateurs</h3>
-  </div>
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header collapsedHeight="28px" expandedHeight="28px">
+        <mat-panel-title>
+          <h3>Utilisateurs</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
 
-  <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
-  <div *ngFor="let user of users$ | async" class="user-item">
-    <app-chatbot-list-item>
-      <div>
-        <mat-icon>person</mat-icon> &nbsp; {{ user.firstName }} {{ user.lastName }}
-      </div>
-      <div>
-        {{ user.email }}
-      </div>
-      <div>
-        {{ userRole_Fr[user.role] }}
+      <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
+      <div *ngFor="let user of users$ | async" class="user-item">
+        <app-chatbot-list-item>
+          <div>
+            <mat-icon>person</mat-icon> &nbsp; {{ user.firstName }} {{ user.lastName }}
+          </div>
+          <div>
+            {{ user.email }}
+          </div>
+          <div>
+            {{ userRole_Fr[user.role] }}
+          </div>
+
+          <div class="actions" *appHasRole="'admin'">
+            <button mat-icon-button
+                    class="chatbot-icon-btn"
+                    matTooltip="Editer"
+                    [color]="user.email === userSelected ? 'primary' : null"
+                    (click)="selectUser(user.email)"
+                    aria-label="Modifier l'utilisateur">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button
+                    class="chatbot-icon-btn"
+                    matTooltip="Supprimer"
+                    [disabled]="isUserAdmin(user)"
+                    (click)="deleteUser(user)"
+                    aria-label="Bouton pour supprimer l'utilisateur">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="user.email === userSelected"
+               class="detail"
+               [@detailInOutAnimation]>
+            <app-user-form [user]="user" (cancel)="userSelected = null">></app-user-form>
+          </div>
+        </app-chatbot-list-item>
       </div>
 
-      <div class="actions" *appHasRole="'admin'">
-        <button mat-icon-button
-                class="chatbot-icon-btn"
-                matTooltip="Editer"
-                [color]="user.email === userSelected ? 'primary' : null"
-                (click)="selectUser(user.email)"
-                aria-label="Modifier l'utilisateur">
-          <mat-icon>edit</mat-icon>
+      <app-user-form *ngIf="addUser" (cancel)="addUser = !addUser"></app-user-form>
+
+      <ng-container *appHasRole="'admin'">
+        <button mat-stroked-button
+                color="accent"
+                *ngIf="!addUser"
+                (click)="addUser = !addUser">
+          <mat-icon>add</mat-icon>
+          Ajouter un utilisateur
         </button>
-        <button mat-icon-button
-                class="chatbot-icon-btn"
-                matTooltip="Supprimer"
-                [disabled]="isUserAdmin(user)"
-                (click)="deleteUser(user)"
-                aria-label="Bouton pour supprimer l'utilisateur">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div>
-      <div *ngIf="user.email === userSelected"
-           class="detail"
-           [@detailInOutAnimation]>
-        <app-user-form [user]="user" (cancel)="userSelected = null">></app-user-form>
-      </div>
-    </app-chatbot-list-item>
-  </div>
-
-  <app-user-form *ngIf="addUser" (cancel)="addUser = !addUser"></app-user-form>
-
-  <ng-container *appHasRole="'admin'">
-    <button mat-stroked-button
-            color="accent"
-            *ngIf="!addUser"
-            (click)="addUser = !addUser">
-      <mat-icon>add</mat-icon>
-      Ajouter un utilisateur
-    </button>
-  </ng-container>
+      </ng-container>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

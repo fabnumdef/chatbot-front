@@ -101,6 +101,8 @@ export class IntentFormComponent implements OnInit {
 
   deleteKnowledge(idx: number): void {
     this.knowledgesFormArray.removeAt(idx);
+    this.intentForm.markAsDirty();
+    this.intentForm.updateValueAndValidity();
   }
 
   saveIntent() {

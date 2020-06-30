@@ -12,7 +12,7 @@ import { AuthService } from '@core/services/auth.service';
 @Component({
   selector: 'app-chatbot-config',
   templateUrl: './chatbot-config.component.html',
-  styleUrls: ['./chatbot-config.component.scss']
+  styleUrls: ['./chatbot-config.component.scss', '../configuration-expansion-panel.scss']
 })
 export class ChatbotConfigComponent implements OnInit {
 

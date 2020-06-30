@@ -1,0 +1,30 @@
+@import 'src/styles/variables';
+
+.mat-accordion .mat-expansion-panel {
+  box-shadow: none;
+  background: none;
+  margin-top: 20px;
+
+  .mat-expansion-panel-header, .mat-expansion-panel-header:hover {
+    background-color: $primary-color;
+    padding: 5px 20px;
+    border-radius: $border-radius;
+
+    .mat-expansion-panel-header-title h3, ::ng-deep .mat-expansion-indicator::after {
+      color: $white;
+      margin: 0;
+    }
+
+    .mat-expansion-panel-header-title {
+      align-items: center;
+    }
+
+    h4 {
+      margin: 0;
+    }
+  }
+
+  ::ng-deep.mat-expansion-panel-body {
+    padding: 16px 0;
+  }
+}

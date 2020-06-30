@@ -11,7 +11,7 @@ import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/
 @Component({
   selector: 'app-chatbot-users',
   templateUrl: './chatbot-users.component.html',
-  styleUrls: ['./chatbot-users.component.scss'],
+  styleUrls: ['./chatbot-users.component.scss', '../configuration-expansion-panel.scss'],
   animations: [
     detailInOutAnimation
   ]
