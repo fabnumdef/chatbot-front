@@ -22,7 +22,9 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
   intentForm: FormGroup;
   filteredIntents$: BehaviorSubject<Intent[]> = new BehaviorSubject<Intent[]>([]);
   addIntent = false;
+  modifyIntent = false;
   newIntent = new Intent();
+  intentToEdit = null;
   public intentFilterCtrl: FormControl = new FormControl();
 
   constructor(private _fb: FormBuilder,
@@ -50,11 +52,20 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
 
   editIntent(intent) {
     if (!intent) {
+      this.modifyIntent = false;
+      this.addIntent = false;
       return;
     }
     this._inboxService.save(<Inbox> {id: this.inbox.id, intent: intent}).subscribe(() => {
       this._configService.getConfig().subscribe();
       this.close.emit(true);
+    });
+  }
+
+  getIntent() {
+    this._intentService.loadOne(this.intentForm.value.intent.id).subscribe(intent => {
+      this.intentToEdit = intent;
+      this.modifyIntent = true;
     });
   }
 

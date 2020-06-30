@@ -1,5 +1,5 @@
 <div class="inbox-intent">
-  <ng-container *ngIf="!addIntent; else newIntentDiv">
+  <ng-container *ngIf="!addIntent && !modifyIntent; else newIntentDiv">
     <div class="chatbot-title">
       <h3>Connaissance liée</h3>
     </div>
@@ -26,8 +26,16 @@
               color="accent"
               (click)="editIntent(intentForm.value.intent)"
               [disabled]="!intentForm.valid || !intentForm.dirty">
+        <mat-icon>link</mat-icon>
+        Lier
+      </button>
+      <button mat-flat-button
+              color="accent"
+              class="edit-intent-btn"
+              (click)="getIntent()"
+              [disabled]="addIntent">
         <mat-icon>edit</mat-icon>
-        Modifier
+        Modifier la connaissance
       </button>
     </form>
 
@@ -38,20 +46,35 @@
       connaissance pour apporter une réponse à cette question.</p>
     <button mat-flat-button
             color="accent"
-            (click)="addIntent = true">
+            (click)="addIntent = true"
+            [disabled]="modifyIntent">
       <mat-icon>add</mat-icon>
       Créer une nouvelle connaissance
     </button>
   </ng-container>
   <ng-template #newIntentDiv>
+    <ng-container *ngIf="addIntent; else editIntentDiv">
+      <button mat-button
+              (click)="addIntent = false"
+              class="back-button"
+              color="accent">
+        <mat-icon>arrow_back</mat-icon>
+        <span class="back-text">Retour</span>
+      </button>
+      <app-intent-form [intent]="newIntent"
+                       [redirect]="false"
+                       (close)="editIntent($event)"></app-intent-form>
+    </ng-container>
+  </ng-template>
+  <ng-template #editIntentDiv>
     <button mat-button
-            (click)="addIntent = false"
+            (click)="modifyIntent = false; intentToEdit = null"
             class="back-button"
             color="accent">
       <mat-icon>arrow_back</mat-icon>
       <span class="back-text">Retour</span>
     </button>
-    <app-intent-form [intent]="newIntent"
+    <app-intent-form [intent]="intentToEdit"
                      [redirect]="false"
                      (close)="editIntent($event)"></app-intent-form>
   </ng-template>
