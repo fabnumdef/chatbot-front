@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatbotAccessComponent implements OnInit {
 
-  constructor() { }
+  chatbotPath = '/chatbot';
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
