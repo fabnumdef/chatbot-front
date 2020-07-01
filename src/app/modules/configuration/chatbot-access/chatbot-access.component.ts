@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-chatbot-access',
@@ -7,12 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatbotAccessComponent implements OnInit {
 
-  chatbotPath = '/chatbot';
+  chatbotPath = window.location.origin + '/chatbot';
 
-  constructor() {
+  constructor(private _clipboard: Clipboard,
+              private _toastr: ToastrService) {
   }
 
   ngOnInit(): void {
+  }
+
+  copyToClipboard(value: string) {
+    this._clipboard.copy(value);
+    this._toastr.success('Copié dans le presse-papier');
   }
 
 }

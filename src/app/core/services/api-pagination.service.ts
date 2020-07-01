@@ -127,7 +127,7 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
       }
       const auxArray = array.value.map(entity => {
         if (entity[this._idAttribute] === newItem[this._idAttribute]) {
-          return {...entity, ...newItem};
+          return {...(entity as Object), ...newItem};
         }
         return entity;
       });
