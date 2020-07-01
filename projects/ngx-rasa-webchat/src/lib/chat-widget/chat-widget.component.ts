@@ -128,7 +128,7 @@ export class ChatWidgetComponent implements OnInit {
     this.chatService.sendMessage(message);
   }
 
-  quickReplyClick(payload: string, title: string) {
+  public quickReplyClick(payload: string, title: string) {
     const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
       '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
@@ -143,18 +143,25 @@ export class ChatWidgetComponent implements OnInit {
     }
   }
 
-  isFirstMessage(previousMessage, from): boolean {
+  public isFirstMessage(previousMessage, from): boolean {
     if (!previousMessage) {
       return true;
     }
     return previousMessage.from !== from;
   }
 
-  isLastMessage(nextMessage, from): boolean {
+  public isLastMessage(nextMessage, from): boolean {
     if (!nextMessage) {
       return true;
     }
     return nextMessage.from !== from;
+  }
+
+  public urlify(text) {
+    const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
+    return text.replace(urlRegex, (url) => {
+      return '<a href="' + url + '" target="_blank">' + url + '</a>';
+    });
   }
 
   @HostListener('document:keypress', ['$event'])

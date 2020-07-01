@@ -38,13 +38,13 @@
             <ng-container [ngSwitch]="message.type">
               <div class="chat-message-text"
                    *ngSwitchCase="messageType.text"
-                   [ngStyle]="{'background-color': message.from === 'received'? botColor : userColor}">
-                {{message.text}}
+                   [ngStyle]="{'background-color': message.from === 'received'? botColor : userColor}"
+                   [innerHTML]="urlify(message.text)">
               </div>
               <div class="chat-message-text"
                    *ngSwitchCase="messageType.quick_reply"
-                   [ngStyle]="{'background-color': message.from === 'received'? botColor : userColor}">
-                {{message.text}}
+                   [ngStyle]="{'background-color': message.from === 'received'? botColor : userColor}"
+                   [innerHTML]="urlify(message.text)">
               </div>
               <div class="chat-message-quick-replies"
                    *ngSwitchCase="messageType.quick_reply"
