@@ -96,18 +96,20 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <ng-container *ngFor="let knowledgeForm of knowledgesFormArray.controls; let idx = index">
-          <app-knowledge-form [knowledgeForm]="knowledgeForm"
-                              (deleteKnowledge)="deleteKnowledge(idx)">
-          </app-knowledge-form>
-        </ng-container>
         <button mat-stroked-button
                 color="accent"
+                class="add-knowledge-btn"
                 [disabled]="!knowledgesFormArray.valid"
                 (click)="addKnowledge()">
           <mat-icon>add</mat-icon>
           Ajouter une question synonyme
         </button>
+
+        <ng-container *ngFor="let knowledgeForm of knowledgesFormArray.controls; let idx = index">
+          <app-knowledge-form [knowledgeForm]="knowledgeForm"
+                              (deleteKnowledge)="deleteKnowledge(idx)">
+          </app-knowledge-form>
+        </ng-container>
       </mat-expansion-panel>
     </mat-accordion>
 
