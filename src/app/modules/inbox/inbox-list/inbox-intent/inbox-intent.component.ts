@@ -77,14 +77,9 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
   }
 
   getFilteredIntents(category) {
-    this.intents = this.allIntents;
-    let filteredItems: Intent[];
-    this.intents.forEach((intent, index) => {
-      filteredItems = this.intents.filter((item: Intent) => {
-        return item.category.includes(category);
-      });
+    this.intents = this.allIntents.filter((intent: Intent) => {
+      return intent.category.includes(category);
     });
-    this.intents = filteredItems;
     this._initSelectFilter();
   }
 
