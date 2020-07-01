@@ -10,7 +10,8 @@
     "build:prod": "ng build ngx-rasa-webchat --prod && ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
@@ -33,7 +34,7 @@
     "ngx-color-picker": "^9.1.0",
     "ngx-mat-select-search": "^2.1.2",
     "ngx-toastr": "^12.0.0",
-    "rxjs": "~6.5.4",
+    "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },

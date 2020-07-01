@@ -45,10 +45,6 @@ import { IntentListComponent } from './intent-list/intent-list.component';
     SharedModule,
     NgxMatSelectSearchModule
   ],
-  entryComponents: [
-    WarningsDialogComponent,
-    MediaListDialogComponent
-  ],
   providers: [
     {provide: Window, useValue: window},
   ],

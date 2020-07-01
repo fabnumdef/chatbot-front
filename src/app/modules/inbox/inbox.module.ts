@@ -30,9 +30,6 @@ import { InboxAssignationDialogComponent } from './inbox-list/inbox-assignation-
     ReactiveFormsModule,
     NgxMatSelectSearchModule,
     IntentModule
-  ],
-  entryComponents: [
-    InboxAssignationDialogComponent
   ]
 })
 export class InboxModule {
