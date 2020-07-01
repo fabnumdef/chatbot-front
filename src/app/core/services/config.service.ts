@@ -64,6 +64,15 @@ export class ConfigService {
     if (partialConfig.audience) {
       formData.append('audience', partialConfig.audience);
     }
+    if (partialConfig.embeddedIcon) {
+      formData.append('embeddedIcon', partialConfig.embeddedIcon, partialConfig.embeddedIcon.name);
+    }
+    if (partialConfig.description) {
+      formData.append('description', partialConfig.description);
+    }
+    if (partialConfig.help) {
+      formData.append('help', partialConfig.help);
+    }
 
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');

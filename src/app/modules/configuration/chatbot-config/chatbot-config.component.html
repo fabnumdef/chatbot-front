@@ -156,6 +156,112 @@
       </ng-container>
     </mat-expansion-panel>
 
+
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header collapsedHeight="28px" expandedHeight="28px">
+        <mat-panel-title>
+          <h3>Personnalisation en plein écran du chatbot</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="embeddedForm" *ngIf="embeddedForm" class="form-disabled-invisible">
+        <div class="embedded-row">
+          <div class="form">
+            <div class="chatbot-subtitle">
+              <h4>À quel ministère votre bot est-il associé ?</h4>
+            </div>
+            <div>Importez le logo du ministère associé <span class="hint">(*format jpg ou png)</span></div>
+            <div *appHasRole="'admin'">
+              <button mat-flat-button
+                      color="accent"
+                      *ngIf="!embeddedControls.embeddedIcon.value; else embeddedIconFileWrapper"
+                      class="import-btn"
+                      data-cy="ImportEmbeddedIconBtn"
+                      (click)="embeddedIconUploader.click()">
+                Importer un logo
+              </button>
+            </div>
+            <input hidden
+                   type="file"
+                   #embeddedIconUploader
+                   data-cy="ImportEmbeddedIconInput"
+                   (change)="uploadIcon($event, true)"
+                   [accept]="'.jpg, .png'"/>
+
+            <ng-template #embeddedIconFileWrapper>
+              <div class="icon-file-wrapper" data-cy="SelectedEmbeddedIconWrapper">
+                <div>
+                  <div class="icon">
+                    <img [src]="embeddedIconPreview" *ngIf="embeddedIconPreview">
+                  </div>
+                  <div class="file-name" data-cy="EmbeddedIconName">
+                    {{ embeddedControls.embeddedIcon?.value?.name }}
+                  </div>
+                </div>
+                <div *appHasRole="'admin'">
+                  <button mat-stroked-button
+                          color="accent"
+                          data-cy="DeleteEmbeddedIconBtn"
+                          (click)="resetEmbeddedIconFile()">
+                    Supprimer
+                  </button>
+                  <button mat-flat-button
+                          color="accent"
+                          data-cy="UpdateEmbeddedIconBtn"
+                          (click)="embeddedIconUploader.click()">
+                    Remplacer fichier
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+            <div class="chatbot-subtitle">
+              <h4>À quoi sert votre bot ?</h4>
+            </div>
+            <p>Saisissez une rapide description de votre bot</p>
+            <mat-form-field appearance="outline">
+            <textarea matInput
+                      placeholder="Saisir..."
+                      formControlName="description"
+                      maxlength="255">
+            </textarea>
+              <mat-error *ngIf="embeddedControls.description.hasError('maxlength')">
+                La description est trop longue, elle doit faire au maximum 255 caractères.
+              </mat-error>
+            </mat-form-field>
+            <div class="chatbot-subtitle">
+              <h4>Guidez l'utilisateur ?</h4>
+            </div>
+            <p>Saisissez un texte d'aide qui apparaîtra lorsqu'on cliquera sur le bouton</p>
+            <mat-form-field appearance="outline">
+            <textarea matInput
+                      placeholder="Saisir..."
+                      formControlName="help"
+                      maxlength="500">
+            </textarea>
+              <mat-error *ngIf="embeddedControls.help.hasError('maxlength')">
+                L'aide est trop longue, elle doit faire au maximum 500 caractères.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="preview">
+            <app-chatbot-embedded-preview [chatbot]="fullConfiguration"
+                                          [iconSrc]="iconPreview"
+                                          [embeddedIconSrc]="embeddedIconPreview">
+            </app-chatbot-embedded-preview>
+          </div>
+        </div>
+      </form>
+      <ng-container *appHasRole="'admin'">
+        <button mat-stroked-button
+                color="accent"
+                *ngIf="embeddedForm"
+                (click)="saveEmbedded()"
+                [disabled]="!embeddedForm.dirty">
+          Enregistrer
+        </button>
+      </ng-container>
+    </mat-expansion-panel>
+
     <mat-expansion-panel [expanded]="false">
       <mat-expansion-panel-header collapsedHeight="28px" expandedHeight="28px">
         <mat-panel-title>
@@ -166,7 +272,7 @@
       <form [formGroup]="descriptionForm" *ngIf="descriptionForm" class="form-disabled-invisible">
         <div class="description-row">
           <div class="chatbot-subtitle">
-            <h4>A quelle problématique répond votre chatbot ?</h4>
+            <h4>À quelle problématique répond votre chatbot ?</h4>
           </div>
           <mat-form-field appearance="outline">
             <textarea matInput
@@ -184,7 +290,7 @@
           </mat-form-field>
 
           <div class="chatbot-subtitle">
-            <h4>A qui s'adresse votre chatbot ?</h4>
+            <h4>À qui s'adresse votre chatbot ?</h4>
           </div>
           <mat-form-field appearance="outline">
         <textarea matInput

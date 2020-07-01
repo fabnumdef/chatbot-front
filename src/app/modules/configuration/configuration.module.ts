@@ -11,6 +11,7 @@ import { UserFormComponent } from './chatbot-users/user-form/user-form.component
 import { ReactiveFormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ChatbotPreviewComponent } from './chatbot-config/chatbot-preview/chatbot-preview.component';
+import { ChatbotEmbeddedPreviewComponent } from './chatbot-config/chatbot-embedded-preview/chatbot-embedded-preview.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ChatbotPreviewComponent } from './chatbot-config/chatbot-preview/chatbo
     ChatbotConfigComponent,
     ChatbotUsersComponent,
     UserFormComponent,
-    ChatbotPreviewComponent
+    ChatbotPreviewComponent,
+    ChatbotEmbeddedPreviewComponent
   ],
   imports: [
     CommonModule,

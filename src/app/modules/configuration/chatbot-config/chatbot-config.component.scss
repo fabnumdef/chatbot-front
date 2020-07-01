@@ -1,7 +1,7 @@
 @import 'src/styles/variables';
 
 .chatbot-config {
-  .description-row, .personnalisation-row .form {
+  .description-row, .personnalisation-row .form, .embedded-row .form {
     display: flex;
     flex-direction: column;
 
@@ -10,11 +10,11 @@
     }
   }
 
-  .personnalisation-row {
+  .personnalisation-row, .embedded-row {
     display: flex;
 
     .form {
-      flex: 2;
+      flex: 3;
 
       .icons-wrapper {
         display: flex;
@@ -87,7 +87,7 @@
     }
 
     .preview {
-      flex: 1;
+      flex: 2;
       display: flex;
       align-items: center;
       justify-content: center;

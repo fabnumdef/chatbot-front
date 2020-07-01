@@ -4,10 +4,17 @@ export class Config {
   icon: string;
   primaryColor: string;
   secondaryColor: string;
-  problematic: string;
-  audience: string;
   mediaSize: number;
   trainingRasa: boolean;
   needTraining: boolean;
   lastTrainingAt: string;
+
+  // EMBEDDED
+  embeddedIcon: string;
+  description: string;
+  help: string;
+
+  // DESCRIPTION
+  problematic: string;
+  audience: string;
 }
