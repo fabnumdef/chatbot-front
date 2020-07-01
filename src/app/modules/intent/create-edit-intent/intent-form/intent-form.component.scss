@@ -2,6 +2,10 @@
 
 .intent-form {
 
+  .chatbot-title {
+    margin-bottom: 10px;
+  }
+
   .intent-error {
     border: 1px solid $error-color;
     border-radius: $border-radius;
@@ -27,7 +31,6 @@
 
     .chatbot-info {
       margin-left: 15px;
-      max-width: 350px;
       white-space: initial;
     }
   }
@@ -35,7 +38,7 @@
   .mat-accordion .mat-expansion-panel {
     box-shadow: none;
     background: none;
-    margin-top: 20px;
+    margin: 10px 0;
 
     .mat-expansion-panel-header {
       background-color: $primary-color-50;
@@ -51,7 +54,7 @@
     }
 
     ::ng-deep.mat-expansion-panel-body {
-      padding: 16px 0;
+      padding: 16px 0 0 0;
     }
   }
 
