@@ -6,6 +6,17 @@
           <h3>Accès au chatbot</h3>
         </mat-panel-title>
       </mat-expansion-panel-header>
+      <div class="chatbot-subtitle">
+        <h4>Lien vers votre chatbot</h4>
+      </div>
+      <div class="form-disabled-invisible">
+        <mat-form-field appearance="outline">
+          <input matInput disabled [value]="chatbotPath">
+          <button mat-icon-button matSuffix (click)="copyToClipboard(chatbotPath)">
+            <mat-icon>file_copy</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

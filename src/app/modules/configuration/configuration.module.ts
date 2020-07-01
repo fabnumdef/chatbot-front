@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ChatbotPreviewComponent } from './chatbot-config/chatbot-preview/chatbot-preview.component';
 import { ChatbotEmbeddedPreviewComponent } from './chatbot-config/chatbot-embedded-preview/chatbot-embedded-preview.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ChatbotEmbeddedPreviewComponent } from './chatbot-config/chatbot-embedd
     SharedModule,
     MaterialModule,
     ReactiveFormsModule,
-    ColorPickerModule
+    ColorPickerModule,
+    ClipboardModule
   ],
   providers: [
     {provide: Window, useValue: window},

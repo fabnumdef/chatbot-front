@@ -28,9 +28,6 @@ import { HasRoleDirective } from './directives/has-role.directive';
     PaginationComponent,
     ReversePipe,
     HasRoleDirective
-  ],
-  entryComponents: [
-    ConfirmDialogComponent
   ]
 })
 export class SharedModule { }

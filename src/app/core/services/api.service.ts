@@ -65,7 +65,7 @@ export abstract class ApiService<T extends any> {
     let auxArray = this._entities$.value.map(entity => {
       if (entity[this._idAttribute] === newItem[this._idAttribute]) {
         entityFind = true;
-        return {...entity, ...newItem};
+        return {...(entity as Object), ...newItem};
       }
       return entity;
     });
