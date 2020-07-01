@@ -1,13 +1,15 @@
 <div class="chatbot" *ngIf="publicConfigService.config"
      [ngStyle]="{'height': chatbotHeight + 'px'}">
-  <ngx-rasa-chat-widget [socketUrl]="'https://dev.chatbot.fabnum.fr'"
+  <ngx-rasa-chat-widget [socketUrl]="window.location.origin"
                         [socketPath]="'/socket-chatbot/'"
                         [initPayload]="'/phrase_presentation'"
                         [botAvatar]="window.location.origin + '/media/'  + publicConfigService.config.icon"
+                        [companyLogo]="window.location.origin + '/media/'  + publicConfigService.config.embeddedIcon"
                         [botName]="publicConfigService.config.name"
                         [botSubtitle]="publicConfigService.config.function"
                         [botColor]="publicConfigService.config.primaryColor"
                         [userColor]="publicConfigService.config.secondaryColor"
+                        [botDescription]="publicConfigService.config.description"
                         [storage]="'session'"
                         [embedded]="true"
                         [inputPlaceholder]="'Posez votre question ...'">
