@@ -93,18 +93,26 @@ export class QuickReplyFormComponent extends DestroyObservable implements OnInit
       return;
     }
     // get the search keyword
-    let search = this.intentFilterCtrl.value;
+    const search = this.intentFilterCtrl.value;
+    let keywords;
     if (!search) {
       this.filteredIntents$.next(this.intents.slice());
       return;
     } else {
-      search = search.toLowerCase();
+      keywords = search.toLowerCase().split(' ');
     }
     // filter the intents
     this.filteredIntents$.next(
       this.intents.filter(intent => {
-        return (`${intent.category ? `${intent.category} - ` : ''}${intent.mainQuestion}`)
-          .toLowerCase().indexOf(search) > -1;
+        let find = true;
+        for (const k of keywords) {
+          find = (`${intent.category ? `${intent.category} - ` : ''}${intent.mainQuestion ? intent.mainQuestion : intent.id}`)
+            .toLowerCase().indexOf(k) > -1;
+          if (!find) {
+            break;
+          }
+        }
+        return find;
       })
     );
   }
