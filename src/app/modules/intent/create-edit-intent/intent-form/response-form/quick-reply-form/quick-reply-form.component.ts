@@ -25,7 +25,7 @@ export class QuickReplyFormComponent extends DestroyObservable implements OnInit
   }
 
   ngOnInit(): void {
-    this._intentService.loadAll().subscribe(intents => {
+    this._intentService.fullEntities$.subscribe(intents => {
       this.intents = intents;
       this._initSelectFilter();
       this._initFormArray();
@@ -63,7 +63,7 @@ export class QuickReplyFormComponent extends DestroyObservable implements OnInit
 
   private _initFormGroup(quickReply?: any): FormGroup {
     return this._fb.group({
-      text: [quickReply ? quickReply.text : null, [Validators.required, Validators.maxLength(50)]],
+      text: [quickReply ? quickReply.text : null, [Validators.required, Validators.maxLength(200)]],
       intent: [quickReply ? quickReply.intent : null, Validators.required]
     });
   }

@@ -26,9 +26,9 @@ export abstract class ApiService<T extends any> {
     return this.update(item);
   }
 
-  public update(item: T): Observable<T> {
+  public update(item: T, id?: string): Observable<T> {
     this._processing$.next(true);
-    return this._h.put<T>(`${this._url}/${item[this._idAttribute]}`, item).pipe(
+    return this._h.put<T>(`${this._url}/${id ? id : item[this._idAttribute]}`, item).pipe(
       tap(entity => {
         this.updateEntityArray(entity);
       }),

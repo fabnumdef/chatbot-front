@@ -9,13 +9,13 @@
         <input matInput
                placeholder="Saisir..."
                formControlName="text"
-               maxlength="50"
+               maxlength="200"
                required>
         <mat-error *ngIf="quickReplyForm.controls.text.hasError('required')">
           Vous n'avez pas saisi de texte.
         </mat-error>
         <mat-error *ngIf="quickReplyForm.controls.text.hasError('maxLength')">
-          Le texte est trop long, il doit faire au maximum 50 caractères.
+          Le texte est trop long, il doit faire au maximum 200 caractères.
         </mat-error>
       </mat-form-field>
 

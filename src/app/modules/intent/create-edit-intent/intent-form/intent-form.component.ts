@@ -106,11 +106,15 @@ export class IntentFormComponent implements OnInit {
   }
 
   saveIntent() {
-    this._intentService.create({...this.intentForm.getRawValue(), ...{status: this.intent.status}}).subscribe(intent => {
-      this._refDataService.reloadCategories(intent.category);
+    const intent = this.intentForm.getRawValue();
+    const httpRequest = (intent.initialId !== intent.id && intent.initialId) ?
+      this._intentService.update({...intent, ...{status: this.intent.status}}, intent.initialId)
+      : this._intentService.create({...intent, ...{status: this.intent.status}});
+    httpRequest.subscribe(i => {
+      this._refDataService.reloadCategories(i.category);
       this._configService.getConfig().subscribe();
       this._toastr.success('Connaissance sauvegardée');
-      this.close.emit(intent);
+      this.close.emit(i);
       if (this.redirect) {
         this._router.navigateByUrl('/connaissances');
       }
@@ -127,6 +131,7 @@ export class IntentFormComponent implements OnInit {
   private _initForm() {
     this.intentForm = this._fb.group({
       isNewIntent: [!this.intent.id],
+      initialId: [this.intent.id],
       id: [this.intent.id, [Validators.required, Validators.pattern('[a-zA-Z0-9_-]*'), Validators.maxLength(100)]],
       mainQuestion: [this.intent.mainQuestion, [Validators.maxLength(255)]],
       category: [this.intent.category, [Validators.maxLength(255)]],
