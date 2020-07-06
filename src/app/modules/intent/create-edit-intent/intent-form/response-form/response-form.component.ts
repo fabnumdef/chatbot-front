@@ -40,16 +40,21 @@ export class ResponseFormComponent implements OnInit {
         startWith(this.responseForm.get('responseType').value),
         pairwise(),
         tap(([previousValue, nextValue]) => {
-          this.responseForm.get('response')?.setValue(null);
           if ([ResponseType.quick_reply, ResponseType.button, ResponseType.image].includes(previousValue)) {
+            const oldTextValue = this.responseFormArray.at(this.index - 1).get('response').value;
             if (nextValue === ResponseType.text) {
+              this.responseForm.get('response')?.setValue(oldTextValue);
               this.responseFormArray.removeAt(this.index - 1);
+              return;
             }
+            this.responseForm.get('response')?.setValue(null);
             return;
           }
           if ([ResponseType.quick_reply, ResponseType.button, ResponseType.image].includes(nextValue)) {
+            const oldTextValue = this.responseFormArray.at(this.index).get('response').value;
+            this.responseForm.get('response')?.setValue(null);
             this.responseFormArray.insert(this.index,
-              this._getResponseForm({id: null, responseType: ResponseType.text, response: null}));
+              this._getResponseForm({id: null, responseType: ResponseType.text, response: oldTextValue}));
           }
         })
       )
