@@ -1,8 +1,9 @@
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { fadeIn, fadeInOut } from '../animation';
 import { NgxRasaWebchatService } from '../ngx-rasa-webchat.service';
 import { MessageType } from '../message-type.enum';
+import { concatMap, delay, tap } from 'rxjs/operators';
 
 // const rand = max => Math.floor(Math.random() * max);
 
@@ -103,17 +104,21 @@ export class ChatWidgetComponent implements OnInit {
     };
     this.chatService
       .getMessages()
-      .subscribe((message) => {
-        setTimeout(() => {
-          if (message.text && (!message.quick_replies || message.quick_replies.length < 1)) {
-            this.addMessage(message.text, MessageType.text, 'received');
-          } else if (message.text && message.quick_replies && message.quick_replies.length > 0) {
-            this.addMessage(message.text, MessageType.quick_reply, 'received', message.quick_replies);
-          } else if (message.attachment) {
-            this.addMessage(message.attachment?.payload?.src, MessageType.image, 'received');
-          }
-        }, 1000);
-      });
+      .pipe(
+        concatMap(m => of(m).pipe(
+          delay(1000),
+          tap((message: any) => {
+            if (message.text && (!message.quick_replies || message.quick_replies.length < 1)) {
+              this.addMessage(message.text, MessageType.text, 'received');
+            } else if (message.text && message.quick_replies && message.quick_replies.length > 0) {
+              this.addMessage(message.text, MessageType.quick_reply, 'received', message.quick_replies);
+            } else if (message.attachment) {
+              this.addMessage(message.attachment?.payload?.src, MessageType.image, 'received');
+            }
+          })
+        ))
+      )
+      .subscribe();
   }
 
   public toggleChat() {
