@@ -125,12 +125,12 @@ export class ChatWidgetComponent implements OnInit {
     this.visible = !this.visible;
   }
 
-  public sendMessage({message, type}) {
+  public sendMessage({message, type, payload}) {
     if (message.trim() === '') {
       return;
     }
     this.addMessage(message, type, 'sent');
-    this.chatService.sendMessage(message);
+    this.chatService.sendMessage(payload ? payload : message);
   }
 
   public quickReplyClick(payload: string, title: string) {

@@ -1,3 +1,9 @@
+.chat-input {
+  display: block;
+  position: relative;
+  height: 50px;
+}
+
 .chat-input-text {
   margin: 14px 0 0 14px;
   height: 25px;
@@ -42,4 +48,24 @@
 
 .chat-input-submit:enabled svg {
   fill: currentColor;
+}
+
+.intents-preview {
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+  max-height: 33vh;
+  overflow-y: auto;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px -3px rgba(110, 145, 240, .3);
+}
+
+.intents-preview .intent {
+  cursor: pointer;
+  transition: background-color 200ms;
+  padding: 10px;
+}
+
+.intents-preview .intent:hover {
+  background-color: #d3d3d3;
 }

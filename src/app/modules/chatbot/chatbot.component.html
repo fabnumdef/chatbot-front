@@ -1,6 +1,6 @@
 <div class="chatbot" *ngIf="publicConfigService.config"
      [ngStyle]="{'height': chatbotHeight + 'px'}">
-  <ngx-rasa-chat-widget [socketUrl]="window.location.origin"
+  <ngx-rasa-chat-widget [socketUrl]="'https://dev.chatbot.fabnum.fr'"
                         [socketPath]="'/socket-chatbot/'"
                         [initPayload]="'/phrase_presentation'"
                         [botAvatar]="window.location.origin + '/media/'  + publicConfigService.config.icon"

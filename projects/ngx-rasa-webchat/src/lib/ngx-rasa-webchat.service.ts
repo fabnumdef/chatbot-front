@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import io from 'socket.io-client';
+import { HttpClient } from '@angular/common/http';
 
 const SESSION_NAME = 'chat_session';
 
@@ -9,14 +10,17 @@ const SESSION_NAME = 'chat_session';
 })
 export class NgxRasaWebchatService {
 
+  private _url;
+
   private _socket;
   private _storage;
 
-  constructor() {
+  constructor(private _http: HttpClient) {
 
   }
 
   public connect(url: string, path: string, initPayload: string) {
+    this._url = url;
     this._socket = io(url, {
       path
     });
@@ -64,7 +68,7 @@ export class NgxRasaWebchatService {
         observer.next(message);
       });
     });
-  }
+  };
 
   public storeConversation(conversation) {
     // Store a conversation List to storage
@@ -90,6 +94,10 @@ export class NgxRasaWebchatService {
 
   public setStorage(storage) {
     this._storage = (storage === 'session') ? sessionStorage : localStorage;
+  }
+
+  public searchIntents(query) {
+    return this._http.get(`${this._url}/api/public/intents/${query}`);
   }
 
   private _getSessionId() {

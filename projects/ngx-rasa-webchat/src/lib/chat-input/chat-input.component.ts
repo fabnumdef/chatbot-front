@@ -9,6 +9,9 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { MessageType } from '../message-type.enum';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
+import { NgxRasaWebchatService } from '../ngx-rasa-webchat.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -23,10 +26,33 @@ export class ChatInputComponent implements OnInit {
   @Output() public send = new EventEmitter();
   @Output() public dismiss = new EventEmitter();
   @ViewChild('message') message: ElementRef;
-  messageText = '';
+  messageText: FormControl;
+  intents: any[];
+
+  constructor(private _fb: FormBuilder,
+              private _chatbotService: NgxRasaWebchatService) {
+  }
 
   ngOnInit() {
+    this.messageText = this._fb.control('');
     this.focus.subscribe(() => this.focusMessage());
+
+    this.messageText.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      filter(value => {
+        if (value.length > 2) {
+          return true;
+        }
+        this.intents = [];
+        return false;
+      })
+    ).subscribe(value => {
+      // Call search intent
+      this._chatbotService.searchIntents(value).subscribe((intents: any[]) => {
+        this.intents = intents;
+      });
+    });
   }
 
   public focusMessage() {
@@ -34,15 +60,26 @@ export class ChatInputComponent implements OnInit {
   }
 
   public clearMessage() {
-    this.messageText = '';
+    this.intents = [];
+    this.messageText.setValue('');
+  }
+
+  public sendIntent(intent) {
+    this.send.emit({
+      message: intent.mainQuestion,
+      payload: `/${intent.id}`,
+      type: MessageType.text
+    });
+    this.clearMessage();
+    this.focusMessage();
   }
 
   onSubmit() {
-    if (this.messageText.trim() === '') {
+    if (this.messageText.value.trim() === '') {
       return;
     }
     this.send.emit({
-      message: this.messageText,
+      message: this.messageText.value,
       type: MessageType.text
     });
     this.clearMessage();
