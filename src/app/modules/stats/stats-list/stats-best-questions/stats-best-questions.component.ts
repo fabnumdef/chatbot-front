@@ -76,7 +76,7 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
         this.data = value['mostAskedQuestions'];
         this.data.forEach(elem => {
           this.chartData.push({
-            data: elem['count'],
+            data: [parseInt(elem['count'], 10)],
             label: elem['question']
           });
         });

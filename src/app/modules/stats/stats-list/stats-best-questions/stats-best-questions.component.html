@@ -1,29 +1,27 @@
 <div class="stats-best-questions">
   <div class="chatbot-title">
-    <h3>Questions les plus posées</h3> 
-  </div>  
+    <h3>Questions les plus posées</h3>
+  </div>
 
   <div class="barchart">
     <canvas
-        baseChart
-        [chartType]="'bar'"
-        [datasets]="chartData"
-        [labels]="false"
-        [options]="chartOptions"
-        [legend]="true">
+      baseChart
+      [chartType]="'bar'"
+      [datasets]="chartData"
+      [options]="chartOptions"
+      [legend]="true">
     </canvas>
   </div>
 
   <button mat-stroked-button
-      class="downloadButton"
-      color="accent"
-      type="button"
-      (click)="download()">
-      <mat-icon>get_app</mat-icon>
-      Exporter le graphique
+          class="downloadButton"
+          color="accent"
+          type="button"
+          (click)="download()">
+    <mat-icon>get_app</mat-icon>
+    Exporter le graphique
   </button>
 
   <a href="#" id="downloadBestQuestBtn" (click)="downloadCanvasBest($event)" hidden> DOWNLOAD THIS</a>
-   
+
 </div>
-  

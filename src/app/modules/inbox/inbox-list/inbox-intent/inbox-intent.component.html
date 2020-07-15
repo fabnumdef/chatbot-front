@@ -5,13 +5,14 @@
     </div>
     <h4>Lier la question en recherchant une connaissance existante</h4>
     <form [formGroup]="intentForm" *ngIf="intentForm">
-      
+
       <mat-form-field appearance="outline">
         <mat-label>Catégories</mat-label>
         <mat-select placeholderLabel="Recherche une connaissance..."
                     (selectionChange)="getFilteredIntents($event.value)">
+          <mat-option [value]="null">- Aucune -</mat-option>
           <mat-option *ngFor="let category of categories$ | async" [value]="category">
-            <span class="confidence">{{ category }}</span>
+            {{ category }}
           </mat-option>
         </mat-select>
       </mat-form-field>

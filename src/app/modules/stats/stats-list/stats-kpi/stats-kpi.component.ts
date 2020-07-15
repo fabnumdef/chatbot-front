@@ -12,9 +12,10 @@ import { Subject } from 'rxjs';
 export class StatsKpiComponent extends DestroyObservable implements OnInit {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
-  visitors = 57;
-  avgQuestionsPerUser = 4;
-  avgResponseTime = 'inconnu';
+  visitors = null;
+  ratioResponseOk = null;
+  avgQuestionsPerUser = null;
+  avgResponseTime = null;
 
   constructor(public _statsService: StatsService) {
     super();
@@ -35,7 +36,9 @@ export class StatsKpiComponent extends DestroyObservable implements OnInit {
   getData(dates) {
     this._statsService.getKPIData().subscribe(
       (value) => {
+        console.log(value);
         this.visitors = value['uniqueVisitorsNumber'].visitors;
+        this.ratioResponseOk = value['ratioChatbotResponseOk'].ratioresponseok;
         this.avgQuestionsPerUser = Math.round(value['avgQuestionPerVisitor'].averagequestions * 100) / 100;
         this.avgResponseTime = Math.round(value['avgChatbotResponseTime'].averageresponse) / 1000 + ' seconde';
         if ((value['avgChatbotResponseTime'].averageresponse / 1000) > 1 ) {
