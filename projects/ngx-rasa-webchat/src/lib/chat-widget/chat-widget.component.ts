@@ -33,6 +33,7 @@ export class ChatWidgetComponent implements OnInit {
 
   private _visible = false;
   public messageType = MessageType;
+  public notificationSound = new Audio('assets/sounds/notification.ogg');
 
   constructor(public chatService: NgxRasaWebchatService) {
   }
@@ -112,9 +113,13 @@ export class ChatWidgetComponent implements OnInit {
               this.addMessage(message.text, MessageType.text, 'received');
             } else if (message.text && message.quick_replies && message.quick_replies.length > 0) {
               this.addMessage(message.text, MessageType.quick_reply, 'received', message.quick_replies);
+              setTimeout(() => {
+                this._focusQuickReplies();
+              }, 0);
             } else if (message.attachment) {
               this.addMessage(message.attachment?.payload?.src, MessageType.image, 'received');
             }
+            this.notificationSound.play();
           })
         ))
       )
@@ -176,6 +181,14 @@ export class ChatWidgetComponent implements OnInit {
     }
     if (event.key === '?' && !this._visible) {
       this.toggleChat();
+    }
+  }
+
+  private _focusQuickReplies() {
+    const textBeforeQr = document.getElementsByClassName('chat-message-text-qr').item(0);
+    if (textBeforeQr) {
+      // @ts-ignore
+      textBeforeQr.focus();
     }
   }
 }

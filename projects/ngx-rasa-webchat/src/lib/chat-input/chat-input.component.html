@@ -1,13 +1,18 @@
 <div class="chat-input">
   <textarea type="text"
             class="chat-input-text"
+            aria-label="Message à envoyer"
             [placeholder]="placeholder"
             #message
             [formControl]="messageText"
             (keydown.enter)="onSubmit()"
             (keyup.enter)="messageText.setValue('')"
             (keyup.escape)="dismiss.emit()"></textarea>
-  <button type="submit" class="chat-input-submit" (click)="onSubmit()" [disabled]="messageText.value.trim() == ''">
+  <button type="submit"
+          class="chat-input-submit"
+          aria-label="Envoyer"
+          (click)="onSubmit()"
+          [disabled]="messageText.value.trim() == ''">
     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
       <path d="M0 0h24v24H0z" fill="none"/>
       <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
@@ -15,7 +20,10 @@
   </button>
 
   <div class="intents-preview" *ngIf="intents && intents.length > 0">
-    <div *ngFor="let intent of intents" class="intent" (click)="sendIntent(intent)">
+    <div *ngFor="let intent of intents"
+         class="intent"
+         aria-label="Envoyer cette proposition de question"
+         (click)="sendIntent(intent)">
       {{ intent.mainQuestion }}
     </div>
   </div>
