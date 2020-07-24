@@ -53,12 +53,12 @@
             <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px" 
             [ngClass]="{'bgpink': visitorsDisplay === true, 'bgpinkNeg': visitorsDisplay === false}" (click)="displayVisitorPanel()">
               <mat-panel-title>
-                <span class="title-kpi">Nombre de visiteurs</span>
+                <span class="title-kpi">Nombre de sessions</span>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="content-kpi">
               <div class="global cpink">
-                <b>{{visitorsPanel['count']}} visiteurs</b>
+                <b>{{visitorsPanel['count']}} sessions</b>
               </div>
               <mat-divider></mat-divider>
               <div class="row">
@@ -67,7 +67,7 @@
                 </div>
                 <div class="row-kpi">
                   <div>- {{visitorsPanel['maxDay'] | titlecase}}</div>
-                  <div>- {{visitorsPanel['maxNb']}} visiteurs</div>
+                  <div>- {{visitorsPanel['maxNb']}} sessions</div>
                 </div>
               </div>
               <mat-divider></mat-divider>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="row-kpi">
                   <div>- {{visitorsPanel['minDay'] | titlecase}}</div>
-                  <div>- {{visitorsPanel['minNb']}} visiteurs</div>
+                  <div>- {{visitorsPanel['minNb']}} sessions</div>
                 </div>
               </div>
             </div>
