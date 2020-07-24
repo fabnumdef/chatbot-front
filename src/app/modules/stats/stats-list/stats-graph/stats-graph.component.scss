@@ -16,24 +16,67 @@
       display: flex;
       width: 100%;
       flex-wrap: wrap;
-      justify-content: space-between;
+      //justify-content: space-between;
       padding-bottom: 20px;
 
       .kpi-box {
         display: flex;
-        width: 30%;
+        width: 33%;
         min-width: 300px;
         flex-direction: column;
+
+        .mat-accordion .mat-expansion-panel {
+          box-shadow: none;
+          background: none;
+
+          margin: 0 5px;
+        
+          .mat-expansion-panel-header, .mat-expansion-panel-header:hover {
+            padding: 5px 20px;
+            border-radius: $border-radius;
+
+            .mat-expansion-panel-header.mat-expanded{
+              background-color: #cacaca !important;
+              transition: 0.25s;
+            }
+        
+            .mat-expansion-panel-header-title h3, ::ng-deep .mat-expansion-indicator::after {
+              color: $white;
+              margin: 0;
+            }
+        
+            .mat-expansion-panel-header-title {
+              align-items: flex-start;
+            }
+          }
+        
+          ::ng-deep.mat-expansion-panel-body {
+            padding: 10px 0;
+          }
+        }
+        
         
 
         .title-kpi {
           display: flex;
           color: $white;
           align-items: center;
-          justify-content: center;
+          justify-content: space-between;
           border-radius: 5px;
           height: 30px;
-          width: 100%;
+
+          &::ng-deep .mat-button-wrapper {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            margin: 0 15px;
+          }
+
+          .icon {
+            font-size: 20px;
+            padding-bottom: 15px;
+            transform: rotate(-135deg);
+          }
         }
 
         .content-kpi {
@@ -43,7 +86,6 @@
           width: auto;
           border-radius: 5px;
           background-color: $white;
-          margin-top: 10px;
           padding-left: 20px;
           padding-right: 20px;
 
@@ -91,10 +133,10 @@
     }
     .bggreenNeg {
       background-color: #cacaca;
+      transition: 0.25s;
     }
     .bggreenNeg:hover {
       background-color: #40b374;
-      transition: 0.25s;
     }
     .cgreen {
       color: #40b374;
