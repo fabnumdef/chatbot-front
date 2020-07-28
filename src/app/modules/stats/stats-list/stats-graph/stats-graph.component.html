@@ -7,7 +7,6 @@
     
     <div class="kpi-stats">
       <div class="kpi-box">
-
         <mat-accordion>
           <mat-expansion-panel [expanded]="true">
             <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px" 
@@ -47,7 +46,6 @@
       </div>
 
       <div class="kpi-box">
-
         <mat-accordion>
           <mat-expansion-panel [expanded]="true">
             <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px" 
@@ -123,44 +121,6 @@
           </mat-expansion-panel>
         </mat-accordion>
       </div>
-
-      <!--<div class="kpi-box">
-        <button mat-flat-button
-                  [ngClass]="{'bgyellow': intentDisplay === true, 'bgyellowNeg': intentDisplay === false}"
-                  class="title-kpi"
-                  (click)="displayIntentPanel()">
-                  <span>Volume de la base de connaissance</span>
-                  <mat-icon class="icon">signal_cellular_4_bar</mat-icon>
-          </button>
-        <div class="content-kpi" *ngIf="intentDisplay === true" [@detailInOutAnimation]>
-          <div class="global cyellow">
-            <b>{{intentPanel['count']}} questions ajoutées</b>
-          </div>
-          <mat-divider></mat-divider>
-          <div class="row">
-            <div class="type">
-              <b>Maximal</b>
-            </div>
-            <div class="row-kpi">
-              <div>- {{intentPanel['maxDay'] | titlecase}}</div>
-              <div>- {{intentPanel['maxNb']}} questions ajoutées</div>
-            </div>
-          </div>
-          <mat-divider></mat-divider>
-          <div class="row">
-            <div class="type">
-              <b>Minimal</b>
-            </div>
-            <div class="row-kpi">
-              <div>- {{intentPanel['minDay'] | titlecase}}</div>
-              <div>- {{intentPanel['minNb']}} questions posées</div>
-            </div>
-          </div>
-        </div>
-      </div>-->
-      
-      
-
     </div>
 
     <div class="chart">

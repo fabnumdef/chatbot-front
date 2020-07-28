@@ -5,10 +5,12 @@
   }
   
 .stats-best-questions {
+  min-width: 300px;
   
   .barchart {
     display: flex;
     width: auto;
+    min-width: 700px;
     height: 300px;
     border-radius: 5px;
     background-color: $white;
