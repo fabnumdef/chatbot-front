@@ -49,7 +49,8 @@
         <mat-accordion>
           <mat-expansion-panel [expanded]="true">
             <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px" 
-            [ngClass]="{'bgpink': visitorsDisplay === true, 'bgpinkNeg': visitorsDisplay === false}" (click)="displayVisitorPanel()">
+            [ngClass]="{'bgpink': visitorsDisplay === true, 'bgpinkNeg': visitorsDisplay === false}" 
+            (click)="displayVisitorPanel()">
               <mat-panel-title>
                 <span class="title-kpi">Nombre de sessions</span>
               </mat-panel-title>
