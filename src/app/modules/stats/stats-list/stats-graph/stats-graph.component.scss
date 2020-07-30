@@ -38,7 +38,7 @@
             border-radius: $border-radius;
 
             .mat-expansion-panel-header.mat-expanded{
-              background-color: #cacaca !important;
+              background-color: $grey-light;
               transition: 0.25s;
             }
         
@@ -100,7 +100,6 @@
           .row {
             display: flex;
             flex-direction: row;
-            //justify-content: space-around;
             padding: 15px;
             padding-left: 0px;
 
@@ -111,10 +110,6 @@
             .row-kpi {
               font-size: 13px;
               width: 65%;
-
-              .kpi {
-                
-              }
             }
           }
         }
@@ -135,7 +130,7 @@
       transition: 0.25s;
     }
     .bggreenNeg {
-      background-color: #cacaca;
+      background-color: $grey-light;
       transition: 0.25s;
     }
     .bggreenNeg:hover {
@@ -150,7 +145,7 @@
       transition: 0.25s;
     }
     .bgyellowNeg {
-      background-color: #cacaca;
+      background-color: $grey-light;
       transition: 0.25s;
     }
     .bgyellowNeg:hover {
@@ -165,7 +160,7 @@
       transition: 0.25s;
     }
     .bgpinkNeg {
-      background-color: #cacaca;
+      background-color: $grey-light;
       transition: 0.25s;
     }
     .bgpinkNeg:hover {
