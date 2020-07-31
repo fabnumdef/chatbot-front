@@ -29,7 +29,7 @@ export class ChatFeedbackModalService {
   }
 
   sendFeedback(feedback: Feedback) {
-    this._http.post(`${this._url}/api/public/feedback`, {feedback: feedback}).subscribe();
+    this._http.post(`${this._url}/api/public/feedback`, feedback).subscribe();
   }
 
   set url(url) {
