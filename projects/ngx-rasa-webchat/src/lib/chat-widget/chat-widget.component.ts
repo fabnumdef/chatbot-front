@@ -115,7 +115,6 @@ export class ChatWidgetComponent implements OnInit {
         concatMap(m => of(m).pipe(
           delay(1000),
           tap((message: any) => {
-            console.log(message);
             if (message.text && (!message.quick_replies || message.quick_replies.length < 1)) {
               this.addMessage(message.text, MessageType.text, 'received');
             } else if (message.text && message.quick_replies && message.quick_replies.length > 0) {
@@ -221,7 +220,6 @@ export class ChatWidgetComponent implements OnInit {
 
   private _findPreviousUserMessage(idx): string {
     for (let i = idx; i <= this.messages.length; i++) {
-      console.log(this.messages[i]);
       if (this.messages[i].from === 'sent') {
         return this.messages[i].text;
       }
