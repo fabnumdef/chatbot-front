@@ -1,0 +1,29 @@
+﻿<div class="ngx-rasa-chat-feedback-modal">
+  <div class="ngx-rasa-chat-feedback-modal-body">
+    <div class="modal-title" [ngStyle]="{'color': primaryColor}">
+      Comment avez-vous trouvé la réponse ?
+    </div>
+    <div class="modal-input">
+      <select [formControl]="feedbackFormControl">
+        <option [value]="null" disabled selected>Choisissez votre option</option>
+        <option value="relevant">Pertinente</option>
+        <option value="wrong">Erronée</option>
+        <option value="off_topic">Ne répond pas à ma question</option>
+      </select>
+    </div>
+    <div class="modal-btns">
+      <button (click)="close()"
+              class="ngx-rasa-chat-btn ngx-rasa-chat-btn-stroked"
+              [ngStyle]="{'color': primaryColor}">
+        Annuler
+      </button>
+      <button (click)="sendFeedback()"
+              class="ngx-rasa-chat-btn"
+              [disabled]="!feedbackFormControl.valid"
+              [ngStyle]="{'background-color': primaryColor, 'border-color': primaryColor}">
+        Valider
+      </button>
+    </div>
+  </div>
+</div>
+<div class="ngx-rasa-chat-feedback-modal-background"></div>

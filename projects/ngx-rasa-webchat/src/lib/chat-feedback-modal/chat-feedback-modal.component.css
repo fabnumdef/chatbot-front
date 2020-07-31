@@ -1,0 +1,129 @@
+/* MODAL STYLES
+-------------------------------*/
+:host {
+  /* modals are hidden by default */
+  display: none;
+}
+
+.ngx-rasa-chat-feedback-modal {
+  /* modal container fixed across whole screen */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  /* z-index must be higher than .ngx-rasa-chat-feedback-modal-background */
+  z-index: 1000;
+
+  /* enables scrolling for tall modals */
+  overflow: auto;
+}
+
+.ngx-rasa-chat-feedback-modal .ngx-rasa-chat-feedback-modal-body {
+  padding: 40px;
+  background: #fff;
+
+  /* margin exposes part of the modal background */
+  margin: 40px auto;
+  max-width: 505px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ngx-rasa-chat-feedback-modal-background {
+  /* modal background fixed across whole screen */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  /* semi-transparent black  */
+  background-color: #000;
+  opacity: 0.75;
+
+  /* z-index must be below .ngx-rasa-chat-feedback-modal and above everything else  */
+  z-index: 900;
+}
+
+.ngx-rasa-chat-feedback-modal .modal-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.ngx-rasa-chat-feedback-modal .modal-input, .ngx-rasa-chat-feedback-modal .modal-input select {
+  width: 100%;
+}
+
+.ngx-rasa-chat-feedback-modal .modal-input select {
+  padding: 10px 10px 10px 0;
+  font-size: 18px;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0, 0.12);
+}
+
+.ngx-rasa-chat-feedback-modal .modal-input select:focus {
+  outline: none;
+  border-bottom: 1px solid rgba(0,0,0, 0);
+}
+
+/* Use custom arrow */
+.ngx-rasa-chat-feedback-modal .modal-input select {
+  appearance: none;
+  -webkit-appearance:none
+}
+
+.ngx-rasa-chat-feedback-modal .modal-input select:after {
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  /* Styling the down arrow */
+  width: 0;
+  height: 0;
+  padding: 0;
+  content: '';
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
+.ngx-rasa-chat-feedback-modal .modal-btns {
+  margin-top: 20px;
+  width: 100%;
+  text-align: right;
+}
+
+.ngx-rasa-chat-feedback-modal .modal-btns > *:not(:last-child) {
+  margin-right: 20px;
+}
+
+.ngx-rasa-chat-feedback-modal-open {
+  /* body overflow is hidden to hide main scrollbar when modal window is open */
+  overflow: hidden;
+}
+
+.ngx-rasa-chat-btn {
+  border: none;
+  min-width: 140px;
+  color: #fff;
+  height: 38px;
+  border-radius: 50px;
+  border-width: 2px;
+  border-color: currentColor;
+  border-style: solid;
+  text-align: center;
+  line-height: 36px;
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+.ngx-rasa-chat-btn-stroked {
+  background-color: transparent;
+}

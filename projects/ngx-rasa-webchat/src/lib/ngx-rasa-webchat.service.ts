@@ -22,7 +22,8 @@ export class NgxRasaWebchatService {
   public connect(url: string, path: string, initPayload: string) {
     this._url = url;
     this._socket = io(url, {
-      path
+      path,
+      transports: ['websocket']
     });
     this._socket.on('connect', () => {
       console.log(`connect:${this._socket.id}`);
@@ -55,6 +56,10 @@ export class NgxRasaWebchatService {
     this._socket.on('disconnect', (reason) => {
       console.log(reason);
     });
+
+    this._socket.on('reconnect_attempt', () => {
+      this._socket.io.opts.transports = ['polling', 'websocket'];
+    });
   }
 
   public sendMessage(message) {
@@ -68,7 +73,7 @@ export class NgxRasaWebchatService {
         observer.next(message);
       });
     });
-  };
+  }
 
   public storeConversation(conversation) {
     // Store a conversation List to storage

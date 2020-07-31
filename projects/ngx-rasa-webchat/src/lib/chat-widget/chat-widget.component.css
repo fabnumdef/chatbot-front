@@ -156,10 +156,24 @@
   flex-direction: row;
   max-width: 80%;
   word-wrap: break-word;
+  position: relative;
 }
 
 .chat-message.chat-message-full-width {
   width: 100%;
+}
+
+.chat-message-feedback {
+  position: absolute;
+  right: -30px;
+  bottom: 40px;
+  cursor: pointer;
+  height: 20px;
+  transition: fill 0.2s ease-in-out;
+}
+
+.chat-message-feedback svg {
+  height: 20px;
 }
 
 .chat-message-date {

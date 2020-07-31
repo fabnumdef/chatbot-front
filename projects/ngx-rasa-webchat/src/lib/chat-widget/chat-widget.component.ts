@@ -4,6 +4,8 @@ import { fadeIn, fadeInOut } from '../animation';
 import { NgxRasaWebchatService } from '../ngx-rasa-webchat.service';
 import { MessageType } from '../message-type.enum';
 import { concatMap, delay, tap } from 'rxjs/operators';
+import { ChatFeedbackModalService } from '../chat-feedback-modal/chat-feedback-modal.service';
+import { Feedback } from '../chat-feedback-modal/feedback.model';
 
 // const rand = max => Math.floor(Math.random() * max);
 
@@ -34,8 +36,10 @@ export class ChatWidgetComponent implements OnInit {
   private _visible = false;
   public messageType = MessageType;
   public notificationSound = new Audio('assets/sounds/notification.ogg');
+  public hoverFeedbackIdx = null;
 
-  constructor(public chatService: NgxRasaWebchatService) {
+  constructor(public chatService: NgxRasaWebchatService,
+              private _modalService: ChatFeedbackModalService) {
   }
 
   public get visible() {
@@ -88,6 +92,7 @@ export class ChatWidgetComponent implements OnInit {
     this.chatService.setStorage(this.storage);
     this.messages = this.chatService.getConversation();
     this.chatService.connect(this.socketUrl, this.socketPath, this.initPayload);
+    this._modalService.url = this.socketUrl;
     if (this.embedded) {
       this.visible = true;
     }
@@ -103,12 +108,14 @@ export class ChatWidgetComponent implements OnInit {
       status: 'online',
       avatar: this.botAvatar,
     };
+
     this.chatService
       .getMessages()
       .pipe(
         concatMap(m => of(m).pipe(
           delay(1000),
           tap((message: any) => {
+            console.log(message);
             if (message.text && (!message.quick_replies || message.quick_replies.length < 1)) {
               this.addMessage(message.text, MessageType.text, 'received');
             } else if (message.text && message.quick_replies && message.quick_replies.length > 0) {
@@ -167,6 +174,26 @@ export class ChatWidgetComponent implements OnInit {
     return nextMessage.from !== from;
   }
 
+  public showFeedback(nextMessage, from): boolean {
+    if (from === 'sent') {
+      return false;
+    }
+    if (!nextMessage) {
+      return true;
+    }
+    return nextMessage.from !== from;
+  }
+
+  public openModal(idx: number) {
+    const data: Feedback = {
+      userQuestion: this._findPreviousUserMessage(idx),
+      botResponse: this.messages[idx].text,
+      timestamp: this.messages[idx].date,
+      status: null
+    };
+    this._modalService.open(data);
+  }
+
   public urlify(text) {
     const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
     return text.replace(urlRegex, (url) => {
@@ -189,6 +216,15 @@ export class ChatWidgetComponent implements OnInit {
     if (textBeforeQr) {
       // @ts-ignore
       textBeforeQr.focus();
+    }
+  }
+
+  private _findPreviousUserMessage(idx): string {
+    for (let i = idx; i <= this.messages.length; i++) {
+      console.log(this.messages[i]);
+      if (this.messages[i].from === 'sent') {
+        return this.messages[i].text;
+      }
     }
   }
 }
