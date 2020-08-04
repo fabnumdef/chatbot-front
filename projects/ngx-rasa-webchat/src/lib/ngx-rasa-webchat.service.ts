@@ -27,7 +27,7 @@ export class NgxRasaWebchatService {
     });
     this._socket.on('connect', () => {
       console.log(`connect:${this._socket.id}`);
-      const localId = this._getSessionId();
+      const localId = this.getSessionId();
       this._socket.emit('session_request', {session_id: localId});
     });
     this._socket.on('session_confirm', (sessionObject) => {
@@ -35,7 +35,7 @@ export class NgxRasaWebchatService {
         ? sessionObject.session_id
         : sessionObject;
       console.log(`session_confirm:${this._socket.id} session_id:${remoteId}`);
-      const localId = this._getSessionId();
+      const localId = this.getSessionId();
       if (localId !== remoteId) {
         this._storage.clear();
 
@@ -63,7 +63,7 @@ export class NgxRasaWebchatService {
   }
 
   public sendMessage(message) {
-    const session_id = this._getSessionId();
+    const session_id = this.getSessionId();
     this._socket.emit('user_uttered', {message, session_id});
   }
 
@@ -105,7 +105,7 @@ export class NgxRasaWebchatService {
     return this._http.get(`${this._url}/api/public/intents/${query}`);
   }
 
-  private _getSessionId() {
+  public getSessionId() {
     // Get the local session, check if there is an existing session_id
     const localSession = this._getLocalSession(SESSION_NAME);
     return localSession ? localSession.session_id : null;

@@ -188,6 +188,7 @@ export class ChatWidgetComponent implements OnInit {
       userQuestion: this._findPreviousUserMessage(idx),
       botResponse: this.messages[idx].text,
       timestamp: this.messages[idx].date,
+      senderId: this.chatService.getSessionId(),
       status: null
     };
     this._modalService.open(data);

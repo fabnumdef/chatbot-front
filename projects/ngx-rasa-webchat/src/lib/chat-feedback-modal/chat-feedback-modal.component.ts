@@ -63,7 +63,8 @@ export class ChatFeedbackModalComponent implements OnInit, OnDestroy {
       userQuestion: this.data?.userQuestion,
       botResponse: this.data?.botResponse,
       timestamp: this.data?.timestamp,
-      status: this.feedbackFormControl.value
+      status: this.feedbackFormControl.value,
+      senderId: this.data?.senderId
     };
     this._modalService.sendFeedback(feedback);
     this.close();

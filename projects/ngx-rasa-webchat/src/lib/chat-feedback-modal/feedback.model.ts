@@ -2,6 +2,7 @@ export class Feedback {
   userQuestion: string;
   botResponse: string;
   timestamp: string;
+  senderId: string;
   status: FeedbackStatus;
 }
 
