@@ -34,7 +34,8 @@ export class InboxFilterComponent extends DestroyObservable implements OnInit, O
       query: [this._inboxService.currentSearch],
       categories: [this._inboxService.currentFilters?.categories ? this._inboxService.currentFilters.categories : []],
       statutes: [this._inboxService.currentFilters?.statutes ?
-        this._inboxService.currentFilters.statutes : [InboxStatus.pending, InboxStatus.to_verify]],
+        // tslint:disable-next-line:max-line-length
+        this._inboxService.currentFilters.statutes : [InboxStatus.pending, InboxStatus.to_verify, InboxStatus.relevant, InboxStatus.wrong, InboxStatus.off_topic]],
       startDate: [this._inboxService.currentFilters?.startDate ? moment(this._inboxService.currentFilters.startDate, 'DD/MM/yyyy') : null],
       endDate: [this._inboxService.currentFilters?.endDate ? moment(this._inboxService.currentFilters.endDate, 'DD/MM/yyyy') : null],
       assignedTo: [this._inboxService.currentFilters?.assignedTo]
