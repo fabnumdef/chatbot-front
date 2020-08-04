@@ -187,7 +187,7 @@ export class ChatWidgetComponent implements OnInit {
     const data: Feedback = {
       userQuestion: this._findPreviousUserMessage(idx),
       botResponse: this.messages[idx].text,
-      timestamp: this.messages[idx].date,
+      timestamp: this.messages[idx].date / 1000,
       senderId: this.chatService.getSessionId(),
       status: null
     };
