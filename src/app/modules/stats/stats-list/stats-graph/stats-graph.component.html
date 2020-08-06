@@ -7,110 +7,121 @@
     
     <div class="kpi-stats">
       <div class="kpi-box">
-        <button mat-flat-button
-                  [ngClass]="{'bggreen': questionDisplay === true, 'bggreenNeg': questionDisplay === false}"
-                  class="title-kpi bggreen"
-                  (click)="displayQuestionPanel()">
-                  Nombre de questions posées
-          </button>
-        <div class="content-kpi" *ngIf="questionDisplay === true" [@detailInOutAnimation]>
-          <div class="global cgreen">
-            <b>{{questionsPanel['count']}} questions posées</b>
-          </div>
-          <mat-divider></mat-divider>
-          <div class="row">
-            <div class="type">
-              <b>Maximal</b>
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px" 
+            [ngClass]="{'bggreen': questionDisplay === true, 'bggreenNeg': questionDisplay === false}"
+            (click)="displayQuestionPanel()">
+              <mat-panel-title>
+                <span class="title-kpi">Nombre de questions posées</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="content-kpi">
+              <div class="global cgreen">
+                <b>{{questionsPanel['count']}} questions posées</b>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="row">
+                <div class="type">
+                  <b>Maximal</b>
+                </div>
+                <div class="row-kpi">
+                  <div class="kpi">- {{questionsPanel['maxDay'] | titlecase}}</div>
+                  <div class="kpi">- {{questionsPanel['maxNb']}} questions posées</div>
+                </div>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="row">
+                <div class="type">
+                  <b>Minimal</b>
+                </div>
+                <div class="row-kpi">
+                  <div>- {{questionsPanel['minDay'] | titlecase}}</div>
+                  <div>- {{questionsPanel['minNb']}} questions posées</div>
+                </div>
+              </div>
             </div>
-            <div class="row-kpi">
-              <div class="kpi">- {{questionsPanel['maxDay'] | titlecase}}</div>
-              <div class="kpi">- {{questionsPanel['maxNb']}} questions posées</div>
-            </div>
-          </div>
-          <mat-divider></mat-divider>
-          <div class="row">
-            <div class="type">
-              <b>Minimal</b>
-            </div>
-            <div class="row-kpi">
-              <div>- {{questionsPanel['minDay'] | titlecase}}</div>
-              <div>- {{questionsPanel['minNb']}} questions posées</div>
-            </div>
-          </div>
-        </div>
-
+          </mat-expansion-panel>
+        </mat-accordion>
       </div>
 
       <div class="kpi-box">
-        <button mat-flat-button
-                [ngClass]="{'bgpink': visitorsDisplay === true, 'bgpinkNeg': visitorsDisplay === false}"
-                class="title-kpi"
-                (click)="displayVisitorPanel()">
-                Nombre de visiteurs
-          </button>
-        <div class="content-kpi" *ngIf="visitorsDisplay === true" [@detailInOutAnimation]>
-          <div class="global cpink">
-            <b>{{visitorsPanel['count']}} visiteurs</b>
-          </div>
-          <mat-divider></mat-divider>
-          <div class="row">
-            <div class="type">
-              <b>Maximal</b>
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px" 
+            [ngClass]="{'bgpink': visitorsDisplay === true, 'bgpinkNeg': visitorsDisplay === false}" 
+            (click)="displayVisitorPanel()">
+              <mat-panel-title>
+                <span class="title-kpi">Nombre de sessions</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="content-kpi">
+              <div class="global cpink">
+                <b>{{visitorsPanel['count']}} sessions</b>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="row">
+                <div class="type">
+                  <b>Maximal</b>
+                </div>
+                <div class="row-kpi">
+                  <div>- {{visitorsPanel['maxDay'] | titlecase}}</div>
+                  <div>- {{visitorsPanel['maxNb']}} sessions</div>
+                </div>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="row">
+                <div class="type">
+                  <b>Minimal</b>
+                </div>
+                <div class="row-kpi">
+                  <div>- {{visitorsPanel['minDay'] | titlecase}}</div>
+                  <div>- {{visitorsPanel['minNb']}} sessions</div>
+                </div>
+              </div>
             </div>
-            <div class="row-kpi">
-              <div>- {{visitorsPanel['maxDay'] | titlecase}}</div>
-              <div>- {{visitorsPanel['maxNb']}} visiteurs</div>
-            </div>
-          </div>
-          <mat-divider></mat-divider>
-          <div class="row">
-            <div class="type">
-              <b>Minimal</b>
-            </div>
-            <div class="row-kpi">
-              <div>- {{visitorsPanel['minDay'] | titlecase}}</div>
-              <div>- {{visitorsPanel['minNb']}} visiteurs</div>
-            </div>
-          </div>
-        </div>
+          </mat-expansion-panel>
+        </mat-accordion>
       </div>
 
       <div class="kpi-box">
-        <button mat-flat-button
-                  [ngClass]="{'bgyellow': intentDisplay === true, 'bgyellowNeg': intentDisplay === false}"
-                  class="title-kpi"
-                  (click)="displayIntentPanel()">
-                  Volume de la base de connaissance
-          </button>
-        <div class="content-kpi" *ngIf="intentDisplay === true" [@detailInOutAnimation]>
-          <div class="global cyellow">
-            <b>{{intentPanel['count']}} questions ajoutées</b>
-          </div>
-          <mat-divider></mat-divider>
-          <div class="row">
-            <div class="type">
-              <b>Maximal</b>
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="false">
+            <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px" 
+            [ngClass]="{'bgyellow': intentDisplay === true, 'bgyellowNeg': intentDisplay === false}" 
+            (click)="displayIntentPanel()">
+              <mat-panel-title>
+                <span class="title-kpi">Volume base de connaissance</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="content-kpi">
+              <div class="global cyellow">
+                <b>{{intentPanel['count']}} questions ajoutées</b>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="row">
+                <div class="type">
+                  <b>Maximal</b>
+                </div>
+                <div class="row-kpi">
+                  <div>- {{intentPanel['maxDay'] | titlecase}}</div>
+                  <div>- {{intentPanel['maxNb']}} questions ajoutées</div>
+                </div>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="row">
+                <div class="type">
+                  <b>Minimal</b>
+                </div>
+                <div class="row-kpi">
+                  <div>- {{intentPanel['minDay'] | titlecase}}</div>
+                  <div>- {{intentPanel['minNb']}} questions posées</div>
+                </div>
+              </div>
             </div>
-            <div class="row-kpi">
-              <div>- {{intentPanel['maxDay'] | titlecase}}</div>
-              <div>- {{intentPanel['maxNb']}} questions ajoutées</div>
-            </div>
-          </div>
-          <mat-divider></mat-divider>
-          <div class="row">
-            <div class="type">
-              <b>Minimal</b>
-            </div>
-            <div class="row-kpi">
-              <div>- {{intentPanel['minDay'] | titlecase}}</div>
-              <div>- {{intentPanel['minNb']}} questions posées</div>
-            </div>
-          </div>
-        </div>
+          </mat-expansion-panel>
+        </mat-accordion>
       </div>
-      
-      
-
     </div>
 
     <div class="chart">

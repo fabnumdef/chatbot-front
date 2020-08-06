@@ -3,7 +3,6 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { StatsService } from '@core/services/stats.service';
 import { BaseChartDirective } from 'ng2-charts';
 import { takeUntil } from 'rxjs/operators';
-import { graphDetailInOutAnimation } from '../../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 import * as moment from 'moment';
 import 'moment/locale/fr';
 import { Subject } from 'rxjs';
@@ -11,10 +10,7 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-stats-graph',
   templateUrl: './stats-graph.component.html',
-  styleUrls: ['./stats-graph.component.scss'],
-  animations: [
-    graphDetailInOutAnimation
-  ]
+  styleUrls: ['./stats-graph.component.scss']
 })
 export class StatsGraphComponent extends DestroyObservable implements OnInit {
 
@@ -65,9 +61,9 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
   }
   };
   chartData = [
-    { data: [0], label: 'Questions posées', fill: false},
-    { data: [0], label: 'Questions ajoutées', fill: false},
-    { data: [0], label: 'Nb visiteurs', fill: false}
+    { data: [0], label: 'Questions posées', fill: false, pointHitRadius: 5},
+    { data: [0], label: 'Questions ajoutées', fill: false, pointHitRadius: 5},
+    { data: [0], label: 'Nb sessions', fill: false, pointHitRadius: 5}
   ];
   chartLabels = [];
   chartColors = [
@@ -133,13 +129,13 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
         this.visitorsPanel = this.getPanelData(this.dataset2, this.chartLabels);
         this.chartData = [];
         if (this.questionDisplay) {
-          this.chartData.push({ data: this.dataset1, label: 'Questions posées', fill: false });
+          this.chartData.push({ data: this.dataset1, label: 'Questions posées', fill: false, pointHitRadius: 5});
         }
         if (this.visitorsDisplay) {
-          this.chartData.push({ data: this.dataset2, label: 'Nb visiteurs', fill: false});
+          this.chartData.push({ data: this.dataset2, label: 'Nb sessions', fill: false, pointHitRadius: 5});
         }
         if (this.intentDisplay) {
-          this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false });
+          this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false, pointHitRadius: 5});
         }
       }
     );
@@ -208,19 +204,19 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
     this.questionDisplay = !this.questionDisplay;
     this.chartData = [];
     if (this.questionDisplay) {
-      this.chartData.push({ data: this.dataset1, label: 'Questions posées', fill: false });
+      this.chartData.push({ data: this.dataset1, label: 'Questions posées', fill: false, pointHitRadius: 5 });
     } else {
-      this.chartData.push({ data: [], label: 'Questions posées', fill: false });
+      this.chartData.push({ data: [], label: 'Questions posées', fill: false, pointHitRadius: 5 });
     }
     if (this.visitorsDisplay) {
-      this.chartData.push({ data: this.dataset2, label: 'Nb visiteurs', fill: false});
+      this.chartData.push({ data: this.dataset2, label: 'Nb sessions', fill: false, pointHitRadius: 5 });
     } else {
-      this.chartData.push({ data: [], label: 'Nb visiteurs', fill: false });
+      this.chartData.push({ data: [], label: 'Nb sessions', fill: false, pointHitRadius: 5 });
     }
     if (this.intentDisplay) {
-      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false });
+      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false, pointHitRadius: 5 });
     } else {
-      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false });
+      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false, pointHitRadius: 5 });
     }
     this.updateChart();
   }
@@ -229,19 +225,19 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
     this.visitorsDisplay = !this.visitorsDisplay;
     this.chartData = [];
     if (this.questionDisplay) {
-      this.chartData.push({ data: this.dataset1, label: 'Questions posées', fill: false });
+      this.chartData.push({ data: this.dataset1, label: 'Questions posées', fill: false, pointHitRadius: 5});
     } else {
-      this.chartData.push({ data: [], label: 'Questions posées', fill: false });
+      this.chartData.push({ data: [], label: 'Questions posées', fill: false, pointHitRadius: 5 });
     }
     if (this.visitorsDisplay) {
-      this.chartData.push({ data: this.dataset2, label: 'Nb visiteurs', fill: false});
+      this.chartData.push({ data: this.dataset2, label: 'Nb sessions', fill: false, pointHitRadius: 5 });
     } else {
-      this.chartData.push({ data: [], label: 'Nb visiteurs', fill: false });
+      this.chartData.push({ data: [], label: 'Nb sessions', fill: false, pointHitRadius: 5 });
     }
     if (this.intentDisplay) {
-      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false });
+      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false, pointHitRadius: 5 });
     } else {
-      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false });
+      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false, pointHitRadius: 5 });
     }
     this.updateChart();
   }
@@ -250,19 +246,19 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
     this.intentDisplay = !this.intentDisplay;
     this.chartData = [];
     if (this.questionDisplay) {
-      this.chartData.push({ data: this.dataset1, label: 'Questions posées', fill: false });
+      this.chartData.push({ data: this.dataset1, label: 'Questions posées', fill: false, pointHitRadius: 5 });
     } else {
-      this.chartData.push({ data: [], label: 'Questions posées', fill: false });
+      this.chartData.push({ data: [], label: 'Questions posées', fill: false, pointHitRadius: 5 });
     }
     if (this.visitorsDisplay) {
-      this.chartData.push({ data: this.dataset2, label: 'Nb visiteurs', fill: false});
+      this.chartData.push({ data: this.dataset2, label: 'Nb sessions', fill: false, pointHitRadius: 5 });
     } else {
-      this.chartData.push({ data: [], label: 'Nb visiteurs', fill: false });
+      this.chartData.push({ data: [], label: 'Nb sessions', fill: false, pointHitRadius: 5 });
     }
     if (this.intentDisplay) {
-      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false });
+      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false, pointHitRadius: 5 });
     } else {
-      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false });
+      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false, pointHitRadius: 5 });
     }
     this.updateChart();
   }
