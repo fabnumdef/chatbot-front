@@ -11,9 +11,7 @@ import { User } from '@model/user.model';
 import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 import { ConfigService } from '@core/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
-import { MediaListDialogComponent } from '../../intent/create-edit-intent/intent-form/response-form/media-list/media-list-dialog.component';
 import { InboxAssignationDialogComponent } from './inbox-assignation-dialog/inbox-assignation-dialog.component';
-import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-inbox-list',
@@ -58,11 +56,14 @@ export class InboxListComponent implements OnInit {
       case InboxStatus.pending:
         return 'badge-staked-warning';
       case InboxStatus.to_verify:
+      case InboxStatus.relevant:
         return 'badge-staked-success';
       case InboxStatus.confirmed:
-        return 'badge-staked-black';
       case InboxStatus.archived:
         return 'badge-staked-black';
+      case InboxStatus.off_topic:
+      case InboxStatus.wrong:
+        return 'badge-staked-error';
     }
   }
 
