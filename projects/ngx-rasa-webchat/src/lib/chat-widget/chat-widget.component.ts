@@ -65,12 +65,13 @@ export class ChatWidgetComponent implements OnInit {
 
   public messages = [];
 
-  public addMessage(text: string, type: MessageType, from: 'received' | 'sent', quick_replies: [] = null) {
+  public addMessage(text: string, type: MessageType, from: 'received' | 'sent', quick_replies: [] = null, payload = null) {
     const message = {
       text,
       type,
       from,
       quick_replies,
+      payload,
       date: new Date().getTime(),
     };
     this.messages.unshift(message);
@@ -140,7 +141,7 @@ export class ChatWidgetComponent implements OnInit {
     if (message.trim() === '') {
       return;
     }
-    this.addMessage(message, type, 'sent');
+    this.addMessage(message, type, 'sent', null, payload);
     this.chatService.sendMessage(payload ? payload : message);
   }
 
@@ -222,7 +223,7 @@ export class ChatWidgetComponent implements OnInit {
   private _findPreviousUserMessage(idx): string {
     for (let i = idx; i <= this.messages.length; i++) {
       if (this.messages[i].from === 'sent') {
-        return this.messages[i].text;
+        return this.messages[i].payload ? this.messages[i].payload : this.messages[i].text;
       }
     }
   }

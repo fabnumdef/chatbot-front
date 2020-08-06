@@ -100,7 +100,9 @@
       </ng-container>
     </div>
     <div class="chat-box-footer" [ngStyle]="{'background-color': userColor}">
-      <ngx-rasa-chat-input (send)="sendMessage($event)" (dismiss)="toggleChat()" [focus]="focus"
+      <ngx-rasa-chat-input (send)="sendMessage($event)"
+                           (dismiss)="toggleChat()"
+                           [focus]="focus"
                            [placeholder]="inputPlaceholder"></ngx-rasa-chat-input>
     </div>
   </div>
