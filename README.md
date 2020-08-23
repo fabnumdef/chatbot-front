@@ -1,27 +1,35 @@
-# ChatbotFront
+# Fabrique à chatbots
+## Chatbot - FRONT
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.25.
+L’objectif de la ‘Fabrique à chatbots’ est de détailler les étapes de réalisation d’un chatbot — de l’identification d’un cas d’usage, à la mise en place de l’interface du chatbot — afin de ne pas créer de ruptures dans l’expérience utilisateur, et de fournir les documents/code/template utiles pour la réalisation d’un chatbot.
 
-## Development server
+Ce service est un guide pour la définition d’une problématique de diffusion d’informations se prêtant à une solution « chatbot ».
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+C’est également une aide pratique pour la constitution d’une base documentaire (template excel) où sont consignées les questions/réponses du chatbot, et pour la réalisation de l’interface qui permet de créer et maintenir le chatbot (back office pour mise à jour de la base documentaire).
 
-## Code scaffolding
+### Architecture
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Frontend sous [Angular 10](https://angular.io/docs) couplé à [Angular Material](https://material.angular.io/).
 
-## Build
+Tests réalisés avec [Cypress](https://docs.cypress.io/).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+| Repo Git           | URL                                                   | Technologies       | Description                        |
+| ------------------ | ----------------------------------------------------- | ------------------ | ---------------------------------- |
+| Fabrique - Front   | https://github.com/fabnumdef/fabrique-chatbot-front   | Angular 10         | Front du site de la Fabrique       |
+| Fabrique - Back    | https://github.com/fabnumdef/fabrique-chatbot-back    | NestJS 6           | Back du site de la Fabrique        |
+| Chatbot - Front    | https://github.com/fabnumdef/chatbot-front            | Angular 10         | Front des Backoffices des chatbots |
+| Chatbot - Back     | https://github.com/fabnumdef/chatbot-back             | NestJS 6           | Back des Backoffices des chatbots  |
+| Chatbot - Template | https://github.com/fabnumdef/chatbot-template         | RASA 1.10          | Template RASA des chatbots         |
 
-## Running unit tests
+### Utilisation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Cloner le repo et `cd` dedans
+2. `cp env.example .env`
+3. Editer le fichier `.env`
+4. `npm install`
+4. `npm run build:prod`
+5. `npm run start`
 
-## Running end-to-end tests
+### Tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+// TODO
