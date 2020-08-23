@@ -1,4 +1,7 @@
-# Fabrique à chatbots
+<p align="center">
+  <a href="https://chatbot.fabnum.fr" target="blank"><img src="https://chatbot.d.fabnum.fr/assets/img/logo_fabrique_chatbot.svg" width="320" alt="Logo Fabrique à chatbots" /></a>
+</p>
+
 ## Chatbot - FRONT
 
 L’objectif de la ‘Fabrique à chatbots’ est de détailler les étapes de réalisation d’un chatbot — de l’identification d’un cas d’usage, à la mise en place de l’interface du chatbot — afin de ne pas créer de ruptures dans l’expérience utilisateur, et de fournir les documents/code/template utiles pour la réalisation d’un chatbot.
@@ -33,3 +36,12 @@ Tests réalisés avec [Cypress](https://docs.cypress.io/).
 ### Tests
 
 // TODO
+
+## Restons en contact
+
+- Site web - [https://chatbot.fabnum.fr](https://chatbot.fabnum.fr/)
+- Auteurs - [Beta.gouv](https://beta.gouv.fr/startups/fabrique-chatbots.html)
+
+## License
+
+[MIT licensed](LICENSE).
