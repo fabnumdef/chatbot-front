@@ -14,6 +14,7 @@ export class StatsKpiComponent extends DestroyObservable implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   visitors = null;
   ratioResponseOk = null;
+  ratioResponseSure = null;
   avgQuestionsPerUser = null;
   avgResponseTime = null;
 
@@ -39,6 +40,7 @@ export class StatsKpiComponent extends DestroyObservable implements OnInit {
         console.log(value);
         this.visitors = value['uniqueVisitorsNumber'].visitors;
         this.ratioResponseOk = value['ratioChatbotResponseOk'].ratioresponseok;
+        this.ratioResponseSure = value['ratioChatbotResponseSure'].ratioresponseok;
         this.avgQuestionsPerUser = Math.round(value['avgQuestionPerVisitor'].averagequestions * 100) / 100;
         this.avgResponseTime = Math.round(value['avgChatbotResponseTime'].averageresponse) / 1000 + ' seconde';
         if ((value['avgChatbotResponseTime'].averageresponse / 1000) > 1 ) {
