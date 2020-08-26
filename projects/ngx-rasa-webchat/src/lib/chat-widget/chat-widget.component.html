@@ -77,20 +77,28 @@
               </div>
             </ng-container>
           </div>
-          <div class="chat-message-feedback"
-               *ngIf="showFeedback(messages[idx - 1], message.from)"
-               (mouseover)="hoverFeedbackIdx = idx" (mouseleave)="hoverFeedbackIdx = null"
-               (click)="openModal(idx)"
-               [ngStyle]="{'fill': hoverFeedbackIdx == idx  ? botColor : '#8D898D'}">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
-              <rect fill="none" fill-rule="evenodd" height="24" width="24"/>
-              <g>
+          <div class="chat-message-feedbacks">
+            <div class="chat-message-feedback-wrong"
+                 *ngIf="showFeedback(messages[idx - 1], messages[idx + 1], message.from)"
+                 (mouseover)="hoverFeedbackWrongIdx = idx" (mouseleave)="hoverFeedbackWrongIdx = null"
+                 (click)="openModal(idx)"
+                 [ngStyle]="{'fill': hoverFeedbackWrongIdx == idx  ? '#f44336' : '#8D898D'}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                 <path
-                  d="M12,4c4.41,0,8,3.59,8,8s-3.59,8-8,8c-1.18,0-2.34-0.26-3.43-0.78c-0.27-0.13-0.56-0.19-0.86-0.19 c-0.19,0-0.38,0.03-0.56,0.08l-3.2,0.94l0.94-3.2c0.14-0.47,0.1-0.98-0.11-1.42C4.26,14.34,4,13.18,4,12C4,7.59,7.59,4,12,4 M12,2 C6.48,2,2,6.48,2,12c0,1.54,0.36,2.98,0.97,4.29L1,23l6.71-1.97C9.02,21.64,10.46,22,12,22c5.52,0,10-4.48,10-10 C22,6.48,17.52,2,12,2L12,2z"/>
-              </g>
-              <polygon fill-rule="evenodd"
-                       points="13,8 11,8 11,11 8,11 8,13 11,13 11,16 13,16 13,13 16,13 16,11 13,11"/>
-            </svg>
+                  d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+              </svg>
+            </div>
+            <div class="chat-message-feedback-ok"
+                 *ngIf="showFeedback(messages[idx - 1], messages[idx + 1], message.from)"
+                 (mouseover)="hoverFeedbackOkIdx = idx" (mouseleave)="hoverFeedbackOkIdx = null"
+                 (click)="sendFeedback(idx)"
+                 [ngStyle]="{'fill': hoverFeedbackOkIdx == idx  ? '#76c882' : '#8D898D'}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"/>
+                <path
+                  d="M9 21h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.58 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2zM9 9l4.34-4.34L12 10h9v2l-3 7H9V9zM1 9h4v12H1z"/>
+              </svg>
+            </div>
           </div>
           <div class="chat-message-date"
                *ngIf="isLastMessage(messages[idx - 1], message.from)">

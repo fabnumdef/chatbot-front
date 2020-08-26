@@ -43,7 +43,7 @@
 
 
 .chat-input-submit:disabled svg {
-  fill: #CBCBCB;
+  fill: #818181;
 }
 
 .chat-input-submit:enabled svg {

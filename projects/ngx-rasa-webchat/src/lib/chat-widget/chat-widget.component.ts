@@ -5,7 +5,7 @@ import { NgxRasaWebchatService } from '../ngx-rasa-webchat.service';
 import { MessageType } from '../message-type.enum';
 import { concatMap, delay, tap } from 'rxjs/operators';
 import { ChatFeedbackModalService } from '../chat-feedback-modal/chat-feedback-modal.service';
-import { Feedback } from '../chat-feedback-modal/feedback.model';
+import { Feedback, FeedbackStatus } from '../chat-feedback-modal/feedback.model';
 
 // const rand = max => Math.floor(Math.random() * max);
 
@@ -36,7 +36,8 @@ export class ChatWidgetComponent implements OnInit {
   private _visible = false;
   public messageType = MessageType;
   public notificationSound = new Audio('assets/sounds/notification.ogg');
-  public hoverFeedbackIdx = null;
+  public hoverFeedbackWrongIdx = null;
+  public hoverFeedbackOkIdx = null;
 
   constructor(public chatService: NgxRasaWebchatService,
               private _modalService: ChatFeedbackModalService) {
@@ -174,8 +175,8 @@ export class ChatWidgetComponent implements OnInit {
     return nextMessage.from !== from;
   }
 
-  public showFeedback(nextMessage, from): boolean {
-    if (from === 'sent') {
+  public showFeedback(nextMessage, previousMessage, from): boolean {
+    if (!previousMessage || from === 'sent') {
       return false;
     }
     if (!nextMessage) {
@@ -193,6 +194,17 @@ export class ChatWidgetComponent implements OnInit {
       status: null
     };
     this._modalService.open(data);
+  }
+
+  public sendFeedback(idx: number) {
+    const feedback = {
+      userQuestion: this._findPreviousUserMessage(idx),
+      botResponse: this.messages[idx].text,
+      timestamp: this.messages[idx].date / 1000,
+      senderId: this.chatService.getSessionId(),
+      status: FeedbackStatus.relevant
+    };
+    this._modalService.sendFeedback(feedback);
   }
 
   public urlify(text) {
@@ -221,7 +233,7 @@ export class ChatWidgetComponent implements OnInit {
   }
 
   private _findPreviousUserMessage(idx): string {
-    for (let i = idx; i <= this.messages.length; i++) {
+    for (let i = idx; i < this.messages.length; i++) {
       if (this.messages[i].from === 'sent') {
         return this.messages[i].payload ? this.messages[i].payload : this.messages[i].text;
       }
