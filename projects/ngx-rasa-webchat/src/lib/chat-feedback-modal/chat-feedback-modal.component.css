@@ -18,6 +18,9 @@
 
   /* enables scrolling for tall modals */
   overflow: auto;
+
+  width: 100vw;
+  height: 100vh;
 }
 
 .ngx-rasa-chat-feedback-modal .ngx-rasa-chat-feedback-modal-body {
@@ -25,13 +28,18 @@
   background: #fff;
 
   /* margin exposes part of the modal background */
-  margin: 40px auto;
-  max-width: 505px;
+  width: 505px;
+  max-width: 90%;
+  border-radius: 4px;
   box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .ngx-rasa-chat-feedback-modal-background {
@@ -126,4 +134,14 @@
 
 .ngx-rasa-chat-btn-stroked {
   background-color: transparent;
+}
+
+@media only screen and (max-width: 600px) {
+  .ngx-rasa-chat-feedback-modal .modal-btns > *:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  .ngx-rasa-chat-btn {
+    min-width: 100px;
+  }
 }
