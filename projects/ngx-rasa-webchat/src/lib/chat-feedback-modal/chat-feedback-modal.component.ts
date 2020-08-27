@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { ChatFeedbackModalService } from './chat-feedback-modal.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { NgxRasaWebchatService } from '../ngx-rasa-webchat.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -11,6 +12,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class ChatFeedbackModalComponent implements OnInit, OnDestroy {
   @Input() primaryColor: string;
   @Input() secondaryColor: string;
+  @Input() feedbackPayload: string;
 
   public data: any;
   public feedbackFormControl = this._fb.control(null, Validators.required);
@@ -19,7 +21,8 @@ export class ChatFeedbackModalComponent implements OnInit, OnDestroy {
 
   constructor(private _modalService: ChatFeedbackModalService,
               private _el: ElementRef,
-              private _fb: FormBuilder) {
+              private _fb: FormBuilder,
+              private _chatService: NgxRasaWebchatService) {
     this.element = _el.nativeElement;
   }
 
@@ -66,7 +69,9 @@ export class ChatFeedbackModalComponent implements OnInit, OnDestroy {
       status: this.feedbackFormControl.value,
       senderId: this.data?.senderId
     };
-    this._modalService.sendFeedback(feedback);
+    this._modalService.sendFeedback(feedback).subscribe(() => {
+      this._chatService.sendMessage(this.feedbackPayload);
+    });
     this.close();
   }
 }

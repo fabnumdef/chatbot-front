@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Feedback } from './feedback.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,8 @@ export class ChatFeedbackModalService {
     this._modal.close();
   }
 
-  sendFeedback(feedback: Feedback) {
-    this._http.post(`${this._url}/api/public/feedback`, feedback).subscribe();
+  sendFeedback(feedback: Feedback): Observable<any> {
+    return this._http.post(`${this._url}/api/public/feedback`, feedback);
   }
 
   set url(url) {

@@ -11,7 +11,6 @@ import { StatsGraphComponent } from './stats-list/stats-graph/stats-graph.compon
 import { StatsBestQuestionsComponent } from './stats-list/stats-best-questions/stats-best-questions.component';
 import { StatsWorstQuestionsComponent } from './stats-list/stats-worst-questions/stats-worst-questions.component';
 import { StatsKpiComponent } from './stats-list/stats-kpi/stats-kpi.component';
-import { StatsService } from '@core/services/stats.service';
 import { ChartsModule } from 'ng2-charts';
 
 
@@ -34,7 +33,6 @@ import { ChartsModule } from 'ng2-charts';
     ReactiveFormsModule
   ],
   providers: [
-    //StatsService
   ]
 })
 export class StatsModule { }

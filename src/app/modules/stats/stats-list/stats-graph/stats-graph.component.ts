@@ -1,11 +1,12 @@
 import { DestroyObservable } from '@core/utils/destroy-observable';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { StatsService } from '@core/services/stats.service';
 import { BaseChartDirective } from 'ng2-charts';
 import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 import 'moment/locale/fr';
 import { Subject } from 'rxjs';
+import * as chartJs from 'chart.js';
 
 @Component({
   selector: 'app-stats-graph',
@@ -18,24 +19,27 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
   public chart: BaseChartDirective;
   startDate: Date;
   endDate: Date;
-  dataset1 = [];
-  dataset2 = [];
-  dataset3 = [];
+  private _datasetQuestions = {data: [0], label: 'Questions posées', fill: false, pointHitRadius: 5};
+  private _datasetIntents = {data: [0], label: 'Questions ajoutées', fill: false, pointHitRadius: 5};
+  private _datasetVisitors = {data: [0], label: 'Nb sessions', fill: false, pointHitRadius: 5};
+  private _datasetFeedbacks = {data: [0], label: 'Retours utilisateurs', fill: false, pointHitRadius: 5};
   questionsPanel = [];
   intentPanel = [];
   visitorsPanel = [];
+  feedbacksPanel = [];
   parsedData: Object;
   questionDisplay = true;
   visitorsDisplay = true;
   intentDisplay = false;
+  feedbackDisplay = true;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  chartOptions = {
+  chartOptions: chartJs.ChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     elements: {
       point: {
-          radius: 0
+        radius: 0
       }
     },
     legend: {
@@ -43,27 +47,30 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
     },
     scales: {
       xAxes: [{
-          type: 'time',
-          time: {
-              unit: 'day',
-              tooltipFormat: 'DD/MM/YYYY',
-              displayFormats: {
-                'day': 'DD MMM'
-             }
+        type: 'time',
+        time: {
+          unit: 'day',
+          tooltipFormat: 'DD/MM/YYYY',
+          displayFormats: {
+            'day': 'DD MMM'
           }
+        }
       }],
       yAxes: [{
         ticks: {
           beginAtZero: true,
-          callback: function(value) {if (value % 1 === 0) {return value;}}
+          callback: function(value) {
+            // @ts-ignore
+            if (value % 1 === 0) {
+              return value;
+            }
+          }
         }
       }]
-  }
+    }
   };
   chartData = [
-    { data: [0], label: 'Questions posées', fill: false, pointHitRadius: 5},
-    { data: [0], label: 'Questions ajoutées', fill: false, pointHitRadius: 5},
-    { data: [0], label: 'Nb sessions', fill: false, pointHitRadius: 5}
+    this._datasetQuestions, this._datasetIntents, this._datasetVisitors, this._datasetFeedbacks
   ];
   chartLabels = [];
   chartColors = [
@@ -81,6 +88,11 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
       borderColor: '#fab754',
       pointBackgroundColor: '#fab754',
       pointBorderColor: '#fff',
+    },
+    { // fourth color
+      borderColor: '#5f97fc',
+      pointBackgroundColor: '#5f97fc',
+      pointBorderColor: '#fff',
     }];
 
   constructor(public _statsService: StatsService) {
@@ -93,10 +105,10 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
       .pipe(
         takeUntil(this.destroy$))
       .subscribe(
-      (value) => {
-        this.getGraph(value);
-      }
-    );
+        (value) => {
+          this.getGraph(value);
+        }
+      );
   }
 
   getGraph(dates) {
@@ -110,80 +122,71 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
 
     this._statsService.getGraphData().subscribe(
       (result) => {
-        this.parsedData = this.parseData(result);
+        this.parsedData = this._parseData(result);
         this.parsedData['question'].forEach(elem => {
-          const position = this.chartLabels.indexOf(elem.date) + 1;
-          this.dataset1[position] = Number(elem.count);
+          this._fillDataset(this._datasetQuestions, elem);
         });
         this.parsedData['visitors'].forEach(elem => {
-          const position = this.chartLabels.indexOf(elem.date) + 1;
-          this.dataset2[position] = Number(elem.count);
+          this._fillDataset(this._datasetVisitors, elem);
         });
         this.parsedData['intents'].forEach(elem => {
-          const position = this.chartLabels.indexOf(elem.date) + 1;
-          this.dataset3[position] = Number(elem.count);
+          this._fillDataset(this._datasetIntents, elem);
+        });
+        this.parsedData['feedbacks'].forEach(elem => {
+          this._fillDataset(this._datasetFeedbacks, elem);
         });
 
-        this.questionsPanel = this.getPanelData(this.dataset1, this.chartLabels);
-        this.intentPanel = this.getPanelData(this.dataset3, this.chartLabels);
-        this.visitorsPanel = this.getPanelData(this.dataset2, this.chartLabels);
-        this.chartData = [];
-        if (this.questionDisplay) {
-          this.chartData.push({ data: this.dataset1, label: 'Questions posées', fill: false, pointHitRadius: 5});
-        }
-        if (this.visitorsDisplay) {
-          this.chartData.push({ data: this.dataset2, label: 'Nb sessions', fill: false, pointHitRadius: 5});
-        }
-        if (this.intentDisplay) {
-          this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false, pointHitRadius: 5});
-        }
+        this.questionsPanel = this.getPanelData(this._datasetQuestions.data, this.chartLabels);
+        this.visitorsPanel = this.getPanelData(this._datasetVisitors.data, this.chartLabels);
+        this.intentPanel = this.getPanelData(this._datasetIntents.data, this.chartLabels);
+        this.feedbacksPanel = this.getPanelData(this._datasetFeedbacks.data, this.chartLabels);
+        this.displayPanel();
       }
     );
   }
 
+  private _fillDataset(dataset: any, elem: any) {
+    const position = this.chartLabels.indexOf(elem.date) + 1;
+    dataset.data[position] = Number(elem.count);
+  }
+
   setXAxis(start, end) {
     const current = start ? new Date(start) : this.startDate;
-    this.dataset1 = [];
-    this.dataset2 = [];
-    this.dataset3 = [];
+    this._datasetQuestions.data = [];
+    this._datasetVisitors.data = [];
+    this._datasetIntents.data = [];
+    this._datasetFeedbacks.data = [];
     this.chartLabels = [];
     while (current <= (end ? end : this.endDate)) {
       // Warning on this string
       this.chartLabels.push(current.toLocaleDateString('en-US'));
-      this.dataset1.push(0);
-      this.dataset2.push(0);
-      this.dataset3.push(0);
+      this._datasetQuestions.data.push(0);
+      this._datasetVisitors.data.push(0);
+      this._datasetIntents.data.push(0);
+      this._datasetFeedbacks.data.push(0);
       current.setDate(current.getDate() + 1);
     }
   }
 
-  parseData(dataToParse) {
+  private _parseData(dataToParse) {
     const parsedData = {};
-    if (dataToParse['askedQuestionsNumber']) {
-      parsedData['question'] = [];
-      dataToParse['askedQuestionsNumber'].forEach(obj => {
-        parsedData['question'].push({
-          date: new Date(obj['date'].substring(0, 10)).toLocaleDateString('en-US'),
-          count: obj['count']});
-      });
-    }
-    if (dataToParse['visitorNumber']) {
-      parsedData['visitors'] = [];
-      dataToParse['visitorNumber'].forEach(obj => {
-        parsedData['visitors'].push({
-          date: new Date(obj['date'].substring(0, 10)).toLocaleDateString('en-US'),
-          count: obj['count']});
-      });
-    }
-    if (dataToParse['dbQuestionSize']) {
-      parsedData['intents'] = [];
-      dataToParse['dbQuestionSize'].forEach(obj => {
-        parsedData['intents'].push({
-          date: new Date(obj['date'].substring(0, 10)).toLocaleDateString('en-US'),
-          count: obj['count']});
-      });
-    }
+    this._fillParsedData(dataToParse, parsedData, 'askedQuestionsNumber', 'question');
+    this._fillParsedData(dataToParse, parsedData, 'visitorNumber', 'visitors');
+    this._fillParsedData(dataToParse, parsedData, 'dbQuestionSize', 'intents');
+    this._fillParsedData(dataToParse, parsedData, 'feedbacksNumber', 'feedbacks');
     return parsedData;
+  }
+
+  private _fillParsedData(dataToParse: any, parsedData: any, name: string, attribute: string) {
+    if (dataToParse[name]) {
+      parsedData[attribute] = [];
+      dataToParse[name].forEach(obj => {
+        parsedData[attribute].push({
+          date: new Date(obj['date'].substring(0, 10)).toLocaleDateString('en-US'),
+          count: obj['count']
+        });
+      });
+    }
   }
 
   getPanelData(values, dates) {
@@ -200,66 +203,16 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
     return dataArray;
   }
 
-  displayQuestionPanel() {
-    this.questionDisplay = !this.questionDisplay;
+  displayPanel() {
     this.chartData = [];
-    if (this.questionDisplay) {
-      this.chartData.push({ data: this.dataset1, label: 'Questions posées', fill: false, pointHitRadius: 5 });
-    } else {
-      this.chartData.push({ data: [], label: 'Questions posées', fill: false, pointHitRadius: 5 });
-    }
-    if (this.visitorsDisplay) {
-      this.chartData.push({ data: this.dataset2, label: 'Nb sessions', fill: false, pointHitRadius: 5 });
-    } else {
-      this.chartData.push({ data: [], label: 'Nb sessions', fill: false, pointHitRadius: 5 });
-    }
-    if (this.intentDisplay) {
-      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false, pointHitRadius: 5 });
-    } else {
-      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false, pointHitRadius: 5 });
-    }
-    this.updateChart();
-  }
-
-  displayVisitorPanel() {
-    this.visitorsDisplay = !this.visitorsDisplay;
-    this.chartData = [];
-    if (this.questionDisplay) {
-      this.chartData.push({ data: this.dataset1, label: 'Questions posées', fill: false, pointHitRadius: 5});
-    } else {
-      this.chartData.push({ data: [], label: 'Questions posées', fill: false, pointHitRadius: 5 });
-    }
-    if (this.visitorsDisplay) {
-      this.chartData.push({ data: this.dataset2, label: 'Nb sessions', fill: false, pointHitRadius: 5 });
-    } else {
-      this.chartData.push({ data: [], label: 'Nb sessions', fill: false, pointHitRadius: 5 });
-    }
-    if (this.intentDisplay) {
-      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false, pointHitRadius: 5 });
-    } else {
-      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false, pointHitRadius: 5 });
-    }
-    this.updateChart();
-  }
-
-  displayIntentPanel() {
-    this.intentDisplay = !this.intentDisplay;
-    this.chartData = [];
-    if (this.questionDisplay) {
-      this.chartData.push({ data: this.dataset1, label: 'Questions posées', fill: false, pointHitRadius: 5 });
-    } else {
-      this.chartData.push({ data: [], label: 'Questions posées', fill: false, pointHitRadius: 5 });
-    }
-    if (this.visitorsDisplay) {
-      this.chartData.push({ data: this.dataset2, label: 'Nb sessions', fill: false, pointHitRadius: 5 });
-    } else {
-      this.chartData.push({ data: [], label: 'Nb sessions', fill: false, pointHitRadius: 5 });
-    }
-    if (this.intentDisplay) {
-      this.chartData.push({ data: this.dataset3, label: 'Questions ajoutées', fill: false, pointHitRadius: 5 });
-    } else {
-      this.chartData.push({ data: [], label: 'Questions ajoutées', fill: false, pointHitRadius: 5 });
-    }
+    this.questionDisplay ? this.chartData.push({...this._datasetQuestions}) :
+      this.chartData.push(Object.assign({...this._datasetQuestions}, {data: []}));
+    this.visitorsDisplay ? this.chartData.push({...this._datasetVisitors}) :
+      this.chartData.push(Object.assign({...this._datasetVisitors}, {data: []}));
+    this.intentDisplay ? this.chartData.push({...this._datasetIntents}) :
+      this.chartData.push(Object.assign({...this._datasetIntents}, {data: []}));
+    this.feedbackDisplay ? this.chartData.push({...this._datasetFeedbacks}) :
+      this.chartData.push(Object.assign({...this._datasetFeedbacks}, {data: []}));
     this.updateChart();
   }
 

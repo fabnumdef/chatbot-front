@@ -27,6 +27,7 @@ export class ChatWidgetComponent implements OnInit {
   @Input() public socketUrl = 'http://localhost:5500';
   @Input() public socketPath = '/socket.io/';
   @Input() public initPayload = '/get_started';
+  @Input() public feedbackPayload = '/feedback';
   @Input() public inputPlaceholder = 'Tapez votre message ...';
   @Input() public botColor = '#6E91F0';
   @Input() public userColor = '#EBECEF';
@@ -204,7 +205,9 @@ export class ChatWidgetComponent implements OnInit {
       senderId: this.chatService.getSessionId(),
       status: FeedbackStatus.relevant
     };
-    this._modalService.sendFeedback(feedback);
+    this._modalService.sendFeedback(feedback).subscribe(() => {
+      this.chatService.sendMessage(this.feedbackPayload);
+    });
   }
 
   public urlify(text) {

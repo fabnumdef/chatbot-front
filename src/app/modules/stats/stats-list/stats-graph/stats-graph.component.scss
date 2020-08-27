@@ -3,7 +3,7 @@
 :host {
     display: block;
   }
-  
+
 .stats-graph {
   min-width: 300px;
 
@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    
+
 
     .kpi-stats {
       display: flex;
@@ -32,32 +32,33 @@
           background: none;
 
           margin: 0 5px;
-        
+
           .mat-expansion-panel-header, .mat-expansion-panel-header:hover {
             padding: 5px 20px;
             border-radius: $border-radius;
+            transition: 0.25s;
 
             .mat-expansion-panel-header.mat-expanded{
               background-color: $grey-light;
               transition: 0.25s;
             }
-        
+
             .mat-expansion-panel-header-title h3, ::ng-deep .mat-expansion-indicator::after {
               color: $white;
               margin: 0;
             }
-        
+
             .mat-expansion-panel-header-title {
               align-items: flex-start;
             }
           }
-        
+
           ::ng-deep.mat-expansion-panel-body {
             padding: 10px 0;
           }
         }
-        
-        
+
+
 
         .title-kpi {
           display: flex;
@@ -115,7 +116,7 @@
         }
       }
     }
-    
+
     .chart {
       border-radius: 5px;
       background-color: $white;
@@ -125,49 +126,36 @@
       padding: 15px;
     }
 
-    .bggreen {
-      background-color: #40b374;
-      transition: 0.25s;
-    }
-    .bggreenNeg {
+    .bggreenNeg, .bgyellowNeg, .bgpinkNeg, .bgblueNeg {
       background-color: $grey-light;
-      transition: 0.25s;
     }
-    .bggreenNeg:hover {
+
+    .bggreen, .bggreenNeg:hover {
       background-color: #40b374;
     }
     .cgreen {
       color: #40b374;
     }
-    
-    .bgyellow {
-      background-color: #fab754;
-      transition: 0.25s;
-    }
-    .bgyellowNeg {
-      background-color: $grey-light;
-      transition: 0.25s;
-    }
-    .bgyellowNeg:hover {
+
+    .bgyellow, .bgyellowNeg:hover {
       background-color: #fab754;
     }
     .cyellow {
       color: #fab754;
     }
 
-    .bgpink {
-      background-color: #fab7b9;
-      transition: 0.25s;
-    }
-    .bgpinkNeg {
-      background-color: $grey-light;
-      transition: 0.25s;
-    }
-    .bgpinkNeg:hover {
+    .bgpink, .bgpinkNeg:hover {
       background-color: #fab7b9;
     }
     .cpink {
       color: #fab7b9;
+    }
+
+    .bgblue, .bgblueNeg:hover {
+      background-color: #5f97fc;
+    }
+    .cblue {
+      color: #5f97fc;
     }
   }
 
@@ -176,4 +164,3 @@
   }
 
 }
-  

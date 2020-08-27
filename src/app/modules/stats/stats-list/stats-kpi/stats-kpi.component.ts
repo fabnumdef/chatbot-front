@@ -37,7 +37,7 @@ export class StatsKpiComponent extends DestroyObservable implements OnInit {
   getData(dates) {
     this._statsService.getKPIData().subscribe(
       (value) => {
-        console.log(value);
+        // console.log(value);
         this.visitors = value['uniqueVisitorsNumber'].visitors;
         this.ratioResponseOk = value['ratioChatbotResponseOk'].ratioresponseok;
         this.ratioResponseSure = value['ratioChatbotResponseSure'].ratioresponseok;
