@@ -61,13 +61,13 @@
     </mat-form-field>
   </form>
   <div class="actions">
-    <button mat-flat-button
+    <button mat-stroked-button
             color="accent"
             *ngIf="isNewUser"
             (click)="onCancel()">
       Annuler
     </button>
-    <button mat-stroked-button
+    <button mat-flat-button
             color="accent"
             [disabled]="!userForm.valid || !userForm.dirty"
             (click)="addUser()">
