@@ -4,7 +4,10 @@ import { Component, Input } from '@angular/core';
   // tslint:disable-next-line:component-selector
   selector: 'ngx-rasa-chat-avatar',
   template: `
-    <div class="avatar" [ngClass]="{'avatar-header': header, 'avatar-side-menu': sideMenu}" [ngStyle]="{'background-image' : 'url(' + image + ')'}">
+    <div class="avatar"
+         [ngClass]="{'avatar-header': header, 'avatar-side-menu': sideMenu}"
+         [ngStyle]="{'background-image' : 'url(' + image + ')'}"
+         aria-label="Avatar du chatbot">
     </div>
   `,
   styles: [`
