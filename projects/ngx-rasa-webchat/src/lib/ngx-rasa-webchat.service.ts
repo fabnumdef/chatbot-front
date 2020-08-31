@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import io from 'socket.io-client';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 const SESSION_NAME = 'chat_session';
 
@@ -73,7 +73,7 @@ export class NgxRasaWebchatService {
         observer.next(message);
       });
     });
-  }
+  };
 
   public storeConversation(conversation) {
     // Store a conversation List to storage
@@ -102,7 +102,10 @@ export class NgxRasaWebchatService {
   }
 
   public searchIntents(query) {
-    return this._http.get(`${this._url}/api/public/intents/${query}`);
+    let params = new HttpParams();
+    params = params.append('query', encodeURIComponent(query));
+
+    return this._http.get(`${this._url}/api/public/intents`, {params});
   }
 
   public getSessionId() {
