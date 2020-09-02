@@ -5,11 +5,11 @@
     </div>
     <div class="chat-side-menu-divider"></div>
     <ngx-rasa-chat-avatar [image]="botAvatar" [sideMenu]="true" [ngStyle]="{'display': 'block'}"></ngx-rasa-chat-avatar>
-    <div class="chat-side-menu-name" [ngStyle]="{'color': botColor}">
-      <h3>{{ botName }}</h3>
+    <div class="chat-side-menu-name">
+      <h3 [ngStyle]="{'color': botColor}">{{ botName }}</h3>
     </div>
-    <div class="chat-side-menu-subtitle" [ngStyle]="{'color': botColor}">
-      <h4>{{ botSubtitle }}</h4>
+    <div class="chat-side-menu-subtitle">
+      <h4 [ngStyle]="{'color': botColor}">{{ botSubtitle }}</h4>
     </div>
     <div class="chat-side-menu-description">
       {{ botDescription }}
