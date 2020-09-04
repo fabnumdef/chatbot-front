@@ -9,11 +9,12 @@ import { ChatSideMenuComponent } from './chat-side-menu/chat-side-menu.component
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ChatFeedbackModalModule } from './chat-feedback-modal/chat-feedback-modal.module';
+import { ChatHelpModalModule } from './chat-help-modal/chat-help-modal.module';
 
 
 @NgModule({
   declarations: [ChatWidgetComponent, ChatAvatarComponent, ChatInputComponent, ChatConfigComponent, ChatSideMenuComponent],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule, ChatFeedbackModalModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule, ChatFeedbackModalModule, ChatHelpModalModule],
   exports: [ChatWidgetComponent, ChatConfigComponent],
   providers: [NgxRasaWebchatService],
   entryComponents: [ChatWidgetComponent, ChatConfigComponent],

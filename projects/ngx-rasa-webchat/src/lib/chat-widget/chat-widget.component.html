@@ -6,6 +6,7 @@
                            [companyLogo]="companyLogo"
                            [botSubtitle]="botSubtitle"
                            [botDescription]="botDescription"
+                           [botHelp]="botHelp"
                            [botColor]="botColor">
   </ngx-rasa-chat-side-menu>
   <div class="chat-box" *ngIf="visible" [@fadeInOut]="visible" [ngStyle]="{'background-color': botColor}">
@@ -30,6 +31,14 @@
     </div>
     <div class="chat-box-main" tabindex="0" aria-live="polite">
       <div class="chat-message-bottom" #bottom></div>
+      <div class="chat-message-typing" *ngIf="showTyping">
+        <div class="spinner">
+          <div class="bounce1" [ngStyle]="{'background-color': botColor}"></div>
+          <div class="bounce2" [ngStyle]="{'background-color': botColor}"></div>
+          <div class="bounce3" [ngStyle]="{'background-color': botColor}"></div>
+        </div>
+        {{ botName }} est en train de répondre.
+      </div>
       <ng-container *ngFor="let message of messages; let idx = index">
         <div class="chat-message"
              [ngClass]="{'chat-message-received': message.from === 'received', 'chat-message-full-width': message.type !== messageType.text}"

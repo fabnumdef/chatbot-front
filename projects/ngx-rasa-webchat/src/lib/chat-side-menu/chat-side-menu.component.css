@@ -59,3 +59,30 @@ ngx-rasa-chat-avatar {
   width: 90px;
   margin-left: 5px;
 }
+
+.chat-side-menu-help {
+  margin-top: 20px;
+}
+
+.chat-side-menu-help button svg {
+  margin-right: 5px;
+}
+
+
+.ngx-rasa-chat-btn {
+  border: none;
+  color: #ffffff;
+  height: 38px;
+  border-radius: 50px;
+  border-width: 2px;
+  border-color: currentColor;
+  border-style: solid;
+  text-align: center;
+  line-height: 36px;
+  padding: 0 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff006e;
+}

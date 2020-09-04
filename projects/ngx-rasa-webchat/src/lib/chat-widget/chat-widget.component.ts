@@ -21,6 +21,7 @@ export class ChatWidgetComponent implements OnInit {
   @Input() public botName = 'Bot';
   @Input() public botSubtitle = 'Bot';
   @Input() public botDescription = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+  @Input() public botHelp = null;
   @Input() public botAvatar = `https://cdn.dribbble.com/users/275794/screenshots/3128598/gbot_800.png`;
   @Input() public companyLogo = `https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Logo_Minist%C3%A8re_des_Arm%C3%A9es_%282020%29.svg/520px-Logo_Minist%C3%A8re_des_Arm%C3%A9es_%282020%29.svg.png`;
   @Input() public userAvatar = `https://storage.proboards.com/6172192/images/gKhXFw_5W0SD4nwuMev1.png`;
@@ -39,6 +40,7 @@ export class ChatWidgetComponent implements OnInit {
   public notificationSound = new Audio('assets/sounds/notification.ogg');
   public hoverFeedbackWrongIdx = null;
   public hoverFeedbackOkIdx = null;
+  public showTyping = false;
 
   constructor(public chatService: NgxRasaWebchatService,
               private _modalService: ChatFeedbackModalService) {
@@ -128,6 +130,7 @@ export class ChatWidgetComponent implements OnInit {
             } else if (message.attachment) {
               this.addMessage(message.attachment?.payload?.src, MessageType.image, 'received');
             }
+            this.showTyping = false;
             this.notificationSound.play();
           })
         ))
@@ -145,6 +148,7 @@ export class ChatWidgetComponent implements OnInit {
     }
     this.addMessage(message, type, 'sent', null, payload);
     this.chatService.sendMessage(payload ? payload : message);
+    this.showTyping = true;
   }
 
   public quickReplyClick(payload: string, title: string) {

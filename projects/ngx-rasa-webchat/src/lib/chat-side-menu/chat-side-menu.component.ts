@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ChatHelpModalService } from '../chat-help-modal/chat-help-modal.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -12,11 +13,17 @@ export class ChatSideMenuComponent implements OnInit {
   @Input() public botAvatar: string;
   @Input() public companyLogo: string;
   @Input() public botDescription: string;
+  @Input() public botHelp: string;
   @Input() public botColor: string;
 
-  constructor() { }
+  constructor(private _modalService: ChatHelpModalService) {
+  }
 
   ngOnInit(): void {
+  }
+
+  showHelpModal() {
+    this._modalService.open();
   }
 
 }
