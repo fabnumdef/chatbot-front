@@ -211,6 +211,7 @@ export class ChatWidgetComponent implements OnInit {
     };
     this._modalService.sendFeedback(feedback).subscribe(() => {
       this.chatService.sendMessage(this.feedbackPayload);
+      this.showTyping = true;
     });
   }
 
