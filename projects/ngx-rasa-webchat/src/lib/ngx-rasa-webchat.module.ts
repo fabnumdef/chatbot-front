@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { ChatWidgetComponent } from './chat-widget/chat-widget.component';
 import { CommonModule } from '@angular/common';
 import { NgxRasaWebchatService } from './ngx-rasa-webchat.service';
@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ChatFeedbackModalModule } from './chat-feedback-modal/chat-feedback-modal.module';
 import { ChatHelpModalModule } from './chat-help-modal/chat-help-modal.module';
+import { createCustomElement } from '@angular/elements';
 
 
 @NgModule({
@@ -20,4 +21,10 @@ import { ChatHelpModalModule } from './chat-help-modal/chat-help-modal.module';
   entryComponents: [ChatWidgetComponent, ChatConfigComponent],
 })
 export class NgxRasaWebchatModule {
+  constructor(readonly injector: Injector) {
+    const el = createCustomElement(ChatWidgetComponent, { injector: this.injector });
+    customElements.define('ngx-rasa-chat-widget', el);
+  }
+
+  ngDoBootstrap() {}
 }

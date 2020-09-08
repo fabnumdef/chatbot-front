@@ -4,10 +4,15 @@
   "dependencies": {
     "@angular/common": "^10.0.2",
     "@angular/core": "^10.0.2",
+    "@angular/elements": "^10.0.2",
     "@angular/forms": "^10.0.2",
     "tslib": "^1.10.0"
   },
   "bundledDependencies": [
-    "@angular/common", "@angular/core", "@angular/forms", "tslib"
+    "@angular/common",
+    "@angular/core",
+    "@angular/forms",
+    "@angular/elements",
+    "tslib"
   ]
 }
