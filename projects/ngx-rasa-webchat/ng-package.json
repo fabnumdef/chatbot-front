@@ -3,5 +3,6 @@
   "dest": "../../dist/ngx-rasa-webchat",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": ["."]
 }
