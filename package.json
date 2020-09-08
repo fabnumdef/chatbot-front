@@ -20,6 +20,7 @@
     "@angular/common": "~10.0.2",
     "@angular/compiler": "~10.0.2",
     "@angular/core": "~10.0.2",
+    "@angular/elements": "^10.1.0",
     "@angular/forms": "~10.0.2",
     "@angular/material": "^10.0.1",
     "@angular/material-moment-adapter": "^10.0.1",
