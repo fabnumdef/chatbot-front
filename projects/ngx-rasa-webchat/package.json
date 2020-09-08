@@ -8,6 +8,6 @@
     "tslib": "^1.10.0"
   },
   "bundledDependencies": [
-    "@angular/common", ",@angular/core", "@angular/forms", "tslib"
+    "@angular/common", "@angular/core", "@angular/forms", "tslib"
   ]
 }
