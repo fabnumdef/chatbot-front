@@ -1,0 +1,21 @@
+.avatar {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 10px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.avatar.avatar-header {
+  height: 50px;
+  width: 50px;
+}
+
+.avatar.avatar-side-menu {
+  height: 65px;
+  width: 65px;
+  float: none;
+}
