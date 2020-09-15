@@ -1,0 +1,72 @@
+:host {
+  display: block;
+  box-shadow: 0 0 10px -3px rgba(110, 145, 240, .3);
+  z-index: 10;
+}
+
+.chat-side-menu {
+  width: 400px;
+  height: 100%;
+  background-color: #ffffff;
+  padding: 40px 40px 10px 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chat-side-menu-divider {
+  display: block;
+  margin: 0;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: rgba(0, 0, 0, .12);
+}
+
+.chat-side-menu-company {
+  max-width: 125px;
+
+  img {
+    width: 100%;
+  }
+}
+
+ngx-rasa-chat-avatar {
+  margin-top: 40px;
+
+  img {
+    width: 100%;
+  }
+}
+
+.chat-side-menu-name h3 {
+  margin: 10px 0 5px 0;
+  font-weight: bold;
+}
+
+.chat-side-menu-subtitle h4 {
+  margin: 0 0 10px 0;
+  font-weight: normal;
+}
+
+.chat-side-menu-footer {
+  display: flex;
+  align-items: center;
+  color: #818181;
+  font-size: 12px;
+
+  svg {
+    width: 90px;
+    margin-left: 5px;
+  }
+}
+
+.chat-side-menu-help {
+  margin-top: 20px;
+
+  button {
+    svg {
+      margin-right: 5px;
+    }
+  }
+}

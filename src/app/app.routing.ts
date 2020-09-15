@@ -50,10 +50,6 @@ const routes: Routes = [
       },
     ]
   },
-  {
-    path: 'chatbot',
-    loadChildren: () => import('./modules/chatbot/chatbot.module').then(m => m.ChatbotModule)
-  },
 ];
 
 @NgModule({

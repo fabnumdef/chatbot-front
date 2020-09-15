@@ -179,6 +179,127 @@
           }
         }
       }
+    },
+    "webchat": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/webchat",
+      "sourceRoot": "projects/webchat/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/webchat",
+            "index": "projects/webchat/src/index.html",
+            "main": "projects/webchat/src/main.ts",
+            "polyfills": "projects/webchat/src/polyfills.ts",
+            "tsConfig": "projects/webchat/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/webchat/src/favicon.ico",
+              "projects/webchat/src/assets"
+            ],
+            "styles": [
+              "projects/webchat/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/webchat/src/environments/environment.ts",
+                  "with": "projects/webchat/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "webchat:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "webchat:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "webchat:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/webchat/src/test.ts",
+            "polyfills": "projects/webchat/src/polyfills.ts",
+            "tsConfig": "projects/webchat/tsconfig.spec.json",
+            "karmaConfig": "projects/webchat/karma.conf.js",
+            "assets": [
+              "projects/webchat/src/favicon.ico",
+              "projects/webchat/src/assets"
+            ],
+            "styles": [
+              "projects/webchat/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/webchat/tsconfig.app.json",
+              "projects/webchat/tsconfig.spec.json",
+              "projects/webchat/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/webchat/e2e/protractor.conf.js",
+            "devServerTarget": "webchat:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "webchat:serve:production"
+            }
+          }
+        }
+      }
     }
   },
   "defaultProject": "chatbot-front",

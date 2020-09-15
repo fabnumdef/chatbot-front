@@ -1,0 +1,6 @@
+<h1 mat-dialog-title [ngStyle]="{'color': data.primaryColor}">Aide</h1>
+<div mat-dialog-content [innerHTML]="data.botHelp">
+</div>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close [ngStyle]="{'color': data.primaryColor, 'border-color': data.primaryColor}">Fermer</button>
+</mat-dialog-actions>

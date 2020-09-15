@@ -1,0 +1,21 @@
+<h1 mat-dialog-title [ngStyle]="{'color': data.primaryColor}">
+  Comment avez-vous trouvé la réponse ?
+</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Choisissez votre option</mat-label>
+    <mat-select [formControl]="feedbackFormControl">
+      <mat-option value="wrong">Erronée</mat-option>
+      <mat-option value="off_topic">Ne répond pas à ma question</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close [ngStyle]="{'color': data.primaryColor, 'border-color': data.primaryColor}">Annuler</button>
+  <button mat-flat-button
+          (click)="sendFeedback()"
+          [disabled]="!feedbackFormControl.valid"
+          [ngStyle]="{'background': !feedbackFormControl.valid ? '' : data.primaryColor}">
+    Valider
+  </button>
+</mat-dialog-actions>
