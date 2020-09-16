@@ -1,4 +1,8 @@
-export function init(data) {
+'use strict';
+
+class Webchat {}
+
+Webchat.init = function (data) {
   const buttonColor = data.buttonColor ? data.buttonColor : '#6e91f0';
   const buttonSize = data.buttonSize ? data.buttonSize : '60px';
   const chatHeight = data.chatHeight ? data.chatHeight : '500px';

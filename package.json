@@ -7,7 +7,7 @@
     "start:local": "ng serve --proxy-config proxy.local.conf.json",
     "start:dev": "ng serve --proxy-config proxy.dev.conf.json",
     "build": "ng build",
-    "build:prod": "ng build webchat --prod --base-href /webchat/ && ng build --prod",
+    "build:prod": "uglifyjs -m ./src/assets/scripts/embbed-chatbot.js -o ./src/assets/scripts/embbed-chatbot.min.js && ng build webchat --prod --base-href /webchat/ && ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -37,6 +37,7 @@
     "ngx-toastr": "^12.0.0",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
+    "uglify-js-es6": "^2.8.9",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
