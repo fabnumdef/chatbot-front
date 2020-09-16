@@ -14,7 +14,6 @@ export class ChatInputComponent implements OnInit {
   @Input() public placeholder: string;
   @Input() public focus = new EventEmitter();
   @Output() public send = new EventEmitter();
-  @Output() public dismiss = new EventEmitter();
   @ViewChild('message') message: ElementRef;
   messageText: FormControl;
   intents: any[];

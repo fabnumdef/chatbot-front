@@ -6,8 +6,8 @@
             #message
             [formControl]="messageText"
             (keydown.enter)="onSubmit()"
-            (keyup.enter)="messageText.setValue('')"
-            (keyup.escape)="dismiss.emit()"></textarea>
+            (keyup.enter)="messageText.setValue('')">
+  </textarea>
   <button type="submit"
           class="chat-input-submit"
           aria-label="Envoyer"

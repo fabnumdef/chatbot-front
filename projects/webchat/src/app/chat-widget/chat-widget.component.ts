@@ -8,6 +8,7 @@ import { Feedback, FeedbackStatus } from '../core/models/feedback.model';
 import { MatDialog } from '@angular/material/dialog';
 import { FeedbackService } from '../core/services/feedback.service';
 import { ChatFeedbackModalComponent } from '../chat-feedback-modal/chat-feedback-modal.component';
+import { ChatHelpModalComponent } from '../chat-help-modal/chat-help-modal.component';
 
 @Component({
   selector: 'app-chat-widget',
@@ -31,10 +32,8 @@ export class ChatWidgetComponent implements OnInit {
   @Input() public inputPlaceholder = 'Posez votre question ...';
   @Input() public botColor = '#6E91F0';
   @Input() public userColor = '#EBECEF';
-  @Input() public embedded = true;
   @Input() public storage = 'session';
 
-  private _visible = false;
   public messageType = MessageType;
   public notificationSound = new Audio('assets/sounds/notification.ogg');
   public hoverFeedbackWrongIdx = null;
@@ -44,21 +43,6 @@ export class ChatWidgetComponent implements OnInit {
   constructor(public chatService: WebchatService,
               private _dialog: MatDialog,
               private _feedbackService: FeedbackService) {
-  }
-
-  public get visible() {
-    return this._visible;
-  }
-
-  @Input()
-  public set visible(visible) {
-    this._visible = visible;
-    if (this._visible) {
-      setTimeout(() => {
-        this.scrollToBottom();
-        this.focusMessage();
-      }, 0);
-    }
   }
 
   public focus = new Subject();
@@ -98,9 +82,11 @@ export class ChatWidgetComponent implements OnInit {
     this.messages = this.chatService.getConversation();
     this.chatService.connect(this.socketUrl, this.socketPath, this.initPayload);
     this._feedbackService.url = this.socketUrl;
-    if (this.embedded) {
-      this.visible = true;
-    }
+
+    setTimeout(() => {
+      this.scrollToBottom();
+      this.focusMessage();
+    }, 0);
 
     this.client = {
       name: 'Guest User',
@@ -136,10 +122,6 @@ export class ChatWidgetComponent implements OnInit {
         ))
       )
       .subscribe();
-  }
-
-  public toggleChat() {
-    this.visible = !this.visible;
   }
 
   public sendMessage({message, type, payload}) {
@@ -227,13 +209,19 @@ export class ChatWidgetComponent implements OnInit {
     });
   }
 
+  showHelpModal() {
+    this._dialog.open(ChatHelpModalComponent, {
+      data: {
+        primaryColor: this.botColor,
+        botHelp: this.botHelp
+      }
+    });
+  }
+
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key === '/') {
       this.focusMessage();
-    }
-    if (event.key === '?' && !this._visible) {
-      this.toggleChat();
     }
   }
 
