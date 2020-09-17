@@ -41,7 +41,7 @@ export class ChatbotConfigComponent extends DestroyObservable implements OnInit 
       takeUntil(this.destroy$),
       take(1)
     ).subscribe(config => {
-      console.log(config);
+      // console.log(config);
       this.chatbotConfig = config;
       this._initForms();
     });

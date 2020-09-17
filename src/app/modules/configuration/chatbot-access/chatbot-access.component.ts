@@ -11,6 +11,23 @@ export class ChatbotAccessComponent implements OnInit {
 
   chatbotPath = window.location.origin + '/chatbot';
 
+  embeddedCode =
+    `<script src="${window.location.origin}/backoffice/assets/scripts/embbed-chatbot.min.js"></script>
+<div id="webchat"></div>
+<script>
+  Webchat.init({
+    // Obligatory
+    botURL: '${window.location.origin}/chatbot',
+    // Optionnal
+    chatWidth: '300px',
+    chatHeight: '500px',
+    buttonSize: '60px',
+    buttonColor: '#6e91f0',
+    iconSize: '30px',
+    iconColor: '#ffffff'
+  });
+</script>`;
+
   constructor(private _clipboard: Clipboard,
               private _toastr: ToastrService) {
   }

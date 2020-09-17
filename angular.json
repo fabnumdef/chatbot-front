@@ -37,7 +37,8 @@
               "src/styles/input.scss",
               "src/styles/radio.scss",
               "src/styles/card.scss",
-              "src/styles/colorpicker.scss"
+              "src/styles/colorpicker.scss",
+              "node_modules/highlight.js/styles/atom-one-dark.css"
             ],
             "scripts": []
           },
@@ -68,7 +69,13 @@
               "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json"
             }
-          }
+          },
+          "allowedCommonJsDependencies": [
+            "highlight.js",
+            "file-saver",
+            "chart.js",
+            "lodash"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -108,7 +115,8 @@
               "src/styles/input.scss",
               "src/styles/radio.scss",
               "src/styles/card.scss",
-              "src/styles/colorpicker.scss"
+              "src/styles/colorpicker.scss",
+              "node_modules/highlight.js/styles/atom-one-dark.css"
             ],
             "scripts": []
           }
