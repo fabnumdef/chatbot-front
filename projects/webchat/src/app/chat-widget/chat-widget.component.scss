@@ -111,6 +111,7 @@
 .operator-header h4 {
   margin: 5px 0 0 0;
   font-weight: normal;
+  font-family: Roboto, "Open Sans", "Helvetica Neue", sans-serif;
   color: #ffffff;
 }
 
@@ -165,12 +166,12 @@
 }
 
 .chat-message-quick-replies {
-  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
 }
 
 .chat-message-quick-reply {
+  margin-top: 10px;
   padding: 10px;
   border-radius: 20px;
   border: 1px solid currentColor;

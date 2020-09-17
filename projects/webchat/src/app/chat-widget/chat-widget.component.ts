@@ -181,6 +181,7 @@ export class ChatWidgetComponent implements OnInit {
       status: null
     };
     this._dialog.open(ChatFeedbackModalComponent, {
+      width: '500px',
       data: Object.assign(data, {
         feedbackPayload: this.feedbackPayload,
         primaryColor: this.botColor
@@ -211,6 +212,7 @@ export class ChatWidgetComponent implements OnInit {
 
   showHelpModal() {
     this._dialog.open(ChatHelpModalComponent, {
+      width: '500px',
       data: {
         primaryColor: this.botColor,
         botHelp: this.botHelp
