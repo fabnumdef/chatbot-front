@@ -9,7 +9,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 })
 export class ChatbotAccessComponent implements OnInit {
 
-  chatbotPath = window.location.origin + '/webchat';
+  chatbotPath = window.location.origin + '/chatbot';
 
   constructor(private _clipboard: Clipboard,
               private _toastr: ToastrService) {
