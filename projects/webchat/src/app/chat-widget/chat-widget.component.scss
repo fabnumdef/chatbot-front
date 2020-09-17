@@ -185,8 +185,8 @@
   color: #ffffff;
 }
 
-.chat-message-quick-replies > .chat-message-quick-reply:not(:first-child) {
-  margin-left: 10px;
+.chat-message-quick-replies > .chat-message-quick-reply:not(:last-child) {
+  margin-right: 10px;
 }
 
 .chat-message-image {
