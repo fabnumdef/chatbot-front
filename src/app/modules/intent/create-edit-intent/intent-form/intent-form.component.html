@@ -2,9 +2,9 @@
   <div class="chatbot-title">
     <h3>{{ getTitle() }}</h3>
   </div>
-  <div *ngIf="!isNewIntent && intent.knowledges.length < 1" class="intent-error">
-    <mat-icon color="accent">report_problem</mat-icon> &nbsp;
-    Aucune question synonyme n'a été ajoutée. Le chatbot aura du mal à reconnaître cette connaissance.
+  <div *ngIf="!isNewIntent && intent.knowledges.length < 3" class="intent-error">
+    <mat-icon color="accent">report_problem</mat-icon>
+    Aucune ou peu de questions synonymes n'ont été ajoutées. Rajouter au moins 3 questions synonymes afin que le chatbot puisse reconnaître cette question.
   </div>
   <form [formGroup]="intentForm" *ngIf="intentForm">
     <mat-checkbox #expiresCheckbox

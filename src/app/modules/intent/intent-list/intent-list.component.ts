@@ -67,11 +67,10 @@ export class IntentListComponent implements OnInit {
         await this.intentService.delete(intent).subscribe();
         this.configService.getConfig().subscribe();
       });
-
   }
 
   isIntentInError(intent: Intent) {
-    return intent.knowledges?.length < 1;
+    return intent.knowledges?.length < 3;
   }
 
 }

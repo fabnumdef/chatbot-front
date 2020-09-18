@@ -28,6 +28,7 @@ export class IntentFilterComponent extends DestroyObservable implements OnInit, 
     this.intentFilters = this._fb.group({
       query: [this._intentService.currentSearch],
       categories: [this._intentService.currentFilters?.categories ? this._intentService.currentFilters.categories : []],
+      intentInError: [this._intentService.currentFilters?.intentInError ? this._intentService.currentFilters.intentInError : false],
       expires: [this._intentService.currentFilters?.expires ? this._intentService.currentFilters.expires : false],
       expiresAt: [this._intentService.currentFilters?.expiresAt ? moment(this._intentService.currentFilters.expiresAt, 'DD/MM/yyyy') : null]
     });

@@ -27,6 +27,12 @@
     </mat-form-field>
 
     <mat-checkbox color="primary"
+                  class="intent-in-error"
+                  formControlName="intentInError">
+      Connaissances incomplètes
+    </mat-checkbox>
+
+    <mat-checkbox color="primary"
                   formControlName="expires"
                   (change)="controls.expiresAt.reset(null)">
       Contenu variable <span *ngIf="controls.expires.value">&nbsp;jusqu'au</span>
