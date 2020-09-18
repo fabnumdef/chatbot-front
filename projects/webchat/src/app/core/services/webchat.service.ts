@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import io from 'socket.io-client';
 
 const SESSION_NAME = 'chat_session';
+const ACCESSIBILITY_NAME = 'chat_accessibility';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,6 @@ export class WebchatService {
   private _storage;
 
   constructor(private _http: HttpClient) {
-
   }
 
   public connect(url: string, path: string, initPayload: string) {
@@ -60,6 +60,8 @@ export class WebchatService {
     this._socket.on('reconnect_attempt', () => {
       this._socket.io.opts.transports = ['polling', 'websocket'];
     });
+
+    this._updateAccessibilityClass();
   }
 
   public sendMessage(message) {
@@ -99,6 +101,15 @@ export class WebchatService {
 
   public setStorage(storage) {
     this._storage = (storage === 'session') ? sessionStorage : localStorage;
+  }
+
+  public get accessibility(): boolean {
+    return JSON.parse(this._storage.getItem(ACCESSIBILITY_NAME));
+  }
+
+  public setAccessibility(accessibility: boolean) {
+    this._storage.setItem(ACCESSIBILITY_NAME, JSON.stringify(accessibility));
+    this._updateAccessibilityClass();
   }
 
   public searchIntents(query) {
@@ -154,5 +165,14 @@ export class WebchatService {
     }
     // Store updated session to storage
     this._storage.setItem(key, JSON.stringify(session));
+  }
+
+  private _updateAccessibilityClass() {
+    const chatWidget = document.getElementById('chat-widget');
+    if (this.accessibility) {
+      chatWidget.classList.add('chat-accessibility');
+    } else {
+      chatWidget.classList.remove('chat-accessibility');
+    }
   }
 }

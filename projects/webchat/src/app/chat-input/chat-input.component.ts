@@ -17,6 +17,10 @@ export class ChatInputComponent implements OnInit {
   @ViewChild('message') message: ElementRef;
   messageText: FormControl;
   intents: any[];
+  recognition;
+
+  // @ts-ignore
+  public SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
   constructor(private _fb: FormBuilder,
               private _chatbotService: WebchatService) {
@@ -42,6 +46,14 @@ export class ChatInputComponent implements OnInit {
         this.intents = intents;
       });
     });
+
+    if (this.SpeechRecognition) {
+      this.recognition = new this.SpeechRecognition();
+      this.recognition.continuous = true;
+      this.recognition.interimResults = true;
+      this.recognition.lang = 'fr-FR';
+      this.recognition.onresult = this._resumeRecognition;
+    }
   }
 
   public focusMessage() {
@@ -61,6 +73,19 @@ export class ChatInputComponent implements OnInit {
     });
     this.clearMessage();
     this.focusMessage();
+  }
+
+  private _resumeRecognition = (event) => {
+    let final_transcript = '';
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
+      if (event.results[i].isFinal) {
+        final_transcript += event.results[i][0].transcript;
+      }
+    }
+    if (final_transcript) {
+      this.messageText.setValue(final_transcript);
+      this.messageText.updateValueAndValidity();
+    }
   }
 
   onSubmit() {

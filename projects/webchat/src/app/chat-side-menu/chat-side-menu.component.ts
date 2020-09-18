@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChatHelpModalComponent } from '../chat-help-modal/chat-help-modal.component';
+import { WebchatService } from '../core/services/webchat.service';
 
 @Component({
   selector: 'app-chat-side-menu',
@@ -16,7 +17,8 @@ export class ChatSideMenuComponent implements OnInit {
   @Input() public botHelp: string;
   @Input() public botColor: string;
 
-  constructor(private _dialog: MatDialog) { }
+  constructor(private _dialog: MatDialog,
+              public webchatService: WebchatService) { }
 
   ngOnInit(): void {
   }

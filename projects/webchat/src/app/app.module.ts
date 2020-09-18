@@ -19,6 +19,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatButtonModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSlideToggleModule,
+    MatRippleModule
   ],
   providers: [
     {provide: Window, useValue: window},

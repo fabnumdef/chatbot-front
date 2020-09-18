@@ -328,3 +328,16 @@ Sent message style
     width: 60%;
   }
 }
+
+.wrapper.chat-accessibility {
+  .chat-message-sent .chat-message-text {
+    background-color: #000000!important;
+    color: #ffffff!important;
+  }
+
+  .chat-message-received .chat-message-text,
+  .chat-box-footer {
+    background-color: #f5f5f5 !important;
+    color: #000000!important;
+  }
+}
