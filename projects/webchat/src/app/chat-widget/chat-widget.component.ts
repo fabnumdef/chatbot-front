@@ -240,8 +240,6 @@ export class ChatWidgetComponent implements OnInit {
   }
 
   private _checkNavSize() {
-    console.log(window.innerWidth);
     this.isMobileSize = window.innerWidth <= 767;
-    console.log(this.isMobileSize);
   }
 }
