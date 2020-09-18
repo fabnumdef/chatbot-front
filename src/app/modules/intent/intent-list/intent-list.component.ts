@@ -70,7 +70,7 @@ export class IntentListComponent implements OnInit {
   }
 
   isIntentInError(intent: Intent) {
-    return intent.knowledges?.length < 3;
+    return intent.knowledges?.length < 2;
   }
 
 }
