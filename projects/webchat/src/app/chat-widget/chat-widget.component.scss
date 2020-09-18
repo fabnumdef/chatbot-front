@@ -1,7 +1,7 @@
 :host {
   display: block;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 
 .wrapper {
@@ -10,6 +10,15 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+
+  .mat-drawer-container {
+    width: 100%;
+  }
+
+  .mat-drawer {
+    box-shadow: 0 0 10px -3px rgba(110, 145, 240, .3);
+    border: none;
+  }
 }
 
 .chat-button {
@@ -314,27 +323,8 @@ Sent message style
     }
 }
 
-/* Medium devices (tablets, 768px and up)*/
-@media (min-width: 768px) {
-  .wrapper .chat-box-header {
-    display: none;
-  }
-}
-
 @media (max-width: 767px) {
-  .wrapper app-chat-side-menu {
-    display: none;
+  .wrapper .mat-drawer {
+    width: 60%;
   }
-}
-
-/* Extra large devices (large desktops, 1200px and up)*/
-@media (min-width: 1200px) {
-}
-
-/* Large devices (desktops, 992px and up)*/
-@media (min-width: 992px) {
-}
-
-/* Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) {
 }

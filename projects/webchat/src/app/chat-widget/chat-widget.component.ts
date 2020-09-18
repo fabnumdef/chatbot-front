@@ -39,6 +39,7 @@ export class ChatWidgetComponent implements OnInit {
   public hoverFeedbackWrongIdx = null;
   public hoverFeedbackOkIdx = null;
   public showTyping = false;
+  public isMobileSize = false;
 
   constructor(public chatService: WebchatService,
               private _dialog: MatDialog,
@@ -122,6 +123,11 @@ export class ChatWidgetComponent implements OnInit {
         ))
       )
       .subscribe();
+
+    this._checkNavSize();
+    window.onresize = (e) => {
+      this._checkNavSize();
+    };
   }
 
   public sendMessage({message, type, payload}) {
@@ -210,16 +216,6 @@ export class ChatWidgetComponent implements OnInit {
     });
   }
 
-  showHelpModal() {
-    this._dialog.open(ChatHelpModalComponent, {
-      width: '500px',
-      data: {
-        primaryColor: this.botColor,
-        botHelp: this.botHelp
-      }
-    });
-  }
-
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key === '/') {
@@ -241,5 +237,11 @@ export class ChatWidgetComponent implements OnInit {
         return this.messages[i].payload ? this.messages[i].payload : this.messages[i].text;
       }
     }
+  }
+
+  private _checkNavSize() {
+    console.log(window.innerWidth);
+    this.isMobileSize = window.innerWidth <= 767;
+    console.log(this.isMobileSize);
   }
 }
