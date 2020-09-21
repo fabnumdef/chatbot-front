@@ -56,6 +56,7 @@ export class InboxListComponent implements OnInit {
       case InboxStatus.pending:
         return 'badge-staked-warning';
       case InboxStatus.to_verify:
+        return 'badge-staked-primary';
       case InboxStatus.relevant:
         return 'badge-staked-success';
       case InboxStatus.confirmed:
