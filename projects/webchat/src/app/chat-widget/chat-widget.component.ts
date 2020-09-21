@@ -8,7 +8,6 @@ import { Feedback, FeedbackStatus } from '../core/models/feedback.model';
 import { MatDialog } from '@angular/material/dialog';
 import { FeedbackService } from '../core/services/feedback.service';
 import { ChatFeedbackModalComponent } from '../chat-feedback-modal/chat-feedback-modal.component';
-import { ChatHelpModalComponent } from '../chat-help-modal/chat-help-modal.component';
 
 @Component({
   selector: 'app-chat-widget',
@@ -24,7 +23,7 @@ export class ChatWidgetComponent implements OnInit {
   @Input() public botHelp = null;
   @Input() public botAvatar = `https://cdn.dribbble.com/users/275794/screenshots/3128598/gbot_800.png`;
   @Input() public companyLogo = `https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Logo_Minist%C3%A8re_des_Arm%C3%A9es_%282020%29.svg/520px-Logo_Minist%C3%A8re_des_Arm%C3%A9es_%282020%29.svg.png`;
-  @Input() public userAvatar = `https://storage.proboards.com/6172192/images/gKhXFw_5W0SD4nwuMev1.png`;
+  @Input() public userAvatar = null;
   @Input() public socketUrl = 'http://localhost:5500';
   @Input() public socketPath = '/socket-chatbot/';
   @Input() public initPayload = '/phrase_presentation';
@@ -191,7 +190,8 @@ export class ChatWidgetComponent implements OnInit {
       data: Object.assign(data, {
         feedbackPayload: this.feedbackPayload,
         primaryColor: this.botColor
-      })
+      }),
+      autoFocus: false
     });
   }
 

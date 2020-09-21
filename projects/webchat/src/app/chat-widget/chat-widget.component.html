@@ -73,7 +73,8 @@
                   </div>
                   <div *ngSwitchCase="messageType.image" class="chat-message-image">
                     <a target="_blank" [href]="message.text">
-                      <div [ngStyle]="{'background-image' : 'url(' + message.text + ')'}">
+                      <div [ngStyle]="{'background-image' : 'url(' + message.text + ')'}"
+                           aria-label="Image envoyée par le chatbot">
                       </div>
                     </a>
                   </div>

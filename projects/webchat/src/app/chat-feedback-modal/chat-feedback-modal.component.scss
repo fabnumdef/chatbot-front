@@ -2,6 +2,17 @@
   display: block;
 }
 
+.mat-dialog {
+  &-title {
+    text-align: center;
+  }
+
+  &-actions {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
 .mat-form-field {
   width: 100%;
 }
