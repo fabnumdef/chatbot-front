@@ -16,6 +16,7 @@ export class ChatSideMenuComponent implements OnInit {
   @Input() public botDescription: string;
   @Input() public botHelp: string;
   @Input() public botColor: string;
+  @Input() public isMobileSize: boolean;
 
   constructor(private _dialog: MatDialog,
               public webchatService: WebchatService) { }

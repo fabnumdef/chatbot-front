@@ -1,5 +1,12 @@
 <div class="wrapper" aria-label="Fenêtre de chat" id="chat-widget">
   <h1 id="tchat-title" class="sr-only">Fenêtre de chat</h1>
+  <app-chat-header [botName]="botName"
+                   [botSubtitle]="botSubtitle"
+                   [botAvatar]="botAvatar"
+                   [botColor]="botColor"
+                   [isMobileSize]="isMobileSize"
+                   [drawer]="drawer">
+  </app-chat-header>
   <mat-drawer-container>
     <mat-drawer #drawer [mode]="isMobileSize ? 'over' : 'side'" [opened]="!isMobileSize">
       <app-chat-side-menu [botName]="botName"
@@ -8,24 +15,12 @@
                           [botSubtitle]="botSubtitle"
                           [botDescription]="botDescription"
                           [botHelp]="botHelp"
-                          [botColor]="botColor">
+                          [botColor]="botColor"
+                          [isMobileSize]="isMobileSize">
       </app-chat-side-menu>
     </mat-drawer>
     <mat-drawer-content>
-      <div class="chat-box" [ngStyle]="{'background-color': botColor}">
-        <div class="chat-box-header" *ngIf="isMobileSize">
-          <div class="">
-            <app-chat-avatar [image]="botAvatar" [header]="true" (click)="drawer.toggle()"></app-chat-avatar>
-            <div class="operator-header">
-              <h3>
-                {{botName}}
-              </h3>
-              <h4 *ngIf="botSubtitle">
-                {{botSubtitle}}
-              </h4>
-            </div>
-          </div>
-        </div>
+      <div class="chat-box">
         <div class="chat-box-main" tabindex="0" aria-live="polite">
           <div class="chat-message-bottom" #bottom></div>
           <div class="chat-message-typing" *ngIf="showTyping">

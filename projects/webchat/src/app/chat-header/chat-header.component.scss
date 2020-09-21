@@ -1,0 +1,44 @@
+.chat-header {
+  padding: 10px 20px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #80808057;
+  cursor: pointer;
+
+  & > div:nth-child(1) {
+    width: 100%;
+  }
+
+  &-arrow {
+    color: dimgrey;
+    display: flex;
+    align-items: center;
+
+    svg {
+      transition: transform 160ms linear 0s;
+      width: 36px;
+      height: 36px;
+    }
+
+    &-reversed svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  .operator-header {
+    display: flex;
+    flex-direction: column;
+    height: 50px;
+    justify-content: center;
+
+    h3 {
+      margin: 0;
+    }
+
+    h4 {
+      margin: 5px 0 0 0;
+      color: dimgrey;
+    }
+  }
+}

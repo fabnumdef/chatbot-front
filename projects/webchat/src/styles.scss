@@ -156,5 +156,9 @@ button {
   &.mat-flat-button, &.mat-stroked-button {
     border-radius: 50px;
     border-width: 2px;
+
+    &:not([disabled]) {
+      border-color: currentColor !important;
+    }
   }
 }

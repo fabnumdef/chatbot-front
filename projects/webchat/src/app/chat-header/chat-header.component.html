@@ -1,0 +1,18 @@
+<div class="chat-header" *ngIf="isMobileSize" [ngStyle]="{'color': botColor}" (click)="drawer.toggle()">
+  <div class="">
+    <app-chat-avatar [image]="botAvatar" [header]="true"></app-chat-avatar>
+    <div class="operator-header">
+      <h3>
+        {{botName}}
+      </h3>
+      <h4 *ngIf="botSubtitle">
+        {{botSubtitle}}
+      </h4>
+    </div>
+  </div>
+  <div class="chat-header-arrow" [ngClass]="{'chat-header-arrow-reversed': drawer.opened}">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M0 0h24v24H0z" fill="none"/><path d="M7 10l5 5 5-5z"/>
+    </svg>
+  </div>
+</div>

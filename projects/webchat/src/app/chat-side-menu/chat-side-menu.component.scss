@@ -16,7 +16,7 @@
 
   &-divider {
     display: block;
-    margin: 0;
+    margin: 20px 0;
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: rgba(0, 0, 0, .12);
@@ -37,14 +37,18 @@
 
   &-subtitle h4 {
     margin: 0 0 10px 0;
-    font-weight: normal;
-    font-family: Roboto, "Open Sans", "Helvetica Neue", sans-serif;;
+    color: dimgrey;
+  }
+
+  &-description {
+    color: dimgrey;
+    line-height: 1.5em;
   }
 
   &-footer {
     display: flex;
     align-items: center;
-    color: #818181;
+    color: dimgrey;
     font-size: 12px;
 
     svg {
@@ -53,20 +57,24 @@
     }
   }
 
-  &-help {
-    margin-top: 20px;
+  &-accessibility {
+    font-weight: 700;
+  }
 
-    button {
-      svg {
-        margin-right: 5px;
-      }
+  &-actions {
+    & > *:not(:first-child) {
+      margin-left: 10px;
+    }
+  }
+
+  &-help {
+    svg {
+      margin-right: 5px;
     }
   }
 }
 
 app-chat-avatar {
-  margin-top: 40px;
-
   img {
     width: 100%;
   }

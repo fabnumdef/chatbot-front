@@ -8,5 +8,7 @@
                    [botColor]="configService.config.primaryColor"
                    [userColor]="configService.config.secondaryColor"
                    [botDescription]="configService.config.description"
-                   [botHelp]="configService.config.help"></app-chat-widget>
+                   [botHelp]="configService.config.help"
+                   [storage]="configService.config.storage ? 'local' : 'session'">
+  </app-chat-widget>
 </div>

@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRippleModule } from '@angular/material/core';
+import { ChatHeaderComponent } from './chat-header/chat-header.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MatRippleModule } from '@angular/material/core';
     ChatSideMenuComponent,
     ChatFeedbackModalComponent,
     ChatHelpModalComponent,
-    ChatAvatarComponent
+    ChatAvatarComponent,
+    ChatHeaderComponent
   ],
   imports: [
     BrowserModule,
