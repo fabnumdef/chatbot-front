@@ -20,101 +20,109 @@
       justify-content: space-around;
       padding-bottom: 20px;
 
-      .kpi-box {
+      .box-set {
         display: flex;
-        flex: 1;
-        min-width: 300px;
-        flex-direction: column;
-        margin: 5px 0;
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-wrap: wrap;
 
-        .mat-accordion .mat-expansion-panel {
-          box-shadow: none;
-          background: none;
-
-          margin: 0 5px;
-
-          .mat-expansion-panel-header, .mat-expansion-panel-header:hover {
-            padding: 5px 20px;
-            border-radius: $border-radius;
-            transition: 0.25s;
-
-            .mat-expansion-panel-header.mat-expanded{
-              background-color: $grey-light;
-              transition: 0.25s;
-            }
-
-            .mat-expansion-panel-header-title h3, ::ng-deep .mat-expansion-indicator::after {
-              color: $white;
-              margin: 0;
-            }
-
-            .mat-expansion-panel-header-title {
-              align-items: flex-start;
-            }
-          }
-
-          ::ng-deep.mat-expansion-panel-body {
-            padding: 10px 0;
-          }
-        }
-
-
-
-        .title-kpi {
+        .kpi-box {
           display: flex;
-          color: $white;
-          align-items: center;
-          justify-content: space-between;
-          border-radius: 5px;
-          height: 30px;
-
-          &::ng-deep .mat-button-wrapper {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            margin: 0 15px;
-          }
-
-          .icon {
-            font-size: 20px;
-            padding-bottom: 15px;
-            transform: rotate(-135deg);
-          }
-        }
-
-        .content-kpi {
-          display: flex;
+          flex: 1;
+          min-width: 300px;
           flex-direction: column;
-          height: 192px;
-          width: auto;
-          border-radius: 5px;
-          background-color: $white;
-          padding-left: 20px;
-          padding-right: 20px;
-
-          .global {
-            display: flex;
-            justify-content: center;
-            padding: 15px 0px;
-          }
-
-          .row {
-            display: flex;
-            flex-direction: row;
-            padding: 15px;
-            padding-left: 0px;
-
-            .type {
-              width: 35%;
+          margin: 5px 0;
+  
+          .mat-accordion .mat-expansion-panel {
+            box-shadow: none;
+            background: none;
+  
+            margin: 0 5px;
+  
+            .mat-expansion-panel-header, .mat-expansion-panel-header:hover {
+              padding: 5px 20px;
+              border-radius: $border-radius;
+              transition: 0.25s;
+  
+              .mat-expansion-panel-header.mat-expanded{
+                background-color: $grey-light;
+                transition: 0.25s;
+              }
+  
+              .mat-expansion-panel-header-title h3, ::ng-deep .mat-expansion-indicator::after {
+                color: $white;
+                margin: 0;
+              }
+  
+              .mat-expansion-panel-header-title {
+                align-items: flex-start;
+              }
             }
-
-            .row-kpi {
-              font-size: 13px;
-              width: 65%;
+  
+            ::ng-deep.mat-expansion-panel-body {
+              padding: 10px 0;
+            }
+          }
+  
+  
+  
+          .title-kpi {
+            display: flex;
+            color: $white;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 5px;
+            height: 30px;
+  
+            &::ng-deep .mat-button-wrapper {
+              display: flex;
+              width: 100%;
+              justify-content: space-between;
+              margin: 0 15px;
+            }
+  
+            .icon {
+              font-size: 20px;
+              padding-bottom: 15px;
+              transform: rotate(-135deg);
+            }
+          }
+  
+          .content-kpi {
+            display: flex;
+            flex-direction: column;
+            height: 192px;
+            width: auto;
+            border-radius: 5px;
+            background-color: $white;
+            padding-left: 20px;
+            padding-right: 20px;
+  
+            .global {
+              display: flex;
+              justify-content: center;
+              padding: 15px 0px;
+            }
+  
+            .row {
+              display: flex;
+              flex-direction: row;
+              padding: 15px;
+              padding-left: 0px;
+  
+              .type {
+                width: 35%;
+              }
+  
+              .row-kpi {
+                font-size: 13px;
+                width: 65%;
+              }
             }
           }
         }
       }
+
     }
 
     .chart {
@@ -145,17 +153,17 @@
     }
 
     .bgpink, .bgpinkNeg:hover {
-      background-color: #fab7b9;
+      background-color: #fd9397;
     }
     .cpink {
-      color: #fab7b9;
+      color: #fd9397;
     }
 
     .bgblue, .bgblueNeg:hover {
-      background-color: #5f97fc;
+      background-color: #94D9D9;
     }
     .cblue {
-      color: #5f97fc;
+      color: #94D9D9;
     }
   }
 
