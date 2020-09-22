@@ -73,6 +73,9 @@ export class ConfigService {
     if (partialConfig.help) {
       formData.append('help', partialConfig.help);
     }
+    if (partialConfig.storage) {
+      formData.append('storage', partialConfig.storage.toString());
+    }
 
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
