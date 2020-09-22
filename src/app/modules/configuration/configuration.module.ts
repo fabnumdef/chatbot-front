@@ -13,7 +13,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { ChatbotPreviewComponent } from './chatbot-config/chatbot-preview/chatbot-preview.component';
 import { ChatbotEmbeddedPreviewComponent } from './chatbot-config/chatbot-embedded-preview/chatbot-embedded-preview.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import { HIGHLIGHT_OPTIONS, HighlightModule, HighlightOptions } from 'ngx-highlightjs';
+import { HighlightModule } from 'ngx-highlightjs';
+import { ChatbotTechComponent } from './chatbot-tech/chatbot-tech.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HIGHLIGHT_OPTIONS, HighlightModule, HighlightOptions } from 'ngx-highli
     ChatbotUsersComponent,
     UserFormComponent,
     ChatbotPreviewComponent,
-    ChatbotEmbeddedPreviewComponent
+    ChatbotEmbeddedPreviewComponent,
+    ChatbotTechComponent
   ],
   imports: [
     CommonModule,

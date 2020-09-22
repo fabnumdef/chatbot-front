@@ -8,6 +8,7 @@ export class Config {
   trainingRasa: boolean;
   needTraining: boolean;
   lastTrainingAt: string;
+  storage: boolean;
 
   // EMBEDDED
   embeddedIcon: string;

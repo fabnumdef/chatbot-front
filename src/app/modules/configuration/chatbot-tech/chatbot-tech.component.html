@@ -1,0 +1,33 @@
+<div class="chatbot-tech">
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header collapsedHeight="28px" expandedHeight="28px">
+        <mat-panel-title>
+          <h3>Configuration technique</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="chatbot-subtitle">
+        <h4>Mémoire du chatbot</h4>
+      </div>
+      <form [formGroup]="techForm" *ngIf="techForm">
+        <mat-radio-group
+          aria-label="Le chatbot doit-il se réinitialiser à chaque changement d'onglet ?"
+          labelPosition="before"
+          formControlName="storage"
+          color="primary">
+          <mat-radio-button [value]="false">Au niveau de l'onglet</mat-radio-button>
+          <mat-radio-button [value]="true">Au niveau du navigateur</mat-radio-button>
+        </mat-radio-group>
+      </form>
+      <ng-container *appHasRole="'admin'">
+        <button mat-stroked-button
+                color="accent"
+                (click)="saveTechConfig()"
+                *ngIf="techForm"
+                [disabled]="!techForm.dirty">
+          Enregistrer
+        </button>
+      </ng-container>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
