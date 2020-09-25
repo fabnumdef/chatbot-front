@@ -106,10 +106,18 @@ export class ChatWidgetComponent implements OnInit {
         concatMap(m => of(m).pipe(
           delay(1000),
           tap((message: any) => {
+            console.log(message);
             if (message.text && (!message.quick_replies || message.quick_replies.length < 1)) {
               this.addMessage(message.text, MessageType.text, 'received');
-            } else if (message.text && message.quick_replies && message.quick_replies.length > 0) {
+            } else if (message.text && message.quick_replies && message.quick_replies.length > 0
+              && this._isPayloadQuickReply(message.quick_replies[0].payload)) {
               this.addMessage(message.text, MessageType.quick_reply, 'received', message.quick_replies);
+              setTimeout(() => {
+                this._focusQuickReplies();
+              }, 0);
+            } else if (message.text && message.quick_replies && message.quick_replies.length > 0
+              && !this._isPayloadQuickReply(message.quick_replies[0].payload)) {
+              this.addMessage(message.text, MessageType.button, 'received', message.quick_replies);
               setTimeout(() => {
                 this._focusQuickReplies();
               }, 0);
@@ -224,7 +232,7 @@ export class ChatWidgetComponent implements OnInit {
   }
 
   private _focusQuickReplies() {
-    const textBeforeQr = document.getElementsByClassName('chat-message-text-qr').item(0);
+    const textBeforeQr = document.querySelectorAll('.chat-message-text-qr, .chat-message-text-button').item(0);
     if (textBeforeQr) {
       // @ts-ignore
       textBeforeQr.focus();
@@ -241,5 +249,9 @@ export class ChatWidgetComponent implements OnInit {
 
   private _checkNavSize() {
     this.isMobileSize = window.innerWidth <= 767;
+  }
+
+  private _isPayloadQuickReply(payload: string): boolean {
+    return payload.startsWith('/');
   }
 }
