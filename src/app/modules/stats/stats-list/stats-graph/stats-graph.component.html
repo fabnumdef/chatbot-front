@@ -6,160 +6,164 @@
   <div class="line-stats">
 
     <div class="kpi-stats">
-      <div class="kpi-box">
-        <mat-accordion>
-          <mat-expansion-panel [expanded]="true">
-            <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px"
-                                        [ngClass]="{'bggreen': questionDisplay === true, 'bggreenNeg': questionDisplay === false}"
-                                        (click)="this.questionDisplay = !this.questionDisplay; displayPanel()">
-              <mat-panel-title>
-                <span class="title-kpi">Nombre de questions posées</span>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="content-kpi">
-              <div class="global cgreen">
-                <b>{{questionsPanel['count']}} questions posées</b>
+      <div class="box-set">
+        <div class="kpi-box">
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px"
+                                          [ngClass]="{'bggreen': questionDisplay === true, 'bggreenNeg': questionDisplay === false}"
+                                          (click)="this.questionDisplay = !this.questionDisplay; displayPanel()">
+                <mat-panel-title>
+                  <span class="title-kpi">Nombre de questions posées</span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="content-kpi">
+                <div class="global cgreen">
+                  <b>{{questionsPanel['count']}} questions posées</b>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row">
+                  <div class="type">
+                    <b>Maximal</b>
+                  </div>
+                  <div class="row-kpi">
+                    <div class="kpi">- {{questionsPanel['maxDay'] | titlecase}}</div>
+                    <div class="kpi">- {{questionsPanel['maxNb']}} questions posées</div>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row">
+                  <div class="type">
+                    <b>Minimal</b>
+                  </div>
+                  <div class="row-kpi">
+                    <div>- {{questionsPanel['minDay'] | titlecase}}</div>
+                    <div>- {{questionsPanel['minNb']}} questions posées</div>
+                  </div>
+                </div>
               </div>
-              <mat-divider></mat-divider>
-              <div class="row">
-                <div class="type">
-                  <b>Maximal</b>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+
+        <div class="kpi-box">
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px"
+                                          [ngClass]="{'bgpink': visitorsDisplay === true, 'bgpinkNeg': visitorsDisplay === false}"
+                                          (click)="this.visitorsDisplay = !this.visitorsDisplay; displayPanel()">
+                <mat-panel-title>
+                  <span class="title-kpi">Nombre de sessions</span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="content-kpi">
+                <div class="global cpink">
+                  <b>{{visitorsPanel['count']}} sessions</b>
                 </div>
-                <div class="row-kpi">
-                  <div class="kpi">- {{questionsPanel['maxDay'] | titlecase}}</div>
-                  <div class="kpi">- {{questionsPanel['maxNb']}} questions posées</div>
+                <mat-divider></mat-divider>
+                <div class="row">
+                  <div class="type">
+                    <b>Maximal</b>
+                  </div>
+                  <div class="row-kpi">
+                    <div>- {{visitorsPanel['maxDay'] | titlecase}}</div>
+                    <div>- {{visitorsPanel['maxNb']}} sessions</div>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row">
+                  <div class="type">
+                    <b>Minimal</b>
+                  </div>
+                  <div class="row-kpi">
+                    <div>- {{visitorsPanel['minDay'] | titlecase}}</div>
+                    <div>- {{visitorsPanel['minNb']}} sessions</div>
+                  </div>
                 </div>
               </div>
-              <mat-divider></mat-divider>
-              <div class="row">
-                <div class="type">
-                  <b>Minimal</b>
-                </div>
-                <div class="row-kpi">
-                  <div>- {{questionsPanel['minDay'] | titlecase}}</div>
-                  <div>- {{questionsPanel['minNb']}} questions posées</div>
-                </div>
-              </div>
-            </div>
-          </mat-expansion-panel>
-        </mat-accordion>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
       </div>
 
-      <div class="kpi-box">
-        <mat-accordion>
-          <mat-expansion-panel [expanded]="true">
-            <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px"
-                                        [ngClass]="{'bgpink': visitorsDisplay === true, 'bgpinkNeg': visitorsDisplay === false}"
-                                        (click)="this.visitorsDisplay = !this.visitorsDisplay; displayPanel()">
-              <mat-panel-title>
-                <span class="title-kpi">Nombre de sessions</span>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="content-kpi">
-              <div class="global cpink">
-                <b>{{visitorsPanel['count']}} sessions</b>
+      <div class="box-set">
+        <div class="kpi-box">
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="false">
+              <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px"
+                                          [ngClass]="{'bgyellow': intentDisplay === true, 'bgyellowNeg': intentDisplay === false}"
+                                          (click)="this.intentDisplay = !this.intentDisplay; displayPanel()">
+                <mat-panel-title>
+                  <span class="title-kpi">Volume base de connaissance</span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="content-kpi">
+                <div class="global cyellow">
+                  <b>{{intentPanel['count']}} questions ajoutées</b>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row">
+                  <div class="type">
+                    <b>Maximal</b>
+                  </div>
+                  <div class="row-kpi">
+                    <div>- {{intentPanel['maxDay'] | titlecase}}</div>
+                    <div>- {{intentPanel['maxNb']}} questions ajoutées</div>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row">
+                  <div class="type">
+                    <b>Minimal</b>
+                  </div>
+                  <div class="row-kpi">
+                    <div>- {{intentPanel['minDay'] | titlecase}}</div>
+                    <div>- {{intentPanel['minNb']}} questions ajoutées</div>
+                  </div>
+                </div>
               </div>
-              <mat-divider></mat-divider>
-              <div class="row">
-                <div class="type">
-                  <b>Maximal</b>
-                </div>
-                <div class="row-kpi">
-                  <div>- {{visitorsPanel['maxDay'] | titlecase}}</div>
-                  <div>- {{visitorsPanel['maxNb']}} sessions</div>
-                </div>
-              </div>
-              <mat-divider></mat-divider>
-              <div class="row">
-                <div class="type">
-                  <b>Minimal</b>
-                </div>
-                <div class="row-kpi">
-                  <div>- {{visitorsPanel['minDay'] | titlecase}}</div>
-                  <div>- {{visitorsPanel['minNb']}} sessions</div>
-                </div>
-              </div>
-            </div>
-          </mat-expansion-panel>
-        </mat-accordion>
-      </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
 
-      <div class="kpi-box">
-        <mat-accordion>
-          <mat-expansion-panel [expanded]="false">
-            <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px"
-                                        [ngClass]="{'bgyellow': intentDisplay === true, 'bgyellowNeg': intentDisplay === false}"
-                                        (click)="this.intentDisplay = !this.intentDisplay; displayPanel()">
-              <mat-panel-title>
-                <span class="title-kpi">Volume base de connaissance</span>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="content-kpi">
-              <div class="global cyellow">
-                <b>{{intentPanel['count']}} questions ajoutées</b>
-              </div>
-              <mat-divider></mat-divider>
-              <div class="row">
-                <div class="type">
-                  <b>Maximal</b>
+        <div class="kpi-box">
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px"
+                                          [ngClass]="{'bgblue': feedbackDisplay === true, 'bgblueNeg': feedbackDisplay === false}"
+                                          (click)="this.feedbackDisplay = !this.feedbackDisplay; displayPanel()">
+                <mat-panel-title>
+                  <span class="title-kpi">Nombre de retours utilisateurs</span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="content-kpi">
+                <div class="global cblue">
+                  <b>{{feedbacksPanel['count']}} retours utilisateurs</b>
                 </div>
-                <div class="row-kpi">
-                  <div>- {{intentPanel['maxDay'] | titlecase}}</div>
-                  <div>- {{intentPanel['maxNb']}} questions ajoutées</div>
+                <mat-divider></mat-divider>
+                <div class="row">
+                  <div class="type">
+                    <b>Maximal</b>
+                  </div>
+                  <div class="row-kpi">
+                    <div>- {{feedbacksPanel['maxDay'] | titlecase}}</div>
+                    <div>- {{feedbacksPanel['maxNb']}} retours utilisateurs</div>
+                  </div>
                 </div>
-              </div>
-              <mat-divider></mat-divider>
-              <div class="row">
-                <div class="type">
-                  <b>Minimal</b>
-                </div>
-                <div class="row-kpi">
-                  <div>- {{intentPanel['minDay'] | titlecase}}</div>
-                  <div>- {{intentPanel['minNb']}} questions ajoutées</div>
-                </div>
-              </div>
-            </div>
-          </mat-expansion-panel>
-        </mat-accordion>
-      </div>
-
-      <div class="kpi-box">
-        <mat-accordion>
-          <mat-expansion-panel [expanded]="true">
-            <mat-expansion-panel-header collapsedHeight="20px" expandedHeight="20px"
-                                        [ngClass]="{'bgblue': feedbackDisplay === true, 'bgblueNeg': feedbackDisplay === false}"
-                                        (click)="this.feedbackDisplay = !this.feedbackDisplay; displayPanel()">
-              <mat-panel-title>
-                <span class="title-kpi">Nombre de retours utilisateurs</span>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="content-kpi">
-              <div class="global cblue">
-                <b>{{feedbacksPanel['count']}} retours utilisateurs</b>
-              </div>
-              <mat-divider></mat-divider>
-              <div class="row">
-                <div class="type">
-                  <b>Maximal</b>
-                </div>
-                <div class="row-kpi">
-                  <div>- {{feedbacksPanel['maxDay'] | titlecase}}</div>
-                  <div>- {{feedbacksPanel['maxNb']}} retours utilisateurs</div>
+                <mat-divider></mat-divider>
+                <div class="row">
+                  <div class="type">
+                    <b>Minimal</b>
+                  </div>
+                  <div class="row-kpi">
+                    <div>- {{feedbacksPanel['minDay'] | titlecase}}</div>
+                    <div>- {{feedbacksPanel['minNb']}} retours utilisateurs</div>
+                  </div>
                 </div>
               </div>
-              <mat-divider></mat-divider>
-              <div class="row">
-                <div class="type">
-                  <b>Minimal</b>
-                </div>
-                <div class="row-kpi">
-                  <div>- {{feedbacksPanel['minDay'] | titlecase}}</div>
-                  <div>- {{feedbacksPanel['minNb']}} retours utilisateurs</div>
-                </div>
-              </div>
-            </div>
-          </mat-expansion-panel>
-        </mat-accordion>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
       </div>
     </div>
 

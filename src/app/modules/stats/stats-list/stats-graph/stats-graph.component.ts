@@ -80,8 +80,8 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
       pointBorderColor: '#fff',
     },
     { // second color
-      borderColor: '#fab7b9',
-      pointBackgroundColor: '#fab7b9',
+      borderColor: '#fd9397',
+      pointBackgroundColor: '#fd9397',
       pointBorderColor: '#fff',
     },
     { // third color
@@ -90,8 +90,8 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
       pointBorderColor: '#fff',
     },
     { // fourth color
-      borderColor: '#5f97fc',
-      pointBackgroundColor: '#5f97fc',
+      borderColor: '#94D9D9',
+      pointBackgroundColor: '#94D9D9',
       pointBorderColor: '#fff',
     }];
 
@@ -197,8 +197,8 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
     });
     dataArray['maxNb'] = values.reduce((a, b) => Math.max(a, b));
     dataArray['minNb'] = values.reduce((a, b) => Math.min(a, b));
-    dataArray['maxDay'] = moment(dates[(values.lastIndexOf(dataArray['maxNb']))]).format('dddd Do MMMM YYYY');
-    dataArray['minDay'] = moment(dates[(values.lastIndexOf(dataArray['minNb']))]).format('dddd Do MMMM YYYY');
+    dataArray['maxDay'] = moment(dates[(values.lastIndexOf(dataArray['maxNb']))]).format('dddd Do MMM YYYY');
+    dataArray['minDay'] = moment(dates[(values.lastIndexOf(dataArray['minNb']))]).format('dddd Do MMM YYYY');
 
     return dataArray;
   }
