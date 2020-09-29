@@ -1,0 +1,17 @@
+@import 'src/styles/variables';
+
+.file-form {
+  .file-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .delete-choice-btn {
+    position: absolute;
+    right: 0;
+  }
+
+  .add-choice-btn {
+    margin-bottom: 15px;
+  }
+}

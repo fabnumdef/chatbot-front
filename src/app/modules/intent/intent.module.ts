@@ -19,6 +19,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { KnowledgeFormComponent } from './create-edit-intent/intent-form/knowledge-form/knowledge-form.component';
 import { IntentFilterComponent } from './intent-list/intent-filter/intent-filter.component';
 import { IntentListComponent } from './intent-list/intent-list.component';
+import { FileFormComponent } from './create-edit-intent/intent-form/response-form/file-form/file-form.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { IntentListComponent } from './intent-list/intent-list.component';
     FileItemComponent,
     MediaListDialogComponent,
     QuickReplyFormComponent,
-    KnowledgeFormComponent
+    KnowledgeFormComponent,
+    FileFormComponent
   ],
   imports: [
     CommonModule,

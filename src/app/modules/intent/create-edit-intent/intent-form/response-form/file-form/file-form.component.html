@@ -1,0 +1,25 @@
+<div class="file-form" *ngIf="buttonsForm">
+  <div class="file-item" *ngFor="let buttonControl of buttonsFormControls; let idx = index">
+    <button mat-icon-button
+            class="delete-choice-btn"
+            aria-label="Suppression du lien / fichier"
+            *ngIf="buttonsForm.length > 1"
+            color="accent"
+            (click)="deleteChoice(idx)">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <app-image-file-form [responseFormControl]="buttonControl"
+                         [responseType]="responseType.button"
+                         [index]="idx + 1">
+    </app-image-file-form>
+  </div>
+  <button mat-stroked-button
+          class="add-choice-btn"
+          color="accent"
+          [disabled]="!buttonsForm.valid"
+          (click)="addChoice()"
+          *ngIf="buttonsForm.length < 10">
+    <mat-icon>add</mat-icon>
+    Ajouter un Lien / Fichier
+  </button>
+</div>

@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { Media } from '@model/media.model';
 import { ResponseType } from '@enum/response-type.enum';
 import { HttpClient } from '@angular/common/http';
@@ -14,6 +14,7 @@ export class ImageFileFormComponent implements OnInit {
 
   @Input() responseFormControl: FormControl;
   @Input() responseType: ResponseType;
+  @Input() index: number;
 
   btnText: string = null;
   url: string = null;
@@ -21,7 +22,8 @@ export class ImageFileFormComponent implements OnInit {
 
   constructor(@Inject(Window) private _window: Window,
               private _sanitizer: DomSanitizer,
-              private _http: HttpClient) {
+              private _http: HttpClient,
+              private _fb: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -36,11 +38,11 @@ export class ImageFileFormComponent implements OnInit {
     return this.responseType === ResponseType.image;
   }
 
-  getBadgeLabel() {
+  getBadgeLabel(idx: number) {
     if (this.isImage) {
       return 'Image';
     }
-    return 'Lien / Fichier';
+    return `Lien / Fichier ${idx ? idx : ''}`;
   }
 
   getInputLabel() {
