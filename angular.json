@@ -210,7 +210,8 @@
             "aot": true,
             "assets": [
               "projects/webchat/src/favicon.ico",
-              "projects/webchat/src/assets"
+              "projects/webchat/src/assets",
+              "projects/webchat/src/manifest.webmanifest"
             ],
             "styles": [
               "projects/webchat/src/styles.scss"
@@ -274,7 +275,8 @@
             "karmaConfig": "projects/webchat/karma.conf.js",
             "assets": [
               "projects/webchat/src/favicon.ico",
-              "projects/webchat/src/assets"
+              "projects/webchat/src/assets",
+              "projects/webchat/src/manifest.webmanifest"
             ],
             "styles": [
               "projects/webchat/src/styles.scss"
