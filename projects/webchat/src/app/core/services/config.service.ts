@@ -22,7 +22,7 @@ export class ConfigService {
 
   getConfig(): Observable<Config> {
     this._loading$.next(true);
-    return this._http.get<Config>('https://dev.chatbot.fabnum.fr' + this._url).pipe(
+    return this._http.get<Config>(this._url).pipe(
       tap(config => {
         this.config$.next(config);
       }),
