@@ -8,6 +8,7 @@ import { RefDataService } from '@core/services/ref-data.service';
 import { InboxStatus, InboxStatus_Fr } from '@enum/inbox-status.enum';
 import * as moment from 'moment';
 import { AuthService } from '@core/services/auth.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-inbox-filter',
@@ -22,7 +23,7 @@ export class InboxFilterComponent extends DestroyObservable implements OnInit, O
   inboxStatus_Fr = InboxStatus_Fr;
 
   constructor(private _fb: FormBuilder,
-              private _inboxService: InboxService,
+              public inboxService: InboxService,
               private _refDataService: RefDataService,
               private _authService: AuthService) {
     super();
@@ -31,14 +32,14 @@ export class InboxFilterComponent extends DestroyObservable implements OnInit, O
   ngOnInit(): void {
     this.categories$ = this._refDataService.categories$;
     this.inboxFilters = this._fb.group({
-      query: [this._inboxService.currentSearch],
-      categories: [this._inboxService.currentFilters?.categories ? this._inboxService.currentFilters.categories : []],
-      statutes: [this._inboxService.currentFilters?.statutes ?
+      query: [this.inboxService.currentSearch],
+      categories: [this.inboxService.currentFilters?.categories ? this.inboxService.currentFilters.categories : []],
+      statutes: [this.inboxService.currentFilters?.statutes ?
         // tslint:disable-next-line:max-line-length
-        this._inboxService.currentFilters.statutes : [InboxStatus.pending, InboxStatus.to_verify, InboxStatus.relevant, InboxStatus.wrong, InboxStatus.off_topic]],
-      startDate: [this._inboxService.currentFilters?.startDate ? moment(this._inboxService.currentFilters.startDate, 'DD/MM/yyyy') : null],
-      endDate: [this._inboxService.currentFilters?.endDate ? moment(this._inboxService.currentFilters.endDate, 'DD/MM/yyyy') : null],
-      assignedTo: [this._inboxService.currentFilters?.assignedTo]
+        this.inboxService.currentFilters.statutes : [InboxStatus.pending, InboxStatus.to_verify, InboxStatus.relevant, InboxStatus.wrong, InboxStatus.off_topic]],
+      startDate: [this.inboxService.currentFilters?.startDate ? moment(this.inboxService.currentFilters.startDate, 'DD/MM/yyyy') : null],
+      endDate: [this.inboxService.currentFilters?.endDate ? moment(this.inboxService.currentFilters.endDate, 'DD/MM/yyyy') : null],
+      assignedTo: [this.inboxService.currentFilters?.assignedTo]
     });
     this.inboxFilters.valueChanges
       .pipe(
@@ -47,18 +48,28 @@ export class InboxFilterComponent extends DestroyObservable implements OnInit, O
         debounceTime(300),
         distinctUntilChanged())
       .subscribe(value => {
-        this._inboxService.currentSearch = value.query;
+        this.inboxService.currentSearch = value.query;
         delete value.query;
         value.startDate = value.startDate ? value.startDate.format('DD/MM/yyyy') : null;
         value.endDate = value.endDate ? value.endDate.format('DD/MM/yyyy') : null;
         value.assignedTo = value.assignedTo ? this._authService.user.email : null;
-        this._inboxService.currentFilters = value;
-        this._inboxService.load().subscribe();
+        this.inboxService.currentFilters = value;
+        this.inboxService.load().subscribe();
       });
   }
 
+  exportFile() {
+    this.inboxService.export().subscribe(res => {
+      const blob = new Blob([res], {
+        type: 'application/vnd.ms-excel'
+      });
+
+      saveAs(blob, `REQUETES.xlsx`);
+    });
+  }
+
   ngOnDestroy() {
-    this._inboxService.resetFilters();
+    this.inboxService.resetFilters();
   }
 
   get controls() {

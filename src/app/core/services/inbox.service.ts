@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inbox } from '@model/inbox.model';
 import { ApiPaginationService } from '@core/services/api-pagination.service';
 import { Router } from '@angular/router';
@@ -37,5 +37,17 @@ export class InboxService extends ApiPaginationService<Inbox> {
       finalize(() => {
         this._processing$.next(false);
       }));
+  }
+
+  export(): Observable<any> {
+    this._loading$.next(true);
+    const params = new HttpParams()
+      .set('query', this.currentSearch ? this.currentSearch : '');
+    // @ts-ignore
+    return this._http.post<any>(`${this._url}/export`, this.currentFilters, {params, responseType: 'blob'}).pipe(
+      finalize(() => {
+        this._loading$.next(false);
+      })
+    );
   }
 }

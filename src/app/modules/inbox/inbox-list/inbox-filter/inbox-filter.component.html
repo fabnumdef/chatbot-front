@@ -1,3 +1,16 @@
+<div class="actions">
+  <button mat-stroked-button
+          *appHasRole="'admin'"
+          color="accent"
+          [disabled]="inboxService.loading$ | async"
+          (click)="exportFile()">
+    <mat-icon *ngIf="!(inboxService.loading$ | async)">get_app</mat-icon>
+    <mat-spinner *ngIf="inboxService.loading$ | async"
+                 aria-label="Export du fichier en cours"
+                 [diameter]="24"></mat-spinner>
+    Exporter les requêtes
+  </button>
+</div>
 <div class="inbox-filter">
   <h3>Recherche</h3>
   <form [formGroup]="inboxFilters" *ngIf="inboxFilters">
