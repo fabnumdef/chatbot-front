@@ -4,7 +4,7 @@
   "theme_color": "#6e91f0",
   "background_color": "#fafafa",
   "display": "standalone",
-  "scope": "",
+  "scope": "/chatbot/",
   "start_url": "",
   "icons": [
     {
