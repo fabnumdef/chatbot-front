@@ -1,11 +1,11 @@
 {
-  "name": "Bot - Sam le Marin",
-  "short_name": "Bot - Sam le Marin",
+  "name": "Backoffice",
+  "short_name": "Backoffice",
   "theme_color": "#6e91f0",
   "background_color": "#fafafa",
   "display": "standalone",
-  "scope": "/backoffice/",
-  "start_url": "",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "assets/icons/icon.png",
