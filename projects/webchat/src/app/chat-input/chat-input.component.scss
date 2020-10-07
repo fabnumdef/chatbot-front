@@ -1,5 +1,5 @@
 .chat-input {
-  display: block;
+  display: flex;
   position: relative;
   height: 50px;
 }
@@ -7,7 +7,7 @@
 .chat-input-text {
   margin: 14px 0 0 14px;
   height: 25px;
-  width: 70%;
+  flex: 1;
   border: 0;
   resize: none;
   border: none;

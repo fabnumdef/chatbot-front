@@ -15,7 +15,7 @@ import { ChatFeedbackModalComponent } from '../chat-feedback-modal/chat-feedback
   styleUrls: ['./chat-widget.component.scss'],
   animations: [fadeInOut, fadeIn]
 })
-export class ChatWidgetComponent implements OnInit, AfterViewInit {
+export class ChatWidgetComponent implements OnInit {
   @ViewChild('bottom') bottom: ElementRef;
   @Input() public botName = 'Bot';
   @Input() public botSubtitle = '';
@@ -137,13 +137,6 @@ export class ChatWidgetComponent implements OnInit, AfterViewInit {
     };
   }
 
-  ngAfterViewInit() {
-    // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
-    const vh = window.innerHeight * 0.01;
-    // Then we set the value in the --vh custom property to the root of the document
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  }
-
   public sendMessage({message, type, payload}) {
     if (message.trim() === '') {
       return;
@@ -256,6 +249,8 @@ export class ChatWidgetComponent implements OnInit, AfterViewInit {
 
   private _checkNavSize() {
     this.isMobileSize = window.innerWidth <= 767;
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
   }
 
   private _isPayloadQuickReply(payload: string): boolean {
