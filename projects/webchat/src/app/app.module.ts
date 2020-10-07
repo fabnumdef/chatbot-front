@@ -22,6 +22,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRippleModule } from '@angular/material/core';
 import { ChatHeaderComponent } from './chat-header/chat-header.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { ChatHeaderComponent } from './chat-header/chat-header.component';
     MatSelectModule,
     MatSidenavModule,
     MatSlideToggleModule,
-    MatRippleModule
+    MatRippleModule,
+    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     {provide: Window, useValue: window},

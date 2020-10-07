@@ -15,7 +15,7 @@ import { HIGHLIGHT_OPTIONS, HighlightOptions } from 'ngx-highlightjs';
   imports: [
     CoreModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
