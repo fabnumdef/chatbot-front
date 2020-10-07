@@ -104,9 +104,9 @@ export class ChatWidgetComponent implements OnInit {
       .getMessages()
       .pipe(
         concatMap(m => of(m).pipe(
-          delay(1000),
+          delay(2000),
           tap((message: any) => {
-            console.log(message);
+            // console.log(message);
             if (message.text && (!message.quick_replies || message.quick_replies.length < 1)) {
               this.addMessage(message.text, MessageType.text, 'received');
             } else if (message.text && message.quick_replies && message.quick_replies.length > 0
