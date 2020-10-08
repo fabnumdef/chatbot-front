@@ -21,101 +21,103 @@
     </mat-drawer>
     <mat-drawer-content>
       <div class="chat-box">
-        <div class="chat-box-main" tabindex="0" aria-live="polite">
-          <div class="chat-message-bottom" #bottom></div>
-          <div class="chat-message-typing" *ngIf="showTyping">
-            <div class="spinner">
-              <div class="bounce1" [ngStyle]="{'background-color': botColor}"></div>
-              <div class="bounce2" [ngStyle]="{'background-color': botColor}"></div>
-              <div class="bounce3" [ngStyle]="{'background-color': botColor}"></div>
+        <div class="chat-box-firefox">
+          <div class="chat-box-main" tabindex="0" aria-live="polite">
+            <div class="chat-message-bottom" #bottom></div>
+            <div class="chat-message-typing" *ngIf="showTyping">
+              <div class="spinner">
+                <div class="bounce1" [ngStyle]="{'background-color': botColor}"></div>
+                <div class="bounce2" [ngStyle]="{'background-color': botColor}"></div>
+                <div class="bounce3" [ngStyle]="{'background-color': botColor}"></div>
+              </div>
+              {{ botName }} est en train de répondre.
             </div>
-            {{ botName }} est en train de répondre.
-          </div>
-          <ng-container *ngFor="let message of messages; let idx = index">
-            <div class="chat-message"
-                 [ngClass]="{'chat-message-received': message.from === 'received', 'chat-message-full-width': message.type !== messageType.text}"
-                 [@fadeIn]
-                 [class.chat-message-sent]="message.from === 'sent'">
-              <div>
-                <app-chat-avatar [image]="message.from === 'received' ? botAvatar : userAvatar"
-                                 class="chat-message-from-avatar"
-                                 aria-hidden="true"
-                                 *ngIf="isFirstMessage(messages[idx + 1], message.from)"></app-chat-avatar>
-                <ng-container [ngSwitch]="true">
-                  <span *ngIf="message.from === 'received'" class="sr-only">{{ botName }} dit :</span>
-                  <span *ngIf="message.from !== 'received'" class="sr-only">Vous avez dit :</span>
-                  <div class="chat-message-text"
-                       [ngClass]="{'chat-message-text-qr': message.type === messageType.quick_reply, 'chat-message-text-button': message.type === messageType.button}"
-                       *ngSwitchCase="message.type === messageType.quick_reply || message.type === messageType.text || message.type === messageType.button"
-                       [ngStyle]="{'background-color': message.from === 'received'? botColor : userColor}"
-                       tabindex="-1"
-                       [innerHTML]="urlify(message.text)">
-                  </div>
-                  <div class="chat-message-quick-replies"
-                       *ngSwitchCase="message.type === messageType.quick_reply"
-                       [ngStyle]="{'color': message.from === 'received'? botColor : userColor,
-                   'border-color': message.from === 'received'? botColor : userColor}">
-                    <div *ngFor="let quickReply of message.quick_replies"
-                         (mouseover)="quickReplyDiv.style.backgroundColor = message.from === 'received'? botColor : userColor"
-                         (mouseleave)="quickReplyDiv.style.backgroundColor = ''"
-                         #quickReplyDiv
-                         class="chat-message-quick-reply"
-                         aria-label="Sélectionner cette proposition"
-                         tabindex="0"
-                         (keyup.enter)="quickReplyClick(quickReply.payload, quickReply.title)"
-                         (click)="quickReplyClick(quickReply.payload, quickReply.title)">
-                      {{quickReply.title}}
+            <ng-container *ngFor="let message of messages; let idx = index">
+              <div class="chat-message"
+                   [ngClass]="{'chat-message-received': message.from === 'received', 'chat-message-full-width': message.type !== messageType.text}"
+                   [@fadeIn]
+                   [class.chat-message-sent]="message.from === 'sent'">
+                <div>
+                  <app-chat-avatar [image]="message.from === 'received' ? botAvatar : userAvatar"
+                                   class="chat-message-from-avatar"
+                                   aria-hidden="true"
+                                   *ngIf="isFirstMessage(messages[idx + 1], message.from)"></app-chat-avatar>
+                  <ng-container [ngSwitch]="true">
+                    <span *ngIf="message.from === 'received'" class="sr-only">{{ botName }} dit :</span>
+                    <span *ngIf="message.from !== 'received'" class="sr-only">Vous avez dit :</span>
+                    <div class="chat-message-text"
+                         [ngClass]="{'chat-message-text-qr': message.type === messageType.quick_reply, 'chat-message-text-button': message.type === messageType.button}"
+                         *ngSwitchCase="message.type === messageType.quick_reply || message.type === messageType.text || message.type === messageType.button"
+                         [ngStyle]="{'background-color': message.from === 'received'? botColor : userColor}"
+                         tabindex="-1"
+                         [innerHTML]="urlify(message.text)">
                     </div>
-                  </div>
-                  <div class="chat-message-buttons"
-                       *ngSwitchCase="message.type === messageType.button"
-                       [ngStyle]="{'color': message.from === 'received'? botColor : userColor}">
-                    <button *ngFor="let quickReply of message.quick_replies"
-                            aria-label="Cliquer sur le bouton"
-                            tabindex="0"
-                            (keyup.enter)="quickReplyClick(quickReply.payload, quickReply.title)"
-                            (click)="quickReplyClick(quickReply.payload, quickReply.title)">
-                      {{quickReply.title}}
-                    </button>
-                  </div>
-                  <div *ngSwitchCase="message.type === messageType.image" class="chat-message-image">
-                    <a target="_blank" [href]="message.text">
-                      <div [ngStyle]="{'background-image' : 'url(' + message.text + ')'}"
-                           aria-label="Image envoyée par le chatbot">
+                    <div class="chat-message-quick-replies"
+                         *ngSwitchCase="message.type === messageType.quick_reply"
+                         [ngStyle]="{'color': message.from === 'received'? botColor : userColor,
+                   'border-color': message.from === 'received'? botColor : userColor}">
+                      <div *ngFor="let quickReply of message.quick_replies"
+                           (mouseover)="quickReplyDiv.style.backgroundColor = message.from === 'received'? botColor : userColor"
+                           (mouseleave)="quickReplyDiv.style.backgroundColor = ''"
+                           #quickReplyDiv
+                           class="chat-message-quick-reply"
+                           aria-label="Sélectionner cette proposition"
+                           tabindex="0"
+                           (keyup.enter)="quickReplyClick(quickReply.payload, quickReply.title)"
+                           (click)="quickReplyClick(quickReply.payload, quickReply.title)">
+                        {{quickReply.title}}
                       </div>
-                    </a>
+                    </div>
+                    <div class="chat-message-buttons"
+                         *ngSwitchCase="message.type === messageType.button"
+                         [ngStyle]="{'color': message.from === 'received'? botColor : userColor}">
+                      <button *ngFor="let quickReply of message.quick_replies"
+                              aria-label="Cliquer sur le bouton"
+                              tabindex="0"
+                              (keyup.enter)="quickReplyClick(quickReply.payload, quickReply.title)"
+                              (click)="quickReplyClick(quickReply.payload, quickReply.title)">
+                        {{quickReply.title}}
+                      </button>
+                    </div>
+                    <div *ngSwitchCase="message.type === messageType.image" class="chat-message-image">
+                      <a target="_blank" [href]="message.text">
+                        <div [ngStyle]="{'background-image' : 'url(' + message.text + ')'}"
+                             aria-label="Image envoyée par le chatbot">
+                        </div>
+                      </a>
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="chat-message-feedbacks">
+                  <div class="chat-message-feedback-wrong"
+                       *ngIf="showFeedback(messages[idx - 1], messages[idx + 1], message.from)"
+                       (mouseover)="hoverFeedbackWrongIdx = idx" (mouseleave)="hoverFeedbackWrongIdx = null"
+                       (click)="openModal(idx)"
+                       [ngStyle]="{'fill': hoverFeedbackWrongIdx == idx  ? '#f44336' : '#8D898D'}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                      <path
+                        d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                    </svg>
                   </div>
-                </ng-container>
-              </div>
-              <div class="chat-message-feedbacks">
-                <div class="chat-message-feedback-wrong"
-                     *ngIf="showFeedback(messages[idx - 1], messages[idx + 1], message.from)"
-                     (mouseover)="hoverFeedbackWrongIdx = idx" (mouseleave)="hoverFeedbackWrongIdx = null"
-                     (click)="openModal(idx)"
-                     [ngStyle]="{'fill': hoverFeedbackWrongIdx == idx  ? '#f44336' : '#8D898D'}">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                    <path
-                      d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
-                  </svg>
+                  <div class="chat-message-feedback-ok"
+                       *ngIf="showFeedback(messages[idx - 1], messages[idx + 1], message.from)"
+                       (mouseover)="hoverFeedbackOkIdx = idx" (mouseleave)="hoverFeedbackOkIdx = null"
+                       (click)="sendFeedback(idx)"
+                       [ngStyle]="{'fill': hoverFeedbackOkIdx == idx  ? '#76c882' : '#8D898D'}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                      <path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"/>
+                      <path
+                        d="M9 21h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.58 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2zM9 9l4.34-4.34L12 10h9v2l-3 7H9V9zM1 9h4v12H1z"/>
+                    </svg>
+                  </div>
                 </div>
-                <div class="chat-message-feedback-ok"
-                     *ngIf="showFeedback(messages[idx - 1], messages[idx + 1], message.from)"
-                     (mouseover)="hoverFeedbackOkIdx = idx" (mouseleave)="hoverFeedbackOkIdx = null"
-                     (click)="sendFeedback(idx)"
-                     [ngStyle]="{'fill': hoverFeedbackOkIdx == idx  ? '#76c882' : '#8D898D'}">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                    <path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"/>
-                    <path
-                      d="M9 21h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.58 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2zM9 9l4.34-4.34L12 10h9v2l-3 7H9V9zM1 9h4v12H1z"/>
-                  </svg>
+                <div class="chat-message-date"
+                     *ngIf="isLastMessage(messages[idx - 1], message.from)">
+                  {{message.date | date: 'dd/MM/yyyy HH:mm'}}
                 </div>
               </div>
-              <div class="chat-message-date"
-                   *ngIf="isLastMessage(messages[idx - 1], message.from)">
-                {{message.date | date: 'dd/MM/yyyy HH:mm'}}
-              </div>
-            </div>
-          </ng-container>
+            </ng-container>
+          </div>
         </div>
         <div class="chat-box-footer" [ngStyle]="{'background-color': userColor}">
           <app-chat-input (send)="sendMessage($event)"

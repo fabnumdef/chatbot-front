@@ -59,28 +59,32 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-}
 
-.chat-box-hidden {
-  display: none;
-}
+  &-hidden {
+    display: none;
+  }
 
-.chat-box-main {
-  flex: 1;
-  width: 100%;
-  background: #fafafa;
-  display: flex;
-  flex-direction: column-reverse;
-  overflow: auto;
-}
+  // Trick for scrollbar on firefox
+  &-firefox {
+    overflow: auto;
+  }
 
-.chat-box-main:focus {
-  outline: .2rem solid #f16e00;
-}
+  &-main {
+    flex: 1;
+    width: 100%;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column-reverse;
 
-.chat-box-footer {
-  color: #000000;
-  height: 50px;
+    &:focus {
+      outline: .2rem solid #f16e00;
+    }
+  }
+
+  &-footer {
+    color: #000000;
+    height: 50px;
+  }
 }
 
 .close-bot {
