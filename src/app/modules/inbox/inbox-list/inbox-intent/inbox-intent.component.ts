@@ -1,4 +1,3 @@
-import { element } from 'protractor';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Inbox } from '@model/inbox.model';
 import { Intent } from '@model/intent.model';
