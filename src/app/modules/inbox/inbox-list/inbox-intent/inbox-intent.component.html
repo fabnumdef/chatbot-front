@@ -8,7 +8,8 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Catégories</mat-label>
-        <mat-select placeholderLabel="Recherche une connaissance..."
+        <mat-select placeholder="Rechercher une connaissance..."
+                    data-cy="InboxIntentCategorySelector"
                     (selectionChange)="getFilteredIntents($event.value)">
           <mat-option [value]="null">- Aucune -</mat-option>
           <mat-option *ngFor="let category of categories$ | async" [value]="category">
@@ -21,6 +22,7 @@
         <mat-label>Connaissance</mat-label>
         <mat-select placeholder="Choisir une connaissance..."
                     formControlName="intent"
+                    data-cy="InboxIntentSelector"
                     required>
           <mat-option>
             <ngx-mat-select-search [formControl]="intentFilterCtrl"
@@ -44,6 +46,7 @@
       <button mat-flat-button
               color="accent"
               class="edit-intent-btn"
+              data-cy="InboxIntentEditBtn"
               (click)="getIntent()"
               [disabled]="addIntent">
         <mat-icon>edit</mat-icon>
@@ -58,6 +61,7 @@
       connaissance pour apporter une réponse à cette question.</p>
     <button mat-flat-button
             color="accent"
+            data-cy="InboxIntentCreateBtn"
             (click)="addIntent = true"
             [disabled]="modifyIntent">
       <mat-icon>add</mat-icon>
@@ -69,6 +73,7 @@
       <button mat-button
               (click)="addIntent = false"
               class="back-button"
+              data-cy="InboxIntentBackBtn"
               color="accent">
         <mat-icon>arrow_back</mat-icon>
         <span class="back-text">Retour</span>
@@ -82,6 +87,7 @@
     <button mat-button
             (click)="modifyIntent = false; intentToEdit = null"
             class="back-button"
+            data-cy="InboxIntentBackBtn"
             color="accent">
       <mat-icon>arrow_back</mat-icon>
       <span class="back-text">Retour</span>
