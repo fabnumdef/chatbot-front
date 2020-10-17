@@ -9,6 +9,7 @@ export class Config {
   needTraining: boolean;
   lastTrainingAt: string;
   storage: boolean;
+  apiKey: string;
 
   // EMBEDDED
   embeddedIcon: string;

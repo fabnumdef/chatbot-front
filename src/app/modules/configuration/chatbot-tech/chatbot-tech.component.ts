@@ -6,6 +6,7 @@ import { DestroyObservable } from '@core/utils/destroy-observable';
 import { filter, take, takeUntil } from 'rxjs/operators';
 import { Utils } from '@core/utils/utils';
 import { ToastrService } from 'ngx-toastr';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-chatbot-tech',
@@ -19,7 +20,8 @@ export class ChatbotTechComponent extends DestroyObservable implements OnInit {
 
   constructor(private _configService: ConfigService,
               private _fb: FormBuilder,
-              private _toastr: ToastrService) {
+              private _toastr: ToastrService,
+              private _clipboard: Clipboard) {
     super();
   }
 
@@ -42,6 +44,17 @@ export class ChatbotTechComponent extends DestroyObservable implements OnInit {
     });
   }
 
+  refreshApiKey() {
+    this._configService.refreshApiKey().subscribe(() => {
+      this._toastr.success(`L'API Key a bien été mise à jour`);
+    });
+  }
+
+  copyToClipboard(value: string) {
+    this._clipboard.copy(value);
+    this._toastr.success('Copié dans le presse-papier');
+  }
+
   /**
    * PRIVATE FUNCTIONS
    */
@@ -49,6 +62,7 @@ export class ChatbotTechComponent extends DestroyObservable implements OnInit {
   private _initForms() {
     this.techForm = this._fb.group({
       storage: [this.chatbotConfig.storage, [Validators.required]],
+      apiKey: [{value: this.chatbotConfig.apiKey, disabled: true}, [Validators.required]],
     });
   }
 

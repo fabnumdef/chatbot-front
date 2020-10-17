@@ -6,10 +6,10 @@
           <h3>Configuration technique</h3>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="chatbot-subtitle">
-        <h4>Mémoire du chatbot</h4>
-      </div>
       <form [formGroup]="techForm" *ngIf="techForm">
+        <div class="chatbot-subtitle">
+          <h4>Mémoire du chatbot</h4>
+        </div>
         <mat-radio-group
           aria-label="Le chatbot doit-il se réinitialiser à chaque changement d'onglet ?"
           labelPosition="before"
@@ -18,6 +18,30 @@
           <mat-radio-button [value]="false">Au niveau de l'onglet</mat-radio-button>
           <mat-radio-button [value]="true">Au niveau du navigateur</mat-radio-button>
         </mat-radio-group>
+        <div class="chatbot-subtitle">
+          <h4>API Key</h4>
+        </div>
+        <mat-form-field appearance="outline" class="apiKeyInput">
+          <mat-label>API Key</mat-label>
+          <input matInput
+                 placeholder="Saisir..."
+                 formControlName="apiKey"
+                 maxlength="200">
+          <button mat-button
+                  *ngIf="!chatbotConfig.apiKey"
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Refresh Api Key"
+                  (click)="refreshApiKey()">
+            <mat-icon>refresh</mat-icon>
+          </button>
+          <button mat-icon-button
+                  *ngIf="chatbotConfig.apiKey"
+                  matSuffix
+                  (click)="copyToClipboard(techForm.get('apiKey').value)">
+            <mat-icon>file_copy</mat-icon>
+          </button>
+        </mat-form-field>
       </form>
       <ng-container *appHasRole="'admin'">
         <button mat-stroked-button
