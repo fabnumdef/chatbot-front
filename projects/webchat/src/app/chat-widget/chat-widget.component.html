@@ -88,9 +88,9 @@
                     </div>
                   </ng-container>
                 </div>
-                <div class="chat-message-feedbacks">
+                <div class="chat-message-feedbacks"
+                     *ngIf="showFeedback(messages[idx - 1], messages[idx + 1], message.from)">
                   <div class="chat-message-feedback-wrong"
-                       *ngIf="showFeedback(messages[idx - 1], messages[idx + 1], message.from)"
                        (mouseover)="hoverFeedbackWrongIdx = idx" (mouseleave)="hoverFeedbackWrongIdx = null"
                        (click)="openModal(idx)"
                        [ngStyle]="{'fill': hoverFeedbackWrongIdx == idx  ? '#f44336' : '#8D898D'}">
@@ -100,7 +100,6 @@
                     </svg>
                   </div>
                   <div class="chat-message-feedback-ok"
-                       *ngIf="showFeedback(messages[idx - 1], messages[idx + 1], message.from)"
                        (mouseover)="hoverFeedbackOkIdx = idx" (mouseleave)="hoverFeedbackOkIdx = null"
                        (click)="sendFeedback(idx)"
                        [ngStyle]="{'fill': hoverFeedbackOkIdx == idx  ? '#76c882' : '#8D898D'}">

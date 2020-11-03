@@ -1,0 +1,9 @@
+{
+  "/api/*": {
+    "context": "/api",
+    "target": "https://test.chatbot.fabnum.fr/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}
