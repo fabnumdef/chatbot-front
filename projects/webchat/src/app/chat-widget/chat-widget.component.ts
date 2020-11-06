@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { fadeIn, fadeInOut } from '../core/animation';
 import { of, Subject } from 'rxjs';
-import { concatMap, delay, tap } from 'rxjs/operators';
+import { concatMap, delay, filter, tap } from 'rxjs/operators';
 import { WebchatService } from '../core/services/webchat.service';
 import { MessageType } from '../core/enums/message-type.enum';
 import { Feedback, FeedbackStatus } from '../core/models/feedback.model';
@@ -39,6 +39,12 @@ export class ChatWidgetComponent implements OnInit {
   public hoverFeedbackOkIdx = null;
   public showTyping = false;
   public isMobileSize = false;
+  private _domainRegex = new RegExp('^(https?:\\/\\/)?' + // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+    '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
 
   constructor(public chatService: WebchatService,
               private _dialog: MatDialog,
@@ -103,6 +109,7 @@ export class ChatWidgetComponent implements OnInit {
     this.chatService
       .getMessages()
       .pipe(
+        filter(m => !!m),
         concatMap(m => of(m).pipe(
           delay(2000),
           tap((message: any) => {
@@ -147,13 +154,7 @@ export class ChatWidgetComponent implements OnInit {
   }
 
   public quickReplyClick(payload: string, title: string) {
-    const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-      '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-    if (!!pattern.test(payload)) {
+    if (!!this._domainRegex.test(payload)) {
       window.open(payload, '_blank');
     } else {
       this.addMessage(title, MessageType.text, 'sent');
@@ -176,6 +177,9 @@ export class ChatWidgetComponent implements OnInit {
   }
 
   public showFeedback(nextMessage, previousMessage, from): boolean {
+    // console.log(nextMessage);
+    // console.log(previousMessage);
+    // console.log(from);
     if (!previousMessage || from === 'sent') {
       return false;
     }
@@ -254,6 +258,6 @@ export class ChatWidgetComponent implements OnInit {
   }
 
   private _isPayloadQuickReply(payload: string): boolean {
-    return payload.startsWith('/');
+    return !this._domainRegex.test(payload);
   }
 }
