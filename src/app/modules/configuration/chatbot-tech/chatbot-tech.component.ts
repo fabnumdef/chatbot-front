@@ -44,12 +44,6 @@ export class ChatbotTechComponent extends DestroyObservable implements OnInit {
     });
   }
 
-  refreshApiKey() {
-    this._configService.refreshApiKey().subscribe(() => {
-      this._toastr.success(`L'API Key a bien été mise à jour`);
-    });
-  }
-
   copyToClipboard(value: string) {
     this._clipboard.copy(value);
     this._toastr.success('Copié dans le presse-papier');

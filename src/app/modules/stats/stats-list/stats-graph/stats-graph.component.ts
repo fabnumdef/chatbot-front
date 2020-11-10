@@ -112,8 +112,8 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
   }
 
   getGraph(dates) {
-    this.startDate = dates?.startDate ? moment(dates.startDate).toDate() : moment().subtract(1, 'month').toDate();
-    this.endDate = dates?.endDate ? moment(dates.endDate).toDate() : moment().toDate();
+    this.startDate = dates?.startDate ? moment(dates.startDate, 'DD/MM/yyyy').toDate() : moment().subtract(1, 'month').toDate();
+    this.endDate = dates?.endDate ? moment(dates.endDate, 'DD/MM/yyyy').toDate() : moment().toDate();
 
     if (this.startDate > this.endDate) {
       this.startDate = this.endDate;

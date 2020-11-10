@@ -113,12 +113,4 @@ export class ConfigService {
       });
     }, fast ? 30000 : 60000);
   }
-
-  refreshApiKey() {
-    return this._http.post<Config>(`${this._url}/api-key`, {}).pipe(
-      tap((data) => {
-        this.config$.next({...this.config$.getValue(), ...{apiKey: data.apiKey}});
-      })
-    );
-  }
 }
