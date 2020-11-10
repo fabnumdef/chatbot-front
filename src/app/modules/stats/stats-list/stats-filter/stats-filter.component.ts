@@ -24,12 +24,10 @@ export class StatsFilterComponent extends DestroyObservable implements OnInit, O
     this.today.setDate(this.today.getDate());
     this.statsFilters = this._fb.group({
       startDate: [
-        // this._statsService.currentFilters?.startDate ? moment(this._statsService.currentFilters.startDate, 'YYYY-MM-DD').toDate() : null
-        null
+        this._statsService.currentFilters?.startDate ? moment(this._statsService.currentFilters.startDate, 'DD/MM/yyyy') : null
       ],
       endDate: [
-        // this._statsService.currentFilters?.endDate ? moment(this._statsService.currentFilters.endDate, 'YYYY-MM-DD').toDate() : null
-        null
+        this._statsService.currentFilters?.endDate ? moment(this._statsService.currentFilters.endDate, 'DD/MM/yyyy') : null
       ]
     });
 
@@ -39,12 +37,12 @@ export class StatsFilterComponent extends DestroyObservable implements OnInit, O
         debounceTime(300),
         distinctUntilChanged())
       .subscribe(value => {
-        value.startDate = value.startDate ? moment(value.startDate).format('yyyy-MM-DD') : null;
-        value.endDate = value.endDate ? moment(value.endDate).format('yyyy-MM-DD') : null;
+        value.startDate = value.startDate ? moment(value.startDate).format('DD/MM/yyyy') : null;
+        value.endDate = value.endDate ? moment(value.endDate).format('DD/MM/yyyy') : null;
         this._statsService.setCurrentFilters(value.startDate, value.endDate);
         this._statsService._currentFilters$.next(value);
       });
-}
+  }
 
   ngOnDestroy() {
     this._statsService.resetFilters();

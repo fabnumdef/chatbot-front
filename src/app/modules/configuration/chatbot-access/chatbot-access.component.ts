@@ -9,7 +9,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 })
 export class ChatbotAccessComponent implements OnInit {
 
-  chatbotPath = window.location.origin + '/chatbot';
+  chatbotPath = window.location.origin + '/chatbot/';
 
   embeddedCode =
     `<script src="${window.location.origin}/backoffice/assets/scripts/embbed-chatbot.min.js"></script>
