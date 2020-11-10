@@ -32,40 +32,40 @@
           min-width: 300px;
           flex-direction: column;
           margin: 5px 0;
-  
+
           .mat-accordion .mat-expansion-panel {
             box-shadow: none;
             background: none;
-  
+
             margin: 0 5px;
-  
+
             .mat-expansion-panel-header, .mat-expansion-panel-header:hover {
               padding: 5px 20px;
               border-radius: $border-radius;
               transition: 0.25s;
-  
+
               .mat-expansion-panel-header.mat-expanded{
                 background-color: $grey-light;
                 transition: 0.25s;
               }
-  
+
               .mat-expansion-panel-header-title h3, ::ng-deep .mat-expansion-indicator::after {
                 color: $white;
                 margin: 0;
               }
-  
+
               .mat-expansion-panel-header-title {
                 align-items: flex-start;
               }
             }
-  
+
             ::ng-deep.mat-expansion-panel-body {
               padding: 10px 0;
             }
           }
-  
-  
-  
+
+
+
           .title-kpi {
             display: flex;
             color: $white;
@@ -73,21 +73,21 @@
             justify-content: space-between;
             border-radius: 5px;
             height: 30px;
-  
+
             &::ng-deep .mat-button-wrapper {
               display: flex;
               width: 100%;
               justify-content: space-between;
               margin: 0 15px;
             }
-  
+
             .icon {
               font-size: 20px;
               padding-bottom: 15px;
               transform: rotate(-135deg);
             }
           }
-  
+
           .content-kpi {
             display: flex;
             flex-direction: column;
@@ -97,23 +97,23 @@
             background-color: $white;
             padding-left: 20px;
             padding-right: 20px;
-  
+
             .global {
               display: flex;
               justify-content: center;
               padding: 15px 0px;
             }
-  
+
             .row {
               display: flex;
               flex-direction: row;
               padding: 15px;
               padding-left: 0px;
-  
+
               .type {
                 width: 35%;
               }
-  
+
               .row-kpi {
                 font-size: 13px;
                 width: 65%;
@@ -146,10 +146,10 @@
     }
 
     .bgyellow, .bgyellowNeg:hover {
-      background-color: #fab754;
+      background-color: #ffa642;
     }
     .cyellow {
-      color: #fab754;
+      color: #ffa642;
     }
 
     .bgpink, .bgpinkNeg:hover {
@@ -160,10 +160,10 @@
     }
 
     .bgblue, .bgblueNeg:hover {
-      background-color: #94D9D9;
+      background-color: #5436FF;
     }
     .cblue {
-      color: #94D9D9;
+      color: #5436FF;
     }
   }
 
