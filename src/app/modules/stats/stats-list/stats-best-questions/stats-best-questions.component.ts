@@ -1,5 +1,5 @@
 import { DestroyObservable } from '@core/utils/destroy-observable';
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { StatsService } from '@core/services/stats.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -17,19 +17,22 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
   public chart: BaseChartDirective;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  data = [
-    { value: [255], question: 'Lorem ipsum est istes opus nexis orem ipsum est istes opus '}
-  ];
   chartOptions = {
-    responsive: true,
+    // responsive: true,
     maintainAspectRatio: false,
     legend: {
-      display: true,
-      position: 'right',
-      labels: {
-        padding: 20,
-        usePointStyle: true
-      }
+      display: false,
+    },
+    legendCallback: chart => {
+      let html = '<ul>';
+      chart.data.datasets.forEach((ds, i) => {
+        html += '<li class="legend-chart">' +
+          '<span style="background-color:' + ds.backgroundColor + ';"></span>' +
+          '<span id="legend-label-' + i + '">' +
+          (Array.isArray(ds.label) ? ds.label.join('<br/>') : ds.label) + '</span>' +
+          '</li>';
+      });
+      return html + '</ul>';
     },
     scales: {
       yAxes: [
@@ -44,13 +47,12 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
     tooltips: {
       enabled: true,
       callbacks: {
-        title: function() {}
-     }
+        title: function() {
+        }
+      }
     }
   };
-  chartData = [
-    { data: this.data[0].value, label: this.data[0].question },
-  ];
+  chartData = null;
 
   constructor(public _statsService: StatsService) {
     super();
@@ -61,32 +63,38 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
     this._statsService._currentFilters$
       .pipe(
         takeUntil(this.destroy$))
-      .subscribe(
-      (value) => {
-        this.getGraph(value);
-      }
-    );
+      .subscribe(() => {
+          this.getGraph();
+        }
+      );
   }
 
-  getGraph(dates) {
+  getGraph() {
     this._statsService.getBestQuestionsData().subscribe(
       (value) => {
-        this.data = [];
         this.chartData = [];
-        this.data = value['mostAskedQuestions'];
-        this.data.forEach(elem => {
+        value['mostAskedQuestions'].forEach(elem => {
           this.chartData.push({
             data: [parseInt(elem['count'], 10)],
             label: elem['question']
           });
         });
-        this.updateChart();
+        setTimeout(() => {
+          this.updateChart();
+        });
       }
     );
   }
 
-  updateChart() {
+  async updateChart() {
     this.chart.chart.update(); // This re-renders the canvas element.
+    // @ts-ignore
+    document.getElementsByClassName('legend').item(0).innerHTML = this.chart.chart.generateLegend();
+    const legendTags = document.getElementsByClassName('legend-chart');
+    for (let i = 0; i < legendTags.length; i++) {
+      // @ts-ignore
+      legendTags[i].addEventListener('click', this.onLegendClicked, false);
+    }
   }
 
   downloadCanvasBest(event) {
@@ -102,5 +110,14 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
     btn.click();
   }
 
+  onLegendClicked = (e) => {
+    const id = e.target.id;
+    const index = id.split('-')[2];
+    const hidden = !this.chart.chart.data.datasets[index].hidden;
+    this.chart.chart.data.datasets[index].hidden = hidden;
+    const legendLabelSpan = document.getElementById('legend-label-' + index);
+    legendLabelSpan.style.textDecoration = hidden ? 'line-through' : '';
+    this.chart.chart.update();
+  };
 }
 

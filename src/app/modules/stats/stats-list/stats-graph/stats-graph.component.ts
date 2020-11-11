@@ -4,7 +4,6 @@ import { StatsService } from '@core/services/stats.service';
 import { BaseChartDirective } from 'ng2-charts';
 import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
-import 'moment/locale/fr';
 import { Subject } from 'rxjs';
 import * as chartJs from 'chart.js';
 
