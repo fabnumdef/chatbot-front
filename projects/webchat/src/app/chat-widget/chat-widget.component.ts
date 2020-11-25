@@ -158,7 +158,7 @@ export class ChatWidgetComponent implements OnInit {
       window.open(payload, '_blank');
     } else {
       this.addMessage(title, MessageType.text, 'sent');
-      this.chatService.sendMessage(`/${payload}`);
+      this.chatService.sendMessage(`${payload.charAt(0) === '/' ? '' : '/'}${payload}`);
     }
   }
 
