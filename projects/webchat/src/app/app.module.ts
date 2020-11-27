@@ -24,6 +24,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { ChatHeaderComponent } from './chat-header/chat-header.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ChatMaintenanceModeComponent } from './chat-maintenance-mode/chat-maintenance-mode.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { environment } from '../environments/environment';
     ChatFeedbackModalComponent,
     ChatHelpModalComponent,
     ChatAvatarComponent,
-    ChatHeaderComponent
+    ChatHeaderComponent,
+    ChatMaintenanceModeComponent
   ],
   imports: [
     BrowserModule,

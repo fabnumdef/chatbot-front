@@ -12,6 +12,8 @@ import { MessageType } from '../core/enums/message-type.enum';
 })
 export class ChatInputComponent implements OnInit {
   @Input() public placeholder: string;
+  @Input() public blockTypeText: boolean;
+  @Input() public showIntentSearch: boolean;
   @Input() public focus = new EventEmitter();
   @Output() public send = new EventEmitter();
   @ViewChild('message') message: ElementRef;
@@ -27,10 +29,11 @@ export class ChatInputComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.messageText = this._fb.control('');
+    this.messageText = this._fb.control({value: '', disabled: this.blockTypeText});
     this.focus.subscribe(() => this.focusMessage());
 
     this.messageText.valueChanges.pipe(
+      filter(() => this.showIntentSearch),
       debounceTime(300),
       distinctUntilChanged(),
       filter(value => {

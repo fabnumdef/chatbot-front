@@ -21,9 +21,8 @@
     </mat-drawer>
     <mat-drawer-content>
       <div class="chat-box">
-        <div class="chat-box-firefox">
+        <div class="chat-box-firefox" #chatboxfirefox>
           <div class="chat-box-main" tabindex="0" aria-live="polite">
-            <div class="chat-message-bottom" #bottom></div>
             <div class="chat-message-typing" *ngIf="showTyping">
               <div class="spinner">
                 <div class="bounce1" [ngStyle]="{'background-color': botColor}"></div>
@@ -56,17 +55,19 @@
                          *ngSwitchCase="message.type === messageType.quick_reply"
                          [ngStyle]="{'color': message.from === 'received'? botColor : userColor,
                    'border-color': message.from === 'received'? botColor : userColor}">
-                      <div *ngFor="let quickReply of message.quick_replies"
-                           (mouseover)="quickReplyDiv.style.backgroundColor = message.from === 'received'? botColor : userColor"
-                           (mouseleave)="quickReplyDiv.style.backgroundColor = ''"
-                           #quickReplyDiv
-                           class="chat-message-quick-reply"
-                           aria-label="Sélectionner cette proposition"
-                           tabindex="0"
-                           (keyup.enter)="quickReplyClick(quickReply.payload, quickReply.title)"
-                           (click)="quickReplyClick(quickReply.payload, quickReply.title)">
-                        {{quickReply.title}}
-                      </div>
+                      <ng-container *ngIf="!dismissQuickReplies || !message.clicked">
+                        <div *ngFor="let quickReply of message.quick_replies"
+                             (mouseover)="quickReplyDiv.style.backgroundColor = message.from === 'received'? botColor : userColor"
+                             (mouseleave)="quickReplyDiv.style.backgroundColor = ''"
+                             #quickReplyDiv
+                             class="chat-message-quick-reply"
+                             aria-label="Sélectionner cette proposition"
+                             tabindex="0"
+                             (keyup.enter)="quickReplyClick(quickReply.payload, quickReply.title, message)"
+                             (click)="quickReplyClick(quickReply.payload, quickReply.title, message)">
+                          {{quickReply.title}}
+                        </div>
+                      </ng-container>
                     </div>
                     <div class="chat-message-buttons"
                          *ngSwitchCase="message.type === messageType.button"
@@ -89,7 +90,7 @@
                   </ng-container>
                 </div>
                 <div class="chat-message-feedbacks"
-                     *ngIf="showFeedback(messages[idx - 1], messages[idx + 1], message.from)">
+                     *ngIf="canShowFeedback(messages[idx - 1], messages[idx + 1], message.from)">
                   <div class="chat-message-feedback-wrong"
                        (mouseover)="hoverFeedbackWrongIdx = idx" (mouseleave)="hoverFeedbackWrongIdx = null"
                        (click)="openModal(idx)"
@@ -120,6 +121,8 @@
         </div>
         <div class="chat-box-footer" [ngStyle]="{'background-color': userColor}">
           <app-chat-input (send)="sendMessage($event)"
+                          [blockTypeText]="blockTypeText"
+                          [showIntentSearch]="showIntentSearch"
                           [focus]="focus"
                           [placeholder]="inputPlaceholder"></app-chat-input>
         </div>

@@ -9,6 +9,7 @@ export class Config {
   needTraining: boolean;
   lastTrainingAt: string;
   storage: boolean;
+  maintenanceMode: boolean;
 
   // EMBEDDED
   embeddedIcon: string;
@@ -18,4 +19,10 @@ export class Config {
   // DESCRIPTION
   problematic: string;
   audience: string;
+
+  // UI
+  showIntentSearch: boolean;
+  dismissQuickReplies: boolean;
+  showFeedback: boolean;
+  blockTypeText: boolean;
 }

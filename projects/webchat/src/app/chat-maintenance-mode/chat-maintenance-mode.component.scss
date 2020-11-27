@@ -1,0 +1,14 @@
+.chatbot-maintenance {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
+  background-color: #6790f6;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 90%;
+    max-width: 800px;
+  }
+}

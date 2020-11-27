@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import io from 'socket.io-client';
 
@@ -15,6 +15,8 @@ export class WebchatService {
 
   private _socket;
   private _storage;
+
+  private _messages$ = new BehaviorSubject(null);
 
   constructor(private _http: HttpClient) {
   }
@@ -61,6 +63,10 @@ export class WebchatService {
       this._socket.io.opts.transports = ['polling', 'websocket'];
     });
 
+    this._socket.on('bot_uttered', (message) => {
+      this._messages$.next(message);
+    });
+
     this._updateAccessibilityClass();
   }
 
@@ -69,12 +75,8 @@ export class WebchatService {
     this._socket.emit('user_uttered', {message, session_id});
   }
 
-  public getMessages() {
-    return Observable.create((observer) => {
-      this._socket.on('bot_uttered', (message) => {
-        observer.next(message);
-      });
-    });
+  public getMessages(): Observable<any[]> {
+    return this._messages$;
   }
 
   public storeConversation(conversation) {

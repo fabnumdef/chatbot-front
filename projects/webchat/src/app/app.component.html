@@ -1,4 +1,4 @@
-<div class="chatbot" *ngIf="configService.config"
+<div class="chatbot" *ngIf="configService.config && !configService.config.maintenanceMode"
      [ngStyle]="{'height': chatbotHeight + 'px'}">
   <app-chat-widget [socketUrl]="window.location.origin"
                    [botAvatar]="window.location.origin + '/media/'  + configService.config.icon"
@@ -9,6 +9,14 @@
                    [userColor]="configService.config.secondaryColor"
                    [botDescription]="configService.config.description"
                    [botHelp]="configService.config.help"
-                   [storage]="configService.config.storage ? 'local' : 'session'">
+                   [storage]="configService.config.storage ? 'local' : 'session'"
+                   [showIntentSearch]="configService.config.showIntentSearch"
+                   [dismissQuickReplies]="configService.config.dismissQuickReplies"
+                   [showFeedback]="configService.config.showFeedback"
+                   [blockTypeText]="configService.config.blockTypeText">
   </app-chat-widget>
+</div>
+<div class="chatbot" *ngIf="configService.config && configService.config.maintenanceMode"
+     [ngStyle]="{'height': chatbotHeight + 'px'}">
+  <app-chat-maintenance-mode></app-chat-maintenance-mode>
 </div>

@@ -16,7 +16,7 @@ import { ChatFeedbackModalComponent } from '../chat-feedback-modal/chat-feedback
   animations: [fadeInOut, fadeIn]
 })
 export class ChatWidgetComponent implements OnInit {
-  @ViewChild('bottom') bottom: ElementRef;
+  @ViewChild('chatboxfirefox') chatboxfirefox: ElementRef;
   @Input() public botName = 'Bot';
   @Input() public botSubtitle = '';
   @Input() public botDescription = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
@@ -32,6 +32,10 @@ export class ChatWidgetComponent implements OnInit {
   @Input() public botColor = '#6E91F0';
   @Input() public userColor = '#EBECEF';
   @Input() public storage = 'session';
+  @Input() public showIntentSearch = true;
+  @Input() public dismissQuickReplies = false;
+  @Input() public blockTypeText = false;
+  @Input() public showFeedback = true;
 
   public messageType = MessageType;
   public notificationSound = new Audio('assets/sounds/notification.ogg');
@@ -74,8 +78,10 @@ export class ChatWidgetComponent implements OnInit {
   }
 
   public scrollToBottom() {
-    if (this.bottom !== undefined) {
-      this.bottom.nativeElement.scrollIntoView();
+    if (this.chatboxfirefox !== undefined) {
+      setTimeout(() => {
+        this.chatboxfirefox.nativeElement.scrollTop = this.chatboxfirefox.nativeElement.scrollHeight;
+      });
     }
   }
 
@@ -153,10 +159,11 @@ export class ChatWidgetComponent implements OnInit {
     this.showTyping = true;
   }
 
-  public quickReplyClick(payload: string, title: string) {
+  public quickReplyClick(payload: string, title: string, message: any = null) {
     if (!!this._domainRegex.test(payload)) {
       window.open(payload, '_blank');
     } else {
+      message.clicked = true;
       this.addMessage(title, MessageType.text, 'sent');
       this.chatService.sendMessage(`${payload.charAt(0) === '/' ? '' : '/'}${payload}`);
     }
@@ -176,7 +183,10 @@ export class ChatWidgetComponent implements OnInit {
     return nextMessage.from !== from;
   }
 
-  public showFeedback(nextMessage, previousMessage, from): boolean {
+  public canShowFeedback(nextMessage, previousMessage, from): boolean {
+    if (!this.showFeedback) {
+      return false;
+    }
     // console.log(nextMessage);
     // console.log(previousMessage);
     // console.log(from);

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ConfigService } from './core/services/config.service';
 import { Title } from '@angular/platform-browser';
-import { Config } from '@model/config.model';
+import { Config } from './core/models/config.model';
 
 @Component({
   selector: 'app-root',
