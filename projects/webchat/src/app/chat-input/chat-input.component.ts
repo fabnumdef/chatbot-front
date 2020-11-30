@@ -12,7 +12,21 @@ import { MessageType } from '../core/enums/message-type.enum';
 })
 export class ChatInputComponent implements OnInit {
   @Input() public placeholder: string;
-  @Input() public blockTypeText: boolean;
+
+  _blockTypeText: boolean;
+  get blockTypeText(): boolean {
+    return this._blockTypeText;
+  }
+
+  @Input() set blockTypeText(value: boolean) {
+    this._blockTypeText = value;
+    if (this.blockTypeText) {
+      this.messageText.disable();
+    } else {
+      this.messageText.enable();
+    }
+  }
+
   @Input() public showIntentSearch: boolean;
   @Input() public focus = new EventEmitter();
   @Output() public send = new EventEmitter();
