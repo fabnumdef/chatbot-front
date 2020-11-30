@@ -148,6 +148,14 @@ export class ChatWidgetComponent implements OnInit {
     window.onresize = (e) => {
       this._checkNavSize();
     };
+
+    this.chatService.setBlockText(this.blockTypeText);
+    this.chatService
+      .getBlockText()
+      .pipe(tap((blockText: boolean) => {
+        this.blockTypeText = blockText;
+      }))
+      .subscribe();
   }
 
   public sendMessage({message, type, payload}) {

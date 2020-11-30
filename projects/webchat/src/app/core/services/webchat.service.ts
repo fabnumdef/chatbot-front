@@ -17,6 +17,7 @@ export class WebchatService {
   private _storage;
 
   private _messages$ = new BehaviorSubject(null);
+  private _blockText$ = new BehaviorSubject(null);
 
   constructor(private _http: HttpClient) {
   }
@@ -63,8 +64,12 @@ export class WebchatService {
       this._socket.io.opts.transports = ['polling', 'websocket'];
     });
 
-    this._socket.on('bot_uttered', (message) => {
-      this._messages$.next(message);
+    this._socket.on('bot_uttered', (message: any) => {
+      if (message.custom) {
+        this.setBlockText(!message.custom.activate_text);
+      } else {
+        this._messages$.next(message);
+      }
     });
 
     this._updateAccessibilityClass();
@@ -125,6 +130,14 @@ export class WebchatService {
     // Get the local session, check if there is an existing session_id
     const localSession = this._getLocalSession(SESSION_NAME);
     return localSession ? localSession.session_id : null;
+  }
+
+  public setBlockText(blockText: boolean) {
+    this._blockText$.next(blockText);
+  }
+
+  public getBlockText(): Observable<boolean> {
+    return this._blockText$;
   }
 
   private _getLocalSession(key) {
