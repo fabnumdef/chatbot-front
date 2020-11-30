@@ -17,6 +17,8 @@ export class ChatSideMenuComponent implements OnInit {
   @Input() public botHelp: string;
   @Input() public botColor: string;
   @Input() public isMobileSize: boolean;
+  @Input() public initPayload: string;
+  @Input() public showRebootBtn: boolean;
 
   constructor(private _dialog: MatDialog,
               public webchatService: WebchatService) { }
@@ -33,6 +35,11 @@ export class ChatSideMenuComponent implements OnInit {
       },
       autoFocus: false
     });
+  }
+
+  rebootConversation() {
+    this.webchatService.sendMessage('/restart');
+    this.webchatService.sendMessage(this.initPayload);
   }
 
 }

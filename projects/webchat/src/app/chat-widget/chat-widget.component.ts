@@ -36,6 +36,7 @@ export class ChatWidgetComponent implements OnInit {
   @Input() public dismissQuickReplies = false;
   @Input() public blockTypeText = false;
   @Input() public showFeedback = true;
+  @Input() public showRebootBtn = false;
 
   public messageType = MessageType;
   public notificationSound = new Audio('assets/sounds/notification.ogg');

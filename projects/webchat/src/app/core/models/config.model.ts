@@ -25,4 +25,5 @@ export class Config {
   dismissQuickReplies: boolean;
   showFeedback: boolean;
   blockTypeText: boolean;
+  showRebootBtn: boolean;
 }
