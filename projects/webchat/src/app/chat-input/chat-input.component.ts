@@ -20,9 +20,9 @@ export class ChatInputComponent implements OnInit {
 
   @Input() set blockTypeText(value: boolean) {
     this._blockTypeText = value;
-    if (this.blockTypeText) {
+    if (this.blockTypeText && this.messageText) {
       this.messageText.disable();
-    } else {
+    } else if (this.messageText) {
       this.messageText.enable();
     }
   }
