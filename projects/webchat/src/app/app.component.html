@@ -13,7 +13,8 @@
                    [showIntentSearch]="configService.config.showIntentSearch"
                    [dismissQuickReplies]="configService.config.dismissQuickReplies"
                    [showFeedback]="configService.config.showFeedback"
-                   [blockTypeText]="configService.config.blockTypeText">
+                   [blockTypeText]="configService.config.blockTypeText"
+                   [showRebootBtn]="configService.config.showRebootBtn">
   </app-chat-widget>
 </div>
 <div class="chatbot" *ngIf="configService.config && configService.config.maintenanceMode"
