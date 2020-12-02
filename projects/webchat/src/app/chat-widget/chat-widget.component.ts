@@ -175,6 +175,7 @@ export class ChatWidgetComponent implements OnInit {
       message.clicked = true;
       this.addMessage(title, MessageType.text, 'sent');
       this.chatService.sendMessage(`${payload.charAt(0) === '/' ? '' : '/'}${payload}`);
+      this.showTyping = true;
     }
   }
 
