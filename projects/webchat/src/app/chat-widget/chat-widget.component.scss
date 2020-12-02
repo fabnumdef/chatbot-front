@@ -180,9 +180,11 @@
 
     &-disabled {
       cursor: not-allowed;
+      color: #696969;
+      border-color: #696969;
 
       &:hover {
-        color: inherit;
+        color: #696969;
       }
     }
   }
