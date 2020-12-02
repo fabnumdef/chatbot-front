@@ -177,6 +177,14 @@
     &:hover {
       color: #ffffff;
     }
+
+    &-disabled {
+      cursor: not-allowed;
+
+      &:hover {
+        color: inherit;
+      }
+    }
   }
 
   &-image {

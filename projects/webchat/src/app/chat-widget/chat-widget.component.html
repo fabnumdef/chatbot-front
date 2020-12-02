@@ -59,10 +59,11 @@
                    'border-color': message.from === 'received'? botColor : userColor}">
                       <ng-container *ngIf="!dismissQuickReplies || !message.clicked">
                         <div *ngFor="let quickReply of message.quick_replies"
-                             (mouseover)="quickReplyDiv.style.backgroundColor = message.from === 'received'? botColor : userColor"
+                             (mouseover)="quickReplyDiv.style.backgroundColor = message.from === 'received' && !!quickReply.payload ? botColor : !!quickReply.payload ?userColor : ''"
                              (mouseleave)="quickReplyDiv.style.backgroundColor = ''"
                              #quickReplyDiv
                              class="chat-message-quick-reply"
+                             [ngClass]="{'chat-message-quick-reply-disabled': !quickReply.payload}"
                              aria-label="Sélectionner cette proposition"
                              tabindex="0"
                              (keyup.enter)="quickReplyClick(quickReply.payload, quickReply.title, message)"

@@ -169,6 +169,9 @@ export class ChatWidgetComponent implements OnInit {
   }
 
   public quickReplyClick(payload: string, title: string, message: any = null) {
+    if (!payload) {
+      return;
+    }
     if (!!this._domainRegex.test(payload)) {
       window.open(payload, '_blank');
     } else {
