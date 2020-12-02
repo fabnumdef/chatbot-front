@@ -17,7 +17,7 @@
   <textarea type="text"
             class="chat-input-text"
             aria-label="Message à envoyer"
-            [placeholder]="placeholder"
+            [placeholder]="blockTypeText ? 'Veuillez choisir parmis les choix ci-dessus' : placeholder"
             #message
             [formControl]="messageText"
             (keydown.enter)="onSubmit()"
