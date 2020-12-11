@@ -12,6 +12,7 @@ const ACCESSIBILITY_NAME = 'chat_accessibility';
 export class WebchatService {
 
   private _url;
+  private _initPayload: string;
 
   private _socket;
   private _storage;
@@ -24,6 +25,7 @@ export class WebchatService {
 
   public connect(url: string, path: string, initPayload: string) {
     this._url = url;
+    this._initPayload = initPayload;
     this._socket = io(url, {
       path,
       transports: ['websocket']
@@ -66,7 +68,11 @@ export class WebchatService {
 
     this._socket.on('bot_uttered', (message: any) => {
       if (message.custom) {
-        this.setBlockText(!message.custom.activate_text);
+        if (message.custom.restart) {
+          this.sendMessage(this._initPayload);
+        } else if (typeof message.custom.activate_text !== 'undefined') {
+          this.setBlockText(!message.custom.activate_text);
+        }
       } else {
         this._messages$.next(message);
       }
