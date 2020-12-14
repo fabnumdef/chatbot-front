@@ -42,4 +42,9 @@ export class ChatSideMenuComponent implements OnInit {
     this.webchatService.sendMessage(this.initPayload);
   }
 
+  fullConversation() {
+    this.webchatService.sendMessage('/restart');
+    this.webchatService.sendMessage('/send_full_tree');
+  }
+
 }

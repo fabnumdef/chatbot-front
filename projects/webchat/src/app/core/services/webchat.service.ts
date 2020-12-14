@@ -19,6 +19,7 @@ export class WebchatService {
 
   private _messages$ = new BehaviorSubject(null);
   private _blockText$ = new BehaviorSubject(null);
+  private _delay$ = new BehaviorSubject(2000);
 
   constructor(private _http: HttpClient) {
   }
@@ -67,11 +68,20 @@ export class WebchatService {
     });
 
     this._socket.on('bot_uttered', (message: any) => {
+      console.log(message);
       if (message.custom) {
         if (message.custom.restart) {
           this.sendMessage(this._initPayload);
         } else if (typeof message.custom.activate_text !== 'undefined') {
           this.setBlockText(!message.custom.activate_text);
+        } else if (message.custom.conversation) {
+          this._delay$.next(0);
+          message.custom.conversation.forEach(m => {
+            this._messages$.next(m);
+          });
+          setTimeout(() => {
+            this._delay$.next(2000);
+          }, 5000);
         }
       } else {
         this._messages$.next(message);
@@ -88,6 +98,10 @@ export class WebchatService {
 
   public getMessages(): Observable<any[]> {
     return this._messages$;
+  }
+
+  public getDelay(): number {
+    return this._delay$.getValue();
   }
 
   public storeConversation(conversation) {

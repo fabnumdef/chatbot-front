@@ -118,25 +118,25 @@ export class ChatWidgetComponent implements OnInit {
       .pipe(
         filter(m => !!m),
         concatMap(m => of(m).pipe(
-          delay(2000),
+          delay(this.chatService.getDelay()),
           tap((message: any) => {
             // console.log(message);
             if (message.text && (!message.quick_replies || message.quick_replies.length < 1)) {
-              this.addMessage(message.text, MessageType.text, 'received');
+              this.addMessage(message.text, MessageType.text, message.from ? message.from : 'received');
             } else if (message.text && message.quick_replies && message.quick_replies.length > 0
               && this._isPayloadQuickReply(message.quick_replies[0].payload)) {
-              this.addMessage(message.text, MessageType.quick_reply, 'received', message.quick_replies);
+              this.addMessage(message.text, MessageType.quick_reply, message.from ? message.from : 'received', message.quick_replies);
               setTimeout(() => {
                 this._focusQuickReplies();
               }, 0);
             } else if (message.text && message.quick_replies && message.quick_replies.length > 0
               && !this._isPayloadQuickReply(message.quick_replies[0].payload)) {
-              this.addMessage(message.text, MessageType.button, 'received', message.quick_replies);
+              this.addMessage(message.text, MessageType.button, message.from ? message.from : 'received', message.quick_replies);
               setTimeout(() => {
                 this._focusQuickReplies();
               }, 0);
             } else if (message.attachment) {
-              this.addMessage(message.attachment?.payload?.src, MessageType.image, 'received');
+              this.addMessage(message.attachment?.payload?.src, MessageType.image, message.from ? message.from : 'received');
             }
             this.showTyping = false;
             this.notificationSound.play();
