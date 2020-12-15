@@ -3,6 +3,7 @@ import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { WebchatService } from '../core/services/webchat.service';
 import { MessageType } from '../core/enums/message-type.enum';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-chat-input',
@@ -24,11 +25,12 @@ export class ChatInputComponent implements OnInit {
       this.messageText.disable();
     } else if (this.messageText) {
       this.messageText.enable();
+      this.focus.next(true);
     }
   }
 
   @Input() public showIntentSearch: boolean;
-  @Input() public focus = new EventEmitter();
+  @Input() public focus: Subject<boolean>;
   @Output() public send = new EventEmitter();
   @ViewChild('message') message: ElementRef;
   messageText: FormControl;
@@ -105,7 +107,10 @@ export class ChatInputComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit($event?: any) {
+    if ($event) {
+      $event.preventDefault();
+    }
     if (this.messageText.value.trim() === '') {
       return;
     }

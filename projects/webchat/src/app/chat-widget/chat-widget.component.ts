@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { fadeIn, fadeInOut } from '../core/animation';
 import { of, Subject } from 'rxjs';
 import { concatMap, delay, filter, tap } from 'rxjs/operators';

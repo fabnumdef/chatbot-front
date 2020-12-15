@@ -68,7 +68,6 @@ export class WebchatService {
     });
 
     this._socket.on('bot_uttered', (message: any) => {
-      console.log(message);
       if (message.custom) {
         if (message.custom.restart) {
           this.sendMessage(this._initPayload);

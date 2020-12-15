@@ -20,7 +20,7 @@
             [placeholder]="blockTypeText ? 'Veuillez choisir parmis les choix ci-dessus' : placeholder"
             #message
             [formControl]="messageText"
-            (keydown.enter)="onSubmit()"
+            (keydown.enter)="onSubmit($event)"
             (keyup.enter)="messageText.setValue('')">
   </textarea>
   <button type="submit"
