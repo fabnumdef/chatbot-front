@@ -121,6 +121,7 @@
     bottom: 33px;
     cursor: pointer;
     height: 20px;
+    align-items: center;
 
     & > * {
       transition: fill 0.2s ease-in-out;
@@ -129,6 +130,10 @@
     svg {
       height: 20px;
     }
+  }
+
+  &-feedback-wrong {
+    margin-top: 10px;
   }
 
   &-date {
