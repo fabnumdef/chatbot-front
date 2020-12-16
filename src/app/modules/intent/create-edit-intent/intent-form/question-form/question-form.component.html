@@ -31,6 +31,9 @@
       <mat-error *ngIf="controls.id.hasError('maxLength')">
         L'identifiant est trop long, il doit faire au maximum 100 caractères.
       </mat-error>
+      <mat-error *ngIf="controls.id.hasError('exists')">
+        L'identifiant existe déjà, impossible d'un créer un identique.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
