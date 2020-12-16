@@ -74,7 +74,9 @@ export class ChatWidgetComponent implements OnInit {
     };
     this.messages.unshift(message);
     this.chatService.storeConversation(this.messages);
-    this.scrollToBottom();
+    if (this.chatService.getDelay() > 1) {
+      this.scrollToBottom();
+    }
   }
 
   public scrollToBottom() {

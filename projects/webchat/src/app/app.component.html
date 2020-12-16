@@ -2,7 +2,7 @@
      [ngStyle]="{'height': chatbotHeight + 'px'}">
   <app-chat-widget [socketUrl]="window.location.origin"
                    [botAvatar]="window.location.origin + '/media/'  + configService.config.icon"
-                   [companyLogo]="window.location.origin + '/media/'  + configService.config.embeddedIcon"
+                   [companyLogo]="configService.config.embeddedIcon ? window.location.origin + '/media/'  + configService.config.embeddedIcon : null"
                    [botName]="configService.config.name"
                    [botSubtitle]="configService.config.function"
                    [botColor]="configService.config.primaryColor"
