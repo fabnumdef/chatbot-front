@@ -246,7 +246,7 @@ export class ChatWidgetComponent implements OnInit {
   }
 
   public urlify(text) {
-    const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=;]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=;]*)/gi;
+    const urlRegex = /(?<!href=")https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=;]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=;]*)/gi;
     return text.replace(urlRegex, (url) => {
       return '<a href="' + url + '" target="_blank">' + url + '</a>';
     });

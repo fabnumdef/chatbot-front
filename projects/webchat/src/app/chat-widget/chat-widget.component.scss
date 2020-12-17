@@ -242,6 +242,10 @@ Received message style
     margin-left: 50px;
     border-top-left-radius: 0;
     width: fit-content;
+
+    ::ng-deep a {
+      color: inherit;
+    }
   }
 
   .chat-message-image, .chat-message-quick-replies, .chat-message-buttons {
