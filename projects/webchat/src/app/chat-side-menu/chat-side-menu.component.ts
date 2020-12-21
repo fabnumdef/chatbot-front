@@ -21,9 +21,13 @@ export class ChatSideMenuComponent implements OnInit {
   @Input() public showRebootBtn: boolean;
 
   constructor(private _dialog: MatDialog,
-              public webchatService: WebchatService) { }
+              public webchatService: WebchatService) {
+  }
 
   ngOnInit(): void {
+    if (this.botName === 'Vaccin COVID') {
+      this.webchatService.setAccessibility(true);
+    }
   }
 
   showHelpModal() {

@@ -80,7 +80,7 @@ export class WebchatService {
           });
           setTimeout(() => {
             this._delay$.next(2000);
-          }, 5000);
+          }, 10000);
         }
       } else {
         this._messages$.next(message);

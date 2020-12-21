@@ -33,7 +33,7 @@
       </button>
     </ng-container>
     <div class="chat-side-menu-divider"></div>
-    <div class="chat-side-menu-accessibility">
+    <div class="chat-side-menu-accessibility" *ngIf="botName !== 'Vaccin COVID'">
       <mat-slide-toggle [checked]="webchatService.accessibility"
                         (change)="webchatService.setAccessibility($event.checked)"
                         [labelPosition]="'before'"
