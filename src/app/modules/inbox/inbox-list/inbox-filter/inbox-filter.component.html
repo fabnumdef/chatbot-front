@@ -81,6 +81,13 @@
     </div>
 
     <mat-checkbox formControlName="assignedTo"
-                  data-cy="InboxFilterAssigned">Requêtes assignées</mat-checkbox>
+                  data-cy="InboxFilterAssigned">
+      Mes requêtes assignées
+    </mat-checkbox>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <mat-checkbox formControlName="assignedToAll"
+                  *appHasRole="'admin'">
+      Toutes les requêtes assignées
+    </mat-checkbox>
   </form>
 </div>
