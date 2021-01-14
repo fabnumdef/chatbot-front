@@ -117,6 +117,7 @@
                          maxlength="20"
                          [disabled]="customizationForm.disabled"
                          [colorPicker]="customizationControls.primaryColor.value"
+                         [cpPosition]="'top'"
                          [style.background]="customizationControls.primaryColor.value"
                          (colorPickerChange)="customizationControls.primaryColor.setValue($event); customizationControls.primaryColor.markAsDirty()"/>
                 </div>
@@ -132,6 +133,7 @@
                          class="colorpicker color-picker-icon"
                          maxlength="20"
                          [disabled]="customizationForm.disabled"
+                         [cpPosition]="'top'"
                          [colorPicker]="customizationControls.secondaryColor.value"
                          [style.background]="customizationControls.secondaryColor.value"
                          (colorPickerChange)="customizationControls.secondaryColor.setValue($event); customizationControls.secondaryColor.markAsDirty()"/>

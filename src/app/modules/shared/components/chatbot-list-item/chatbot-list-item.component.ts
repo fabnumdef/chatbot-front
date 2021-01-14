@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { detailInOutAnimation } from './chatbot-list-item.animation';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-chatbot-list-item',
@@ -7,6 +6,10 @@ import { detailInOutAnimation } from './chatbot-list-item.animation';
   styleUrls: ['./chatbot-list-item.component.scss']
 })
 export class ChatbotListItemComponent implements OnInit {
+
+  @Input() checkable = false;
+  @Input() checked: boolean;
+  @Output() checkedClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor() {
   }

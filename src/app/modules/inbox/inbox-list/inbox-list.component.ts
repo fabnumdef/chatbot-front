@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { Inbox } from '@model/inbox.model';
 import { InboxService } from '@core/services/inbox.service';
 import { PaginationHelper } from '@model/pagination-helper.model';
@@ -12,6 +12,8 @@ import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/
 import { ConfigService } from '@core/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { InboxAssignationDialogComponent } from './inbox-assignation-dialog/inbox-assignation-dialog.component';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-inbox-list',
@@ -31,6 +33,7 @@ export class InboxListComponent implements OnInit {
   inboxStatus_Fr = InboxStatus_Fr;
   inboxIntent: number;
   inboxPreview: number;
+  multipleSelection: number[] = [];
 
   constructor(public inboxService: InboxService,
               private _toastr: ToastrService,
@@ -45,6 +48,10 @@ export class InboxListComponent implements OnInit {
     this.inboxes$ = this.inboxService.entities$;
     this.users$ = this._userService.entities$;
     this.pagination = this.inboxService.pagination;
+
+    this.inboxes$.subscribe(() => {
+      this.multipleSelection = [];
+    });
   }
 
   getDiffDate(inbox: Inbox) {
@@ -81,6 +88,7 @@ export class InboxListComponent implements OnInit {
   archiveInbox(inbox: Inbox) {
     this.inboxService.delete(inbox).subscribe(() => {
       this._toastr.success(`La requête a été archivée.`);
+      this._removeInboxFromSelection(inbox.id);
       this._reloadInbox();
     });
   }
@@ -88,12 +96,13 @@ export class InboxListComponent implements OnInit {
   validateInbox(inbox: Inbox) {
     this.inboxService.validate(inbox).subscribe(() => {
       this._toastr.success(`La requête a été validée et archivée.`);
+      this._removeInboxFromSelection(inbox.id);
       this._reloadInbox();
     });
   }
 
   assignationChange(user: User, inbox: Inbox) {
-    if (!user) {
+    if (user === undefined) {
       return;
     }
     this.inboxService.assign(inbox, user).subscribe(() => {
@@ -114,10 +123,60 @@ export class InboxListComponent implements OnInit {
     return user1?.email === user2?.email;
   }
 
+  selectAll() {
+    if (this.multipleSelection.length < this.inboxes$.getValue().length) {
+      this.multipleSelection = this.inboxes$.getValue().map(i => i.id);
+    } else {
+      this.multipleSelection = [];
+    }
+  }
+
+  deleteAll() {
+    const dialogRef = this._dialog.open(ConfirmDialogComponent, {
+      data: {
+        message: `Êtes-vous sûr de vouloir archiver <b>${this.multipleSelection.length}</b> requêtes ?
+<br/>Cette action est irréversible.`
+      },
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed()
+      .pipe(filter(r => !!r))
+      .subscribe(() => {
+        const tasks$ = [];
+        this.multipleSelection.forEach(inboxId => {
+          // @ts-ignore
+          tasks$.push(this.inboxService.delete({id: inboxId}));
+        });
+        forkJoin(tasks$).subscribe((results) => {
+          this._toastr.success(`${results.length} requête(s) ont été archivées.`);
+          this.multipleSelection.forEach(inboxId => {
+            this._removeInboxFromSelection(inboxId);
+          });
+          this.multipleSelection = [];
+          this._reloadInbox();
+        });
+      });
+  }
+
+  updateMultipleSelection(checked, inboxId) {
+    if (checked) {
+      this.multipleSelection.push(inboxId);
+    } else {
+      this._removeInboxFromSelection(inboxId);
+    }
+  }
+
   private _reloadInbox() {
     if (this.inboxes$.value.length < 1) {
       this.inboxService.reload();
     }
   }
 
+  private _removeInboxFromSelection(inboxId) {
+    const index = this.multipleSelection.indexOf(inboxId);
+    if (index > -1) {
+      this.multipleSelection.splice(index, 1);
+    }
+  }
 }

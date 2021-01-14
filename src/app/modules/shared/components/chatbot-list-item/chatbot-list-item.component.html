@@ -10,10 +10,25 @@
         </ng-content>
       </div>
       <div class="title-wrapper">
-        <ng-content select=".title">
-        </ng-content>
-        <ng-content select=".hint">
-        </ng-content>
+        <div *ngIf="checkable; else nonCheckable" class="check-wrapper">
+          <mat-checkbox color="primary"
+                        #checkableCheckbox
+                        [checked]="checked"
+                        (change)="checkedClicked.emit(checkableCheckbox.checked)">
+          </mat-checkbox>
+          <div>
+            <ng-content select=".title">
+            </ng-content>
+            <ng-content select=".hint">
+            </ng-content>
+          </div>
+        </div>
+        <ng-template #nonCheckable>
+          <ng-content select=".title">
+          </ng-content>
+          <ng-content select=".hint">
+          </ng-content>
+        </ng-template>
         <ng-content select=".subtitle">
         </ng-content>
       </div>

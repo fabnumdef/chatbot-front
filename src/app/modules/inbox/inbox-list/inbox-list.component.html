@@ -4,17 +4,39 @@
   <div class="empty-list" *ngIf="!(loading$ | async) && (inboxes$ | async).length < 1">
     Aucun message à traiter.
   </div>
-  <div class="chatbot-list">
-    <div class="pagination-info"
-         *ngIf="pagination"
-         data-cy="PaginationInfo">
-      {{ (pagination.currentPage - 1) * pagination.size + 1}}
-      - {{ (pagination.currentPage - 1) * pagination.size + pagination.itemCount }} sur {{ pagination.totalElements }}
-      questions
+  <div class="chatbot-list" *ngIf="(inboxes$ | async).length > 0">
+    <div class="chatbot-list-actions">
+      <div class="chatbot-list-actions-buttons">
+        <button mat-icon-button
+                class="chatbot-icon-btn"
+                aria-label="Sélectionner / desélectionner toutes les requêtes"
+                (click)="selectAll()"
+                [matTooltip]="'Sélectionner toutes les requêtes'">
+          <mat-icon>check_box</mat-icon>
+        </button>
+        <button mat-icon-button
+                class="chatbot-icon-btn"
+                aria-label="Archiver toutes les requêtes sélectionnées"
+                [disabled]="!multipleSelection || multipleSelection.length < 1"
+                (click)="deleteAll()"
+                [matTooltip]="'Archiver les requêtes sélectionnées'">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <mat-divider vertical></mat-divider>
+      <div class="pagination-info"
+           *ngIf="pagination"
+           data-cy="PaginationInfo">
+        {{ (pagination.currentPage - 1) * pagination.size + 1}}
+        - {{ (pagination.currentPage - 1) * pagination.size + pagination.itemCount }} sur {{ pagination.totalElements }}
+        questions
+      </div>
     </div>
     <div *ngFor="let inbox of inboxes$ | async"
          data-cy="InboxItem">
-      <app-chatbot-list-item>
+      <app-chatbot-list-item [checkable]="true"
+                             [checked]="multipleSelection.includes(inbox.id)"
+                             (checkedClicked)="updateMultipleSelection($event, inbox.id)">
         <div class="badge-staked" [ngClass]="getBadgeClass(inbox.status)">
           {{ inboxStatus_Fr[inbox.status] }}
         </div>
@@ -25,7 +47,8 @@
           Posté il y a {{ getDiffDate(inbox) }}
         </div>
         <div class="subtitle">
-          <mat-icon color="primary">link</mat-icon>&nbsp;<span data-cy="InboxIntent">{{ inbox.intent?.mainQuestion }}</span>
+          <mat-icon color="primary">link</mat-icon>&nbsp;<span
+          data-cy="InboxIntent">{{ inbox.intent?.mainQuestion }}</span>
         </div>
 
         <mat-form-field appearance="outline"
@@ -35,12 +58,17 @@
                       [value]="inbox.user"
                       data-cy="InboxAssignedSelector"
                       [compareWith]="compareByEmails">
+            <mat-option [value]="null">
+              <mat-icon>delete</mat-icon>
+              Aucun
+            </mat-option>
             <mat-option [value]="user" *ngFor="let user of users$ | async">
               {{ user.firstName }} {{ user.lastName }} <span class="primary-color">{{ user.role }}</span>
             </mat-option>
-            <mat-option [value]="null"
+            <mat-option [value]="undefined"
                         (click)="assignationExtern(inbox)">
-              <mat-icon>mail</mat-icon> Personne extérieure
+              <mat-icon>mail</mat-icon>
+              Personne extérieure
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -94,6 +122,6 @@
       </app-chatbot-list-item>
     </div>
     <app-pagination [pagination]="pagination"
-                    (changePage)="inboxService.load($event).subscribe()"></app-pagination>
+                    (changePage)="inboxService.load($event).subscribe();"></app-pagination>
   </div>
 </div>

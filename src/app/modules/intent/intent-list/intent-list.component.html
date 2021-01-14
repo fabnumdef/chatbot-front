@@ -25,13 +25,38 @@
     Aucune connaissances.
   </div>
   <div class="chatbot-list" *ngIf="(intents$ | async).length > 0">
-    <div class="pagination-info" *ngIf="pagination">
-      {{ (pagination.currentPage - 1) * pagination.size + 1}}
-      - {{ (pagination.currentPage - 1) * pagination.size + pagination.itemCount }} sur {{ pagination.totalElements }}
-      connaissances
+    <div class="chatbot-list-actions">
+      <div class="chatbot-list-actions-buttons">
+        <button mat-icon-button
+                class="chatbot-icon-btn"
+                aria-label="Sélectionner / desélectionner toutes les connaissances"
+                (click)="selectAll()"
+                [matTooltip]="'Sélectionner toutes les requêtes'">
+          <mat-icon>check_box</mat-icon>
+        </button>
+        <button mat-icon-button
+                class="chatbot-icon-btn"
+                aria-label="Supprimer toutes les connaissances sélectionnées"
+                [disabled]="!multipleSelection || multipleSelection.length < 1"
+                (click)="deleteAll()"
+                [matTooltip]="'Supprimer les connaissances sélectionnées'">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <mat-divider vertical></mat-divider>
+      <div class="pagination-info"
+           *ngIf="pagination"
+           data-cy="PaginationInfo">
+        {{ (pagination.currentPage - 1) * pagination.size + 1}}
+        - {{ (pagination.currentPage - 1) * pagination.size + pagination.itemCount }} sur {{ pagination.totalElements }}
+        connaissances
+      </div>
     </div>
     <div *ngFor="let intent of intents$ | async">
-      <app-chatbot-list-item>
+
+      <app-chatbot-list-item [checkable]="true"
+                             [checked]="multipleSelection.includes(intent.id)"
+                             (checkedClicked)="updateMultipleSelection($event, intent.id)">
         <div class="badge badge-primary"
              *ngIf="intent.category">
           {{ intent.category }}

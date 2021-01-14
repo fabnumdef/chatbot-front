@@ -112,7 +112,8 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
       this.filteredIntents$.next(this.intents.slice());
       return;
     } else {
-      keywords = search.toLowerCase().split(' ');
+      // remove accent & special chars
+      keywords = search.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().split(' ');
     }
     // filter the intents
     this.filteredIntents$.next(
@@ -120,6 +121,7 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
         let find = true;
         for (const k of keywords) {
           find = (`${intent.category ? `${intent.category} - ` : ''}${intent.mainQuestion ? intent.mainQuestion : intent.id}`)
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
             .toLowerCase().indexOf(k) > -1;
           if (!find) {
             break;
