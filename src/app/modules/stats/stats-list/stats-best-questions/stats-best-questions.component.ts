@@ -18,21 +18,15 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   chartOptions = {
-    // responsive: true,
+    responsive: true,
     maintainAspectRatio: false,
     legend: {
-      display: false,
-    },
-    legendCallback: chart => {
-      let html = '<ul>';
-      chart.data.datasets.forEach((ds, i) => {
-        html += '<li class="legend-chart">' +
-          '<span style="background-color:' + ds.backgroundColor + ';"></span>' +
-          '<span id="legend-label-' + i + '">' +
-          (Array.isArray(ds.label) ? ds.label.join('<br/>') : ds.label) + '</span>' +
-          '</li>';
-      });
-      return html + '</ul>';
+      display: true,
+      position: 'bottom',
+      labels: {
+        padding: 10,
+        usePointStyle: true
+      }
     },
     scales: {
       yAxes: [
@@ -88,13 +82,6 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
 
   async updateChart() {
     this.chart.chart.update(); // This re-renders the canvas element.
-    // @ts-ignore
-    document.getElementsByClassName('legend').item(0).innerHTML = this.chart.chart.generateLegend();
-    const legendTags = document.getElementsByClassName('legend-chart');
-    for (let i = 0; i < legendTags.length; i++) {
-      // @ts-ignore
-      legendTags[i].addEventListener('click', this.onLegendClicked, false);
-    }
   }
 
   downloadCanvasBest(event) {
@@ -109,15 +96,5 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
     const btn: HTMLElement = document.getElementById('downloadBestQuestBtn');
     btn.click();
   }
-
-  onLegendClicked = (e) => {
-    const id = e.target.id;
-    const index = id.split('-')[2];
-    const hidden = !this.chart.chart.data.datasets[index].hidden;
-    this.chart.chart.data.datasets[index].hidden = hidden;
-    const legendLabelSpan = document.getElementById('legend-label-' + index);
-    legendLabelSpan.style.textDecoration = hidden ? 'line-through' : '';
-    this.chart.chart.update();
-  };
 }
 

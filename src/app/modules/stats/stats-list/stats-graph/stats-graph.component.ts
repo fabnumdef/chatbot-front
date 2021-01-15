@@ -113,7 +113,6 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
   getGraph(dates) {
     this.startDate = dates?.startDate ? moment(dates.startDate, 'DD/MM/yyyy').toDate() : moment().subtract(1, 'month').toDate();
     this.endDate = dates?.endDate ? moment(dates.endDate, 'DD/MM/yyyy').toDate() : moment().toDate();
-
     if (this.startDate > this.endDate) {
       this.startDate = this.endDate;
     }
@@ -145,7 +144,7 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
   }
 
   private _fillDataset(dataset: any, elem: any) {
-    const position = this.chartLabels.indexOf(elem.date) + 1;
+    const position = this.chartLabels.indexOf(elem.date);
     dataset.data[position] = Number(elem.count);
   }
 
@@ -156,7 +155,8 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
     this._datasetIntents.data = [];
     this._datasetFeedbacks.data = [];
     this.chartLabels = [];
-    while (current <= (end ? end : this.endDate)) {
+    end = moment(end).set({hour: 0, minute: 0, second: 0, millisecond: 0});
+    while (moment(current).set({hour: 0, minute: 0, second: 0, millisecond: 0}).diff(end, 'days') <= 0) {
       // Warning on this string
       this.chartLabels.push(current.toLocaleDateString('en-US'));
       this._datasetQuestions.data.push(0);
