@@ -46,36 +46,21 @@ export class ConfigService {
     if (partialConfig.icon) {
       formData.append('icon', partialConfig.icon, partialConfig.icon.name);
     }
-    if (partialConfig.name) {
-      formData.append('name', partialConfig.name);
-    }
-    if (partialConfig.function) {
-      formData.append('function', partialConfig.function);
-    }
-    if (partialConfig.primaryColor) {
-      formData.append('primaryColor', partialConfig.primaryColor);
-    }
-    if (partialConfig.secondaryColor) {
-      formData.append('secondaryColor', partialConfig.secondaryColor);
-    }
-    if (partialConfig.problematic) {
-      formData.append('problematic', partialConfig.problematic);
-    }
-    if (partialConfig.audience) {
-      formData.append('audience', partialConfig.audience);
-    }
     if (partialConfig.embeddedIcon) {
       formData.append('embeddedIcon', partialConfig.embeddedIcon, partialConfig.embeddedIcon.name);
     }
-    if (partialConfig.description) {
-      formData.append('description', partialConfig.description);
-    }
-    if (partialConfig.help) {
-      formData.append('help', partialConfig.help);
-    }
-    if (partialConfig.storage) {
+    if (partialConfig.storage !== undefined) {
       formData.append('storage', partialConfig.storage.toString());
     }
+    if (partialConfig.showIntentSearch !== undefined) {
+      formData.append('showIntentSearch', partialConfig.showIntentSearch.toString());
+    }
+    ['name', 'function', 'primaryColor', 'secondaryColor', 'problematic', 'audience',
+      'description', 'help', 'helpBtn'].forEach(attribute => {
+      if (partialConfig[attribute]) {
+        formData.append(attribute, partialConfig[attribute]);
+      }
+    });
 
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');

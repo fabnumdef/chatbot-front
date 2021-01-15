@@ -15,6 +15,7 @@ export class Config {
   embeddedIcon: string;
   description: string;
   help: string;
+  helpBtn: string;
 
   // DESCRIPTION
   problematic: string;

@@ -151,6 +151,7 @@ export class ChatbotConfigComponent extends DestroyObservable implements OnInit 
     this.embeddedForm = this._fb.group({
       embeddedIcon: [this.chatbotConfig.embeddedIcon, [Validators.maxLength(50)]],
       description: [this.chatbotConfig.description, [Validators.maxLength(255)]],
+      helpBtn: [this.chatbotConfig.helpBtn, [Validators.maxLength(20)]],
       help: [this.chatbotConfig.help, [Validators.maxLength(500)]],
     });
     this.descriptionForm = this._fb.group({

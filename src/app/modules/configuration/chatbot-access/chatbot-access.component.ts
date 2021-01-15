@@ -16,7 +16,7 @@ export class ChatbotAccessComponent implements OnInit {
 <div id="webchat"></div>
 <script>
   Webchat.init({
-    // Obligatory
+    // Mandatory
     botURL: '${window.location.origin}/chatbot',
     // Optionnal
     chatWidth: '300px',

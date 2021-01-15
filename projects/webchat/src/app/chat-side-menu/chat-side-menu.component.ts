@@ -14,6 +14,7 @@ export class ChatSideMenuComponent implements OnInit {
   @Input() public botAvatar: string;
   @Input() public companyLogo: string;
   @Input() public botDescription: string;
+  @Input() public botHelpBtn: string;
   @Input() public botHelp: string;
   @Input() public botColor: string;
   @Input() public isMobileSize: boolean;
