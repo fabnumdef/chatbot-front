@@ -18,6 +18,8 @@ const browser = (function(agent) {
     // @ts-ignore
     case agent.indexOf('chrome') > -1 && !!window.chrome:
       return 'chrome';
+    case agent.indexOf('trident/7') > -1:
+      return 'ie11';
     case agent.indexOf('trident') > -1:
       return 'ie';
     case agent.indexOf('firefox') > -1:
