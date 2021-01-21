@@ -32,7 +32,7 @@ const browser = (function(agent) {
 })(window.navigator.userAgent.toLowerCase());
 console.log(browser);
 
-if (['ie', 'safari'].includes(browser)) {
+if (['ie'].includes(browser)) {
   document.getElementById('old-browsers').style.display = 'flex';
 } else {
   platformBrowserDynamic().bootstrapModule(AppModule).then(ref => {
