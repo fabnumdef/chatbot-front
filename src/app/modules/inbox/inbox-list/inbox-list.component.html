@@ -11,8 +11,9 @@
                 class="chatbot-icon-btn"
                 aria-label="Sélectionner / desélectionner toutes les requêtes"
                 (click)="selectAll()"
-                [matTooltip]="'Sélectionner toutes les requêtes'">
-          <mat-icon>check_box</mat-icon>
+                [matTooltip]="(multipleSelection.length >= inboxes$.getValue().length) ? 'Désélectionner toutes les requêtes' : 'Sélectionner toutes les requêtes'">
+          <mat-icon *ngIf="multipleSelection.length > 0">check_box</mat-icon>
+          <mat-icon *ngIf="multipleSelection.length < 1">check_box_outline_blank</mat-icon>
         </button>
         <button mat-icon-button
                 class="chatbot-icon-btn"
