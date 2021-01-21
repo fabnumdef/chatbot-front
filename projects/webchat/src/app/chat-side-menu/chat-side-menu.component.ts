@@ -36,6 +36,7 @@ export class ChatSideMenuComponent implements OnInit {
       width: '500px',
       data: {
         primaryColor: this.botColor,
+        botHelpBtn: this.botHelpBtn,
         botHelp: this.botHelp
       },
       autoFocus: false
