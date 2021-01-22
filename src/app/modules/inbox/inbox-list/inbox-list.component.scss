@@ -12,11 +12,16 @@
     & > * {
       margin-bottom: 20px;
       align-items: center;
+
+      ::ng-deep .chatbot-list-item .body {
+        cursor: pointer;
+      }
     }
 
     &-actions {
       display: flex;
       align-items: center;
+      justify-content: space-between;
 
       .mat-divider {
         height: 30px;

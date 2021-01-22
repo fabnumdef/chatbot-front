@@ -1,0 +1,27 @@
+<div class="stats-best-categories">
+  <div class="chatbot-title">
+    <h3>Catégories de questions les plus posées</h3>
+  </div>
+
+  <div class="barchart" *ngIf="chartData">
+    <canvas
+      baseChart
+      [chartType]="'bar'"
+      [datasets]="chartData"
+      [legend]="true"
+      [options]="chartOptions">
+    </canvas>
+  </div>
+
+  <button mat-stroked-button
+          class="downloadButton"
+          color="accent"
+          type="button"
+          (click)="download()">
+    <mat-icon>get_app</mat-icon>
+    Exporter le graphique
+  </button>
+
+  <a href="#" id="downloadBestCategoriesBtn" (click)="downloadCanvasBest($event)" hidden>Télécharger le graphique</a>
+
+</div>

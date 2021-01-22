@@ -24,10 +24,15 @@
           <mat-icon>delete</mat-icon>
         </button>
       </div>
-      <mat-divider vertical></mat-divider>
       <div class="pagination-info"
            *ngIf="pagination"
            data-cy="PaginationInfo">
+        <button mat-icon-button [matMenuTriggerFor]="selectPaginationElements">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #selectPaginationElements="matMenu">
+          <app-select-pagination-elements (itemsPerPageChanged)="inboxService.reload()"></app-select-pagination-elements>
+        </mat-menu>
         {{ (pagination.currentPage - 1) * pagination.size + 1}}
         - {{ (pagination.currentPage - 1) * pagination.size + pagination.itemCount }} sur {{ pagination.totalElements }}
         questions
@@ -37,11 +42,12 @@
          data-cy="InboxItem">
       <app-chatbot-list-item [checkable]="true"
                              [checked]="multipleSelection.includes(inbox.id)"
-                             (checkedClicked)="updateMultipleSelection($event, inbox.id)">
+                             (checkedClicked)="updateMultipleSelection($event, inbox.id)"
+                             (cardClicked)="selectInbox(inbox.id, true)">
         <div class="badge-staked" [ngClass]="getBadgeClass(inbox.status)">
           {{ inboxStatus_Fr[inbox.status] }}
         </div>
-        <div class="title" (click)="selectInbox(inbox.id, true)">
+        <div class="title">
           {{ inbox.question }}
         </div>
         <div class="hint">
@@ -56,6 +62,7 @@
                         class="no-margin">
           <mat-label>Assigner à</mat-label>
           <mat-select (valueChange)="assignationChange($event, inbox)"
+                      (click)="$event.stopPropagation()"
                       [value]="inbox.user"
                       data-cy="InboxAssignedSelector"
                       [compareWith]="compareByEmails">
@@ -80,7 +87,7 @@
                   aria-label="Voir la connaissance liée"
                   data-cy="InboxIntentBtn"
                   [color]="inbox.id === inboxIntent ? 'primary' : null"
-                  (click)="selectInbox(inbox.id, true)"
+                  (click)="selectInbox(inbox.id, true); $event.stopPropagation()"
                   [matTooltip]="'Connaissance liée'">
             <mat-icon>link</mat-icon>
           </button>
@@ -89,7 +96,7 @@
                   aria-label="Voir la discussion"
                   data-cy="InboxDicussionBtn"
                   [color]="inbox.id === inboxPreview ? 'primary' : null"
-                  (click)="selectInbox(inbox.id, false)"
+                  (click)="selectInbox(inbox.id, false); $event.stopPropagation()"
                   [matTooltip]="'Voir la discussion'">
             <mat-icon>chat</mat-icon>
           </button>
@@ -98,14 +105,14 @@
                   class="chatbot-icon-btn chatbot-icon-btn-success"
                   data-cy="InboxValidateBtn"
                   [matTooltip]="'Valider la connaissance'"
-                  (click)="validateInbox(inbox)">
+                  (click)="validateInbox(inbox); $event.stopPropagation()">
             <mat-icon>check_circle</mat-icon>
           </button>
           <button mat-icon-button
                   class="chatbot-icon-btn chatbot-icon-btn-error"
                   data-cy="InboxArchiveBtn"
                   [matTooltip]="'Archiver la discussion'"
-                  (click)="archiveInbox(inbox)">
+                  (click)="archiveInbox(inbox); $event.stopPropagation()">
             <mat-icon>delete</mat-icon>
           </button>
         </div>

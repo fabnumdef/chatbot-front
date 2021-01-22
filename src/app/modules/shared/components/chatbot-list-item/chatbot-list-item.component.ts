@@ -10,6 +10,7 @@ export class ChatbotListItemComponent implements OnInit {
   @Input() checkable = false;
   @Input() checked: boolean;
   @Output() checkedClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() cardClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor() {
   }

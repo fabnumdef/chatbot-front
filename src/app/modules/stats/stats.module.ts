@@ -12,6 +12,7 @@ import { StatsBestQuestionsComponent } from './stats-list/stats-best-questions/s
 import { StatsWorstQuestionsComponent } from './stats-list/stats-worst-questions/stats-worst-questions.component';
 import { StatsKpiComponent } from './stats-list/stats-kpi/stats-kpi.component';
 import { ChartsModule } from 'ng2-charts';
+import { StatsBestCategoriesComponent } from './stats-list/stats-best-categories/stats-best-categories.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ChartsModule } from 'ng2-charts';
     StatsGraphComponent,
     StatsBestQuestionsComponent,
     StatsWorstQuestionsComponent,
-    StatsKpiComponent
+    StatsKpiComponent,
+    StatsBestCategoriesComponent
   ],
   imports: [
     CommonModule,

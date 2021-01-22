@@ -7,6 +7,7 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ReversePipe } from './pipes/reverse.pipe';
 import { HasRoleDirective } from './directives/has-role.directive';
+import { SelectPaginationElementsComponent } from './components/select-pagination-elements/select-pagination-elements.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HasRoleDirective } from './directives/has-role.directive';
     PageHeaderComponent,
     PaginationComponent,
     ReversePipe,
-    HasRoleDirective
+    HasRoleDirective,
+    SelectPaginationElementsComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { HasRoleDirective } from './directives/has-role.directive';
     PageHeaderComponent,
     PaginationComponent,
     ReversePipe,
-    HasRoleDirective
+    HasRoleDirective,
+    SelectPaginationElementsComponent
   ]
 })
 export class SharedModule { }

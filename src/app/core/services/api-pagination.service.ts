@@ -18,9 +18,10 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
 
   protected constructor(private _httpClient: HttpClient,
                         protected _u: string,
-                        private _router: Router,
-                        public entitiesByPage: number = 20) {
+                        private _router: Router) {
     super(_httpClient, _u);
+    const entitiesByPage = localStorage.getItem('chatbot_item_per_page') ?
+      parseInt(localStorage.getItem('chatbot_item_per_page'), 10) : 20;
     this._pagination = new PaginationHelper(entitiesByPage);
   }
 
@@ -98,6 +99,11 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
     // }
 
     return {params};
+  }
+
+  public setItemPerPage(items: number) {
+    localStorage.setItem('chatbot_item_per_page', items.toString(10));
+    this._pagination.size = items;
   }
 
   /************************

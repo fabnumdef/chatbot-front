@@ -37,6 +37,12 @@
   </div>
   <div class="chatbot-list" *ngIf="(medias$ | async).length > 0">
     <div class="pagination-info" *ngIf="pagination">
+      <button mat-icon-button [matMenuTriggerFor]="selectPaginationElements">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #selectPaginationElements="matMenu">
+        <app-select-pagination-elements (itemsPerPageChanged)="mediaService.reload()"></app-select-pagination-elements>
+      </mat-menu>
       {{ (pagination.currentPage - 1) * pagination.size + 1}}
       - {{ (pagination.currentPage - 1) * pagination.size + pagination.itemCount }} sur {{ pagination.totalElements }}
       médias

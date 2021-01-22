@@ -1,5 +1,5 @@
 <div class="chatbot-list-item">
-  <div class="body">
+  <div class="body" (click)="cardClicked.emit(true)">
     <div>
       <div class="badges-staked">
         <ng-content select=".badge-staked">
@@ -14,6 +14,7 @@
           <mat-checkbox color="primary"
                         #checkableCheckbox
                         [checked]="checked"
+                        (click)="$event.stopPropagation()"
                         (change)="checkedClicked.emit(checkableCheckbox.checked)">
           </mat-checkbox>
           <div>

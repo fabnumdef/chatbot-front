@@ -44,10 +44,15 @@
           <mat-icon>delete</mat-icon>
         </button>
       </div>
-      <mat-divider vertical></mat-divider>
       <div class="pagination-info"
            *ngIf="pagination"
            data-cy="PaginationInfo">
+        <button mat-icon-button [matMenuTriggerFor]="selectPaginationElements">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #selectPaginationElements="matMenu">
+          <app-select-pagination-elements (itemsPerPageChanged)="intentService.reload()"></app-select-pagination-elements>
+        </mat-menu>
         {{ (pagination.currentPage - 1) * pagination.size + 1}}
         - {{ (pagination.currentPage - 1) * pagination.size + pagination.itemCount }} sur {{ pagination.totalElements }}
         connaissances
@@ -57,7 +62,8 @@
 
       <app-chatbot-list-item [checkable]="true"
                              [checked]="multipleSelection.includes(intent.id)"
-                             (checkedClicked)="updateMultipleSelection($event, intent.id)">
+                             (checkedClicked)="updateMultipleSelection($event, intent.id)"
+                             (cardClicked)="selectIntent(intent.id)">
         <div class="badge badge-primary"
              *ngIf="intent.category">
           {{ intent.category }}
@@ -74,7 +80,7 @@
              *ngIf="intent.status && intent.status !== intentStatus.active">
           {{ intentStatusFr[intent.status] }}
         </div>
-        <div class="title" (click)="selectIntent(intent.id)">
+        <div class="title">
           {{ intent.mainQuestion ? intent.mainQuestion : intent.id }}
         </div>
         <div class="hint">
@@ -89,14 +95,14 @@
                   class="chatbot-icon-btn"
                   aria-label="Modifier la connaissance"
                   [color]="intentsSelected.includes(intent.id) ? 'primary' : null"
-                  (click)="selectIntent(intent.id)"
+                  (click)="selectIntent(intent.id); $event.stopPropagation()"
                   [matTooltip]="'Editer'">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button
                   class="chatbot-icon-btn"
                   aria-label="Archiver la connaissance"
-                  (click)="archiveIntent(intent)"
+                  (click)="archiveIntent(intent); $event.stopPropagation()"
                   [matTooltip]="'Supprimer'">
             <mat-icon>delete</mat-icon>
           </button>

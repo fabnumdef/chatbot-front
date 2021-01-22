@@ -20,10 +20,10 @@
         {{ chatbot.description ? chatbot.description : 'Description du chatbot'}}
       </p>
     </div>
-    <div *ngIf="chatbot.help">
+    <div *ngIf="chatbot.help && chatbot.helpBtn">
       <button mat-stroked-button color="accent" class="small">
         <mat-icon>help_outline</mat-icon>
-        Aide
+        {{ chatbot.helpBtn }}
       </button>
     </div>
   </div>

@@ -26,6 +26,7 @@
     &-actions {
       display: flex;
       align-items: center;
+      justify-content: space-between;
 
       .mat-divider {
         height: 30px;
@@ -40,6 +41,10 @@
     & > * {
       margin-bottom: 20px;
       border-radius: $border-radius;
+
+      ::ng-deep .chatbot-list-item .body {
+        cursor: pointer;
+      }
     }
 
     .actions {

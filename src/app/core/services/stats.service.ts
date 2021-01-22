@@ -29,6 +29,10 @@ export class StatsService  {
     return this._http.post(this._url + '/bestdata', this.currentFilters);
   }
 
+  getBestCategoriesData(): Observable<Object> {
+    return this._http.post(this._url + '/best_categories', this.currentFilters);
+  }
+
   getWorstQuestionsData(): Observable<Object> {
     return this._http.post(this._url + '/worstdata', this.currentFilters);
   }
