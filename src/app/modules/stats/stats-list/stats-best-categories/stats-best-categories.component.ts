@@ -88,7 +88,7 @@ export class StatsBestCategoriesComponent extends DestroyObservable implements O
     const anchor = event.target;
     const name = 'bestCategoriesChart-' + moment(new Date()).format('DDMMYYYYHHmmss') + '.jpg';
     // get the canvas
-    anchor.href = document.getElementsByTagName('canvas')[1].toDataURL();
+    anchor.href = document.getElementsByTagName('canvas')[2].toDataURL();
     anchor.download = name;
   }
 
