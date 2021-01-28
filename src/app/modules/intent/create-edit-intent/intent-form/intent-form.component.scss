@@ -15,8 +15,8 @@
   }
 
   form {
-    .mat-checkbox {
-      ::ng-deep.mat-checkbox-label {
+    .mat-slide-toggle {
+      ::ng-deep.mat-slide-toggle-content {
         display: flex;
         align-items: center;
         height: 59px;

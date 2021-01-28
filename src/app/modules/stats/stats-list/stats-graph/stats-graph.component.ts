@@ -74,23 +74,23 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
   chartLabels = [];
   chartColors = [
     { // first color
-      borderColor: '#40b374',
-      pointBackgroundColor: '#40b374',
+      borderColor: '#22aa6d',
+      pointBackgroundColor: '#22aa6d',
       pointBorderColor: '#fff',
     },
     { // second color
-      borderColor: '#fd9397',
-      pointBackgroundColor: '#fd9397',
+      borderColor: '#f06292',
+      pointBackgroundColor: '#f06292',
       pointBorderColor: '#fff',
     },
     { // third color
-      borderColor: '#ffa642',
-      pointBackgroundColor: '#ffa642',
+      borderColor: '#ef6c00',
+      pointBackgroundColor: '#ef6c00',
       pointBorderColor: '#fff',
     },
     { // fourth color
-      borderColor: '#5436FF',
-      pointBackgroundColor: '#5436FF',
+      borderColor: '#18a0fb',
+      pointBackgroundColor: '#18a0fb',
       pointBorderColor: '#fff',
     }];
 

@@ -7,10 +7,12 @@
     Aucune ou peu de questions synonymes n'ont été ajoutées. Rajouter au moins 2 questions synonymes afin que le chatbot puisse reconnaître cette question.
   </div>
   <form [formGroup]="intentForm" *ngIf="intentForm">
-    <mat-checkbox #expiresCheckbox
-                  color="primary"
-                  [checked]="!!controls.expiresAt.value"
-                  (change)="resetValue('expiresAt')">
+    <mat-slide-toggle
+      matTooltip="Configurez un rappel sur les connaissances nécessitant d'être mis à jour."
+      #expiresCheckbox
+      color="primary"
+      [checked]="!!controls.expiresAt.value"
+      (change)="resetValue('expiresAt')">
       Contenu variable <span *ngIf="expiresCheckbox.checked">&nbsp;jusqu'au</span>
       <mat-form-field appearance="outline"
                       *ngIf="expiresCheckbox.checked"
@@ -20,13 +22,7 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <div class="chatbot-info" *ngIf="expiresCheckbox.checked">
-        <mat-icon>info</mat-icon>
-        <div>
-          Configurez un rappel sur les connaissances nécessitant d'être mis à jour.
-        </div>
-      </div>
-    </mat-checkbox>
+    </mat-slide-toggle>
 
     <mat-accordion [multi]="true">
       <mat-expansion-panel disabled [expanded]="true">

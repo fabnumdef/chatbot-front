@@ -8,16 +8,15 @@
       </mat-expansion-panel-header>
       <form [formGroup]="techForm" *ngIf="techForm">
         <div class="chatbot-subtitle">
-          <h4>Questions suggérées</h4>
+          <h4>Rédaction des questions</h4>
         </div>
-        <mat-radio-group
+        <p>Afficher ou non des suggestions de questions lors de la saisie</p>
+        <mat-slide-toggle
+          color="primary"
           aria-label="Afficher ou masquer les suggestions de questions"
-          labelPosition="before"
-          formControlName="showIntentSearch"
-          color="primary">
-          <mat-radio-button [value]="true">Afficher les suggestions</mat-radio-button>
-          <mat-radio-button [value]="false">Masquer les suggestions</mat-radio-button>
-        </mat-radio-group>
+          formControlName="showIntentSearch">
+          Suggestions de questions
+        </mat-slide-toggle>
         <div class="chatbot-subtitle">
           <h4>Mémoire du chatbot</h4>
         </div>

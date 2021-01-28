@@ -38,6 +38,7 @@
               "src/styles/radio.scss",
               "src/styles/card.scss",
               "src/styles/colorpicker.scss",
+              "src/styles/slide-toggle.scss",
               "node_modules/highlight.js/styles/atom-one-dark.css"
             ],
             "scripts": []
@@ -116,6 +117,7 @@
               "src/styles/radio.scss",
               "src/styles/card.scss",
               "src/styles/colorpicker.scss",
+              "src/styles/slide-toggle.scss",
               "node_modules/highlight.js/styles/atom-one-dark.css"
             ],
             "scripts": []

@@ -1,0 +1,47 @@
+@import 'src/styles/variables';
+
+.mat-slide-toggle {
+  margin-bottom: 5px;
+
+  .mat-slide-toggle-bar {
+    height: 22px;
+    border-radius: 12px;
+    width: 44px;
+
+    .mat-slide-toggle-thumb-container {
+      top: 1px;
+      left: 1px;
+    }
+  }
+
+  &.mat-checked {
+    .mat-slide-toggle-bar {
+      .mat-slide-toggle-thumb-container {
+        transform: translate3d(22px, 0, 0);
+      }
+    }
+  }
+
+  &.mat-primary {
+    &.mat-checked {
+      .mat-slide-toggle-bar {
+        background-color: $primary-color;
+
+        .mat-slide-toggle-thumb-container {
+          .mat-slide-toggle-thumb {
+            background-color: $white;
+          }
+        }
+
+        &:after {
+          content: 'done';
+          font-family: 'Material Icons Outlined';
+          display: inline-block;
+          color: $white;
+          font-weight: 700;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}
