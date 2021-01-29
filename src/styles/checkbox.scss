@@ -1,0 +1,40 @@
+@import 'src/styles/variables';
+
+.mat-checkbox {
+
+  &.chekbox-chip {
+    border: 1px solid $grey;
+    padding: 5px 10px;
+    border-radius: 20px;
+    transition: background-color 0.2s ease-in-out;
+
+    .mat-checkbox-inner-container {
+      display: none;
+    }
+
+    &.mat-checkbox-checked {
+      background-color: $grey-lighter;
+      font-weight: 700;
+
+      .mat-checkbox-inner-container {
+        display: inline-block;
+
+        .mat-checkbox-frame {
+          border: none;
+        }
+
+        .mat-checkbox-background {
+          background-color: transparent;
+
+          .mat-checkbox-checkmark {
+            fill: $black;
+
+            &-path {
+              stroke: $black !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

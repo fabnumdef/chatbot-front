@@ -27,21 +27,24 @@
     </mat-form-field>
 
     <mat-checkbox color="primary"
+                  class="chekbox-chip"
                   formControlName="intentInError">
       Connaissances incomplètes
     </mat-checkbox>
 
     <mat-checkbox color="primary"
+                  class="chekbox-chip"
                   formControlName="hidden">
       Contenu caché
     </mat-checkbox>
 
     <mat-checkbox color="primary"
+                  class="chekbox-chip"
                   formControlName="expires"
                   (change)="controls.expiresAt.reset(null)">
       Contenu variable <span *ngIf="controls.expires.value">&nbsp;jusqu'au</span>
       <mat-form-field appearance="outline"
-                      class="chatbot-datepicker"
+                      class="chatbot-datepicker chatbot-datepicker-compact"
                       *ngIf="controls.expires.value"
                       (click)="$event.preventDefault()">
         <input matInput
