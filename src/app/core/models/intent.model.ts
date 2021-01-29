@@ -7,6 +7,7 @@ export class Intent {
   mainQuestion: string;
   status: IntentStatus;
   category: string;
+  hidden: boolean;
 
   responses: Response[];
   knowledges: Knowledge[];
@@ -21,5 +22,6 @@ export class Intent {
   constructor() {
     this.responses = [new Response()];
     this.knowledges = [];
+    this.hidden = false;
   }
 }

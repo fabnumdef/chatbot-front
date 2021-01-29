@@ -137,7 +137,8 @@ export class IntentFormComponent implements OnInit {
       category: [this.intent.category, [Validators.maxLength(255)]],
       responses: this._fb.array(this._initResponsesForm()),
       knowledges: this._fb.array(this._initKnowledgesForm()),
-      expiresAt: [this.intent.expiresAt]
+      expiresAt: [this.intent.expiresAt],
+      hidden: [this.intent.hidden, [Validators.required]]
     });
 
     if (!['phrase_presentation', 'phrase_hors_sujet'].includes(this.intent.id)) {

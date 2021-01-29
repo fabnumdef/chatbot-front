@@ -69,6 +69,10 @@
           {{ intent.category }}
         </div>
         <div class="badge badge-stroked-primary"
+             *ngIf="intent.hidden">
+          Contenu caché
+        </div>
+        <div class="badge badge-stroked-primary"
              *ngIf="intent.expiresAt">
           Contenu variable
         </div>

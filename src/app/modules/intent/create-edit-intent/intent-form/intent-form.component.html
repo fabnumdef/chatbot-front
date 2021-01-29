@@ -4,9 +4,16 @@
   </div>
   <div *ngIf="!isNewIntent && intent.knowledges.length < 2" class="intent-error">
     <mat-icon color="accent">report_problem</mat-icon>
-    Aucune ou peu de questions synonymes n'ont été ajoutées. Rajouter au moins 2 questions synonymes afin que le chatbot puisse reconnaître cette question.
+    Aucune ou peu de questions synonymes n'ont été ajoutées. Rajouter au moins 2 questions synonymes afin que le chatbot
+    puisse reconnaître cette question.
   </div>
   <form [formGroup]="intentForm" *ngIf="intentForm">
+    <mat-slide-toggle
+      matTooltip="Cacher une connaissance ne la supprime pas de la base de connaissance. Vous pouvez la réactiver à tout moment."
+      color="primary"
+      formControlName="hidden">
+      Contenu caché
+    </mat-slide-toggle>
     <mat-slide-toggle
       matTooltip="Configurez un rappel sur les connaissances nécessitant d'être mis à jour."
       #expiresCheckbox

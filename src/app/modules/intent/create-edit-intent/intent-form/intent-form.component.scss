@@ -16,6 +16,12 @@
 
   form {
     .mat-slide-toggle {
+      display: block;
+
+      &:not(:last-child) {
+        margin-top: 10px;
+      }
+
       ::ng-deep.mat-slide-toggle-content {
         display: flex;
         align-items: center;
