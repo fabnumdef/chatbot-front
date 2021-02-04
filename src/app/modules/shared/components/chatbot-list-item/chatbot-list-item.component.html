@@ -6,12 +6,21 @@
         </ng-content>
       </div>
       <div class="badges">
+        <ng-container *ngIf="checkable && checkboxOnBadges">
+          <mat-checkbox color="primary"
+                        #checkableCheckbox
+                        [checked]="checked"
+                        (click)="$event.stopPropagation()"
+                        (change)="checkedClicked.emit(checkableCheckbox.checked)">
+          </mat-checkbox>
+        </ng-container>
         <ng-content select=".badge">
         </ng-content>
       </div>
       <div class="title-wrapper">
-        <div *ngIf="checkable; else nonCheckable" class="check-wrapper">
+        <div class="check-wrapper">
           <mat-checkbox color="primary"
+                        *ngIf="isCheckboxOnSameLine()"
                         #checkableCheckbox
                         [checked]="checked"
                         (click)="$event.stopPropagation()"
@@ -24,12 +33,6 @@
             </ng-content>
           </div>
         </div>
-        <ng-template #nonCheckable>
-          <ng-content select=".title">
-          </ng-content>
-          <ng-content select=".hint">
-          </ng-content>
-        </ng-template>
         <ng-content select=".subtitle">
         </ng-content>
       </div>

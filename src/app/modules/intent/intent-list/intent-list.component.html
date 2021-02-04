@@ -51,7 +51,8 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #selectPaginationElements="matMenu">
-          <app-select-pagination-elements (itemsPerPageChanged)="intentService.reload()"></app-select-pagination-elements>
+          <app-select-pagination-elements
+            (itemsPerPageChanged)="intentService.reload()"></app-select-pagination-elements>
         </mat-menu>
         {{ (pagination.currentPage - 1) * pagination.size + 1}}
         - {{ (pagination.currentPage - 1) * pagination.size + pagination.itemCount }} sur {{ pagination.totalElements }}
@@ -62,11 +63,13 @@
 
       <app-chatbot-list-item [checkable]="true"
                              [checked]="multipleSelection.includes(intent.id)"
+                             [checkboxOnBadges]="true"
                              (checkedClicked)="updateMultipleSelection($event, intent.id)"
                              (cardClicked)="selectIntent(intent.id)">
-        <div class="badge badge-primary"
+        <div class="badge badge-category"
              *ngIf="intent.category">
           {{ intent.category }}
+          <mat-divider vertical *ngIf="intentHasBadge(intent)"></mat-divider>
         </div>
         <div class="badge badge-stroked-primary"
              *ngIf="intent.hidden">

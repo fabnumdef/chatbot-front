@@ -24,7 +24,7 @@
       <mat-form-field appearance="outline"
                       *ngIf="expiresCheckbox.checked"
                       (click)="$event.preventDefault()"
-                      class="chatbot-datepicker">
+                      class="chatbot-datepicker chatbot-datepicker-compact">
         <input matInput [matDatepicker]="picker" formControlName="expiresAt">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>

@@ -124,6 +124,10 @@ export class IntentListComponent implements OnInit {
     }
   }
 
+  intentHasBadge(intent): boolean {
+    return intent.hidden || intent.expiresAt || this.isIntentInError(intent) || intent.status && intent.status !== IntentStatus.active;
+  }
+
   private _reloadIntent() {
     if (this.intents$.value.length < 1) {
       this.intentService.reload();
