@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { fadeIn, fadeInOut } from '../core/animation';
-import { of, Subject } from 'rxjs';
-import { concatMap, delay, filter, tap } from 'rxjs/operators';
+import { interval, of, Subject } from 'rxjs';
+import { concatMap, delayWhen, filter, tap } from 'rxjs/operators';
 import { WebchatService } from '../core/services/webchat.service';
 import { MessageType } from '../core/enums/message-type.enum';
 import { Feedback, FeedbackStatus } from '../core/models/feedback.model';
@@ -38,6 +38,7 @@ export class ChatWidgetComponent implements OnInit {
   @Input() public blockTypeText = false;
   @Input() public showFeedback = true;
   @Input() public showRebootBtn = false;
+  @Input() public delayBetweenMessages = 2000;
 
   public messageType = MessageType;
   public notificationSound = new Audio('assets/sounds/notification.ogg');
@@ -64,7 +65,7 @@ export class ChatWidgetComponent implements OnInit {
 
   public messages = [];
 
-  public addMessage(text: string, type: MessageType, from: 'received' | 'sent', quick_replies: [] = null, payload = null) {
+  public addMessage(text: string, type: MessageType, from: 'received' | 'sent', quick_replies: [] = null, payload = null, delayTmp = 2000) {
     const message = {
       text,
       type,
@@ -75,7 +76,7 @@ export class ChatWidgetComponent implements OnInit {
     };
     this.messages.unshift(message);
     this.chatService.storeConversation(this.messages);
-    if (this.chatService.getDelay() > 1) {
+    if (delayTmp > 1) {
       this.scrollToBottom();
     }
   }
@@ -115,33 +116,42 @@ export class ChatWidgetComponent implements OnInit {
       avatar: this.botAvatar,
     };
 
+    let delayTmp = this.delayBetweenMessages ? this.delayBetweenMessages : 2000;
     this.chatService
       .getMessages()
       .pipe(
         filter(m => !!m),
         concatMap(m => of(m).pipe(
-          delay(this.chatService.getDelay()),
+          delayWhen((message: any) => {
+            delayTmp = !!message.delay ? message.delay : this.delayBetweenMessages;
+            return interval(delayTmp);
+          }),
           tap((message: any) => {
             // console.log(message);
             if (message.text && (!message.quick_replies || message.quick_replies.length < 1)) {
-              this.addMessage(message.text, MessageType.text, message.from ? message.from : 'received');
+              this.addMessage(message.text, MessageType.text, message.from ? message.from : 'received', null, null, message.delay);
             } else if (message.text && message.quick_replies && message.quick_replies.length > 0
               && this._isPayloadQuickReply(message.quick_replies[0].payload)) {
-              this.addMessage(message.text, MessageType.quick_reply, message.from ? message.from : 'received', message.quick_replies);
+              this.addMessage(message.text, MessageType.quick_reply, message.from ? message.from : 'received',
+                message.quick_replies, null, message.delay);
               setTimeout(() => {
                 this._focusQuickReplies();
               }, 0);
             } else if (message.text && message.quick_replies && message.quick_replies.length > 0
               && !this._isPayloadQuickReply(message.quick_replies[0].payload)) {
-              this.addMessage(message.text, MessageType.button, message.from ? message.from : 'received', message.quick_replies);
+              this.addMessage(message.text, MessageType.button, message.from ? message.from : 'received',
+                message.quick_replies, null, message.delay);
               setTimeout(() => {
                 this._focusQuickReplies();
               }, 0);
             } else if (message.attachment) {
-              this.addMessage(message.attachment?.payload?.src, MessageType.image, message.from ? message.from : 'received');
+              this.addMessage(message.attachment?.payload?.src, MessageType.image, message.from ? message.from : 'received',
+                null, null, message.delay);
             }
             this.showTyping = false;
-            this.notificationSound.play();
+            if (delayTmp > 0) {
+              this.notificationSound.play();
+            }
           })
         ))
       )

@@ -19,7 +19,8 @@ export class WebchatService {
 
   private _messages$ = new BehaviorSubject(null);
   private _blockText$ = new BehaviorSubject(null);
-  private _delay$ = new BehaviorSubject(2000);
+
+  private firstMessage = true;
 
   constructor(private _http: HttpClient) {
   }
@@ -74,15 +75,16 @@ export class WebchatService {
         } else if (typeof message.custom.activate_text !== 'undefined') {
           this.setBlockText(!message.custom.activate_text);
         } else if (message.custom.conversation) {
-          this._delay$.next(0);
           message.custom.conversation.forEach(m => {
+            m.delay = 0;
             this._messages$.next(m);
           });
-          setTimeout(() => {
-            this._delay$.next(2000);
-          }, 10000);
         }
       } else {
+        if (this.firstMessage) {
+          message.delay = 2000;
+        }
+        this.firstMessage = false;
         this._messages$.next(message);
       }
     });
@@ -93,14 +95,11 @@ export class WebchatService {
   public sendMessage(message) {
     const session_id = this.getSessionId();
     this._socket.emit('user_uttered', {message, session_id});
+    this.firstMessage = true;
   }
 
   public getMessages(): Observable<any[]> {
     return this._messages$;
-  }
-
-  public getDelay(): number {
-    return this._delay$.getValue();
   }
 
   public storeConversation(conversation) {

@@ -56,7 +56,7 @@ export class ConfigService {
       formData.append('showIntentSearch', partialConfig.showIntentSearch.toString());
     }
     ['name', 'function', 'primaryColor', 'secondaryColor', 'problematic', 'audience',
-      'description', 'help', 'helpBtn'].forEach(attribute => {
+      'description', 'help', 'helpBtn', 'delayBetweenMessages'].forEach(attribute => {
       if (partialConfig[attribute]) {
         formData.append(attribute, partialConfig[attribute]);
       }

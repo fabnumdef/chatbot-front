@@ -23,4 +23,5 @@ export class Config {
 
   // CONFIG
   showIntentSearch: boolean;
+  delayBetweenMessages: number;
 }

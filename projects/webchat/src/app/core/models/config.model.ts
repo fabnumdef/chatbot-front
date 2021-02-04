@@ -27,4 +27,5 @@ export class Config {
   showFeedback: boolean;
   blockTypeText: boolean;
   showRebootBtn: boolean;
+  delayBetweenMessages: number;
 }

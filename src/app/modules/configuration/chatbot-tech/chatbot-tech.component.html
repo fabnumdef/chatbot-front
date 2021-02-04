@@ -10,13 +10,32 @@
         <div class="chatbot-subtitle">
           <h4>Rédaction des questions</h4>
         </div>
-        <p>Afficher ou non des suggestions de questions lors de la saisie</p>
+        <p>Afficher ou non des suggestions de questions lors de la saisie.</p>
         <mat-slide-toggle
           color="primary"
           aria-label="Afficher ou masquer les suggestions de questions"
           formControlName="showIntentSearch">
           Suggestions de questions
         </mat-slide-toggle>
+
+        <div class="chatbot-subtitle">
+          <h4>Temps d'attente entre deux réponses</h4>
+        </div>
+        <p>Configurer le délai entre deux réponses d'affilées du chatbot. Ce temps est en millisecondes (1000ms = 1s).</p>
+        <mat-form-field appearance="outline">
+          <mat-label>Temps (ms)</mat-label>
+          <input matInput
+                 placeholder="Saisir..."
+                 type="number"
+                 formControlName="delayBetweenMessages"
+                 min="0"
+                 max="10000"
+                 required>
+          <mat-error *ngIf="delayBetweenMessagesControl.errors">
+            Le temps d'attente doit se trouver entre 0 et 10 000ms
+          </mat-error>
+        </mat-form-field>
+
         <div class="chatbot-subtitle">
           <h4>Mémoire du chatbot</h4>
         </div>
@@ -34,7 +53,7 @@
                 color="accent"
                 (click)="saveTechConfig()"
                 *ngIf="techForm"
-                [disabled]="!techForm.dirty">
+                [disabled]="!techForm.dirty || !techForm.valid">
           Enregistrer
         </button>
       </ng-container>

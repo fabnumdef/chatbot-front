@@ -15,7 +15,8 @@
                    [dismissQuickReplies]="configService.config.dismissQuickReplies"
                    [showFeedback]="configService.config.showFeedback"
                    [blockTypeText]="configService.config.blockTypeText"
-                   [showRebootBtn]="configService.config.showRebootBtn">
+                   [showRebootBtn]="configService.config.showRebootBtn"
+                   [delayBetweenMessages]="configService.config.delayBetweenMessages">
   </app-chat-widget>
 </div>
 <div class="chatbot" *ngIf="configService.config && configService.config.maintenanceMode"
