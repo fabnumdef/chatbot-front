@@ -1,0 +1,31 @@
+<div class="intent-tree" data-cy="IntentTree">
+  <div class="chatbot-title">
+    <h3>Arborescence associée à la connaissance</h3>
+  </div>
+  <div class="tree-wrapper">
+    <div class="tree-block" *ngIf="intent.previousIntents && intent.previousIntents.length > 0">
+      <div class="tree-card" *ngFor="let i of intent.previousIntents">
+        <div class="tree-badge">-1</div>
+        <div>{{ i.mainQuestion }}</div>
+        <div class="tree-hint" *ngIf="i.linkedResponses">
+          10 réponses liées
+        </div>
+      </div>
+    </div>
+    <div class="tree-block">
+      <div class="tree-card tree-card-active">
+        <div class="tree-badge">0</div>
+        <div>{{ intent.mainQuestion }}</div>
+      </div>
+    </div>
+    <div class="tree-block"  *ngIf="intent.nextIntents && intent.nextIntents.length > 0">
+      <div class="tree-card" *ngFor="let i of intent.nextIntents">
+        <div class="tree-badge">1</div>
+        <div>{{ i.mainQuestion }}</div>
+        <div class="tree-hint" *ngIf="i.linkedResponses">
+          10 réponses liées
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

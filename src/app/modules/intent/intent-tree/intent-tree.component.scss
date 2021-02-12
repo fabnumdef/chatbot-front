@@ -1,0 +1,106 @@
+@import 'src/styles/variables';
+
+.intent-tree {
+  $margin-tree: 40px;
+
+  .tree-wrapper {
+    margin-left: $margin-tree;
+    position: relative;
+
+    &:before {
+      content: '';
+      height: 100%;
+      border-left: solid 1px $grey-light;
+      position: absolute;
+      left: -$margin-tree;
+    }
+
+    .tree-block {
+      position: relative;
+      margin-left: $margin-tree;
+
+      &:before {
+        content: '';
+        width: $margin-tree;
+        border-top: solid 1px $grey-light;
+        position: absolute;
+        left: -80px;
+        top: 50%;
+      }
+
+      &:after {
+        content: '';
+        height: calc(100% - 52px);
+        border-left: solid 1px $grey-light;
+        position: absolute;
+        left: -$margin-tree;
+        top: 26px;
+      }
+
+      .tree-card {
+        height: 50px;
+        padding: 0 30px;
+        margin: 30px 0;
+        display: flex;
+        align-items: center;
+        border: 1px solid $grey-light;
+        border-radius: 3px;
+        position: relative;
+
+        &.tree-card-active {
+          box-shadow: $shadow-uniform;
+          border-color: $primary-color;
+
+          .tree-badge {
+            background-color: $primary-color;
+            border-color: $white;
+            color: $white;
+          }
+        }
+
+        &:before {
+          content: '';
+          width: $margin-tree;
+          border-top: solid 1px $grey-light;
+          position: absolute;
+          left: - $margin-tree;
+          top: 50%;
+        }
+
+        .tree-badge {
+          position: absolute;
+          left: -15px;
+          background-color: $white;
+          width: 30px;
+          height: 30px;
+          border-radius: 30px;
+          border: 1px solid $grey-light;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          color: $primary-color;
+        }
+
+        .tree-hint {
+          position: absolute;
+          bottom: -25px;
+          left: 50px;
+          font-size: 12px;
+
+          &:before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-left: solid 1px $grey-light;
+            border-bottom: solid 1px $grey-light;
+            position: absolute;
+            left: -15px;
+            top: 2px;
+            border-bottom-left-radius: 4px;
+          }
+        }
+      }
+    }
+  }
+}

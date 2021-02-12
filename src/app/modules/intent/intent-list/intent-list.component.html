@@ -101,10 +101,19 @@
           <button mat-icon-button
                   class="chatbot-icon-btn"
                   aria-label="Modifier la connaissance"
-                  [color]="intentsSelected.includes(intent.id) ? 'primary' : null"
-                  (click)="selectIntent(intent.id); $event.stopPropagation()"
+                  [color]="intentSelected === intent.id ? 'primary' : null"
+                  (click)="selectIntent(intent.id, true); $event.stopPropagation()"
                   [matTooltip]="'Editer'">
             <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button
+                  class="chatbot-icon-btn"
+                  aria-label="Arborescence de la connaissance"
+                  [disabled]="(!intent.previousIntents || intent.previousIntents.length < 1) && (!intent.nextIntents || intent.nextIntents.length < 1)"
+                  [color]="intentTree === intent.id ? 'primary' : null"
+                  (click)="selectIntent(intent.id, false); $event.stopPropagation()"
+                  [matTooltip]="'Voir l\'arborescence'">
+            <mat-icon>view_day</mat-icon>
           </button>
           <button mat-icon-button
                   class="chatbot-icon-btn"
@@ -114,12 +123,17 @@
             <mat-icon>delete</mat-icon>
           </button>
         </div>
-        <div *ngIf="intentsSelected.includes(intent.id)"
+        <div *ngIf="intentSelected === intent.id || intentTree === intent.id"
              class="detail"
              [@detailInOutAnimation]>
           <app-intent-form [intent]="intent"
-                           (close)="selectIntent(intent.id)"
-                           [redirect]="false"></app-intent-form>
+                           *ngIf="intent.id === intentSelected"
+                           (close)="selectIntent(intent.id, true)"
+                           [redirect]="false">
+          </app-intent-form>
+          <app-intent-tree [intent]="intent"
+                           *ngIf="intent.id === intentTree">
+          </app-intent-tree>
         </div>
       </app-chatbot-list-item>
     </div>

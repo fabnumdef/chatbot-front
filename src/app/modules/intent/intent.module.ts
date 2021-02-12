@@ -20,6 +20,7 @@ import { KnowledgeFormComponent } from './create-edit-intent/intent-form/knowled
 import { IntentFilterComponent } from './intent-list/intent-filter/intent-filter.component';
 import { IntentListComponent } from './intent-list/intent-list.component';
 import { FileFormComponent } from './create-edit-intent/intent-form/response-form/file-form/file-form.component';
+import { IntentTreeComponent } from './intent-tree/intent-tree.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { FileFormComponent } from './create-edit-intent/intent-form/response-for
     MediaListDialogComponent,
     QuickReplyFormComponent,
     KnowledgeFormComponent,
-    FileFormComponent
+    FileFormComponent,
+    IntentTreeComponent
   ],
   imports: [
     CommonModule,

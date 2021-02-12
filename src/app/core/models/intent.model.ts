@@ -19,6 +19,10 @@ export class Intent {
   // For inbox
   confidence?: number;
 
+  previousIntents: Intent[];
+  nextIntents: Intent[];
+  linkedResponses: number;
+
   constructor() {
     this.responses = [new Response()];
     this.knowledges = [];

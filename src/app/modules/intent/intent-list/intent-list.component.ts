@@ -24,7 +24,8 @@ export class IntentListComponent implements OnInit {
   intents$: BehaviorSubject<Intent[]>;
   pagination: PaginationHelper;
   loading$: Observable<boolean>;
-  intentsSelected: string[] = [];
+  intentSelected: string;
+  intentTree: string;
   intentStatus = IntentStatus;
   intentStatusFr = IntentStatus_Fr;
   multipleSelection: string[] = [];
@@ -42,18 +43,20 @@ export class IntentListComponent implements OnInit {
 
     this.intents$.subscribe(intents => {
       this.multipleSelection = [];
-      this.intentsSelected = [];
+      this.intentSelected = null;
       if (intents && intents.length === 1 && this.pagination.currentPage <= 1) {
-        this.intentsSelected = [intents[0].id];
+        this.intentSelected = intents[0].id;
       }
     });
   }
 
-  selectIntent(intentId: string) {
-    if (this.intentsSelected.includes(intentId)) {
-      this.intentsSelected = this.intentsSelected.filter(i => i !== intentId);
+  selectIntent(intentId: string, showEdit: boolean) {
+    if (showEdit) {
+      this.intentTree = null;
+      this.intentSelected = (this.intentSelected === intentId) ? null : intentId;
     } else {
-      this.intentsSelected.push(intentId);
+      this.intentSelected = null;
+      this.intentTree = (this.intentTree === intentId) ? null : intentId;
     }
   }
 
