@@ -64,8 +64,7 @@
       <app-chatbot-list-item [checkable]="true"
                              [checked]="multipleSelection.includes(intent.id)"
                              [checkboxOnBadges]="true"
-                             (checkedClicked)="updateMultipleSelection($event, intent.id)"
-                             (cardClicked)="selectIntent(intent.id)">
+                             (checkedClicked)="updateMultipleSelection($event, intent.id)">
         <div class="badge badge-category"
              *ngIf="intent.category">
           {{ intent.category }}
