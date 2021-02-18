@@ -4,7 +4,7 @@
   </div>
   <div class="tree-wrapper">
     <div class="tree-block" *ngIf="intent.previousIntents && intent.previousIntents.length > 0">
-      <div class="tree-card" *ngFor="let i of intent.previousIntents">
+      <div class="tree-card" *ngFor="let i of intent.previousIntents" (click)="selectIntent(i)">
         <div class="tree-badge">-1</div>
         <div>{{ i.mainQuestion }}</div>
         <div class="tree-hint" *ngIf="i.linkedResponses">
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="tree-block"  *ngIf="intent.nextIntents && intent.nextIntents.length > 0">
-      <div class="tree-card" *ngFor="let i of intent.nextIntents">
+      <div class="tree-card" *ngFor="let i of intent.nextIntents" (click)="selectIntent(i)">
         <div class="tree-badge">1</div>
         <div>{{ i.mainQuestion }}</div>
         <div class="tree-hint" *ngIf="i.linkedResponses">

@@ -9,11 +9,17 @@ import { Intent } from '@model/intent.model';
 export class IntentTreeComponent implements OnInit {
 
   @Input() intent: Intent;
-  // @Output() close: EventEmitter<Intent> = new EventEmitter<Intent>();
+  @Output() intentChanged: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+  public selectIntent(intent: Intent) {
+    // @ts-ignore
+    this.intentChanged.emit(intent.intentId);
   }
 
 }

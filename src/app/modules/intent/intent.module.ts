@@ -21,6 +21,7 @@ import { IntentFilterComponent } from './intent-list/intent-filter/intent-filter
 import { IntentListComponent } from './intent-list/intent-list.component';
 import { FileFormComponent } from './create-edit-intent/intent-form/response-form/file-form/file-form.component';
 import { IntentTreeComponent } from './intent-tree/intent-tree.component';
+import { IntentTreeDialogComponent } from './intent-tree-modal/intent-tree-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { IntentTreeComponent } from './intent-tree/intent-tree.component';
     QuickReplyFormComponent,
     KnowledgeFormComponent,
     FileFormComponent,
-    IntentTreeComponent
+    IntentTreeComponent,
+    IntentTreeDialogComponent
   ],
   imports: [
     CommonModule,

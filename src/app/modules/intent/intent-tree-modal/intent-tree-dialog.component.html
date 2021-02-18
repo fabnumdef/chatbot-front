@@ -1,0 +1,18 @@
+<div class="intent-tree-modal">
+  <app-intent-tree [intent]="intent"
+                   (intentChanged)="loadIntent($event)"
+                   *ngIf="intent">
+  </app-intent-tree>
+  <div class="waiting-spinner" *ngIf="intentService.loading$ | async">
+    <mat-spinner [diameter]="80"></mat-spinner>
+  </div>
+
+  <div class="actions">
+    <button mat-flat-button
+            color="accent"
+            type="button"
+            [mat-dialog-close]="false">
+      Fermer
+    </button>
+  </div>
+</div>

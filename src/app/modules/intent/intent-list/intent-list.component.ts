@@ -10,6 +10,7 @@ import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/
 import { IntentStatus, IntentStatus_Fr } from '@enum/*';
 import { ConfigService } from '@core/services/config.service';
 import { ToastrService } from 'ngx-toastr';
+import { IntentTreeDialogComponent } from '../intent-tree-modal/intent-tree-dialog.component';
 
 @Component({
   selector: 'app-intent-list',
@@ -129,6 +130,16 @@ export class IntentListComponent implements OnInit {
 
   intentHasBadge(intent): boolean {
     return intent.hidden || intent.expiresAt || this.isIntentInError(intent) || intent.status && intent.status !== IntentStatus.active;
+  }
+
+  openIntentTreeDialog(intentId: string) {
+    this._dialog.open(IntentTreeDialogComponent, {
+      width: '80%',
+      autoFocus: false,
+      data: {
+        intentId: intentId
+      }
+    });
   }
 
   private _reloadIntent() {

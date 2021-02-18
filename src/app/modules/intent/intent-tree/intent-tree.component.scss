@@ -46,8 +46,9 @@
         border: 1px solid $grey-light;
         border-radius: 3px;
         position: relative;
+        transition: box-shadow, border-color 0.4s ease-in-out;
 
-        &.tree-card-active {
+        &.tree-card-active, &:hover {
           box-shadow: $shadow-uniform;
           border-color: $primary-color;
 
@@ -56,6 +57,10 @@
             border-color: $white;
             color: $white;
           }
+        }
+
+        &:not(.tree-card-active) {
+          cursor: pointer;
         }
 
         &:before {
@@ -80,6 +85,7 @@
           justify-content: center;
           font-weight: 700;
           color: $primary-color;
+          transition: background-color, border-color, color 0.4s ease-in-out;
         }
 
         .tree-hint {

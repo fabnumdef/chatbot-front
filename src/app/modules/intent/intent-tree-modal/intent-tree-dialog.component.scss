@@ -1,0 +1,22 @@
+.intent-tree-modal {
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-height: 100px;
+  justify-content: center;
+  flex-direction: column;
+
+  .waiting-spinner {
+    position: absolute;
+  }
+
+  app-intent-tree {
+    width: 100%;
+  }
+
+  .actions {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+}

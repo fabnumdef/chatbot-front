@@ -131,6 +131,7 @@
                            [redirect]="false">
           </app-intent-form>
           <app-intent-tree [intent]="intent"
+                           (intentChanged)="openIntentTreeDialog($event)"
                            *ngIf="intent.id === intentTree">
           </app-intent-tree>
         </div>
