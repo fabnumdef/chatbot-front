@@ -18,8 +18,7 @@ export class IntentTreeComponent implements OnInit {
   }
 
   public selectIntent(intent: Intent) {
-    // @ts-ignore
-    this.intentChanged.emit(intent.intentId);
+    this.intentChanged.emit(intent.id);
   }
 
 }
