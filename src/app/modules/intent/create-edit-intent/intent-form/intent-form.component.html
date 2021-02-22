@@ -110,7 +110,8 @@
 
         <ng-container *ngFor="let knowledgeForm of knowledgesFormArray.controls; let idx = index">
           <app-knowledge-form [knowledgeForm]="knowledgeForm"
-                              (deleteKnowledge)="deleteKnowledge(idx)">
+                              (deleteKnowledge)="deleteKnowledge(idx)"
+                              (addKnowledge)="addKnowledge()">
           </app-knowledge-form>
         </ng-container>
       </mat-expansion-panel>

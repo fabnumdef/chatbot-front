@@ -53,8 +53,8 @@
         border: 1px solid transparent;
         font-size: 12px;
 
-        &:not(:last-child) {
-          margin-right: 10px;
+        &:not(.badge-category) {
+          margin-left: 10px;
         }
 
         &-primary {

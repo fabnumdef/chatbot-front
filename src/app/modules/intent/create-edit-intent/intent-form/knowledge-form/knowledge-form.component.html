@@ -2,9 +2,11 @@
   <form [formGroup]="knowledgeForm" *ngIf="knowledgeForm">
     <mat-form-field appearance="outline">
       <input matInput
+             #knowledgeInput
              placeholder="Rédiger la question synonyme..."
              formControlName="question"
              maxlength="255"
+             (keyup.enter)="addKnowledge.emit(true)"
              required>
       <mat-error *ngIf="controls.question.hasError('required')">
         Vous n'avez pas saisi de question synonyme.

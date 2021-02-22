@@ -17,6 +17,7 @@
   form {
     .mat-slide-toggle {
       display: block;
+      width: fit-content;
 
       &:not(:last-child) {
         margin-top: 10px;

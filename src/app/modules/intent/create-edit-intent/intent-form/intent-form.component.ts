@@ -76,6 +76,9 @@ export class IntentFormComponent implements OnInit {
   }
 
   addKnowledge() {
+    if (!this.knowledgesFormArray.valid) {
+      return;
+    }
     this.knowledgesFormArray.insert(0, this._getKnowledgeForm(new Knowledge()));
   }
 

@@ -22,7 +22,7 @@
       <div class="tree-card" *ngFor="let i of intent.nextIntents" (click)="selectIntent(i)">
         <div class="tree-badge">1</div>
         <div>{{ i.mainQuestion }}</div>
-        <div class="tree-hint" *ngIf="i.linkedResponses">
+        <div class="tree-hint" *ngIf="i.linkedResponses && i.linkedResponses > 0">
           Réponses liées
         </div>
       </div>
