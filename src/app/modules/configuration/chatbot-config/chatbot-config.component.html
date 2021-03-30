@@ -162,7 +162,7 @@
     <mat-expansion-panel [expanded]="false">
       <mat-expansion-panel-header collapsedHeight="28px" expandedHeight="28px">
         <mat-panel-title>
-          <h3>Personnalisation en plein écran du chatbot</h3>
+          <h3>Affichage du chatbot</h3>
         </mat-panel-title>
       </mat-expansion-panel-header>
 
@@ -251,6 +251,17 @@
                 L'aide est trop longue, elle doit faire au maximum 500 caractères.
               </mat-error>
             </mat-form-field>
+
+            <div class="chatbot-subtitle">
+              <h4>Rédaction des questions</h4>
+            </div>
+            <p>Afficher ou non des suggestions de questions lors de la saisie.</p>
+            <mat-slide-toggle
+              color="primary"
+              aria-label="Afficher ou masquer les suggestions de questions"
+              formControlName="showIntentSearch">
+              Suggestions de questions
+            </mat-slide-toggle>
           </div>
           <div class="preview">
             <app-chatbot-embedded-preview [chatbot]="fullConfiguration"

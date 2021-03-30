@@ -8,17 +8,6 @@
       </mat-expansion-panel-header>
       <form [formGroup]="techForm" *ngIf="techForm">
         <div class="chatbot-subtitle">
-          <h4>Rédaction des questions</h4>
-        </div>
-        <p>Afficher ou non des suggestions de questions lors de la saisie.</p>
-        <mat-slide-toggle
-          color="primary"
-          aria-label="Afficher ou masquer les suggestions de questions"
-          formControlName="showIntentSearch">
-          Suggestions de questions
-        </mat-slide-toggle>
-
-        <div class="chatbot-subtitle">
           <h4>Temps d'affichage réponses multiples</h4>
         </div>
         <p>Pour les réponses multiples données par votre bot, définissez le temps d'affichage (en millisecondes, 1000ms = 1s) entre les réponses.</p>

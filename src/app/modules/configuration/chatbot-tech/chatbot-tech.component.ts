@@ -61,7 +61,6 @@ export class ChatbotTechComponent extends DestroyObservable implements OnInit {
     this.techForm = this._fb.group({
       storage: [this.chatbotConfig.storage, [Validators.required]],
       apiKey: [{value: this.chatbotConfig.apiKey, disabled: true}, [Validators.required]],
-      showIntentSearch: [this.chatbotConfig.showIntentSearch, [Validators.required]],
       delayBetweenMessages: [this.chatbotConfig.delayBetweenMessages, [Validators.required, Validators.min(0), Validators.max(10000)]]
     });
   }
