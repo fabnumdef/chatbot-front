@@ -25,6 +25,8 @@ import { ChatHeaderComponent } from './chat-header/chat-header.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ChatMaintenanceModeComponent } from './chat-maintenance-mode/chat-maintenance-mode.component';
+import { FaqListComponent } from './faq-list/faq-list.component';
+import { ChatMessagesComponent } from './chat-messages/chat-messages.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { ChatMaintenanceModeComponent } from './chat-maintenance-mode/chat-maint
     ChatHelpModalComponent,
     ChatAvatarComponent,
     ChatHeaderComponent,
-    ChatMaintenanceModeComponent
+    ChatMaintenanceModeComponent,
+    FaqListComponent,
+    ChatMessagesComponent
   ],
   imports: [
     BrowserModule,
