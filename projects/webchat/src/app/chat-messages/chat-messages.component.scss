@@ -1,0 +1,286 @@
+.chat-box {
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+
+  &-hidden {
+    display: none;
+  }
+
+  // Trick for scrollbar on firefox
+  &-firefox {
+    overflow: auto;
+    margin-top: auto;
+  }
+
+  &-main {
+    flex: 1;
+    width: 100%;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column-reverse;
+
+    &:focus {
+      outline: .2rem solid #f16e00;
+    }
+  }
+
+  &-footer {
+    color: #000000;
+    height: 50px;
+  }
+}
+
+.chat-message {
+  display: block;
+  width: auto;
+  margin: 5px;
+  align-self: flex-start;
+  flex-direction: row;
+  max-width: 80%;
+  word-wrap: break-word;
+  position: relative;
+
+  &.chat-message-full-width {
+    width: 100%;
+  }
+
+  &-feedbacks {
+    position: absolute;
+    display: flex;
+    right: -50px;
+    bottom: 33px;
+    cursor: pointer;
+    height: 20px;
+    align-items: center;
+
+    & > * {
+      transition: fill 0.2s ease-in-out;
+    }
+
+    svg {
+      height: 20px;
+    }
+  }
+
+  &-feedback-wrong {
+    margin-top: 10px;
+  }
+
+  &-date {
+    font-size: 11px;
+    color: #8D898D;
+    padding: 5px;
+  }
+
+  &-from-avatar {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+  }
+
+  &-text {
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    white-space: pre-line;
+
+    &.chat-message-text-button {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  &-quick-replies {
+    display: flex;
+    flex-wrap: wrap;
+
+    & > .chat-message-quick-reply:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
+  &-quick-reply {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid currentColor;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    color: inherit;
+    border-color: inherit;
+
+    &:hover {
+      color: #ffffff;
+    }
+
+    &-disabled {
+      cursor: not-allowed;
+      color: #696969;
+      border-color: #696969;
+
+      &:hover {
+        color: #696969;
+      }
+    }
+  }
+
+  &-image {
+    margin-left: 10px;
+
+    div {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 300px;
+      max-width: 500px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+  }
+
+  &-buttons {
+    & > button {
+      width: 100%;
+      cursor: pointer;
+      padding: 5px;
+      font-size: 1em;
+      border: 1px solid grey;
+      color: currentColor;
+      border-radius: 0;
+
+      &:not(:last-child) {
+        border-bottom: none;
+      }
+
+      &:last-child {
+        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+      }
+    }
+  }
+}
+
+/**
+Received message style
+ */
+.chat-message-received {
+  margin-right: 50px;
+
+  .chat-message-text {
+    color: #ffffff;
+    margin-left: 50px;
+    border-top-left-radius: 0;
+    width: fit-content;
+
+    ::ng-deep a {
+      color: inherit;
+    }
+  }
+
+  .chat-message-image, .chat-message-quick-replies, .chat-message-buttons {
+    margin-left: 50px;
+  }
+
+  .chat-message-image div {
+    border-top-left-radius: 0;
+  }
+
+  .chat-message-date {
+    margin-left: 50px;
+  }
+}
+
+/**
+Sent message style
+ */
+.chat-message-sent {
+  align-self: flex-end;
+}
+
+.chat-message-sent .chat-message-from {
+  float: right;
+}
+
+.chat-message-sent .chat-message-text {
+  margin-right: 50px;
+  border-top-right-radius: 0;
+}
+
+.chat-message-sent .chat-message-image, .chat-message-sent .chat-message-quick-replies {
+  margin-right: 50px;
+}
+
+.chat-message-sent .chat-message-image div {
+  border-top-right-radius: 0;
+}
+
+.chat-message-sent .chat-message-date {
+  text-align: right;
+  padding-right: 50px;
+}
+
+.chat-message-sent .chat-message-from-avatar {
+  position: absolute;
+  right: 0;
+}
+
+.chat-message-typing {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  color: #8d898d;
+  font-style: italic;
+  font-size: 12px;
+}
+
+/* Animation CSS typing */
+
+.spinner {
+  width: 40px;
+  text-align: center;
+}
+
+.spinner > div {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0)
+  }
+  40% {
+    -webkit-transform: scale(1.0)
+  }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}
