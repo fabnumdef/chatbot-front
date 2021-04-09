@@ -1,19 +1,10 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
-import { fadeIn, fadeInOut } from '../core/animation';
-import { interval, of, Subject } from 'rxjs';
-import { concatMap, delayWhen, filter, tap } from 'rxjs/operators';
-import { WebchatService } from '../core/services/webchat.service';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MessageType } from '../core/enums/message-type.enum';
-import { Feedback, FeedbackStatus } from '../core/models/feedback.model';
-import { MatDialog } from '@angular/material/dialog';
-import { FeedbackService } from '../core/services/feedback.service';
-import { ChatFeedbackModalComponent } from '../chat-feedback-modal/chat-feedback-modal.component';
 
 @Component({
   selector: 'app-chat-widget',
   templateUrl: './chat-widget.component.html',
-  styleUrls: ['./chat-widget.component.scss'],
-  animations: [fadeInOut, fadeIn]
+  styleUrls: ['./chat-widget.component.scss']
 })
 export class ChatWidgetComponent implements OnInit {
   @ViewChild('chatboxfirefox') chatboxfirefox: ElementRef;
@@ -43,6 +34,7 @@ export class ChatWidgetComponent implements OnInit {
   public messageType = MessageType;
   public showTyping = false;
   public isMobileSize = false;
+  public showFaq = false;
 
   constructor() {
   }

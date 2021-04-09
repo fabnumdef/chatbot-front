@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChatHelpModalComponent } from '../chat-help-modal/chat-help-modal.component';
 import { WebchatService } from '../core/services/webchat.service';

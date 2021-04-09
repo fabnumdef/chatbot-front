@@ -139,7 +139,8 @@ export class WebchatService {
 
   public searchIntents(query) {
     let params = new HttpParams();
-    params = params.append('query', encodeURIComponent(query));
+    params = params.append('query', encodeURIComponent(query))
+      .append('intentsNumber', '10');
 
     return this._http.get(`${this._url}/api/public/intents`, {params});
   }

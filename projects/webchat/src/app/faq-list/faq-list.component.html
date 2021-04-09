@@ -1,1 +1,26 @@
-<p>faq-list works!</p>
+<div class="faq-list">
+  <ng-container *ngIf="faqService.categories && !intents">
+    <div *ngFor="let category of faqService.categories"
+         class="faq-category"
+         (click)="loadCategory(category)">
+      <div class="border-active" [ngStyle]="{'background-color': botColor}"></div>
+      {{ category }}
+      <button mat-icon-button aria-label="Aller à la catégorie">
+        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24"
+             width="24px" fill="#ff006e">
+          <rect fill="none" height="24" width="24"/>
+          <path d="M15,5l-1.41,1.41L18.17,11H2V13h16.17l-4.59,4.59L15,19l7-7L15,5z"/>
+        </svg>
+      </button>
+    </div>
+  </ng-container>
+  <app-faq-detail [intents]="intents"
+                  (back)="intents = null"
+                  *ngIf="intents">
+  </app-faq-detail>
+  <ng-template #noCategories>
+    <div class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
+</div>
