@@ -1,0 +1,10 @@
+.faq-detail {
+  .mat-accordion .mat-expansion-panel {
+    border-radius: 0;
+    box-shadow: none;
+
+    &:nth-child(odd) {
+      background-color: rgba(110, 145, 240, 0.1);
+    }
+  }
+}

@@ -7,11 +7,13 @@ import { FeedbackService } from '../core/services/feedback.service';
 import { MatDialog } from '@angular/material/dialog';
 import { interval, of, Subject } from 'rxjs';
 import { concatMap, delayWhen, filter, tap } from 'rxjs/operators';
+import { fadeIn, fadeInOut } from '../core/animation';
 
 @Component({
   selector: 'app-chat-messages',
   templateUrl: './chat-messages.component.html',
-  styleUrls: ['./chat-messages.component.scss']
+  styleUrls: ['./chat-messages.component.scss'],
+  animations: [fadeInOut, fadeIn]
 })
 export class ChatMessagesComponent implements OnInit {
   @ViewChild('chatboxfirefox') chatboxfirefox: ElementRef;

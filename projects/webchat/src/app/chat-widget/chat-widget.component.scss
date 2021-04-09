@@ -20,6 +20,36 @@
     box-shadow: 0 0 10px -3px rgba(110, 145, 240, .3);
     border: none;
   }
+
+  .button_chat_faq {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    box-shadow: 0 0 10px -3px rgba(110, 145, 240, .3);
+
+    & > * {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #F1EFF1;
+      transition: all 200ms ease-in-out;
+
+      &.active {
+        color: #ffffff;
+
+        &:after {
+          content: '';
+          position: absolute;
+          width: 100px;
+          bottom: 3px;
+          border-bottom: 2px solid #ffffff;
+        }
+      }
+    }
+  }
 }
 
 .chat-button {
@@ -72,16 +102,16 @@
 }
 
 .wrapper.chat-accessibility ::ng-deep {
-   .chat-message-sent .chat-message-text {
-     background-color: #000000 !important;
-     color: #ffffff !important;
-   }
+  .chat-message-sent .chat-message-text {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+  }
 
-   .chat-message-received .chat-message-text,
-   .chat-box-footer {
-     background-color: #f5f5f5 !important;
-     color: #000000 !important;
-   }
+  .chat-message-received .chat-message-text,
+  .chat-box-footer {
+    background-color: #f5f5f5 !important;
+    color: #000000 !important;
+  }
 
-   font-size: 1.2em;
- }
+  font-size: 1.2em;
+}

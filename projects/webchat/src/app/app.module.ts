@@ -27,6 +27,9 @@ import { environment } from '../environments/environment';
 import { ChatMaintenanceModeComponent } from './chat-maintenance-mode/chat-maintenance-mode.component';
 import { FaqListComponent } from './faq-list/faq-list.component';
 import { ChatMessagesComponent } from './chat-messages/chat-messages.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FaqDetailComponent } from './faq-detail/faq-detail.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import { ChatMessagesComponent } from './chat-messages/chat-messages.component';
     ChatHeaderComponent,
     ChatMaintenanceModeComponent,
     FaqListComponent,
-    ChatMessagesComponent
+    ChatMessagesComponent,
+    FaqDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +61,8 @@ import { ChatMessagesComponent } from './chat-messages/chat-messages.component';
     MatSidenavModule,
     MatSlideToggleModule,
     MatRippleModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule,
     ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [

@@ -1,0 +1,18 @@
+<div class="faq-detail">
+  <button mat-button (click)="back.emit(true)">Retour</button>
+  <ng-container *ngFor="let category of categories">
+    <h3>{{ category }}</h3>
+    <mat-accordion displayMode="flat">
+      <mat-expansion-panel *ngFor="let intent of getIntentsByCategory(category)">
+        <mat-expansion-panel-header expandedHeight="48px">
+          <mat-panel-title>
+            {{ intent.mainQuestion }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        TEST
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
+</div>

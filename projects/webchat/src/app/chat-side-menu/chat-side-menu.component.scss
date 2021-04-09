@@ -68,6 +68,11 @@
   }
 
   &-help {
+    ::ng-deep.mat-button-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
     svg {
       margin-right: 5px;
     }
