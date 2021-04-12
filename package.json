@@ -40,6 +40,7 @@
     "classlist.js": "^1.1.20150312",
     "core-js": "^3.8.2",
     "file-saver": "^2.0.2",
+    "humanize-duration": "^3.25.1",
     "moment": "^2.25.3",
     "ng2-charts": "^2.4.2",
     "ngx-color-picker": "^11.0.0",
