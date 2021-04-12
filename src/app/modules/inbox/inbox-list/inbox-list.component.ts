@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { InboxAssignationDialogComponent } from './inbox-assignation-dialog/inbox-assignation-dialog.component';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { filter } from 'rxjs/operators';
+import * as humanizeDuration from 'humanize-duration';
 
 @Component({
   selector: 'app-inbox-list',
@@ -55,7 +56,7 @@ export class InboxListComponent implements OnInit {
   }
 
   getDiffDate(inbox: Inbox) {
-    return moment.duration(moment().diff(inbox.timestamp * 1000)).humanize();
+    return humanizeDuration(moment().diff(inbox.timestamp * 1000), { language: 'fr', largest: 1 });
   }
 
   getBadgeClass(status: InboxStatus) {
