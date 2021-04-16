@@ -7,6 +7,7 @@ import { Intent } from '@model/intent.model';
   styleUrls: ['./faq-detail.component.scss']
 })
 export class FaqDetailComponent implements OnInit {
+  @Input() public botColor: string;
   private _intents: Intent[];
   get intents(): Intent[] {
     return this._intents;

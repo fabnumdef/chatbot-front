@@ -1,4 +1,23 @@
 .faq-detail {
+  &-back {
+    color: #ff006e;
+    text-decoration: underline;
+    font-weight: 700;
+
+    svg {
+      fill: #ff006e;
+      margin-right: 10px;
+    }
+  }
+
+  &-divider {
+    display: block;
+    margin: 20px 0;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgba(0, 0, 0, .12);
+  }
+
   .mat-accordion .mat-expansion-panel {
     border-radius: 0;
     box-shadow: none;
@@ -6,5 +25,9 @@
     &:nth-child(odd) {
       background-color: rgba(110, 145, 240, 0.1);
     }
+  }
+
+  &-responses {
+    margin-top: 16px;
   }
 }

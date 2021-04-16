@@ -18,16 +18,10 @@
   background-color: inherit;
   color: inherit;
   font-family: inherit;
-}
 
-.chat-input-text::-webkit-input-placeholder {
-  color: #818181;
-}
-.chat-input-text::-moz-placeholder {
-  color: #818181;
-}
-.chat-input-text::-ms-input-placeholder {
-  color: #818181;
+  &::-webkit-input-placeholder, &::-moz-placeholder, &::-ms-input-placeholder {
+    color: #818181;
+  }
 }
 
 .chat-input-mic, .chat-input-submit {
@@ -44,15 +38,14 @@
 .chat-input-submit {
   margin: 14px 12px;
   float: right;
-}
 
+  &:disabled svg {
+    fill: #818181;
+  }
 
-.chat-input-submit:disabled svg {
-  fill: #818181;
-}
-
-.chat-input-submit:enabled svg {
-  fill: currentColor;
+  &:enabled svg {
+    fill: currentColor;
+  }
 }
 
 .intents-preview {
@@ -63,14 +56,14 @@
   overflow-y: auto;
   background-color: #ffffff;
   box-shadow: 0 0 10px -3px rgba(110, 145, 240, .3);
-}
 
-.intents-preview .intent {
-  cursor: pointer;
-  transition: background-color 200ms;
-  padding: 10px;
-}
+  .intent {
+    cursor: pointer;
+    transition: background-color 200ms;
+    padding: 10px;
 
-.intents-preview .intent:hover {
-  background-color: #d3d3d3;
+    &:hover {
+      background-color: #d3d3d3;
+    }
+  }
 }

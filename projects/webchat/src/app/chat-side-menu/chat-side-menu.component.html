@@ -18,9 +18,6 @@
     <div class="chat-side-menu-description">
       {{ botDescription }}
     </div>
-    <ng-container>
-      <div class="chat-side-menu-divider"></div>
-    </ng-container>
     <ng-container *ngIf="showRebootBtn">
       <div class="chat-side-menu-divider"></div>
       <button mat-stroked-button color="accent" class="chat-side-menu-reboot" (click)="rebootConversation()">
