@@ -14,7 +14,7 @@ export class FaqService {
   protected _loading$ = new BehaviorSubject<boolean>(false);
 
   constructor(private _http: HttpClient) {
-    this._url = `https://dev.chatbot.fabnum.fr/api/public`;
+    this._url = `/api/public`;
   }
 
   loadCategories(): Observable<string[]> {
