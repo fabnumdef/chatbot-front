@@ -137,10 +137,14 @@ export class WebchatService {
     this._updateAccessibilityClass();
   }
 
-  public searchIntents(query) {
+  public searchIntents(query, intentsNumber = '10', getResponses = false) {
     let params = new HttpParams();
     params = params.append('query', encodeURIComponent(query))
-      .append('intentsNumber', '10');
+      .append('intentsNumber', intentsNumber);
+
+    if (getResponses) {
+      params = params.append('getResponses', getResponses.toString());
+    }
 
     return this._http.get(`${this._url}/api/public/intents`, {params});
   }
