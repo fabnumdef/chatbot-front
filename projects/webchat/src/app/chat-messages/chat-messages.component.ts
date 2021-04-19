@@ -88,23 +88,23 @@ export class ChatMessagesComponent implements OnInit {
           tap((message: any) => {
             // console.log(message);
             if (message.text && (!message.quick_replies || message.quick_replies.length < 1)) {
-              this._addMessage(message.text, MessageType.text, message.from ? message.from : 'received', null, null, message.delay);
+              this.addMessage(message.text, MessageType.text, message.from ? message.from : 'received', null, null, message.delay);
             } else if (message.text && message.quick_replies && message.quick_replies.length > 0
               && this._isPayloadQuickReply(message.quick_replies[0].payload)) {
-              this._addMessage(message.text, MessageType.quick_reply, message.from ? message.from : 'received',
+              this.addMessage(message.text, MessageType.quick_reply, message.from ? message.from : 'received',
                 message.quick_replies, null, message.delay);
               setTimeout(() => {
                 this._focusQuickReplies();
               }, 0);
             } else if (message.text && message.quick_replies && message.quick_replies.length > 0
               && !this._isPayloadQuickReply(message.quick_replies[0].payload)) {
-              this._addMessage(message.text, MessageType.button, message.from ? message.from : 'received',
+              this.addMessage(message.text, MessageType.button, message.from ? message.from : 'received',
                 message.quick_replies, null, message.delay);
               setTimeout(() => {
                 this._focusQuickReplies();
               }, 0);
             } else if (message.attachment) {
-              this._addMessage(message.attachment?.payload?.src, MessageType.image, message.from ? message.from : 'received',
+              this.addMessage(message.attachment?.payload?.src, MessageType.image, message.from ? message.from : 'received',
                 null, null, message.delay);
             }
             this.showTyping = false;
@@ -139,27 +139,6 @@ export class ChatMessagesComponent implements OnInit {
       return true;
     }
     return nextMessage.from !== from;
-  }
-
-  public urlify(text) {
-    const urlRegex = /[^href="]https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=;]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=;]*)/gi;
-    return text.replace(urlRegex, (url) => {
-      return '<a href="' + url + '" target="_blank">' + url + '</a>';
-    });
-  }
-
-  public quickReplyClick(payload: string, title: string, message: any = null) {
-    if (!payload) {
-      return;
-    }
-    if (!!this._domainRegex.test(payload)) {
-      window.open(payload, '_blank');
-    } else {
-      message.clicked = true;
-      this._addMessage(title, MessageType.text, 'sent');
-      this._chatService.sendMessage(`${payload.charAt(0) === '/' ? '' : '/'}${payload}`);
-      this.showTyping = true;
-    }
   }
 
   public canShowFeedback(nextMessage, previousMessage, from): boolean {
@@ -211,16 +190,17 @@ export class ChatMessagesComponent implements OnInit {
     if (message.trim() === '') {
       return;
     }
-    this._addMessage(message, type, 'sent', null, payload);
+    this.addMessage(message, type, 'sent', null, payload);
     this._chatService.sendMessage(payload ? payload : message);
     this.showTyping = true;
   }
 
-  private _addMessage(text: string,
-                      type: MessageType, from: 'received' | 'sent',
-                      quick_replies: [] = null,
-                      payload = null,
-                      delayTmp = 2000) {
+  public addMessage(text: string,
+                    type: MessageType,
+                    from: 'received' | 'sent',
+                    quick_replies: [] = null,
+                    payload = null,
+                    delayTmp = 2000) {
     const message = {
       text,
       type,

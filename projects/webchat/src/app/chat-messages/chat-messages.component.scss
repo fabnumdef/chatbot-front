@@ -36,7 +36,7 @@
   }
 }
 
-.chat-message {
+::ng-deep.chat-message {
   display: block;
   width: auto;
   margin: 5px;
@@ -173,7 +173,7 @@ Received message style
 .chat-message-received {
   margin-right: 50px;
 
-  .chat-message-text {
+  ::ng-deep.chat-message-text {
     color: #ffffff;
     margin-left: 50px;
     border-top-left-radius: 0;
@@ -184,11 +184,11 @@ Received message style
     }
   }
 
-  .chat-message-image, .chat-message-quick-replies, .chat-message-buttons {
+  ::ng-deep.chat-message-image, .chat-message-quick-replies, .chat-message-buttons {
     margin-left: 50px;
   }
 
-  .chat-message-image div {
+  ::ng-deep.chat-message-image div {
     border-top-left-radius: 0;
   }
 
@@ -208,16 +208,16 @@ Sent message style
   float: right;
 }
 
-.chat-message-sent .chat-message-text {
+.chat-message-sent ::ng-deep.chat-message-text {
   margin-right: 50px;
   border-top-right-radius: 0;
 }
 
-.chat-message-sent .chat-message-image, .chat-message-sent .chat-message-quick-replies {
+.chat-message-sent ::ng-deep.chat-message-image, .chat-message-sent ::ng-deep.chat-message-quick-replies {
   margin-right: 50px;
 }
 
-.chat-message-sent .chat-message-image div {
+.chat-message-sent ::ng-deep.chat-message-image div {
   border-top-right-radius: 0;
 }
 

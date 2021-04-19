@@ -1,4 +1,3 @@
-
 <div class="chat-box">
   <div class="chat-box-firefox" #chatboxfirefox>
     <div class="chat-box-main" tabindex="0" aria-live="polite">
@@ -23,50 +22,13 @@
             <ng-container [ngSwitch]="true">
               <span *ngIf="message.from === 'received'" class="sr-only">{{ botName }} dit :</span>
               <span *ngIf="message.from !== 'received'" class="sr-only">Vous avez dit :</span>
-              <div class="chat-message-text"
-                   [ngClass]="{'chat-message-text-qr': message.type === messageType.quick_reply, 'chat-message-text-button': message.type === messageType.button}"
-                   *ngSwitchCase="message.type === messageType.quick_reply || message.type === messageType.text || message.type === messageType.button"
-                   [ngStyle]="{'background-color': message.from === 'received'? botColor : userColor}"
-                   tabindex="-1"
-                   [innerHTML]="urlify(message.text)">
-              </div>
-              <div class="chat-message-quick-replies"
-                   *ngSwitchCase="message.type === messageType.quick_reply"
-                   [ngStyle]="{'color': message.from === 'received'? botColor : userColor,
-                   'border-color': message.from === 'received'? botColor : userColor}">
-                <ng-container *ngIf="!dismissQuickReplies || !message.clicked">
-                  <div *ngFor="let quickReply of message.quick_replies"
-                       (mouseover)="quickReplyDiv.style.backgroundColor = message.from === 'received' && !!quickReply.payload ? botColor : !!quickReply.payload ?userColor : ''"
-                       (mouseleave)="quickReplyDiv.style.backgroundColor = ''"
-                       #quickReplyDiv
-                       class="chat-message-quick-reply"
-                       [ngClass]="{'chat-message-quick-reply-disabled': !quickReply.payload}"
-                       aria-label="Sélectionner cette proposition"
-                       tabindex="0"
-                       (keyup.enter)="quickReplyClick(quickReply.payload, quickReply.title, message)"
-                       (click)="quickReplyClick(quickReply.payload, quickReply.title, message)">
-                    {{quickReply.title}}
-                  </div>
-                </ng-container>
-              </div>
-              <div class="chat-message-buttons"
-                   *ngSwitchCase="message.type === messageType.button"
-                   [ngStyle]="{'color': message.from === 'received'? botColor : userColor}">
-                <button *ngFor="let quickReply of message.quick_replies"
-                        aria-label="Cliquer sur le bouton"
-                        tabindex="0"
-                        (keyup.enter)="quickReplyClick(quickReply.payload, quickReply.title)"
-                        (click)="quickReplyClick(quickReply.payload, quickReply.title)">
-                  {{quickReply.title}}
-                </button>
-              </div>
-              <div *ngSwitchCase="message.type === messageType.image" class="chat-message-image">
-                <a target="_blank" [href]="message.text">
-                  <div [ngStyle]="{'background-image' : 'url(' + message.text + ')'}"
-                       aria-label="Image envoyée par le chatbot">
-                  </div>
-                </a>
-              </div>
+              <app-chat-message [message]="message"
+                                [botColor]="botColor"
+                                [userColor]="userColor"
+                                [dismissQuickReplies]="dismissQuickReplies"
+                                (showTyping)="showTyping = $event"
+                                (addMessage)="addMessage($event.text, $event.type, $event.from)">
+              </app-chat-message>
             </ng-container>
           </div>
           <div class="chat-message-feedbacks"

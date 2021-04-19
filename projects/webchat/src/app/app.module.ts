@@ -30,6 +30,7 @@ import { ChatMessagesComponent } from './chat-messages/chat-messages.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FaqDetailComponent } from './faq-detail/faq-detail.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ChatMessageComponent } from './chat-message/chat-message.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     ChatMaintenanceModeComponent,
     FaqListComponent,
     ChatMessagesComponent,
-    FaqDetailComponent
+    FaqDetailComponent,
+    ChatMessageComponent
   ],
   imports: [
     BrowserModule,
