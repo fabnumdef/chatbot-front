@@ -43,7 +43,6 @@
       <app-chatbot-list-item [checkable]="true"
                              [checked]="multipleSelection.includes(inbox.id)"
                              (checkedClicked)="updateMultipleSelection($event, inbox.id)"
-                             [checkboxOnBadges]="false"
                              (cardClicked)="selectInbox(inbox.id, true)">
         <div class="badge-staked" [ngClass]="getBadgeClass(inbox.status)">
           {{ inboxStatus_Fr[inbox.status] }}

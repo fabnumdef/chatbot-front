@@ -25,6 +25,8 @@
     }
 
     .mat-checkbox {
+      border-radius: $border-radius;
+
       ::ng-deep.mat-checkbox-label {
         display: flex;
         align-items: center;

@@ -43,6 +43,12 @@
                 [matTooltip]="'Supprimer les connaissances sélectionnées'">
           <mat-icon>delete</mat-icon>
         </button>
+        <mat-divider vertical></mat-divider>
+        <span>Vue par</span>
+        <mat-button-toggle-group>
+          <mat-button-toggle value="list" checked>Liste</mat-button-toggle>
+          <mat-button-toggle value="tree" disabled>Arborescence</mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
       <div class="pagination-info"
            *ngIf="pagination"
@@ -63,7 +69,6 @@
 
       <app-chatbot-list-item [checkable]="true"
                              [checked]="multipleSelection.includes(intent.id)"
-                             [checkboxOnBadges]="true"
                              (checkedClicked)="updateMultipleSelection($event, intent.id)">
         <div class="badge badge-category"
              *ngIf="intent.category">

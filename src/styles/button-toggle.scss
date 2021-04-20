@@ -1,0 +1,25 @@
+@import 'src/styles/variables';
+
+mat-button-toggle-group.mat-button-toggle-group.mat-button-toggle-group-appearance-standard {
+  border: none;
+  color: $primary-color;
+
+  mat-button-toggle {
+    background-color: $primary-color-50;
+    border: none !important;
+
+    &.mat-button-toggle-checked {
+      background-color: $primary-color;
+      color: $white;
+    }
+
+    &.mat-button-toggle-disabled {
+      //color: rgba(0, 0, 0, 0.26);
+      //background-color: #eeeeee;
+    }
+
+    .mat-button-toggle-label-content {
+      line-height: 30px;
+    }
+  }
+}

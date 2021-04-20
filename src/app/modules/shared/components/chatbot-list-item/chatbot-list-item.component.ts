@@ -9,7 +9,6 @@ export class ChatbotListItemComponent implements OnInit {
 
   @Input() checkable = false;
   @Input() checked: boolean;
-  @Input() checkboxOnBadges = false;
   @Output() checkedClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() cardClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -20,7 +19,7 @@ export class ChatbotListItemComponent implements OnInit {
   }
 
   isCheckboxOnSameLine(): boolean {
-    return !!this.checkable && !this.checkboxOnBadges;
+    return !!this.checkable;
   }
 
 }

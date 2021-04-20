@@ -1,31 +1,25 @@
 <div class="chatbot-list-item">
   <div class="body" (click)="cardClicked.emit(true)">
+    <div class="checkbox-first" *ngIf="checkable">
+      <mat-checkbox color="primary"
+                    #checkableCheckbox
+                    [checked]="checked"
+                    (click)="$event.stopPropagation()"
+                    (change)="checkedClicked.emit(checkableCheckbox.checked)">
+      </mat-checkbox>
+      <mat-divider vertical></mat-divider>
+    </div>
     <div>
       <div class="badges-staked">
         <ng-content select=".badge-staked">
         </ng-content>
       </div>
       <div class="badges">
-        <ng-container *ngIf="checkable && checkboxOnBadges">
-          <mat-checkbox color="primary"
-                        #checkableCheckbox
-                        [checked]="checked"
-                        (click)="$event.stopPropagation()"
-                        (change)="checkedClicked.emit(checkableCheckbox.checked)">
-          </mat-checkbox>
-        </ng-container>
         <ng-content select=".badge">
         </ng-content>
       </div>
       <div class="title-wrapper">
         <div class="check-wrapper">
-          <mat-checkbox color="primary"
-                        *ngIf="isCheckboxOnSameLine()"
-                        #checkableCheckbox
-                        [checked]="checked"
-                        (click)="$event.stopPropagation()"
-                        (change)="checkedClicked.emit(checkableCheckbox.checked)">
-          </mat-checkbox>
           <div>
             <ng-content select=".title">
             </ng-content>

@@ -21,19 +21,20 @@ import { MatTableModule } from '@angular/material/table';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   imports: [
     MatFormFieldModule, MatSelectModule, MatInputModule, MatButtonModule, MatIconModule, MatCardModule, MatDividerModule, MatSidenavModule,
     MatProgressSpinnerModule, MatRadioModule, MatProgressBarModule, MatCheckboxModule, MatDatepickerModule, MatMomentDateModule,
     MatTooltipModule, MatDialogModule, MatExpansionModule, MatAutocompleteModule, MatBadgeModule, MatTableModule, MatMenuModule,
-    MatSlideToggleModule
+    MatSlideToggleModule, MatButtonToggleModule
   ],
   exports: [
     MatFormFieldModule, MatSelectModule, MatInputModule, MatButtonModule, MatIconModule, MatCardModule, MatDividerModule, MatSidenavModule,
     MatProgressSpinnerModule, MatRadioModule, MatProgressBarModule, MatCheckboxModule, MatDatepickerModule,
     MatTooltipModule, MatDialogModule, MatExpansionModule, MatAutocompleteModule, MatBadgeModule, MatTableModule, MatMenuModule,
-    MatSlideToggleModule
+    MatSlideToggleModule, MatButtonToggleModule
   ]
 })
 export class MaterialModule { }

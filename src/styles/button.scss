@@ -61,12 +61,23 @@ button {
   }
 
   &.mat-icon-button.chatbot-icon-btn {
+    $height: 30px;
+
     background-color: #F1EFF1;
     border-radius: $border-radius;
     transition: all 0.3s ease-in-out;
+    height: $height;
+    width: $height;
+    line-height: $height;
 
     .mat-icon {
+      $icon-height: 20px;
+
       margin: 0;
+      height: $icon-height;
+      width: $icon-height;
+      line-height: $icon-height;
+      font-size: $icon-height;
     }
 
     &.mat-primary {
