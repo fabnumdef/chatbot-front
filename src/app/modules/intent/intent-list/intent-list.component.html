@@ -27,31 +27,34 @@
   <div class="chatbot-list" *ngIf="(intents$ | async).length > 0">
     <div class="chatbot-list-actions">
       <div class="chatbot-list-actions-buttons">
-        <button mat-icon-button
-                class="chatbot-icon-btn"
-                aria-label="Sélectionner / desélectionner toutes les connaissances"
-                (click)="selectAll()"
-                [matTooltip]="(multipleSelection.length >= intents$.getValue().length) ? 'Désélectionner toutes les connaissances' : 'Sélectionner toutes les connaissances'">
-          <mat-icon *ngIf="multipleSelection.length > 0">check_box</mat-icon>
-          <mat-icon *ngIf="multipleSelection.length < 1">check_box_outline_blank</mat-icon>
-        </button>
-        <button mat-icon-button
-                class="chatbot-icon-btn"
-                aria-label="Supprimer toutes les connaissances sélectionnées"
-                [disabled]="!multipleSelection || multipleSelection.length < 1"
-                (click)="deleteAll()"
-                [matTooltip]="'Supprimer les connaissances sélectionnées'">
-          <mat-icon>delete</mat-icon>
-        </button>
-        <mat-divider vertical></mat-divider>
+        <ng-container *ngIf="listView">
+          <button mat-icon-button
+                  class="chatbot-icon-btn"
+                  aria-label="Sélectionner / desélectionner toutes les connaissances"
+                  (click)="selectAll()"
+                  [matTooltip]="(multipleSelection.length >= intents$.getValue().length) ? 'Désélectionner toutes les connaissances' : 'Sélectionner toutes les connaissances'">
+            <mat-icon *ngIf="multipleSelection.length > 0">check_box</mat-icon>
+            <mat-icon *ngIf="multipleSelection.length < 1">check_box_outline_blank</mat-icon>
+          </button>
+          <button mat-icon-button
+                  class="chatbot-icon-btn"
+                  aria-label="Supprimer toutes les connaissances sélectionnées"
+                  [disabled]="!multipleSelection || multipleSelection.length < 1"
+                  (click)="deleteAll()"
+                  [matTooltip]="'Supprimer les connaissances sélectionnées'">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <mat-divider vertical></mat-divider>
+        </ng-container>
         <span>Vue par</span>
-        <mat-button-toggle-group>
-          <mat-button-toggle value="list" checked>Liste</mat-button-toggle>
-          <mat-button-toggle value="tree" disabled>Arborescence</mat-button-toggle>
+        <mat-button-toggle-group [value]="listView"
+                                 (change)="changeView($event)">
+          <mat-button-toggle [value]="true">Liste</mat-button-toggle>
+          <mat-button-toggle [value]="false">Arborescence</mat-button-toggle>
         </mat-button-toggle-group>
       </div>
       <div class="pagination-info"
-           *ngIf="pagination"
+           *ngIf="pagination && listView"
            data-cy="PaginationInfo">
         <button mat-icon-button [matMenuTriggerFor]="selectPaginationElements">
           <mat-icon>more_vert</mat-icon>
@@ -65,84 +68,87 @@
         connaissances
       </div>
     </div>
-    <div *ngFor="let intent of intents$ | async">
-
-      <app-chatbot-list-item [checkable]="true"
-                             [checked]="multipleSelection.includes(intent.id)"
-                             (checkedClicked)="updateMultipleSelection($event, intent.id)">
-        <div class="badge badge-category"
-             *ngIf="intent.category">
-          {{ intent.category }}
-          <mat-divider vertical *ngIf="intentHasBadge(intent)"></mat-divider>
-        </div>
-        <div class="badge badge-stroked-primary"
-             *ngIf="intent.hidden">
-          Contenu caché
-        </div>
-        <div class="badge badge-stroked-primary"
-             *ngIf="intent.expiresAt">
-          Contenu variable
-        </div>
-        <div class="badge badge-error"
-             *ngIf="isIntentInError(intent)">
-          Connaissance incomplète
-        </div>
-        <div class="badge badge-light"
-             *ngIf="intent.status && intent.status !== intentStatus.active">
-          {{ intentStatusFr[intent.status] }}
-        </div>
-        <div class="title">
-          {{ intent.mainQuestion ? intent.mainQuestion : intent.id }}
-        </div>
-        <div class="hint">
-          Mis à jour le {{ intent.updatedAt | date: 'dd/MM/yyyy HH:mm' }}
-        </div>
-
-        <div class="actions">
-          <div>
-            {{ intent.responses?.length }} réponses
+    <ng-container *ngIf="listView">
+      <div *ngFor="let intent of intents$ | async">
+        <app-chatbot-list-item [checkable]="true"
+                               [checked]="multipleSelection.includes(intent.id)"
+                               (checkedClicked)="updateMultipleSelection($event, intent.id)">
+          <div class="badge badge-category"
+               *ngIf="intent.category">
+            {{ intent.category }}
+            <mat-divider vertical *ngIf="intentHasBadge(intent)"></mat-divider>
           </div>
-          <button mat-icon-button
-                  class="chatbot-icon-btn"
-                  aria-label="Modifier la connaissance"
-                  [color]="intentSelected === intent.id ? 'primary' : null"
-                  (click)="selectIntent(intent.id, true); $event.stopPropagation()"
-                  [matTooltip]="'Editer'">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button
-                  class="chatbot-icon-btn"
-                  aria-label="Arborescence de la connaissance"
-                  [disabled]="(!intent.previousIntents || intent.previousIntents.length < 1) && (!intent.nextIntents || intent.nextIntents.length < 1)"
-                  [color]="intentTree === intent.id ? 'primary' : null"
-                  (click)="selectIntent(intent.id, false); $event.stopPropagation()"
-                  [matTooltip]="'Voir l\'arborescence'">
-            <mat-icon>view_day</mat-icon>
-          </button>
-          <button mat-icon-button
-                  class="chatbot-icon-btn"
-                  aria-label="Archiver la connaissance"
-                  (click)="archiveIntent(intent); $event.stopPropagation()"
-                  [matTooltip]="'Supprimer'">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
-        <div *ngIf="intentSelected === intent.id || intentTree === intent.id"
-             class="detail"
-             [@detailInOutAnimation]>
-          <app-intent-form [intent]="intent"
-                           *ngIf="intent.id === intentSelected"
-                           (close)="selectIntent(intent.id, true)"
-                           [redirect]="false">
-          </app-intent-form>
-          <app-intent-tree [intent]="intent"
-                           (intentChanged)="openIntentTreeDialog($event)"
-                           *ngIf="intent.id === intentTree">
-          </app-intent-tree>
-        </div>
-      </app-chatbot-list-item>
-    </div>
-    <app-pagination [pagination]="pagination"
-                    (changePage)="intentService.load($event).subscribe()"></app-pagination>
+          <div class="badge badge-stroked-primary"
+               *ngIf="intent.hidden">
+            Contenu caché
+          </div>
+          <div class="badge badge-stroked-primary"
+               *ngIf="intent.expiresAt">
+            Contenu variable
+          </div>
+          <div class="badge badge-error"
+               *ngIf="isIntentInError(intent)">
+            Connaissance incomplète
+          </div>
+          <div class="badge badge-light"
+               *ngIf="intent.status && intent.status !== intentStatus.active">
+            {{ intentStatusFr[intent.status] }}
+          </div>
+          <div class="title">
+            {{ intent.mainQuestion ? intent.mainQuestion : intent.id }}
+          </div>
+          <div class="hint">
+            Mis à jour le {{ intent.updatedAt | date: 'dd/MM/yyyy HH:mm' }}
+          </div>
+
+          <div class="actions">
+            <div>
+              {{ intent.responses?.length }} réponses
+            </div>
+            <button mat-icon-button
+                    class="chatbot-icon-btn"
+                    aria-label="Modifier la connaissance"
+                    [color]="intentSelected === intent.id ? 'primary' : null"
+                    (click)="selectIntent(intent.id, true); $event.stopPropagation()"
+                    [matTooltip]="'Editer'">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button
+                    class="chatbot-icon-btn"
+                    aria-label="Arborescence de la connaissance"
+                    [disabled]="(!intent.previousIntents || intent.previousIntents.length < 1) && (!intent.nextIntents || intent.nextIntents.length < 1)"
+                    [color]="intentTree === intent.id ? 'primary' : null"
+                    (click)="selectIntent(intent.id, false); $event.stopPropagation()"
+                    [matTooltip]="'Voir l\'arborescence'">
+              <mat-icon>view_day</mat-icon>
+            </button>
+            <button mat-icon-button
+                    class="chatbot-icon-btn"
+                    aria-label="Archiver la connaissance"
+                    (click)="archiveIntent(intent); $event.stopPropagation()"
+                    [matTooltip]="'Supprimer'">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="intentSelected === intent.id || intentTree === intent.id"
+               class="detail"
+               [@detailInOutAnimation]>
+            <app-intent-form [intent]="intent"
+                             *ngIf="intent.id === intentSelected"
+                             (close)="selectIntent(intent.id, true)"
+                             [redirect]="false">
+            </app-intent-form>
+            <app-intent-tree [intent]="intent"
+                             (intentChanged)="openIntentTreeDialog($event)"
+                             *ngIf="intent.id === intentTree">
+            </app-intent-tree>
+          </div>
+        </app-chatbot-list-item>
+      </div>
+      <app-pagination [pagination]="pagination"
+                      (changePage)="intentService.load($event).subscribe()"></app-pagination>
+    </ng-container>
+    <app-intent-full-tree *ngIf="!listView">
+    </app-intent-full-tree>
   </div>
 </div>

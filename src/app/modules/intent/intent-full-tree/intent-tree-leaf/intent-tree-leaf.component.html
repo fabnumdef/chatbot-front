@@ -1,0 +1,40 @@
+<div class="intent-tree-leaf"
+     [ngClass]="{'intent-tree-leaf-selected': selected,
+     'intent-tree-leaf-show-responses': showResponses,
+     'intent-tree-leaf-highlighted': highlighted}"
+     (click)="selectLeaf()">
+  <div class="intent-tree-leaf-actions"
+       (click)="$event.stopPropagation()">
+    <button mat-icon-button
+            class="chatbot-icon-btn"
+            aria-label="Voir les réponses de la connaissance"
+            (click)="showResponses = !showResponses; $event.stopPropagation()"
+            [matTooltip]="'Voir les réponses'">
+      <mat-icon>message</mat-icon>
+    </button>
+    <button mat-icon-button
+            class="chatbot-icon-btn"
+            aria-label="Mettre en lumière les connaissances similaires"
+            (click)="showHighlightLeafs(); $event.stopPropagation()"
+            [matTooltip]="'Voir les connaissances similaires'">
+      <mat-icon>account_tree</mat-icon>
+    </button>
+    <button mat-icon-button
+            class="chatbot-icon-btn"
+            aria-label="Modifier la connaissance"
+            (click)="editIntent(); $event.stopPropagation()"
+            [matTooltip]="'Modifier'">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+  <div class="intent-tree-leaf-title">
+    {{ intent.mainQuestion }}
+  </div>
+  <div class="intent-tree-leaf-responses"
+       *ngIf="showResponses"
+       (click)="$event.stopPropagation()">
+    <app-intent-preview-responses *ngFor="let response of intent.responses"
+                                  [response]="response">
+    </app-intent-preview-responses>
+  </div>
+</div>

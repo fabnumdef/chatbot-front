@@ -22,6 +22,12 @@ import { IntentListComponent } from './intent-list/intent-list.component';
 import { FileFormComponent } from './create-edit-intent/intent-form/response-form/file-form/file-form.component';
 import { IntentTreeComponent } from './intent-tree/intent-tree.component';
 import { IntentTreeDialogComponent } from './intent-tree-modal/intent-tree-dialog.component';
+import { IntentFullTreeComponent } from './intent-full-tree/intent-full-tree.component';
+import { DragScrollModule } from 'ngx-drag-scroll';
+import { IntentTreeLeafComponent } from './intent-full-tree/intent-tree-leaf/intent-tree-leaf.component';
+import { IntentTreeBranchComponent } from './intent-full-tree/intent-tree-branch/intent-tree-branch.component';
+import { IntentPreviewResponseComponent } from './intent-full-tree/intent-preview-response/intent-preview-response.component';
+import { CreateEditIntentDialogComponent } from './intent-full-tree/create-edit-intent-dialog/create-edit-intent-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +47,12 @@ import { IntentTreeDialogComponent } from './intent-tree-modal/intent-tree-dialo
     KnowledgeFormComponent,
     FileFormComponent,
     IntentTreeComponent,
-    IntentTreeDialogComponent
+    IntentTreeDialogComponent,
+    IntentFullTreeComponent,
+    IntentTreeLeafComponent,
+    IntentTreeBranchComponent,
+    IntentPreviewResponseComponent,
+    CreateEditIntentDialogComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +60,8 @@ import { IntentTreeDialogComponent } from './intent-tree-modal/intent-tree-dialo
     MaterialModule,
     ReactiveFormsModule,
     SharedModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    DragScrollModule
   ],
   providers: [
     {provide: Window, useValue: window},

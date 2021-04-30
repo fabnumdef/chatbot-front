@@ -30,11 +30,13 @@ export class IntentListComponent implements OnInit {
   intentStatus = IntentStatus;
   intentStatusFr = IntentStatus_Fr;
   multipleSelection: string[] = [];
+  listView: boolean;
 
   constructor(public intentService: IntentService,
               public configService: ConfigService,
               private _toastr: ToastrService,
               private _dialog: MatDialog) {
+    this.listView = localStorage.getItem('intent_list_view') ? JSON.parse(localStorage.getItem('intent_list_view')) : true;
   }
 
   ngOnInit(): void {
@@ -142,6 +144,11 @@ export class IntentListComponent implements OnInit {
     });
   }
 
+  changeView($event): void {
+    localStorage.setItem('intent_list_view', $event.value.toString());
+    this.listView = $event.value;
+  }
+
   private _reloadIntent() {
     if (this.intents$.value.length < 1) {
       this.intentService.reload();
@@ -154,5 +161,4 @@ export class IntentListComponent implements OnInit {
       this.multipleSelection.splice(index, 1);
     }
   }
-
 }

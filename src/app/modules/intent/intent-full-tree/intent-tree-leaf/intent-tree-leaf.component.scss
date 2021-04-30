@@ -1,0 +1,67 @@
+@import 'src/styles/variables';
+
+.intent-tree-leaf {
+  width: 400px;
+  min-width: 110px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: $border-radius;
+  box-shadow: $shadow-uniform;
+  cursor: pointer;
+  position: relative;
+  border: 1.5px solid $white;
+  transition: border-color 0.2s ease-in-out;
+
+  &-actions, &-responses {
+    position: absolute;
+    left: 0;
+    overflow: hidden;
+    transition: height 0.2s ease-in-out;
+    z-index: 10;
+  }
+
+  &-actions {
+    height: 0;
+    top: -40px;
+
+    & > *:not(:first-child) {
+      margin-left: 10px;
+      box-shadow: $shadow-uniform;
+    }
+  }
+
+  &-responses {
+    top: 43px;
+    padding: 10px;
+    width: 600px;
+    background-color: $white;
+    box-shadow: $shadow-uniform;
+    border-radius: $border-radius;
+    box-sizing: border-box;
+    overflow: hidden;
+    cursor: auto;
+
+    & > *:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
+
+  &-title {
+    font-weight: 600;
+    white-space: pre-line;
+    overflow: hidden;
+  }
+
+  &-highlighted, &-selected {
+    &.intent-tree-leaf {
+      border-color: $primary-color;
+    }
+  }
+
+  &-selected {
+    .intent-tree-leaf-actions {
+      height: 30px;
+    }
+  }
+}
+

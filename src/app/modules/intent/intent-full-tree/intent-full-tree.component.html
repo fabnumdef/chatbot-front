@@ -1,0 +1,33 @@
+<div class="intent-full-tree"
+     [ngClass]="{'intent-full-tree-fullscreen': fullScreen,
+     'intent-full-tree-drag': !dragScrollDisabled}">
+  <drag-scroll [scrollbar-hidden]="true"
+               [drag-scroll-disabled]="dragScrollDisabled">
+    <div class="intent-full-tree-wrapper">
+      <app-intent-tree-branch *ngFor="let intent of notSingleIntents"
+                              [intent]="intent"
+                              (leafSelected)="onLeafSelected = $event"
+                              [onLeafSelected]="onLeafSelected"
+                              (highlightLeafs)="onHighlightLeafs = $event"
+                              [onHighlightLeafs]="onHighlightLeafs">
+      </app-intent-tree-branch>
+    </div>
+    <div class="intent-full-tree-actions">
+      <button mat-icon-button
+              class="chatbot-icon-btn"
+              aria-label="Naviguer dans l'arbre"
+              (click)="dragScrollDisabled = !dragScrollDisabled"
+              [matTooltip]="'Naviguer'">
+        <mat-icon>pan_tool</mat-icon>
+      </button>
+      <button mat-icon-button
+              class="chatbot-icon-btn"
+              aria-label="Passer en vue plein écran"
+              (click)="showFullScreen()"
+              [matTooltip]="'Plein écran'">
+        <mat-icon *ngIf="!fullScreen">open_in_full</mat-icon>
+        <mat-icon *ngIf="fullScreen">close_fullscreen</mat-icon>
+      </button>
+    </div>
+  </drag-scroll>
+</div>

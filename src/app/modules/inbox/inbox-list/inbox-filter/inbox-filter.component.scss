@@ -38,5 +38,9 @@
       box-sizing: border-box;
       padding-left: 20px;
     }
+
+    .mat-checkbox {
+      border-radius: $border-radius;
+    }
   }
 }

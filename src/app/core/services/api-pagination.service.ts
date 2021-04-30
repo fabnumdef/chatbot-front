@@ -29,7 +29,7 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
    ****** PAGINATION ******
    ************************/
 
-  public load(page: number = 1): Observable<PaginatedResult<T>> {
+  public load(page: number = 1): Observable<PaginatedResult<T> | T[]> {
     this._loaded$.next(true);
     this._pagination.resetPage(page);
     return this.getEntities(false);

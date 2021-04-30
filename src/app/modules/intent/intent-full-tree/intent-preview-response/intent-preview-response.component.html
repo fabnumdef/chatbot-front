@@ -1,0 +1,15 @@
+<div class="intent-preview-response">
+  <ng-container [ngSwitch]="true">
+    <div class="intent-preview-response-text"
+         *ngSwitchCase="response.responseType === responseType.text">
+      {{ response.response }}
+    </div>
+    <div class="intent-preview-response-quick-replies"
+         *ngSwitchCase="response.responseType === responseType.quick_reply">
+      <div class="intent-preview-response-quick-reply"
+           *ngFor="let qr of quickReplies">
+        {{ qr }}
+      </div>
+    </div>
+  </ng-container>
+</div>

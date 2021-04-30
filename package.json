@@ -44,6 +44,7 @@
     "moment": "^2.25.3",
     "ng2-charts": "^2.4.2",
     "ngx-color-picker": "^11.0.0",
+    "ngx-drag-scroll": "^11.0.0-beta.1",
     "ngx-highlightjs": "^4.1.1",
     "ngx-mat-select-search": "^3.2.0",
     "ngx-toastr": "^12.0.0",

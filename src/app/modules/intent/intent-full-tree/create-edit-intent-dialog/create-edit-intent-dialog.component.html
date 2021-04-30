@@ -1,0 +1,10 @@
+<div class="create-edit-intent-dialog">
+  <div class="waiting-spinner" *ngIf="!intent">
+    <mat-spinner [diameter]="80"></mat-spinner>
+  </div>
+  <app-intent-form [intent]="intent"
+                   [redirect]="false"
+                   (close)="dialogRef.close()"
+                   *ngIf="intent">
+  </app-intent-form>
+</div>
