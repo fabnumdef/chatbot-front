@@ -9,7 +9,15 @@ import { ResponseType } from '@enum/*';
 })
 export class IntentPreviewResponseComponent implements OnInit {
 
-  @Input() response: Response;
+  private _response: Response;
+  get response(): Response {
+    return this._response;
+  }
+
+  @Input() set response(r: Response) {
+    this._response = r;
+    this._sortResponse();
+  }
 
   responseType = ResponseType;
   quickReplies = [];
@@ -18,7 +26,9 @@ export class IntentPreviewResponseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.response.response);
+  }
+
+  private _sortResponse() {
     switch (this.response.responseType) {
       case ResponseType.quick_reply:
         this._getQuickReplies();

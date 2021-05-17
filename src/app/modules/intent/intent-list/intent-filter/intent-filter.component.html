@@ -1,5 +1,5 @@
 <div class="intent-filter">
-  <h3>Recherche</h3>
+  <h3 *ngIf="!light">Recherche</h3>
   <form [formGroup]="intentFilters" *ngIf="intentFilters">
     <mat-form-field appearance="outline" class="query">
       <mat-label>Mots-clés</mat-label>
@@ -26,33 +26,35 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-checkbox color="primary"
-                  class="chekbox-chip"
-                  formControlName="intentInError">
-      Connaissances incomplètes
-    </mat-checkbox>
+    <ng-container *ngIf="!light">
+      <mat-checkbox color="primary"
+                    class="chekbox-chip"
+                    formControlName="intentInError">
+        Connaissances incomplètes
+      </mat-checkbox>
 
-    <mat-checkbox color="primary"
-                  class="chekbox-chip"
-                  formControlName="hidden">
-      Contenu caché
-    </mat-checkbox>
+      <mat-checkbox color="primary"
+                    class="chekbox-chip"
+                    formControlName="hidden">
+        Contenu caché
+      </mat-checkbox>
 
-    <mat-checkbox color="primary"
-                  class="chekbox-chip"
-                  formControlName="expires"
-                  (change)="controls.expiresAt.reset(null)">
-      Contenu variable <span *ngIf="controls.expires.value">&nbsp;jusqu'au</span>
-      <mat-form-field appearance="outline"
-                      class="chatbot-datepicker chatbot-datepicker-compact"
-                      *ngIf="controls.expires.value"
-                      (click)="$event.preventDefault()">
-        <input matInput
-               [matDatepicker]="picker"
-               formControlName="expiresAt">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </mat-checkbox>
+      <mat-checkbox color="primary"
+                    class="chekbox-chip"
+                    formControlName="expires"
+                    (change)="controls.expiresAt.reset(null)">
+        Contenu variable <span *ngIf="controls.expires.value">&nbsp;jusqu'au</span>
+        <mat-form-field appearance="outline"
+                        class="chatbot-datepicker chatbot-datepicker-compact"
+                        *ngIf="controls.expires.value"
+                        (click)="$event.preventDefault()">
+          <input matInput
+                 [matDatepicker]="picker"
+                 formControlName="expiresAt">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </mat-checkbox>
+    </ng-container>
   </form>
 </div>

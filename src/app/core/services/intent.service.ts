@@ -41,7 +41,6 @@ export class IntentService extends ApiPaginationService<Intent> {
       this.setOptions()
     ).pipe(
       tap(result => {
-        console.log('LOADED TREE', result);
         this._entities$.next(result);
       }),
       finalize(() => {

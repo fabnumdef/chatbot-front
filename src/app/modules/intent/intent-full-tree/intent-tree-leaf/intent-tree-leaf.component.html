@@ -26,6 +26,14 @@
             [matTooltip]="'Modifier'">
       <mat-icon>edit</mat-icon>
     </button>
+    <button mat-icon-button
+            class="chatbot-icon-btn"
+            aria-label="Supprimer la connaissance de l'arbre"
+            *ngIf="!isRoot"
+            (click)="deleteIntent(); $event.stopPropagation()"
+            [matTooltip]="'Supprimer'">
+      <mat-icon>delete</mat-icon>
+    </button>
   </div>
   <div class="intent-tree-leaf-title">
     {{ intent.mainQuestion }}
@@ -36,5 +44,21 @@
     <app-intent-preview-responses *ngFor="let response of intent.responses"
                                   [response]="response">
     </app-intent-preview-responses>
+  </div>
+  <div class="intent-tree-leaf-new-response"
+       *ngIf="intent.nextIntents && intent.nextIntents.length > 0"
+       [matMenuTriggerFor]="newResponse"
+       (click)="$event.stopPropagation()">
+    <button mat-icon-button>
+      <mat-icon>add</mat-icon>
+    </button>
+    <mat-menu #newResponse="matMenu">
+      <button mat-menu-item (click)="this.createIntent(); $event.stopPropagation()">
+        <span>Nouvelle connaissance</span>
+      </button>
+      <button mat-menu-item (click)="this.findIntent(); $event.stopPropagation()">
+        <span>Connaissance existante</span>
+      </button>
+    </mat-menu>
   </div>
 </div>

@@ -52,6 +52,30 @@
     overflow: hidden;
   }
 
+  &-new-response {
+    position: absolute;
+    right: -45px;
+    top: calc(50% - 15px);
+
+    button {
+      $btn-size: 30px;
+      border-radius: 100px;
+      background-color: $primary-color;
+      color: $white;
+      width: $btn-size;
+      height: $btn-size;
+      line-height: $btn-size;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      ::ng-deep.mat-button-wrapper {
+        display: flex;
+      }
+    }
+  }
+
   &-highlighted, &-selected {
     &.intent-tree-leaf {
       border-color: $primary-color;

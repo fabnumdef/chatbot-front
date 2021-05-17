@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { IntentService } from '@core/services/intent.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { Intent } from '@model/intent.model';
+import { CreateEditIntentDialogComponent } from './create-edit-intent-dialog/create-edit-intent-dialog.component';
+import { IntentFinderDialogComponent } from './intent-finder-dialog/intent-finder-dialog.component';
+import { ResponseType } from '@enum/*';
+import { MatDialog } from '@angular/material/dialog';
+import { PanZoomAPI, PanZoomConfig } from 'ngx-panzoom';
 
 @Component({
   selector: 'app-intent-full-tree',
   templateUrl: './intent-full-tree.component.html',
   styleUrls: ['./intent-full-tree.component.scss']
 })
-export class IntentFullTreeComponent implements OnInit {
+export class IntentFullTreeComponent implements OnInit, OnDestroy {
 
   // intents$: BehaviorSubject<Intent[]>;
   notSingleIntents: Intent[] = [];
@@ -17,8 +22,17 @@ export class IntentFullTreeComponent implements OnInit {
   fullScreen = false;
   onLeafSelected: string;
   onHighlightLeafs: string;
+  panZoomConfig: PanZoomConfig = new PanZoomConfig({
+    zoomOnDoubleClick: false,
+    zoomOnMouseWheel: false,
+    panOnClickDrag: true,
+    keepInBounds: false
+  });
+  public panZoomAPI: PanZoomAPI;
+  private _apiSubscription: Subscription;
 
-  constructor(private _intentService: IntentService) {
+  constructor(private _intentService: IntentService,
+              private _dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -26,6 +40,11 @@ export class IntentFullTreeComponent implements OnInit {
     this._intentService.entities$.subscribe(intents => {
       this.notSingleIntents = intents.filter(i => i.nextIntents && i.nextIntents.length > 0);
     });
+    this._apiSubscription = this.panZoomConfig.api.subscribe((api: PanZoomAPI) => this.panZoomAPI = api);
+  }
+
+  ngOnDestroy(): void {
+    this._apiSubscription.unsubscribe();  // don't forget to unsubscribe.  you don't want a memory leak!
   }
 
   public showFullScreen() {
@@ -33,5 +52,51 @@ export class IntentFullTreeComponent implements OnInit {
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
     }, 200);
+  }
+
+  public createIntent(): void {
+    const dialogRef = this._dialog.open(CreateEditIntentDialogComponent, {
+      data: {
+        intent: new Intent()
+      },
+      maxHeight: '80vh'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+      this._addIntent(result);
+    });
+  }
+
+  public findIntent(): void {
+    const dialogRef = this._dialog.open(IntentFinderDialogComponent, {
+      width: '80vw',
+      maxHeight: '80vh'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+      this._addIntent(result);
+    });
+  }
+
+  public zoomOut() {
+    this.panZoomAPI.zoomOut();
+  }
+
+  public zoomIn() {
+    this.panZoomAPI.zoomIn();
+  }
+
+  public getZoomLevel() {
+    return this.panZoomAPI?.model?.zoomLevel;
+  }
+
+  private _addIntent(intent: Intent) {
+    this.notSingleIntents.push(intent);
   }
 }

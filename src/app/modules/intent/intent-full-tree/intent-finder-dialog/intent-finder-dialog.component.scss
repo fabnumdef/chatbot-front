@@ -1,0 +1,31 @@
+@import "src/styles/variables";
+
+.intent-finder-dialog {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(80vh - 48px);
+
+  ::ng-deep .intent-filter {
+    box-shadow: none;
+    padding: 0;
+  }
+
+  &-list {
+    overflow-y: auto;
+
+    .mat-expansion-panel.selected {
+      border: 1px solid $primary-color;
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 20px;
+
+    & > *:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+}

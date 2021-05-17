@@ -1,12 +1,16 @@
 <div class="intent-tree-branch">
   <app-intent-tree-leaf [intent]="intent"
+                        [isRoot]="isRoot"
                         (leafSelected)="leafSelected.emit($event)"
                         (highlightLeafs)="highlightLeafs.emit($event)"
+                        (deleteLeaf)="deleteLeaf.emit($event)"
                         [onLeafSelected]="onLeafSelected"
                         [onHighlightLeafs]="onHighlightLeafs">
   </app-intent-tree-leaf>
   <div class="intent-tree-branch-level" *ngIf="intent.nextIntents && intent.nextIntents.length > 0">
     <app-intent-tree-branch *ngFor="let nextIntent of intent.nextIntents"
+                            (deleteLeaf)="deleteIntentResponse($event)"
+                            [isRoot]="false"
                             [intent]="nextIntent"
                             (leafSelected)="leafSelected.emit($event)"
                             (highlightLeafs)="highlightLeafs.emit($event)"

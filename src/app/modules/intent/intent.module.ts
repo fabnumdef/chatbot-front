@@ -23,11 +23,12 @@ import { FileFormComponent } from './create-edit-intent/intent-form/response-for
 import { IntentTreeComponent } from './intent-tree/intent-tree.component';
 import { IntentTreeDialogComponent } from './intent-tree-modal/intent-tree-dialog.component';
 import { IntentFullTreeComponent } from './intent-full-tree/intent-full-tree.component';
-import { DragScrollModule } from 'ngx-drag-scroll';
 import { IntentTreeLeafComponent } from './intent-full-tree/intent-tree-leaf/intent-tree-leaf.component';
 import { IntentTreeBranchComponent } from './intent-full-tree/intent-tree-branch/intent-tree-branch.component';
 import { IntentPreviewResponseComponent } from './intent-full-tree/intent-preview-response/intent-preview-response.component';
 import { CreateEditIntentDialogComponent } from './intent-full-tree/create-edit-intent-dialog/create-edit-intent-dialog.component';
+import { IntentFinderDialogComponent } from './intent-full-tree/intent-finder-dialog/intent-finder-dialog.component';
+import { NgxPanZoomModule } from 'ngx-panzoom';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { CreateEditIntentDialogComponent } from './intent-full-tree/create-edit-
     IntentTreeLeafComponent,
     IntentTreeBranchComponent,
     IntentPreviewResponseComponent,
-    CreateEditIntentDialogComponent
+    CreateEditIntentDialogComponent,
+    IntentFinderDialogComponent
   ],
   imports: [
     CommonModule,
@@ -61,7 +63,7 @@ import { CreateEditIntentDialogComponent } from './intent-full-tree/create-edit-
     ReactiveFormsModule,
     SharedModule,
     NgxMatSelectSearchModule,
-    DragScrollModule
+    NgxPanZoomModule
   ],
   providers: [
     {provide: Window, useValue: window},

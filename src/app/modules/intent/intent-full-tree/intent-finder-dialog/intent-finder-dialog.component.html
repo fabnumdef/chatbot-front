@@ -1,0 +1,43 @@
+<div class="intent-finder-dialog">
+  <app-intent-filter [light]="true"
+                     [standalone]="true"
+                     (intentFilterChanges)="onIntentFilterChange($event)">
+  </app-intent-filter>
+
+  <ng-container *ngIf="filteredIntents && filteredIntents.length > 0; else noIntents">
+    <mat-accordion displayMode="flat" class="intent-finder-dialog-list">
+      <mat-expansion-panel *ngFor="let intent of filteredIntents"
+                           (click)="intentSelected = intent"
+                           [ngClass]="{'selected': intentSelected?.id === intent.id}">
+        <mat-expansion-panel-header expandedHeight="48px">
+          <mat-panel-title>
+            {{ intent.mainQuestion }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>
+          <div *ngFor="let response of intent.responses">
+            {{ response.response }}
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
+  <ng-template #noIntents>
+    Aucune connaissances.
+  </ng-template>
+
+  <div class="actions">
+    <button mat-flat-button
+            color="accent"
+            type="button"
+            [mat-dialog-close]="false">
+      Annuler
+    </button>
+    <button mat-stroked-button
+            color="accent"
+            [disabled]="!intentSelected"
+            (click)="selectIntent()">
+      Confirmer
+    </button>
+  </div>
+</div>

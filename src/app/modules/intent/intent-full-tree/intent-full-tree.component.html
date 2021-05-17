@@ -1,33 +1,64 @@
 <div class="intent-full-tree"
      [ngClass]="{'intent-full-tree-fullscreen': fullScreen,
      'intent-full-tree-drag': !dragScrollDisabled}">
-  <drag-scroll [scrollbar-hidden]="true"
-               [drag-scroll-disabled]="dragScrollDisabled">
-    <div class="intent-full-tree-wrapper">
-      <app-intent-tree-branch *ngFor="let intent of notSingleIntents"
-                              [intent]="intent"
-                              (leafSelected)="onLeafSelected = $event"
-                              [onLeafSelected]="onLeafSelected"
-                              (highlightLeafs)="onHighlightLeafs = $event"
-                              [onHighlightLeafs]="onHighlightLeafs">
-      </app-intent-tree-branch>
-    </div>
-    <div class="intent-full-tree-actions">
-      <button mat-icon-button
-              class="chatbot-icon-btn"
-              aria-label="Naviguer dans l'arbre"
-              (click)="dragScrollDisabled = !dragScrollDisabled"
-              [matTooltip]="'Naviguer'">
-        <mat-icon>pan_tool</mat-icon>
+  <pan-zoom [config]="panZoomConfig">
+      <div class="intent-full-tree-wrapper">
+        <app-intent-tree-branch *ngFor="let intent of notSingleIntents"
+                                [isRoot]="true"
+                                [intent]="intent"
+                                (leafSelected)="onLeafSelected = $event"
+                                [onLeafSelected]="onLeafSelected"
+                                (highlightLeafs)="onHighlightLeafs = $event"
+                                [onHighlightLeafs]="onHighlightLeafs">
+        </app-intent-tree-branch>
+      </div>
+  </pan-zoom>
+  <div class="intent-full-tree-actions">
+    <button mat-icon-button
+            class="chatbot-icon-btn"
+            aria-label="'Ajouter une connaissance dans l'arbre'"
+            [matMenuTriggerFor]="newIntent"
+            [matTooltip]="'Ajouter'">
+      <mat-icon>add</mat-icon>
+    </button>
+    <mat-menu #newIntent="matMenu">
+      <button mat-menu-item (click)="this.createIntent(); $event.stopPropagation()">
+        <span>Nouvelle connaissance</span>
       </button>
-      <button mat-icon-button
-              class="chatbot-icon-btn"
-              aria-label="Passer en vue plein écran"
-              (click)="showFullScreen()"
-              [matTooltip]="'Plein écran'">
-        <mat-icon *ngIf="!fullScreen">open_in_full</mat-icon>
-        <mat-icon *ngIf="fullScreen">close_fullscreen</mat-icon>
+      <button mat-menu-item (click)="this.findIntent(); $event.stopPropagation()">
+        <span>Connaissance existante</span>
       </button>
-    </div>
-  </drag-scroll>
+    </mat-menu>
+    <button mat-icon-button
+            class="chatbot-icon-btn"
+            aria-label="Naviguer dans l'arbre"
+            (click)="dragScrollDisabled = !dragScrollDisabled"
+            [matTooltip]="'Naviguer'">
+      <mat-icon>pan_tool</mat-icon>
+    </button>
+    <button mat-icon-button
+            class="chatbot-icon-btn"
+            aria-label="Passer en vue plein écran"
+            (click)="showFullScreen()"
+            [matTooltip]="'Plein écran'">
+      <mat-icon *ngIf="!fullScreen">open_in_full</mat-icon>
+      <mat-icon *ngIf="fullScreen">close_fullscreen</mat-icon>
+    </button>
+    <button mat-icon-button
+            class="chatbot-icon-btn"
+            aria-label="Dézoomers"
+            (click)="zoomOut()"
+            [disabled]="getZoomLevel() < 1"
+            [matTooltip]="'Dézoomer'">
+      <mat-icon>zoom_out</mat-icon>
+    </button>
+    <button mat-icon-button
+            class="chatbot-icon-btn"
+            aria-label="Zoomer"
+            (click)="zoomIn()"
+            [disabled]="getZoomLevel() > 3"
+            [matTooltip]="'Zoomer'">
+      <mat-icon>zoom_in</mat-icon>
+    </button>
+  </div>
 </div>

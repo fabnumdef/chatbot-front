@@ -4,7 +4,7 @@
   </div>
   <app-intent-form [intent]="intent"
                    [redirect]="false"
-                   (close)="dialogRef.close()"
+                   (close)="dialogRef.close($event)"
                    *ngIf="intent">
   </app-intent-form>
 </div>

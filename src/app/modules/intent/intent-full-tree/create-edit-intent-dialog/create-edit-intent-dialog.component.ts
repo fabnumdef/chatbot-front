@@ -20,6 +20,10 @@ export class CreateEditIntentDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this._intentId) {
+      this.intent = this.data.intent;
+      return;
+    }
     this._intentService.loadOne(this._intentId).subscribe(intent => {
       this.intent = intent;
     });

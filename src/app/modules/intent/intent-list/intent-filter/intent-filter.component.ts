@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DestroyObservable } from '@core/utils/destroy-observable';
 import { IntentService } from '@core/services/intent.service';
@@ -13,6 +13,9 @@ import * as moment from 'moment';
   styleUrls: ['./intent-filter.component.scss'],
 })
 export class IntentFilterComponent extends DestroyObservable implements OnInit, OnDestroy {
+  @Input() light = false;
+  @Input() standalone = false;
+  @Output() intentFilterChanges: EventEmitter<any> = new EventEmitter<any>();
 
   intentFilters: FormGroup;
   categories$: BehaviorSubject<string[]>;
@@ -26,8 +29,8 @@ export class IntentFilterComponent extends DestroyObservable implements OnInit, 
   ngOnInit(): void {
     this.categories$ = this._refDataService.categories$;
     this.intentFilters = this._fb.group({
-      query: [this._intentService.currentSearch],
-      categories: [this._intentService.currentFilters?.categories ? this._intentService.currentFilters.categories : []],
+      query: [!this.standalone ? this._intentService.currentSearch : ''],
+      categories: [this._intentService.currentFilters?.categories && !this.standalone ? this._intentService.currentFilters.categories : []],
       intentInError: [this._intentService.currentFilters?.intentInError ? this._intentService.currentFilters.intentInError : false],
       hidden: [this._intentService.currentFilters?.hidden ? this._intentService.currentFilters.hidden : false],
       expires: [this._intentService.currentFilters?.expires ? this._intentService.currentFilters.expires : false],
@@ -39,17 +42,28 @@ export class IntentFilterComponent extends DestroyObservable implements OnInit, 
         debounceTime(300),
         distinctUntilChanged())
       .subscribe(value => {
+        if (this.standalone) {
+          this.intentFilterChanges.emit({
+            query: value.query,
+            categories: value.categories
+          });
+          return;
+        }
         this._intentService.currentSearch = value.query;
         delete value.query;
         value.expiresAt = value.expiresAt ? value.expiresAt.format('DD/MM/yyyy') : null;
         this._intentService.currentFilters = value;
         this._intentService.load().subscribe();
       });
-    this._intentService.load().subscribe();
+    if (!this.standalone) {
+      this._intentService.load().subscribe();
+    }
   }
 
   ngOnDestroy() {
-    this._intentService.resetFilters();
+    if (!this.standalone) {
+      this._intentService.resetFilters();
+    }
   }
 
   get controls() {
