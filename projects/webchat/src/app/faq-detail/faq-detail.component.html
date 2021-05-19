@@ -15,14 +15,14 @@
     <h3>{{ category ? category : 'Aucune catégorie' }}</h3>
     <mat-accordion displayMode="flat">
       <mat-expansion-panel *ngFor="let intent of getIntentsByCategory(category)">
-        <mat-expansion-panel-header expandedHeight="48px">
+        <mat-expansion-panel-header>
           <mat-panel-title>
             {{ intent.mainQuestion }}
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="faq-detail-responses">
           <div *ngFor="let response of intent.responses">
-            {{ response.response }}
+            <app-chat-message [message]="response"></app-chat-message>
           </div>
         </div>
       </mat-expansion-panel>

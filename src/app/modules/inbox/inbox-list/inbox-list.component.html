@@ -71,7 +71,7 @@
               Aucun
             </mat-option>
             <mat-option [value]="user" *ngFor="let user of users$ | async">
-              {{ user.firstName }} {{ user.lastName }} <span class="primary-color">{{ user.role }}</span>
+              {{ user.firstName }} {{ user.lastName }} <span class="primary-color">{{ userRole_fr[user.role] }}</span>
             </mat-option>
             <mat-option [value]="undefined"
                         (click)="assignationExtern(inbox)">

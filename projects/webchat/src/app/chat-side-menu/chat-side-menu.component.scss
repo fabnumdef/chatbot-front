@@ -63,6 +63,7 @@
 
   &-actions {
     & > *:not(:first-child) {
+      vertical-align: bottom;
       margin-left: 10px;
     }
   }

@@ -4,7 +4,7 @@ import { Inbox } from '@model/inbox.model';
 import { InboxService } from '@core/services/inbox.service';
 import { PaginationHelper } from '@model/pagination-helper.model';
 import * as moment from 'moment';
-import { InboxStatus, InboxStatus_Fr } from '@enum/inbox-status.enum';
+import { InboxStatus, InboxStatus_Fr, UserRole_Fr } from '@enum/inbox-status.enum';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '@core/services/user.service';
 import { User } from '@model/user.model';
@@ -35,6 +35,7 @@ export class InboxListComponent implements OnInit {
   inboxIntent: number;
   inboxPreview: number;
   multipleSelection: number[] = [];
+  userRole_fr = UserRole_Fr;
 
   constructor(public inboxService: InboxService,
               private _toastr: ToastrService,

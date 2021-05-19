@@ -25,9 +25,22 @@
     &:nth-child(odd) {
       background-color: rgba(110, 145, 240, 0.1);
     }
+
+    &-header {
+      min-height: 48px;
+      height: auto;
+
+      &-title {
+        padding: 10px 0;
+      }
+    }
   }
 
   &-responses {
     margin-top: 16px;
+
+    ::ng-deep.chat-message-quick-reply:hover {
+      color: #000000;
+    }
   }
 }

@@ -14,7 +14,7 @@ export class WebchatService {
   private _url;
   private _initPayload: string;
 
-  private _socket;
+  private _socket: any;
   private _storage;
 
   private _messages$ = new BehaviorSubject(null);
@@ -28,6 +28,9 @@ export class WebchatService {
   public connect(url: string, path: string, initPayload: string) {
     this._url = url;
     this._initPayload = initPayload;
+    if (this._socket) {
+      this._socket.disconnect();
+    }
     this._socket = io(url, {
       path,
       transports: ['websocket']
@@ -161,6 +164,10 @@ export class WebchatService {
 
   public getBlockText(): Observable<boolean> {
     return this._blockText$;
+  }
+
+  public resetMessages(): void {
+    this._messages$ = new BehaviorSubject(null);
   }
 
   private _getLocalSession(key) {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MessageType } from '../core/enums/message-type.enum';
 import { WebchatService } from '../core/services/webchat.service';
 import { Feedback, FeedbackStatus } from '../core/models/feedback.model';
@@ -15,7 +15,7 @@ import { fadeIn, fadeInOut } from '../core/animation';
   styleUrls: ['./chat-messages.component.scss'],
   animations: [fadeInOut, fadeIn]
 })
-export class ChatMessagesComponent implements OnInit {
+export class ChatMessagesComponent implements OnInit, OnDestroy {
   @ViewChild('chatboxfirefox') chatboxfirefox: ElementRef;
 
   @Input() showTyping: boolean;
@@ -125,6 +125,10 @@ export class ChatMessagesComponent implements OnInit {
         this.blockTypeText = blockText;
       }))
       .subscribe();
+  }
+
+  ngOnDestroy() {
+    this._chatService.resetMessages();
   }
 
   public isFirstMessage(previousMessage, from): boolean {
