@@ -147,6 +147,7 @@ export class IntentListComponent implements OnInit {
   changeView($event): void {
     localStorage.setItem('intent_list_view', $event.value.toString());
     this.listView = $event.value;
+    this.intentService.reload();
   }
 
   private _reloadIntent() {
