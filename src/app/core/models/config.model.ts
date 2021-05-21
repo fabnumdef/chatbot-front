@@ -16,6 +16,7 @@ export class Config {
   description: string;
   help: string;
   helpBtn: string;
+  showFaq: boolean;
 
   // DESCRIPTION
   problematic: string;
@@ -24,4 +25,5 @@ export class Config {
   // CONFIG
   showIntentSearch: boolean;
   delayBetweenMessages: number;
+  isTree: boolean;
 }

@@ -29,12 +29,14 @@ export class ChatWidgetComponent implements OnInit {
   @Input() public blockTypeText = false;
   @Input() public showFeedback = true;
   @Input() public showRebootBtn = false;
+  @Input() public isTree = false;
+  @Input() public showFaq = true;
   @Input() public delayBetweenMessages = 2000;
 
   public messageType = MessageType;
   public showTyping = false;
   public isMobileSize = false;
-  public showFaq = false;
+  public displayFaq = false;
 
   constructor() {
   }

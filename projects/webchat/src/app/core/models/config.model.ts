@@ -10,12 +10,14 @@ export class Config {
   lastTrainingAt: string;
   storage: boolean;
   maintenanceMode: boolean;
+  isTree: boolean;
 
   // EMBEDDED
   embeddedIcon: string;
   description: string;
   help: string;
   helpBtn: string;
+  showFaq: boolean;
 
   // DESCRIPTION
   problematic: string;

@@ -23,7 +23,7 @@
       </app-chat-side-menu>
     </mat-drawer>
     <mat-drawer-content>
-      <app-chat-messages *ngIf="!showFaq"
+      <app-chat-messages *ngIf="!displayFaq"
                          [showTyping]="showTyping"
                          [botColor]="botColor"
                          [userColor]="userColor"
@@ -42,19 +42,20 @@
                          [socketPath]="socketPath"
                          [initPayload]="initPayload"
                          [delayBetweenMessages]="delayBetweenMessages"
+                         [isTree]="isTree"
                          (checkNavSize)="checkNavSize()">
       </app-chat-messages>
-      <app-faq-list *ngIf="showFaq"
+      <app-faq-list *ngIf="displayFaq"
                     [botColor]="botColor"></app-faq-list>
-      <div class="button_chat_faq">
-        <div (click)="showFaq = false"
-             [ngClass]="{'active': !showFaq}"
-             [ngStyle]="!showFaq && {'background-color': botColor}">
+      <div class="button_chat_faq" *ngIf="showFaq">
+        <div (click)="displayFaq = false"
+             [ngClass]="{'active': !displayFaq}"
+             [ngStyle]="!displayFaq && {'background-color': botColor}">
           CHAT
         </div>
-        <div (click)="showFaq = true"
-             [ngClass]="{'active': showFaq}"
-             [ngStyle]="showFaq && {'background-color': botColor}">
+        <div (click)="displayFaq = true"
+             [ngClass]="{'active': displayFaq}"
+             [ngStyle]="displayFaq && {'background-color': botColor}">
           FAQ
         </div>
       </div>

@@ -262,6 +262,17 @@
               formControlName="showIntentSearch">
               Suggestions de questions
             </mat-slide-toggle>
+
+            <div class="chatbot-subtitle">
+              <h4>Volet FAQ</h4>
+            </div>
+            <p>Afficher ou non le volet FAQ.</p>
+            <mat-slide-toggle
+              color="primary"
+              aria-label="Afficher ou masquer le volet FAQ"
+              formControlName="showFaq">
+              Volet FAQ
+            </mat-slide-toggle>
           </div>
           <div class="preview">
             <app-chatbot-embedded-preview [chatbot]="fullConfiguration"

@@ -55,6 +55,12 @@ export class ConfigService {
     if (partialConfig.showIntentSearch !== undefined) {
       formData.append('showIntentSearch', partialConfig.showIntentSearch.toString());
     }
+    if (partialConfig.showFaq !== undefined) {
+      formData.append('showFaq', partialConfig.showFaq.toString());
+    }
+    if (partialConfig.isTree !== undefined) {
+      formData.append('isTree', partialConfig.isTree.toString());
+    }
     ['name', 'function', 'primaryColor', 'secondaryColor', 'problematic', 'audience',
       'description', 'help', 'helpBtn', 'delayBetweenMessages'].forEach(attribute => {
       if (partialConfig[attribute]) {

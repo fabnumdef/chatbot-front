@@ -36,6 +36,17 @@
           <mat-radio-button [value]="false">Au niveau de l'onglet</mat-radio-button>
           <mat-radio-button [value]="true">Au niveau du navigateur</mat-radio-button>
         </mat-radio-group>
+
+        <div class="chatbot-subtitle">
+          <h4>Est-ce un bot arborescent ?</h4>
+        </div>
+        <p>Désactiver la possibilité pour l'utilisateur de saisir du texte. Toute la navigation dans le chatbot se fera via les réponses à choix.</p>
+        <mat-slide-toggle
+          color="primary"
+          aria-label="Désactiver la saisie de texte"
+          formControlName="isTree">
+          Bot arborescent
+        </mat-slide-toggle>
       </form>
       <ng-container *appHasRole="'admin'">
         <button mat-stroked-button
