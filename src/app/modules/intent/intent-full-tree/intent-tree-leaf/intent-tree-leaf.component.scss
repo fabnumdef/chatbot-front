@@ -40,6 +40,7 @@
     box-sizing: border-box;
     overflow: hidden;
     cursor: auto;
+    z-index: 20;
 
     & > *:not(:first-child) {
       margin-top: 10px;
