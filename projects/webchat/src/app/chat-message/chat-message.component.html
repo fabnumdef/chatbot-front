@@ -5,7 +5,7 @@
          [ngClass]="{'chat-message-text-qr': message.type === messageType.quick_reply || message.type === messageType.button}"
          [ngStyle]="{'background-color': message.from === 'received'? botColor : userColor}"
          tabindex="-1"
-         [innerHTML]="urlify(message.text)">
+         [innerHTML]="sanitize(urlify(message.text))">
     </div>
   </ng-container>
   <div class="chat-message-quick-replies"

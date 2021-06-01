@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MessageType } from '../core/enums/message-type.enum';
 import { WebchatService } from '../core/services/webchat.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-chat-message',
@@ -23,7 +24,8 @@ export class ChatMessageComponent implements OnInit {
     '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
     '(\\?[;&a-z\\d%_.~+=-]*)?', 'i'); // fragment locator
 
-  constructor(private _chatService: WebchatService) {
+  constructor(private _chatService: WebchatService,
+              private _sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -51,6 +53,10 @@ export class ChatMessageComponent implements OnInit {
     return text.replace(urlRegex, (url) => {
       return '<a href="' + url + '" target="_blank">' + url + '</a>';
     });
+  }
+
+  public sanitize(url: string) {
+    return this._sanitizer.bypassSecurityTrustHtml(url);
   }
 
 }
