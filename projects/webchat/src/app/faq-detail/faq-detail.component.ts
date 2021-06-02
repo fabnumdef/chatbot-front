@@ -20,6 +20,7 @@ export class FaqDetailComponent implements OnInit {
   }
 
   @Output() public back = new EventEmitter<boolean>();
+  @Output() public switchToChat = new EventEmitter<boolean>();
 
   public categories: string[];
 
@@ -52,7 +53,6 @@ export class FaqDetailComponent implements OnInit {
         return r;
       });
     });
-    console.log(intents);
     return intents;
   }
 }

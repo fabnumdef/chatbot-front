@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import io from 'socket.io-client';
+import { filter, take, tap } from 'rxjs/operators';
 
 const SESSION_NAME = 'chat_session';
 const ACCESSIBILITY_NAME = 'chat_accessibility';
@@ -22,6 +23,8 @@ export class WebchatService {
 
   private firstMessage = true;
 
+  private _isSocketConnected$ = new BehaviorSubject(false);
+
   constructor(private _http: HttpClient) {
   }
 
@@ -30,6 +33,7 @@ export class WebchatService {
     this._initPayload = initPayload;
     if (this._socket) {
       this._socket.disconnect();
+      this._isSocketConnected$.next(false);
     }
     this._socket = io(url, {
       path,
@@ -39,6 +43,7 @@ export class WebchatService {
       console.log(`connect:${this._socket.id}`);
       const localId = this.getSessionId();
       this._socket.emit('session_request', {session_id: localId});
+      this._isSocketConnected$.next(true);
     });
     this._socket.on('session_confirm', (sessionObject) => {
       const remoteId = (sessionObject && sessionObject.session_id)
@@ -97,8 +102,13 @@ export class WebchatService {
 
   public sendMessage(message) {
     const session_id = this.getSessionId();
-    this._socket.emit('user_uttered', {message, session_id});
-    this.firstMessage = true;
+    this._isSocketConnected$.pipe(
+      filter(c => c),
+      take(1),
+      tap(() => {
+        this._socket.emit('user_uttered', {message, session_id});
+        this.firstMessage = true;
+      })).subscribe();
   }
 
   public getMessages(): Observable<any[]> {

@@ -52,6 +52,7 @@
   <app-faq-detail [intents]="intents"
                   [botColor]="botColor"
                   (back)="intents = null"
+                  (switchToChat)="switchToChat.emit(true)"
                   *ngIf="intents">
   </app-faq-detail>
   <ng-template #noCategories>

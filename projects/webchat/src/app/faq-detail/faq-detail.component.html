@@ -22,7 +22,9 @@
         </mat-expansion-panel-header>
         <div class="faq-detail-responses">
           <div *ngFor="let response of intent.responses">
-            <app-chat-message [message]="response"></app-chat-message>
+            <app-chat-message [message]="response"
+                              (addMessage)="switchToChat.emit(true)">
+            </app-chat-message>
           </div>
         </div>
       </mat-expansion-panel>

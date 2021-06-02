@@ -1,4 +1,4 @@
-<div class="chat-box" [ngClass]="{'chat-box-tree': isTree}">
+<div class="chat-box" [ngClass]="{'chat-box-no-faq': !showFaq}">
   <div class="chat-box-firefox" #chatboxfirefox>
     <div class="chat-box-main" tabindex="0" aria-live="polite">
       <div class="chat-message-typing" *ngIf="showTyping">

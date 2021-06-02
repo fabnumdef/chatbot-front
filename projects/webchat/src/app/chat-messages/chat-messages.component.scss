@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
 
-  &-tree {
+  &-no-faq {
     height: 100%;
   }
 
@@ -163,7 +163,7 @@ Received message style
     }
   }
 
-  ::ng-deep.chat-message-image, .chat-message-quick-replies, .chat-message-buttons {
+  ::ng-deep.chat-message-image, ::ng-deep.chat-message-quick-replies, ::ng-deep.chat-message-buttons {
     margin-left: 50px;
   }
 

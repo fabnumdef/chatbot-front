@@ -43,10 +43,13 @@
                          [initPayload]="initPayload"
                          [delayBetweenMessages]="delayBetweenMessages"
                          [isTree]="isTree"
+                         [showFaq]="showFaq"
                          (checkNavSize)="checkNavSize()">
       </app-chat-messages>
       <app-faq-list *ngIf="displayFaq"
-                    [botColor]="botColor"></app-faq-list>
+                    [botColor]="botColor"
+                    (switchToChat)="displayFaq = false">
+      </app-faq-list>
       <div class="button_chat_faq" *ngIf="showFaq">
         <div (click)="displayFaq = false"
              [ngClass]="{'active': !displayFaq}"

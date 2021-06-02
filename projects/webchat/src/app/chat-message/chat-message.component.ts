@@ -31,7 +31,7 @@ export class ChatMessageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public quickReplyClick(payload: string, title: string, message: any = null) {
+  public async quickReplyClick(payload: string, title: string, message: any = null) {
     if (!payload) {
       return;
     }
@@ -40,8 +40,10 @@ export class ChatMessageComponent implements OnInit {
     } else {
       message.clicked = true;
       this.addMessage.emit({text: title, type: MessageType.text, from: 'sent'});
-      this._chatService.sendMessage(`${payload.charAt(0) === '/' ? '' : '/'}${payload}`);
-      this.showTyping.emit(true);
+      await setTimeout(() => {
+        this._chatService.sendMessage(`${payload.charAt(0) === '/' ? '' : '/'}${payload}`);
+        this.showTyping.emit(true);
+      }, 0);
     }
   }
 

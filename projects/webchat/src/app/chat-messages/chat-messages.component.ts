@@ -37,6 +37,7 @@ export class ChatMessagesComponent implements OnInit, OnDestroy {
   @Input() initPayload: string;
   @Input() delayBetweenMessages: number;
   @Input() isTree: boolean;
+  @Input() showFaq: boolean;
 
   @Output() checkNavSize = new EventEmitter();
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FaqService } from '../core/services/faq.service';
 import { Intent } from '@model/intent.model';
 import { FormBuilder, FormControl } from '@angular/forms';
@@ -11,6 +11,7 @@ import { WebchatService } from '../core/services/webchat.service';
 })
 export class FaqListComponent implements OnInit {
   @Input() public botColor: string;
+  @Output() public switchToChat = new EventEmitter<boolean>();
   public intents: Intent[];
   @ViewChild('message') message: ElementRef;
   messageText: FormControl;
