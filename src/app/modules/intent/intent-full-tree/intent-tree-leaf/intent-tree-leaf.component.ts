@@ -7,6 +7,8 @@ import { IntentFinderDialogComponent } from '../intent-finder-dialog/intent-find
 import { ResponseType } from '@enum/*';
 import { ResponseService } from '@core/services/response.service';
 import { ToastrService } from 'ngx-toastr';
+import { Response } from '@model/response.model';
+import { IntentService } from '@core/services/intent.service';
 
 @Component({
   selector: 'app-intent-tree-leaf',
@@ -42,6 +44,7 @@ export class IntentTreeLeafComponent implements OnInit {
 
   constructor(private _dialog: MatDialog,
               private _responseService: ResponseService,
+              private _intentService: IntentService,
               private _toastr: ToastrService) {
   }
 
@@ -78,6 +81,10 @@ export class IntentTreeLeafComponent implements OnInit {
   }
 
   createIntent(): void {
+    if (!this._checkBeforeAddingChoice(this.intent)) {
+      this._toastr.error('Ajoutez une réponse de type texte afin de pouvoir relier des connaissances.');
+      return;
+    }
     const dialogRef = this._dialog.open(CreateEditIntentDialogComponent, {
       data: {
         intent: new Intent()
@@ -94,6 +101,10 @@ export class IntentTreeLeafComponent implements OnInit {
   }
 
   findIntent(): void {
+    if (!this._checkBeforeAddingChoice(this.intent)) {
+      this._toastr.error('Ajoutez une réponse de type texte afin de pouvoir relier des connaissances.');
+      return;
+    }
     const dialogRef = this._dialog.open(IntentFinderDialogComponent, {
       width: '80vw',
       maxHeight: '80vh'
@@ -112,13 +123,43 @@ export class IntentTreeLeafComponent implements OnInit {
   }
 
   private _addChoice(intent: Intent) {
-    const quickReplyResponse = this.intent.responses.find(r => r.responseType === ResponseType.quick_reply);
-    quickReplyResponse.response = `${quickReplyResponse.response};${intent.mainQuestion}<${intent.id}>`;
-    this._responseService.update(quickReplyResponse).subscribe(r => {
+    let quickReplyResponse = this.intent.responses.find(r => r.responseType === ResponseType.quick_reply);
+    if (!quickReplyResponse) {
+      quickReplyResponse = this._addQuickReply(this.intent);
+    }
+    quickReplyResponse.response = quickReplyResponse.response ? `${quickReplyResponse.response};${intent.mainQuestion}<${intent.id}>`
+      : `${intent.mainQuestion}<${intent.id}>`;
+
+    this._intentService.create(this._formatIntent(this.intent)).subscribe(r => {
       this._toastr.success('Connaissance sauvegardée');
     });
     this.intent.responses = [...this.intent.responses];
     this.intent.nextIntents.push(intent);
+  }
+
+  private _addQuickReply(intent: Intent): Response {
+    const qr = new Response(intent);
+    qr.responseType = ResponseType.quick_reply;
+    const index = intent.responses.findIndex((r, idx) => {
+      return r.responseType === ResponseType.text &&
+        (!intent.responses[idx + 1] || (intent.responses[idx + 1].responseType === ResponseType.text));
+    });
+
+    intent.responses.splice(index + 1, 0, qr);
+    return intent.responses[index + 1];
+  }
+
+  private _checkBeforeAddingChoice(intent: Intent): boolean {
+    return intent.responses.findIndex((r, idx) => {
+      return r.responseType === ResponseType.quick_reply || (r.responseType === ResponseType.text &&
+        (!intent.responses[idx + 1] || (intent.responses[idx + 1].responseType === ResponseType.text)));
+    }) >= 0;
+  }
+
+  private _formatIntent(intent: Intent): Intent {
+    const intentToReturn = Object.assign({}, intent);
+    delete intentToReturn.createdAt;
+    return intentToReturn;
   }
 
 }

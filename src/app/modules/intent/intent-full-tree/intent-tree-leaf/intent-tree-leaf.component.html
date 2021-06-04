@@ -46,7 +46,6 @@
     </app-intent-preview-responses>
   </div>
   <div class="intent-tree-leaf-new-response"
-       *ngIf="intent.nextIntents && intent.nextIntents.length > 0"
        [matMenuTriggerFor]="newResponse"
        (click)="$event.stopPropagation()">
     <button mat-icon-button>
