@@ -82,7 +82,8 @@ export class IntentTreeLeafComponent implements OnInit {
 
   createIntent(): void {
     if (!this._checkBeforeAddingChoice(this.intent)) {
-      this._toastr.error('Ajoutez une réponse de type texte afin de pouvoir relier des connaissances.');
+      this._toastr.warning('Aucune réponse de type texte ou réponse à choix trouvée.');
+      this.editIntent();
       return;
     }
     const dialogRef = this._dialog.open(CreateEditIntentDialogComponent, {
@@ -102,7 +103,8 @@ export class IntentTreeLeafComponent implements OnInit {
 
   findIntent(): void {
     if (!this._checkBeforeAddingChoice(this.intent)) {
-      this._toastr.error('Ajoutez une réponse de type texte afin de pouvoir relier des connaissances.');
+      this._toastr.warning('Aucune réponse de type texte ou réponse à choix trouvée.');
+      this.editIntent();
       return;
     }
     const dialogRef = this._dialog.open(IntentFinderDialogComponent, {
