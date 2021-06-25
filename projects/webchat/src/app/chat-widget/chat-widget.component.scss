@@ -31,11 +31,13 @@
       flex: 1;
       display: flex;
       justify-content: center;
+      text-align: center;
       align-items: center;
       font-weight: bold;
       cursor: pointer;
       background-color: #F1EFF1;
       transition: all 200ms ease-in-out;
+      text-transform: uppercase;
 
       &.active {
         color: #ffffff;

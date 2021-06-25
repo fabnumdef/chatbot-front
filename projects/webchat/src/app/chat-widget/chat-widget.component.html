@@ -54,12 +54,12 @@
         <div (click)="displayFaq = false"
              [ngClass]="{'active': !displayFaq}"
              [ngStyle]="!displayFaq && {'background-color': botColor}">
-          CHAT
+          {{ botChatBtn }}
         </div>
         <div (click)="displayFaq = true"
              [ngClass]="{'active': displayFaq}"
              [ngStyle]="displayFaq && {'background-color': botColor}">
-          FAQ
+          {{ botFaqBtn }}
         </div>
       </div>
     </mat-drawer-content>

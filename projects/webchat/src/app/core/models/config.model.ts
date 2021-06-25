@@ -17,6 +17,8 @@ export class Config {
   description: string;
   help: string;
   helpBtn: string;
+  chatBtn: string;
+  faqBtn: string;
   showFaq: boolean;
 
   // DESCRIPTION

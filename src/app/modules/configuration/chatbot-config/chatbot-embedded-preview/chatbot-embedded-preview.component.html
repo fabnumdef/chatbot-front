@@ -78,8 +78,16 @@
         Pouvez-vous reformuler ?
       </div>
     </div>
-    <div class="footer" [style]="'background-color: ' + chatbot.secondaryColor">
+    <div class="chat-input">
       Tapez votre message ...
+    </div>
+    <div class="footer">
+      <div [style]="{'background-color': chatbot.primaryColor, color: '#ffffff'}">
+        {{ chatbot.chatBtn }}
+      </div>
+      <div>
+        {{ chatbot.faqBtn }}
+      </div>
     </div>
   </div>
 </div>

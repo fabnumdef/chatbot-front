@@ -152,6 +152,8 @@ export class ChatbotConfigComponent extends DestroyObservable implements OnInit 
       embeddedIcon: [this.chatbotConfig.embeddedIcon, [Validators.maxLength(50)]],
       description: [this.chatbotConfig.description, [Validators.maxLength(255)]],
       helpBtn: [this.chatbotConfig.helpBtn, [Validators.maxLength(20)]],
+      chatBtn: [this.chatbotConfig.chatBtn, [Validators.maxLength(25)]],
+      faqBtn: [this.chatbotConfig.faqBtn, [Validators.maxLength(25)]],
       help: [this.chatbotConfig.help, [Validators.maxLength(500)]],
       showIntentSearch: [this.chatbotConfig.showIntentSearch, [Validators.required]],
       showFaq: [this.chatbotConfig.showFaq, [Validators.required]],

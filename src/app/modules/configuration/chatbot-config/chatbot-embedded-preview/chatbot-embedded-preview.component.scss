@@ -86,17 +86,39 @@
       color: #000000;
     }
 
-    .footer {
+    .chat-input {
       height: 60px;
+      background-color: #f1eff1;
       font-family: $title-font;
-      font-size: 16px;
+      font-size: 14px;
       color: #000000;
-      width: calc(100% + 40px);
-      margin-left: -20px;
-      margin-bottom: -20px;
+      width: 100%;
       display: flex;
       align-items: center;
       padding: 0 20px;
+      box-sizing: border-box;
+      border-radius: 100px;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      width: calc(100% + 40px);
+      margin-top: 20px;
+      margin-left: -20px;
+      margin-bottom: -20px;
+      color: #000000;
+
+      & > * {
+        width: 100%;
+        height: 40px;
+        background-color: #f1eff1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: $title-font;
+        font-size: 14px;
+      }
     }
   }
 }

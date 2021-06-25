@@ -62,7 +62,7 @@ export class ConfigService {
       formData.append('isTree', partialConfig.isTree.toString());
     }
     ['name', 'function', 'primaryColor', 'secondaryColor', 'problematic', 'audience',
-      'description', 'help', 'helpBtn', 'delayBetweenMessages'].forEach(attribute => {
+      'description', 'help', 'helpBtn', 'chatBtn', 'faqBtn', 'delayBetweenMessages'].forEach(attribute => {
       if (partialConfig[attribute]) {
         formData.append(attribute, partialConfig[attribute]);
       }

@@ -230,6 +230,7 @@
                 La description est trop longue, elle doit faire au maximum 255 caractères.
               </mat-error>
             </mat-form-field>
+
             <div class="chatbot-subtitle">
               <h4>Guidez l'utilisateur ?</h4>
             </div>
@@ -250,6 +251,24 @@
               <mat-error *ngIf="embeddedControls.help.hasError('maxlength')">
                 L'aide est trop longue, elle doit faire au maximum 500 caractères.
               </mat-error>
+            </mat-form-field>
+
+            <div class="chatbot-subtitle">
+              <h4>Personnaliser les boutons de choix Chat / Faq</h4>
+            </div>
+            <p>Saisissez l'intitulé de votre bouton "Chat"</p>
+            <mat-form-field appearance="outline">
+              <input matInput
+                     placeholder="Saisir..."
+                     formControlName="chatBtn"
+                     maxlength="25">
+            </mat-form-field>
+            <p>Saisissez l'intitulé de votre bouton "FAQ"</p>
+            <mat-form-field appearance="outline">
+              <input matInput
+                     placeholder="Saisir..."
+                     formControlName="faqBtn"
+                     maxlength="25">
             </mat-form-field>
 
             <div class="chatbot-subtitle">
