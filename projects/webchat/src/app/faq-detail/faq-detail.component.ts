@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Intent } from '@model/intent.model';
 import { ResponseType } from '@enum/*';
+import { FaqService } from '../core/services/faq.service';
 
 @Component({
   selector: 'app-faq-detail',
@@ -24,7 +25,7 @@ export class FaqDetailComponent implements OnInit {
 
   public categories: string[];
 
-  constructor() {
+  constructor(public faqService: FaqService) {
   }
 
   ngOnInit(): void {
