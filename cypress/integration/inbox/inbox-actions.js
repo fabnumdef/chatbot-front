@@ -7,7 +7,7 @@ describe('Testing Inbox actions', function() {
     cy.get('[data-cy=EmailInput]').type(Cypress.env('ADMIN_EMAIL'));
     cy.get('[data-cy=PasswordInput]').type(Cypress.env('ADMIN_PASSWORD'));
     cy.get('[data-cy=LoginBtn]').click();
-    cy.server().route('POST', '/api/inbox/**').as('getInboxes');
+    cy.intercept('POST', '/api/inbox/**').as('getInboxes');
     cy.url().should('include', '/requetes');
     cy.wait('@getInboxes');
   })
@@ -29,6 +29,7 @@ describe('Testing Inbox actions', function() {
 
     it('should filter Intents', function () {
       cy.get('[data-cy=InboxItem]').first().find('[data-cy=InboxIntentBtn]').click();
+      cy.wait(300);
       cy.get('[data-cy=InboxItem]').first().find('[data-cy=InboxIntentCategorySelector]').click();
       cy.get('.mat-option').eq(1).invoke('text').then(category => {
         cy.get('.mat-option')
@@ -54,6 +55,7 @@ describe('Testing Inbox actions', function() {
 
     it('should show the intent panel', function () {
       cy.get('[data-cy=InboxItem]').first().find('[data-cy=InboxIntentBtn]').click();
+      cy.wait(300);
       cy.get('[data-cy=InboxItem]').first().find('[data-cy=InboxIntentEditBtn]').click();
       cy.get('[data-cy=InboxItem]').first().find('[data-cy=IntentForm]').should('exist');
       cy.get('[data-cy=InboxItem]').first().find('[data-cy=InboxIntentBackBtn]').click();

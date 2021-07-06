@@ -1,7 +1,7 @@
 <div class="chatbot" *ngIf="configService.config && !configService.config.maintenanceMode"
      [ngStyle]="{'height': chatbotHeight + 'px'}">
-  <app-chat-widget [socketUrl]="window.location.origin"
-                   [botAvatar]="window.location.origin + '/media/'  + configService.config.icon"
+  <app-chat-widget [socketUrl]="'https://dev.chatbot.fabnum.fr/'"
+                   [botAvatar]="'https://dev.chatbot.fabnum.fr/media/'  + configService.config.icon"
                    [companyLogo]="configService.config.embeddedIcon ? window.location.origin + '/media/'  + configService.config.embeddedIcon : null"
                    [botName]="configService.config.name"
                    [botSubtitle]="configService.config.function"

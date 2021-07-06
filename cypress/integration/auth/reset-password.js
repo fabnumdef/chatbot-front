@@ -52,8 +52,8 @@ describe('Testing the Reset Password page', function() {
   });
 
   it('should enable button if passwords are same', function() {
-    cy.get('[data-cy=PasswordInput]').type('passwordA0');
-    cy.get('[data-cy=PasswordCheckInput]').type('passwordA0');
+    cy.get('[data-cy=PasswordInput]').type('passwordA0!');
+    cy.get('[data-cy=PasswordCheckInput]').type('passwordA0!');
     cy.get('[data-cy=ResetPasswordBtn]').should('be.enabled');
   });
 });

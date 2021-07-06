@@ -69,7 +69,8 @@
       </div>
     </div>
     <ng-container *ngIf="listView">
-      <div *ngFor="let intent of intents$ | async">
+      <div *ngFor="let intent of intents$ | async"
+           data-cy="IntentItem">
         <app-chatbot-list-item [checkable]="true"
                                [checked]="multipleSelection.includes(intent.id)"
                                (checkedClicked)="updateMultipleSelection($event, intent.id)">

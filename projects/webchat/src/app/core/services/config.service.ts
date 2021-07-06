@@ -14,7 +14,7 @@ export class ConfigService {
   public config$ = new BehaviorSubject<Config>(null);
 
   constructor(private _http: HttpClient) {
-    this._url = `/api/public`;
+    this._url = `https://bot.covoiturage.beta.gouv.fr/api/public`;
     this.getConfig().subscribe(() => {
     }, () => {
     });

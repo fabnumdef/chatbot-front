@@ -1,4 +1,5 @@
 {
   "projectId": "suci56",
-  "baseUrl": "http://localhost:4200"
+  "baseUrl": "http://localhost:4200",
+  "experimentalStudio": true
 }
