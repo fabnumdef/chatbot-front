@@ -22,7 +22,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets",
@@ -71,25 +71,30 @@
               ],
               "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json"
-            }
+            },
+            "development": {}
           },
           "allowedCommonJsDependencies": [
             "highlight.js",
             "file-saver",
             "chart.js",
             "lodash"
-          ]
+          ],
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "chatbot-front:build"
           },
           "configurations": {
             "production": {
               "browserTarget": "chatbot-front:build:production"
+            },
+            "development": {
+              "browserTarget": "chatbot-front:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -143,14 +148,17 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "chatbot-front:serve"
+            "protractorConfig": "e2e/protractor.conf.js"
           },
           "configurations": {
             "production": {
               "devServerTarget": "chatbot-front:serve:production"
+            },
+            "development": {
+              "devServerTarget": "chatbot-front:serve:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         }
       }
     },
@@ -254,19 +262,24 @@
               ],
               "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "webchat:build"
           },
           "configurations": {
             "production": {
               "browserTarget": "webchat:build:production"
+            },
+            "development": {
+              "browserTarget": "webchat:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -308,14 +321,17 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "projects/webchat/e2e/protractor.conf.js",
-            "devServerTarget": "webchat:serve"
+            "protractorConfig": "projects/webchat/e2e/protractor.conf.js"
           },
           "configurations": {
             "production": {
               "devServerTarget": "webchat:serve:production"
+            },
+            "development": {
+              "devServerTarget": "webchat:serve:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         }
       }
     }
