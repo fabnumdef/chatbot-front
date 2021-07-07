@@ -58,23 +58,29 @@
   &-feedbacks {
     position: absolute;
     display: flex;
-    right: -50px;
-    bottom: 33px;
+    right: -90px;
+    bottom: 23px;
     cursor: pointer;
-    height: 20px;
     align-items: center;
 
+    background: #f1eff1;
+    padding: 10px;
+    box-sizing: content-box;
+    border-radius: 30px;
+
     & > * {
-      transition: fill 0.2s ease-in-out;
+      height: 20px;
+      -webkit-animation: sk-bounceicon 0.6s ease-in-out both;
+      animation: sk-bounceicon 0.6s ease-in-out both;
+    }
+
+    & > .mat-divider {
+      margin: 0 5px;
     }
 
     svg {
       height: 20px;
     }
-  }
-
-  &-feedback-wrong {
-    margin-top: 10px;
   }
 
   &-date {
@@ -248,10 +254,10 @@ Sent message style
 
 @-webkit-keyframes sk-bouncedelay {
   0%, 80%, 100% {
-    -webkit-transform: scale(0)
+    -webkit-transform: scale(0);
   }
   40% {
-    -webkit-transform: scale(1.0)
+    -webkit-transform: scale(1.0);
   }
 }
 
@@ -263,5 +269,32 @@ Sent message style
   40% {
     -webkit-transform: scale(1.0);
     transform: scale(1.0);
+  }
+}
+
+@-webkit-keyframes sk-bounceicon {
+  0% {
+    -webkit-transform: scale(0);
+  }
+  60%, 100% {
+    -webkit-transform: scale(1.0);
+  }
+  80% {
+    -webkit-transform: scale(1.2);
+  }
+}
+
+@keyframes sk-bounceicon {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  50%, 100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+  75% {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
   }
 }

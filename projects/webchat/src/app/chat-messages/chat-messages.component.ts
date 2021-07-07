@@ -54,6 +54,9 @@ export class ChatMessagesComponent implements OnInit, OnDestroy {
     '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
     '(\\?[;&a-z\\d%_.~+=-]*)?', 'i'); // fragment locator
 
+  private _messageLength = 0;
+  private _isLastMessage = true;
+
   constructor(private _chatService: WebchatService,
               private _feedbackService: FeedbackService,
               private _dialog: MatDialog) {
@@ -82,13 +85,16 @@ export class ChatMessagesComponent implements OnInit, OnDestroy {
       .getMessages()
       .pipe(
         filter(m => !!m),
+        tap(() => {
+          this._messageLength++;
+        }),
         concatMap(m => of(m).pipe(
           delayWhen((message: any) => {
             delayTmp = !!message.delay ? message.delay : this.delayBetweenMessages;
             return interval(delayTmp);
           }),
           tap((message: any) => {
-            // console.log(message);
+            this._isLastMessage = false;
             if (message.text && (!message.quick_replies || message.quick_replies.length < 1)) {
               this.addMessage(message.text, MessageType.text, message.from ? message.from : 'received', null, null, message.delay);
             } else if (message.text && message.quick_replies && message.quick_replies.length > 0
@@ -109,12 +115,18 @@ export class ChatMessagesComponent implements OnInit, OnDestroy {
               this.addMessage(message.attachment?.payload?.src, MessageType.image, message.from ? message.from : 'received',
                 null, null, message.delay);
             }
-            this.showTyping = false;
             if (delayTmp > 0) {
               this._notificationSound.play();
             }
           })
-        ))
+        )),
+        concatMap((m, index) => {
+          if ((index + 1) >= this._messageLength) {
+            this.showTyping = false;
+            this._isLastMessage = true;
+          }
+          return of(m);
+        })
       )
       .subscribe();
 
@@ -147,17 +159,15 @@ export class ChatMessagesComponent implements OnInit, OnDestroy {
     return nextMessage.from !== from;
   }
 
+  // Show only for last message
   public canShowFeedback(nextMessage, previousMessage, from): boolean {
-    if (!this.showFeedback) {
+    if (!this.showFeedback || !this._isLastMessage) {
       return false;
     }
     if (!previousMessage || from === 'sent') {
       return false;
     }
-    if (!nextMessage) {
-      return true;
-    }
-    return nextMessage.from !== from;
+    return !nextMessage;
   }
 
   public openModal(idx: number) {

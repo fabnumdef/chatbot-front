@@ -111,7 +111,7 @@ export class WebchatService {
       })).subscribe();
   }
 
-  public getMessages(): Observable<any[]> {
+  public getMessages(): BehaviorSubject<any> {
     return this._messages$;
   }
 

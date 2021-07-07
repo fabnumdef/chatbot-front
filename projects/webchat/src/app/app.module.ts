@@ -31,6 +31,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FaqDetailComponent } from './faq-detail/faq-detail.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ChatMessageComponent } from './chat-message/chat-message.component';
     MatRippleModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
+    MatDividerModule,
     ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
