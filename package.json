@@ -1,6 +1,6 @@
 {
   "name": "chatbot-front",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,7 +8,7 @@
     "start:dev": "ng serve --proxy-config proxy.dev.conf.json",
     "start:test": "ng serve --proxy-config proxy.test.conf.json",
     "build": "ng build",
-    "build:prod": "uglifyjs ./src/assets/scripts/embbed-chatbot.js -m -o ./src/assets/scripts/embbed-chatbot.min.js && ng build webchat --prod --base-href /chatbot/ --outputHashing=all && ng build --prod --base-href /backoffice/ --outputHashing=all && npm run add_date",
+    "build:prod": "uglifyjs ./src/assets/scripts/embbed-chatbot.js -m -o ./src/assets/scripts/embbed-chatbot.min.js && ng build webchat --configuration production --base-href /chatbot/ --outputHashing=all && ng build --configuration production --base-href /backoffice/ --outputHashing=all && npm run add_date",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
