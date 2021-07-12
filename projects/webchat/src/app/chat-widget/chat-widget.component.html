@@ -48,6 +48,7 @@
       </app-chat-messages>
       <app-faq-list *ngIf="displayFaq"
                     [botColor]="botColor"
+                    [botUrl]="socketUrl"
                     (switchToChat)="displayFaq = false">
       </app-faq-list>
       <div class="button_chat_faq" *ngIf="showFaq">

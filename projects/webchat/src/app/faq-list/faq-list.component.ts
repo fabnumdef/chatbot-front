@@ -11,6 +11,7 @@ import { WebchatService } from '../core/services/webchat.service';
 })
 export class FaqListComponent implements OnInit {
   @Input() public botColor: string;
+  @Input() public botUrl: string;
   @Output() public switchToChat = new EventEmitter<boolean>();
   public intents: Intent[];
   @ViewChild('message') message: ElementRef;
@@ -26,6 +27,7 @@ export class FaqListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.faqService.init(this.botUrl);
     this._loadCategories();
     this.messageText = this._fb.control('');
 
@@ -59,7 +61,7 @@ export class FaqListComponent implements OnInit {
       this.messageText.setValue(final_transcript);
       this.messageText.updateValueAndValidity();
     }
-  }
+  };
 
   onSubmit($event?: any) {
     if ($event) {

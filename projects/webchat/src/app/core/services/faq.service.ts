@@ -16,7 +16,10 @@ export class FaqService {
 
   constructor(private _http: HttpClient,
               private _webchatService: WebchatService) {
-    this._url = `/api/public`;
+  }
+
+  init(url: string) {
+    this._url = `${url}/api/public`;
     this.connectToFaq();
   }
 

@@ -11,10 +11,13 @@ import { Config } from './core/models/config.model';
 export class AppComponent implements OnInit {
 
   public chatbotHeight = 0;
+  public chatbotUrl;
 
   constructor(@Inject(Window) public window: Window,
               public configService: ConfigService,
               private _titleService: Title) {
+    this.chatbotUrl = window.location.origin;
+    this.configService.init(this.chatbotUrl);
   }
 
   ngOnInit() {

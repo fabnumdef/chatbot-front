@@ -1,8 +1,8 @@
 <div class="chatbot" *ngIf="configService.config && !configService.config.maintenanceMode"
      [ngStyle]="{'height': chatbotHeight + 'px'}">
-  <app-chat-widget [socketUrl]="window.location.origin"
-                   [botAvatar]="window.location.origin + '/media/'  + configService.config.icon"
-                   [companyLogo]="configService.config.embeddedIcon ? window.location.origin + '/media/'  + configService.config.embeddedIcon : null"
+  <app-chat-widget [socketUrl]="chatbotUrl"
+                   [botAvatar]="chatbotUrl + '/media/'  + configService.config.icon"
+                   [companyLogo]="configService.config.embeddedIcon ? chatbotUrl + '/media/'  + configService.config.embeddedIcon : null"
                    [botName]="configService.config.name"
                    [botSubtitle]="configService.config.function"
                    [botColor]="configService.config.primaryColor"

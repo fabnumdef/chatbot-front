@@ -14,7 +14,10 @@ export class ConfigService {
   public config$ = new BehaviorSubject<Config>(null);
 
   constructor(private _http: HttpClient) {
-    this._url = `/api/public`;
+  }
+
+  init(url: string) {
+    this._url = `${url}/api/public`;
     this.getConfig().subscribe(() => {
     }, () => {
     });
