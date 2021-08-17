@@ -56,6 +56,7 @@ export class ChatMessagesComponent implements OnInit, OnDestroy {
 
   private _messageLength = 0;
   private _isLastMessage = true;
+  private _feedbackSend = false;
 
   constructor(private _chatService: WebchatService,
               private _feedbackService: FeedbackService,
@@ -161,7 +162,7 @@ export class ChatMessagesComponent implements OnInit, OnDestroy {
 
   // Show only for last message
   public canShowFeedback(nextMessage, previousMessage, from): boolean {
-    if (!this.showFeedback || !this._isLastMessage) {
+    if (this._feedbackSend || !this.showFeedback || !this._isLastMessage) {
       return false;
     }
     if (!previousMessage || from === 'sent') {
@@ -171,34 +172,30 @@ export class ChatMessagesComponent implements OnInit, OnDestroy {
   }
 
   public openModal(idx: number) {
-    const data: Feedback = {
-      userQuestion: this._findPreviousUserMessage(idx),
-      botResponse: this.messages[idx].text,
-      timestamp: this.messages[idx].date / 1000,
-      senderId: this._chatService.getSessionId(),
-      status: null
-    };
-    this._dialog.open(ChatFeedbackModalComponent, {
+    const dialogRef = this._dialog.open(ChatFeedbackModalComponent, {
       width: '500px',
-      data: Object.assign(data, {
-        feedbackPayload: this.feedbackPayload,
+      data: {
         primaryColor: this.botColor
-      }),
+      },
       autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.sendFeedback(idx, result);
     });
   }
 
-  public sendFeedback(idx: number) {
+  public sendFeedback(idx: number, status = FeedbackStatus.relevant) {
     const feedback = {
       userQuestion: this._findPreviousUserMessage(idx),
       botResponse: this.messages[idx].text,
       timestamp: this.messages[idx].date / 1000,
       senderId: this._chatService.getSessionId(),
-      status: FeedbackStatus.relevant
+      status: status
     };
     this._feedbackService.sendFeedback(feedback).subscribe(() => {
       this._chatService.sendMessage(this.feedbackPayload);
       this.showTyping = true;
+      this._feedbackSend = true;
     });
   }
 
@@ -217,6 +214,9 @@ export class ChatMessagesComponent implements OnInit, OnDestroy {
                     quick_replies: [] = null,
                     payload = null,
                     delayTmp = 2000) {
+    if (from === 'sent') {
+      this._feedbackSend = false;
+    }
     const message = {
       text,
       type,

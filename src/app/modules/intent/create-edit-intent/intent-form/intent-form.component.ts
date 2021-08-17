@@ -110,7 +110,7 @@ export class IntentFormComponent implements OnInit {
 
   saveIntent() {
     const intent = this.intentForm.getRawValue();
-    const httpRequest = (intent.initialId !== intent.id && intent.initialId) ?
+    const httpRequest = !intent.isNewIntent ?
       this._intentService.update({...intent, ...{status: this.intent.status}}, intent.initialId)
       : this._intentService.create({...intent, ...{status: this.intent.status}});
     httpRequest.subscribe(i => {

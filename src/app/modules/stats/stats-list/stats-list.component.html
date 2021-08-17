@@ -1,8 +1,27 @@
 <div class="stats-list">
   <app-stats-filter></app-stats-filter>
-  <app-stats-graph></app-stats-graph>
-  <app-stats-best-questions></app-stats-best-questions>
-  <app-stats-best-categories></app-stats-best-categories>
-  <app-stats-worst-questions></app-stats-worst-questions>
-  <app-stats-kpi></app-stats-kpi>
+
+  <mat-button-toggle-group [(ngModel)]="statView">
+    <mat-button-toggle [value]="'chatbot'">Chatbot</mat-button-toggle>
+    <mat-button-toggle [value]="'faq'">FAQ</mat-button-toggle>
+    <mat-button-toggle [value]="'feedbacks'" disabled>Feedbacks</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <ng-container [ngSwitch]="statView">
+    <ng-container *ngSwitchCase="'chatbot'">
+      <app-stats-graph></app-stats-graph>
+      <app-stats-best-questions></app-stats-best-questions>
+      <app-stats-best-categories></app-stats-best-categories>
+      <app-stats-worst-questions></app-stats-worst-questions>
+      <app-stats-kpi></app-stats-kpi>
+    </ng-container>
+    <ng-container *ngSwitchCase="'faq'">
+      <app-faq-stats-most-questions></app-faq-stats-most-questions>
+      <app-faq-stats-most-categories></app-faq-stats-most-categories>
+      <app-faq-stats-kpi></app-faq-stats-kpi>
+    </ng-container>
+    <ng-container *ngSwitchCase="'feedbacks'">
+      <app-feedbacks-stats-kpi></app-feedbacks-stats-kpi>
+    </ng-container>
+  </ng-container>
 </div>

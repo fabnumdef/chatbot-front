@@ -1,8 +1,7 @@
 import { DestroyObservable } from '@core/utils/destroy-observable';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StatsService } from '@core/services/stats.service';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-stats-kpi',
@@ -11,14 +10,13 @@ import { Subject } from 'rxjs';
 })
 export class StatsKpiComponent extends DestroyObservable implements OnInit {
 
-  destroy$: Subject<boolean> = new Subject<boolean>();
   visitors = null;
   ratioResponseOk = null;
   ratioResponseSure = null;
   avgQuestionsPerUser = null;
   avgResponseTime = null;
 
-  constructor(public _statsService: StatsService) {
+  constructor(private _statsService: StatsService) {
     super();
   }
 

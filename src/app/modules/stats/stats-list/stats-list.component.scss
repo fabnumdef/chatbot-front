@@ -1,2 +1,7 @@
 @import 'src/styles/variables';
 
+.stats-list {
+  .mat-button-toggle-group {
+    margin-top: 20px;
+  }
+}

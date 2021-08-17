@@ -1,18 +1,18 @@
-import { DestroyObservable } from '@core/utils/destroy-observable';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { StatsService } from '@core/services/stats.service';
 import { takeUntil } from 'rxjs/operators';
-import * as moment from 'moment';
+import { DestroyObservable } from '@core/utils/destroy-observable';
 import domtoimage from 'dom-to-image';
+import * as moment from 'moment';
 
 @Component({
-  selector: 'app-stats-best-questions',
-  templateUrl: './stats-best-questions.component.html',
-  styleUrls: ['./stats-best-questions.component.scss']
+  selector: 'app-faq-stats-most-categories',
+  templateUrl: './faq-stats-most-categories.component.html',
+  styleUrls: ['./faq-stats-most-categories.component.scss']
 })
-export class StatsBestQuestionsComponent extends DestroyObservable implements OnInit {
+export class FaqStatsMostCategoriesComponent extends DestroyObservable implements OnInit {
 
-  chartData: any[];
+  results: any[];
   dataUrl: string;
 
   constructor(private _statsService: StatsService) {
@@ -30,12 +30,12 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
   }
 
   getGraph() {
-    this._statsService.getBestQuestionsData().subscribe(
+    this._statsService.getFaqMostCategoriesData().subscribe(
       (value) => {
-        this.chartData = value['mostAskedQuestions'].map(elem => {
+        this.results = value['mostAskedCategories'].map(elem => {
           return {
             value: [parseInt(elem['count'], 10)],
-            name: elem['question']
+            name: elem['category']
           };
         });
         setTimeout(() => {
@@ -47,7 +47,7 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
 
   downloadCanvasBest(event) {
     const anchor = event.target;
-    const name = 'bestQuestionsChart-' + moment(new Date()).format('DDMMYYYYHHmmss') + '.jpg';
+    const name = 'mostFaqCategoriesChart-' + moment(new Date()).format('DDMMYYYYHHmmss') + '.jpg';
 
     // get the canvas
     anchor.href = this.dataUrl;
@@ -56,10 +56,10 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
 
   async download() {
     // Get the chart
-    const node = document.getElementsByClassName('ngx-charts-outer')[1];
+    const node = document.getElementsByClassName('ngx-charts-outer')[0];
     this.dataUrl = await domtoimage.toPng(node);
 
-    const btn: HTMLElement = document.getElementById('downloadBestQuestBtn');
+    const btn: HTMLElement = document.getElementById('downloadMostFaqCatBtn');
     btn.click();
   }
 
@@ -69,12 +69,12 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
   }
 
   private _setGraphMargin() {
-    const legendNode = document.querySelectorAll('.stats-best-questions .chart-legend')[0];
-    const graphNode = <HTMLElement> document.querySelectorAll('.stats-best-questions .chart-container')[0];
+    const legendNode = document.querySelectorAll('.faq-stats-most-categories .chart-legend')[0];
+    const graphNode = <HTMLElement> document.querySelectorAll('.faq-stats-most-categories .chart-container')[0];
     if (!graphNode) {
       return;
     }
     graphNode.style.marginBottom = legendNode.clientHeight + 'px';
   }
-}
 
+}

@@ -3,14 +3,15 @@
     <h3>Questions les plus posées</h3>
   </div>
 
-  <div class="barchart" *ngIf="chartData">
-    <canvas
-      baseChart
-      [chartType]="'bar'"
-      [datasets]="chartData"
-      [legend]="true"
-      [options]="chartOptions">
-    </canvas>
+  <div class="chart-container" *ngIf="chartData">
+    <ngx-charts-bar-vertical [results]="chartData"
+                             [scheme]="'picnic'"
+                             [noBarWhenZero]="false"
+                             [yAxis]="true"
+                             [legend]="true"
+                             [legendTitle]="''"
+                             [legendPosition]="'below'">
+    </ngx-charts-bar-vertical>
   </div>
 
   <button mat-stroked-button

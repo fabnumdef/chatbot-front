@@ -1,4 +1,4 @@
-@import 'src/styles/variables';
+@import '../chart-style';
 
 :host {
     display: block;
@@ -125,15 +125,6 @@
 
     }
 
-    .chart {
-      border-radius: 5px;
-      background-color: $white;
-      width: auto;
-      min-width: 500px;
-      height: 300px;
-      padding: 15px;
-    }
-
     .bggreenNeg, .bgyellowNeg, .bgpinkNeg, .bgblueNeg {
       background-color: $grey-light;
     }
@@ -166,9 +157,4 @@
       color: #18a0fb;
     }
   }
-
-  .downloadButton {
-    margin-top: 10px;
-  }
-
 }

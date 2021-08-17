@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { DestroyObservable } from '@core/utils/destroy-observable';
-import { BaseChartDirective } from 'ng2-charts';
-import { Subject } from 'rxjs';
 import { StatsService } from '@core/services/stats.service';
 import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
+import domtoimage from 'dom-to-image';
 
 @Component({
   selector: 'app-stats-best-categories',
@@ -13,42 +12,10 @@ import * as moment from 'moment';
 })
 export class StatsBestCategoriesComponent extends DestroyObservable implements OnInit {
 
-  @ViewChild(BaseChartDirective)
-  public chart: BaseChartDirective;
-  destroy$: Subject<boolean> = new Subject<boolean>();
+  chartData: any[];
+  dataUrl: string;
 
-  chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    legend: {
-      display: true,
-      position: 'bottom',
-      labels: {
-        padding: 10,
-        usePointStyle: true
-      }
-    },
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-            stepSize: 1
-          }
-        }
-      ]
-    },
-    tooltips: {
-      enabled: true,
-      callbacks: {
-        title: function() {
-        }
-      }
-    }
-  };
-  chartData = null;
-
-  constructor(public _statsService: StatsService) {
+  constructor(private _statsService: StatsService) {
     super();
   }
 
@@ -66,35 +33,48 @@ export class StatsBestCategoriesComponent extends DestroyObservable implements O
   getGraph() {
     this._statsService.getBestCategoriesData().subscribe(
       (value) => {
-        this.chartData = [];
-        value['mostAskedCategories'].forEach(elem => {
-          this.chartData.push({
-            data: [parseInt(elem['count'], 10)],
-            label: elem['category']
-          });
+        this.chartData = value['mostAskedCategories'].map(elem => {
+          return {
+            value: [parseInt(elem['count'], 10)],
+            name: elem['category']
+          };
         });
         setTimeout(() => {
-          this.updateChart();
+          this._setGraphMargin();
         });
       }
     );
-  }
-
-  async updateChart() {
-    this.chart.chart.update(); // This re-renders the canvas element.
   }
 
   downloadCanvasBest(event) {
     const anchor = event.target;
     const name = 'bestCategoriesChart-' + moment(new Date()).format('DDMMYYYYHHmmss') + '.jpg';
     // get the canvas
-    anchor.href = document.getElementsByTagName('canvas')[2].toDataURL();
+    anchor.href = this.dataUrl;
     anchor.download = name;
   }
 
-  download() {
+  async download() {
+    // Get the chart
+    const node = document.getElementsByClassName('ngx-charts-outer')[2];
+    this.dataUrl = await domtoimage.toPng(node);
+
     const btn: HTMLElement = document.getElementById('downloadBestCategoriesBtn');
     btn.click();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this._setGraphMargin();
+  }
+
+  private _setGraphMargin() {
+    const legendNode = document.querySelectorAll('.stats-best-categories .chart-legend')[0];
+    const graphNode = <HTMLElement> document.querySelectorAll('.stats-best-categories .chart-container')[0];
+    if (!graphNode) {
+      return;
+    }
+    graphNode.style.marginBottom = legendNode.clientHeight + 'px';
   }
 
 }

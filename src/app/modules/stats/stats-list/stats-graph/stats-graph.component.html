@@ -167,17 +167,16 @@
       </div>
     </div>
 
-    <div class="chart">
-      <canvas
-        baseChart
-        [chartType]="'line'"
-        [datasets]="chartData"
-        [colors]="chartColors"
-        [labels]="chartLabels"
-        [options]="chartOptions"
-        [legend]="true">
-      </canvas>
-
+    <div class="chart-container">
+      <ngx-charts-line-chart
+        [curve]="curve"
+        [customColors]="barColors"
+        [yAxis]="true"
+        [xAxis]="true"
+        [legend]="false"
+        [xAxisTickFormatting]="dateTickFormatting"
+        [results]="chartDataBis">
+      </ngx-charts-line-chart>
     </div>
 
   </div>

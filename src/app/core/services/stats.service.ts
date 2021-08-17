@@ -22,11 +22,11 @@ export class StatsService  {
   }
 
   getGraphData(): Observable<Object> {
-    return this._http.post(this._url + '/linedata', this.currentFilters);
+    return this._http.post(this._url + '/line_data', this.currentFilters);
   }
 
   getBestQuestionsData(): Observable<Object> {
-    return this._http.post(this._url + '/bestdata', this.currentFilters);
+    return this._http.post(this._url + '/best_data', this.currentFilters);
   }
 
   getBestCategoriesData(): Observable<Object> {
@@ -34,11 +34,23 @@ export class StatsService  {
   }
 
   getWorstQuestionsData(): Observable<Object> {
-    return this._http.post(this._url + '/worstdata', this.currentFilters);
+    return this._http.post(this._url + '/worst_data', this.currentFilters);
   }
 
   getKPIData(): Observable<Object> {
-    return this._http.post(this._url + '/kpidata', this.currentFilters);
+    return this._http.post(this._url + '/kpi_data', this.currentFilters);
+  }
+
+  getFaqMostQuestionsData(): Observable<Object> {
+    return this._http.post(this._url + '/faq_most_questions', this.currentFilters);
+  }
+
+  getFaqMostCategoriesData(): Observable<Object> {
+    return this._http.post(this._url + '/faq_most_categories', this.currentFilters);
+  }
+
+  getFaqKPIData(): Observable<Object> {
+    return this._http.post(this._url + '/faq_kpi_data', this.currentFilters);
   }
 
   setCurrentFilters(startDate, endDate) {
