@@ -28,8 +28,12 @@
         margin: 0 10px;
       }
 
-      &-buttons > *:not(:first-child) {
-        margin-left: 10px;
+      &-buttons {
+        margin-left: 12px;
+
+        & > *:not(:first-child) {
+          margin-left: 20px;
+        }
       }
     }
 
