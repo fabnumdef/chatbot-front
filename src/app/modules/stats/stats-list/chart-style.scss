@@ -17,3 +17,7 @@
     color: $grey;
   }
 }
+
+::ng-deep g.line-chart > g:last-of-type > g:nth-child(n) g.line-series > path {
+  stroke-width: 3;
+}
