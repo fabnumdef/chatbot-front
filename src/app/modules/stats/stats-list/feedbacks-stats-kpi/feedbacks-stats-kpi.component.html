@@ -1,1 +1,34 @@
-<p>feedbacks-stats-kpi works!</p>
+<div class="stats-kpi">
+  <div class="chatbot-title">
+    <h3>Indicateurs</h3>
+  </div>
+
+  <div class="kpi-content">
+    <div class="kpi-box">
+      <div class="kpi-title">
+        <b>Réponses indiquées comme étant pertinentes</b>
+      </div>
+      <div class="kpi-value">
+        {{ relevantQuestions }} ({{ avgRelevantQuestions }}%)
+      </div>
+    </div>
+
+    <div class="kpi-box">
+      <div class="kpi-title">
+        <b>Réponses indiquées comme étant erronées</b>
+      </div>
+      <div class="kpi-value">
+        {{ wrongQuestions }} ({{ avgWrongQuestions }}%)
+      </div>
+    </div>
+
+    <div class="kpi-box">
+      <div class="kpi-title">
+        <b>Réponses indiquées comme "ne répondant pas à la question"</b>
+      </div>
+      <div class="kpi-value">
+        {{ offtopicQuestions }} ({{ avgOfftopicQuestions }}%)
+      </div>
+    </div>
+  </div>
+</div>

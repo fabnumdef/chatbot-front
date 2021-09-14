@@ -1,5 +1,4 @@
-<div class="chatbot" *ngIf="configService.config && !configService.config.maintenanceMode"
-     [ngStyle]="{'height': chatbotHeight + 'px'}">
+<div class="chatbot" *ngIf="configService.config && !configService.config.maintenanceMode">
   <app-chat-widget [socketUrl]="chatbotUrl"
                    [botAvatar]="chatbotUrl + '/media/'  + configService.config.icon"
                    [companyLogo]="configService.config.embeddedIcon ? chatbotUrl + '/media/'  + configService.config.embeddedIcon : null"
@@ -23,7 +22,6 @@
                    [delayBetweenMessages]="configService.config.delayBetweenMessages">
   </app-chat-widget>
 </div>
-<div class="chatbot" *ngIf="configService.config && configService.config.maintenanceMode"
-     [ngStyle]="{'height': chatbotHeight + 'px'}">
+<div class="chatbot" *ngIf="configService.config && configService.config.maintenanceMode">
   <app-chat-maintenance-mode></app-chat-maintenance-mode>
 </div>

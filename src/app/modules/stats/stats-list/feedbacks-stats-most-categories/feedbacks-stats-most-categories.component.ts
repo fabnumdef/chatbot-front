@@ -1,16 +1,20 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { DestroyObservable } from '@core/utils/destroy-observable';
+import { InboxStatus } from '@enum/*';
 import { StatsService } from '@core/services/stats.service';
 import { takeUntil } from 'rxjs/operators';
-import { DestroyObservable } from '@core/utils/destroy-observable';
-import domtoimage from 'dom-to-image';
 import * as moment from 'moment';
+import domtoimage from 'dom-to-image';
 
 @Component({
-  selector: 'app-faq-stats-most-categories',
-  templateUrl: './faq-stats-most-categories.component.html',
-  styleUrls: ['./faq-stats-most-categories.component.scss']
+  selector: 'app-feedbacks-stats-most-categories',
+  templateUrl: './feedbacks-stats-most-categories.component.html',
+  styleUrls: ['./feedbacks-stats-most-categories.component.scss']
 })
-export class FaqStatsMostCategoriesComponent extends DestroyObservable implements OnInit {
+export class FeedbacksStatsMostCategoriesComponent extends DestroyObservable implements OnInit {
+
+  @Input() status: InboxStatus;
+  @Input() index: number;
 
   results: any[];
   dataUrl: string;
@@ -30,7 +34,7 @@ export class FaqStatsMostCategoriesComponent extends DestroyObservable implement
   }
 
   getGraph() {
-    this._statsService.getFaqMostCategoriesData().subscribe(
+    this._statsService.getFeedbackMostCategoriesData(this.status).subscribe(
       (value) => {
         this.results = value['mostAskedCategories'].map(elem => {
           return {
@@ -47,7 +51,7 @@ export class FaqStatsMostCategoriesComponent extends DestroyObservable implement
 
   downloadCanvasBest(event) {
     const anchor = event.target;
-    const name = 'mostFaqCategoriesChart-' + moment(new Date()).format('DDMMYYYYHHmmss') + '.jpg';
+    const name = 'mostFeedbacksCategoriesChart-' + moment(new Date()).format('DDMMYYYYHHmmss') + '.jpg';
 
     // get the canvas
     anchor.href = this.dataUrl;
@@ -56,10 +60,10 @@ export class FaqStatsMostCategoriesComponent extends DestroyObservable implement
 
   async download() {
     // Get the chart
-    const node = document.getElementsByClassName('ngx-charts-outer')[1];
+    const node = document.getElementsByClassName('ngx-charts-outer')[this.index * 2 + 1];
     this.dataUrl = await domtoimage.toPng(node);
 
-    const btn: HTMLElement = document.getElementById('downloadMostFaqCatBtn');
+    const btn: HTMLElement = document.getElementById('downloadMostFeedbacksCatBtn');
     btn.click();
   }
 
@@ -69,8 +73,8 @@ export class FaqStatsMostCategoriesComponent extends DestroyObservable implement
   }
 
   private _setGraphMargin() {
-    const legendNode = document.querySelectorAll('.faq-stats-most-categories .chart-legend')[0];
-    const graphNode = <HTMLElement> document.querySelectorAll('.faq-stats-most-categories .chart-container')[0];
+    const legendNode = document.querySelectorAll('.feedbacks-stats-most-categories .chart-legend')[0];
+    const graphNode = <HTMLElement> document.querySelectorAll('.feedbacks-stats-most-categories .chart-container')[0];
     if (!graphNode) {
       return;
     }

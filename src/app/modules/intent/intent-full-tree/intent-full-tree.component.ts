@@ -1,12 +1,13 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IntentService } from '@core/services/intent.service';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Intent } from '@model/intent.model';
 import { CreateEditIntentDialogComponent } from './create-edit-intent-dialog/create-edit-intent-dialog.component';
 import { IntentFinderDialogComponent } from './intent-finder-dialog/intent-finder-dialog.component';
-import { ResponseType } from '@enum/*';
 import { MatDialog } from '@angular/material/dialog';
 import { PanZoomAPI, PanZoomConfig } from 'ngx-panzoom';
+import domtoimage from 'dom-to-image';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-intent-full-tree',
@@ -28,6 +29,7 @@ export class IntentFullTreeComponent implements OnInit, OnDestroy {
     panOnClickDrag: true,
     keepInBounds: false
   });
+  dataUrl: string;
   public panZoomAPI: PanZoomAPI;
   private _apiSubscription: Subscription;
 
@@ -94,6 +96,24 @@ export class IntentFullTreeComponent implements OnInit, OnDestroy {
 
   public getZoomLevel() {
     return this.panZoomAPI?.model?.zoomLevel;
+  }
+
+  public async print() {
+    // Get the chart
+    const node = document.getElementsByClassName('intent-full-tree-wrapper')[0];
+    this.dataUrl = await domtoimage.toPng(node);
+
+    const btn: HTMLElement = document.getElementById('exportTreePng');
+    btn.click();
+  }
+
+  downloadCanvasBest(event) {
+    const anchor = event.target;
+    const name = 'arbre-' + moment(new Date()).format('DDMMYYYYHHmmss') + '.jpg';
+
+    // get the canvas
+    anchor.href = this.dataUrl;
+    anchor.download = name;
   }
 
   private _addIntent(intent: Intent) {

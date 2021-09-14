@@ -10,7 +10,6 @@ import { Config } from './core/models/config.model';
 })
 export class AppComponent implements OnInit {
 
-  public chatbotHeight = 0;
   public chatbotUrl;
 
   constructor(@Inject(Window) public window: Window,
@@ -21,10 +20,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.chatbotHeight = this.window.innerHeight;
-    this.window.onresize = () => {
-      this.chatbotHeight = this.window.innerHeight;
-    };
     this.configService.config$.subscribe((config: Config) => {
       this._titleService.setTitle(`Chatbot - ${config?.name}`);
     });

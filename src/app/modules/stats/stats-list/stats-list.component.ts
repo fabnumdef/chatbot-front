@@ -1,4 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { InboxStatus } from '@enum/*';
 
 @Component({
     selector: 'app-stats-list',
@@ -8,6 +9,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 export class StatsListComponent implements OnInit {
 
   statView = 'chatbot';
+  inboxStatus = InboxStatus;
 
   constructor() {
     }

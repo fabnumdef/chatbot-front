@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import * as moment from 'moment';
+import { InboxStatus } from '@enum/*';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,18 @@ export class StatsService  {
 
   getFaqKPIData(): Observable<Object> {
     return this._http.post(this._url + '/faq_kpi_data', this.currentFilters);
+  }
+
+  getFeedbackMostQuestionsData(inboxStatus: InboxStatus): Observable<Object> {
+    return this._http.post(this._url + `/feedback_${inboxStatus}_questions`, this.currentFilters);
+  }
+
+  getFeedbackMostCategoriesData(inboxStatus: InboxStatus): Observable<Object> {
+    return this._http.post(this._url + `/feedback_${inboxStatus}_categories`, this.currentFilters);
+  }
+
+  getFeedbackKPIData(): Observable<Object> {
+    return this._http.post(this._url + '/feedback_kpi_data', this.currentFilters);
   }
 
   setCurrentFilters(startDate, endDate) {

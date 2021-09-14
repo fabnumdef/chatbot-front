@@ -4,7 +4,7 @@
   <mat-button-toggle-group [(ngModel)]="statView">
     <mat-button-toggle [value]="'chatbot'">Chatbot</mat-button-toggle>
     <mat-button-toggle [value]="'faq'">FAQ</mat-button-toggle>
-    <mat-button-toggle [value]="'feedbacks'" disabled>Feedbacks</mat-button-toggle>
+    <mat-button-toggle [value]="'feedbacks'">Feedbacks</mat-button-toggle>
   </mat-button-toggle-group>
 
   <ng-container [ngSwitch]="statView">
@@ -21,6 +21,21 @@
       <app-faq-stats-kpi></app-faq-stats-kpi>
     </ng-container>
     <ng-container *ngSwitchCase="'feedbacks'">
+      <div class="chatbot-title">
+        <h3>Réponses notées comme étant pertinente</h3>
+      </div>
+      <app-feedbacks-stats-most-questions [status]="inboxStatus.relevant" [index]="0"></app-feedbacks-stats-most-questions>
+      <app-feedbacks-stats-most-categories [status]="inboxStatus.relevant" [index]="0"></app-feedbacks-stats-most-categories>
+      <div class="chatbot-title">
+        <h3>Réponses notées comme étant erronées</h3>
+      </div>
+      <app-feedbacks-stats-most-questions [status]="inboxStatus.wrong" [index]="1"></app-feedbacks-stats-most-questions>
+      <app-feedbacks-stats-most-categories [status]="inboxStatus.wrong" [index]="1"></app-feedbacks-stats-most-categories>
+      <div class="chatbot-title">
+        <h3>Réponses notées comme "ne répondant pas à la question"</h3>
+      </div>
+      <app-feedbacks-stats-most-questions [status]="inboxStatus.off_topic" [index]="2"></app-feedbacks-stats-most-questions>
+      <app-feedbacks-stats-most-categories [status]="inboxStatus.off_topic" [index]="2"></app-feedbacks-stats-most-categories>
       <app-feedbacks-stats-kpi></app-feedbacks-stats-kpi>
     </ng-container>
   </ng-container>

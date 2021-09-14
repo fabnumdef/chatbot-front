@@ -60,5 +60,13 @@
             [matTooltip]="'Zoomer'">
       <mat-icon>zoom_in</mat-icon>
     </button>
+    <button mat-icon-button
+            class="chatbot-icon-btn"
+            aria-label="Imprimer"
+            (click)="print()"
+            [matTooltip]="'Imprimer'">
+      <mat-icon>print</mat-icon>
+    </button>
+    <a href="#" id="exportTreePng" (click)="downloadCanvasBest($event)" hidden>Télécharger l'arbre</a>
   </div>
 </div>

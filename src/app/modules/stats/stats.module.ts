@@ -17,6 +17,8 @@ import { FaqStatsMostCategoriesComponent } from './stats-list/faq-stats-most-cat
 import { FaqStatsKpiComponent } from './stats-list/faq-stats-kpi/faq-stats-kpi.component';
 import { FeedbacksStatsKpiComponent } from './stats-list/feedbacks-stats-kpi/feedbacks-stats-kpi.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { FeedbacksStatsMostQuestionsComponent } from './stats-list/feedbacks-stats-most-questions/feedbacks-stats-most-questions.component';
+import { FeedbacksStatsMostCategoriesComponent } from './stats-list/feedbacks-stats-most-categories/feedbacks-stats-most-categories.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     FaqStatsMostQuestionsComponent,
     FaqStatsMostCategoriesComponent,
     FaqStatsKpiComponent,
-    FeedbacksStatsKpiComponent
+    FeedbacksStatsKpiComponent,
+    FeedbacksStatsMostQuestionsComponent,
+    FeedbacksStatsMostCategoriesComponent
   ],
   imports: [
     CommonModule,
