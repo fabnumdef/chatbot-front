@@ -41,8 +41,7 @@ export class ChatbotUsersComponent implements OnInit {
   deleteUser(user: User) {
     const dialogRef = this._dialog.open(ConfirmDialogComponent, {
       data: {
-        message: `Êtes-vous sûr de vouloir supprimer l'utilsateur <b>${user.firstName} ${user.lastName}</b> ?
-<br/>Cette action est irréversible.`
+        message: `Êtes-vous sûr de vouloir désactiver l'utilsateur <b>${user.firstName} ${user.lastName}</b> ?`
       },
       autoFocus: false
     });
@@ -51,6 +50,22 @@ export class ChatbotUsersComponent implements OnInit {
       .pipe(filter(r => !!r))
       .subscribe(() => {
         this._userService.delete(user).subscribe();
+      });
+  }
+
+  activateUser(user: User) {
+    const dialogRef = this._dialog.open(ConfirmDialogComponent, {
+      data: {
+        message: `Êtes-vous sûr de vouloir réactiver l'utilsateur <b>${user.firstName} ${user.lastName}</b> ?`
+      },
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed()
+      .pipe(filter(r => !!r))
+      .subscribe(() => {
+        user.disabled = false;
+        this._userService.update(user).subscribe();
       });
   }
 

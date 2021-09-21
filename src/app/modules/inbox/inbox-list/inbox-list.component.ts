@@ -48,7 +48,7 @@ export class InboxListComponent implements OnInit {
     this.loading$ = this.inboxService.loading$;
     this.processing$ = this.inboxService.processing$;
     this.inboxes$ = this.inboxService.entities$;
-    this.users$ = this._userService.entities$;
+    this.users$ = this._userService.cleanEntities$;
     this.pagination = this.inboxService.pagination;
 
     this.inboxes$.subscribe(() => {

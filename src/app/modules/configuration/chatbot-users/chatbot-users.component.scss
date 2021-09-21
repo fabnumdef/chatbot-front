@@ -10,6 +10,10 @@
       align-items: center;
     }
 
+    ::ng-deep app-chatbot-list-item.disabled .chatbot-list-item {
+      background: $grey-light;
+    }
+
     .actions {
       width: 25%;
     }

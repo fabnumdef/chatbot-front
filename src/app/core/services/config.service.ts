@@ -49,18 +49,11 @@ export class ConfigService {
     if (partialConfig.embeddedIcon) {
       formData.append('embeddedIcon', partialConfig.embeddedIcon, partialConfig.embeddedIcon.name);
     }
-    if (partialConfig.storage !== undefined) {
-      formData.append('storage', partialConfig.storage.toString());
-    }
-    if (partialConfig.showIntentSearch !== undefined) {
-      formData.append('showIntentSearch', partialConfig.showIntentSearch.toString());
-    }
-    if (partialConfig.showFaq !== undefined) {
-      formData.append('showFaq', partialConfig.showFaq.toString());
-    }
-    if (partialConfig.isTree !== undefined) {
-      formData.append('isTree', partialConfig.isTree.toString());
-    }
+    ['storage', 'showIntentSearch', 'showFaq', 'isTree'].forEach(attribute => {
+      if (partialConfig[attribute] !== undefined) {
+        formData.append(attribute, partialConfig[attribute].toString());
+      }
+    });
     ['name', 'function', 'primaryColor', 'secondaryColor', 'problematic', 'audience',
       'description', 'help', 'helpBtn', 'chatBtn', 'faqBtn', 'delayBetweenMessages'].forEach(attribute => {
       if (partialConfig[attribute]) {

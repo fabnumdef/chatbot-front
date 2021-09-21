@@ -7,4 +7,5 @@ export class User {
 
   role: UserRole = UserRole.writer;
   createdAt: string;
+  disabled: boolean;
 }

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from '@core/services/api.service';
 import { User } from '@model/user.model';
 import { Observable } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { finalize, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,24 @@ export class UserService extends ApiService<User> {
       finalize(() => {
         this._loading$.next(false);
       })
+    );
+  }
+
+  public delete(item: User): Observable<User> {
+    this._processing$.next(true);
+    return this._httpClient.delete<User>(`${this._url}/${item[this._idAttribute]}`).pipe(
+      tap(() => {
+        item.disabled = true;
+        this.updateEntityArray(item);
+      }),
+      finalize(() => {
+        this._processing$.next(false);
+      }));
+  }
+
+  get cleanEntities$(): Observable<User[]> {
+    return this._entities$.pipe(
+      map(users => users.filter(u => !u.disabled))
     );
   }
 }

@@ -9,7 +9,7 @@
 
       <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
       <div *ngFor="let user of users$ | async" class="user-item">
-        <app-chatbot-list-item>
+        <app-chatbot-list-item [ngClass]="{'disabled': user.disabled}">
           <div>
             <mat-icon>person</mat-icon> &nbsp; {{ user.firstName }} {{ user.lastName }}
           </div>
@@ -34,8 +34,17 @@
                     matTooltip="Supprimer"
                     [disabled]="isUserAdmin(user)"
                     (click)="deleteUser(user)"
+                    *ngIf="!user.disabled"
                     aria-label="Bouton pour supprimer l'utilisateur">
               <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button
+                    class="chatbot-icon-btn"
+                    matTooltip="Réactiver"
+                    (click)="activateUser(user)"
+                    *ngIf="user.disabled"
+                    aria-label="Bouton pour ré-activer l'utilisateur">
+              <mat-icon>check</mat-icon>
             </button>
           </div>
           <div *ngIf="user.email === userSelected"
