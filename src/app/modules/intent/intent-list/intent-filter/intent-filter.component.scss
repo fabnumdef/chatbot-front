@@ -16,12 +16,16 @@
 
     .query {
       box-sizing: border-box;
-      width: 67%;
+      width: 50%;
       padding-right: 20px;
     }
 
     .category {
-      width: 33%;
+      padding-right: 20px;
+    }
+
+    .category, .users {
+      width: calc(25% - 10px);
     }
 
     .mat-checkbox {

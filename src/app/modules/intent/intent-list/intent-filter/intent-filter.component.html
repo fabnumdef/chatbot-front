@@ -30,6 +30,17 @@
       </mat-select>
     </mat-form-field>
 
+    <mat-form-field appearance="outline" class="users">
+      <mat-label>Auteurs</mat-label>
+      <mat-select multiple
+                  formControlName="users"
+                  data-cy="IntentFilterUser">
+        <mat-option *ngFor="let user of users$ | async" [value]="user.email">
+          {{ user.firstName }} {{ user.lastName }} <span class="primary-color">{{ userRole_fr[user.role] }}</span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <ng-container *ngIf="!light">
       <mat-checkbox color="primary"
                     class="chekbox-chip"

@@ -4,8 +4,11 @@ import { DestroyObservable } from '@core/utils/destroy-observable';
 import { IntentService } from '@core/services/intent.service';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { RefDataService } from '@core/services/ref-data.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import * as moment from 'moment';
+import { UserService } from '@core/services/user.service';
+import { User } from '@model/user.model';
+import { UserRole_Fr } from '@enum/*';
 
 @Component({
   selector: 'app-intent-filter',
@@ -19,18 +22,23 @@ export class IntentFilterComponent extends DestroyObservable implements OnInit, 
 
   intentFilters: FormGroup;
   categories$: BehaviorSubject<string[]>;
+  users$: Observable<User[]>;
+  userRole_fr = UserRole_Fr;
 
   constructor(private _fb: FormBuilder,
               private _intentService: IntentService,
-              private _refDataService: RefDataService) {
+              private _refDataService: RefDataService,
+              private _userService: UserService) {
     super();
   }
 
   ngOnInit(): void {
     this.categories$ = this._refDataService.categories$;
+    this.users$ = this._userService.cleanEntities$;
     this.intentFilters = this._fb.group({
       query: [!this.standalone ? this._intentService.currentSearch : ''],
       categories: [this._intentService.currentFilters?.categories && !this.standalone ? this._intentService.currentFilters.categories : []],
+      users: [this._intentService.currentFilters?.users && !this.standalone ? this._intentService.currentFilters.users : []],
       intentInError: [this._intentService.currentFilters?.intentInError ? this._intentService.currentFilters.intentInError : false],
       hidden: [this._intentService.currentFilters?.hidden ? this._intentService.currentFilters.hidden : false],
       expires: [this._intentService.currentFilters?.expires ? this._intentService.currentFilters.expires : false],
@@ -45,7 +53,8 @@ export class IntentFilterComponent extends DestroyObservable implements OnInit, 
         if (this.standalone) {
           this.intentFilterChanges.emit({
             query: value.query,
-            categories: value.categories
+            categories: value.categories,
+            users: value.users
           });
           return;
         }
