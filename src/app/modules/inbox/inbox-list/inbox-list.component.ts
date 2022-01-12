@@ -57,7 +57,7 @@ export class InboxListComponent implements OnInit {
   }
 
   getDiffDate(inbox: Inbox) {
-    return humanizeDuration(moment().diff(inbox.timestamp * 1000), { language: 'fr', largest: 1 });
+    return humanizeDuration(moment().diff(inbox.timestamp * 1000), { language: 'fr', largest: 1, round: true });
   }
 
   getBadgeClass(status: InboxStatus) {
