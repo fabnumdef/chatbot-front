@@ -27,7 +27,8 @@
          #uploader
          (change)="uploadMedia($event)"/>
   <div class="media-size" *ngIf="(config$ | async)">
-    <h3>Espace de stockage :</h3><div> {{ (config$ | async).mediaSize }} Go utilisés sur 5 Go</div>
+    <h3>Espace de stockage :</h3>
+    <div> {{ (config$ | async).mediaSize }} Go utilisés sur 5 Go</div>
     <mat-progress-bar mode="determinate" [value]="((config$ | async).mediaSize / 5)*100"></mat-progress-bar>
   </div>
   <app-media-filter></app-media-filter>
@@ -49,7 +50,7 @@
     </div>
     <div *ngFor="let media of medias$ | async">
       <app-chatbot-list-item>
-        <a target="_blank" rel="noopener" [href]="getMediaPath(media)">
+        <a target="_blank" rel="noopener" [href]="getMediaPath(media)" class="content-before">
           <div class="file-preview">
             <img *ngIf="utils.isFileImage(media.file); else showIcon" [src]="getMediaPath(media)">
             <ng-template #showIcon>
@@ -58,13 +59,15 @@
           </div>
         </a>
 
-        <div>{{ unescape(media.file) }}</div>
-
-        <div>Ajouté par {{ media.addedBy }}</div>
-
-        <div>Le {{ media.createdAt | date:'dd/MM/yyyy' }}</div>
-
-        <div>{{ media.size / 1000 }} MB</div>
+        <div class="title">
+          {{ unescape(media.file) }}
+        </div>
+        <div class="hint">
+          Ajouté Le {{ media.createdAt | date:'dd/MM/yyyy' }}, par {{ media.addedBy }}
+        </div>
+        <div class="subtitle">
+          {{ media.size / 1000 }} MB
+        </div>
 
         <div class="actions">
           <div *ngIf="media.intents && media.intents.length > 0">
@@ -74,15 +77,23 @@
                   class="chatbot-icon-btn"
                   [color]="media.id === mediaLink ? 'primary' : null"
                   [matTooltip]="'Connaissances liées'"
-                  (click)="selectMedia(media.id, true)"
+                  (click)="selectMedia(media.id, 'link')"
                   *ngIf="media.intents && media.intents.length > 0"
                   aria-label="Voir connaissances liées">
             <mat-icon>link</mat-icon>
           </button>
           <button mat-icon-button
                   class="chatbot-icon-btn"
+                  aria-label="Modifier le nom du média"
+                  [color]="media.id === mediaEdit ? 'primary' : null"
+                  (click)="selectMedia(media.id, 'edit')"
+                  [matTooltip]="'Modifier le média'">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button
+                  class="chatbot-icon-btn"
                   [color]="media.id === mediaReplace ? 'primary' : null"
-                  (click)="selectMedia(media.id, false)"
+                  (click)="selectMedia(media.id, 'replace')"
                   [matTooltip]="'Remplacer média'"
                   aria-label="Remplacer le média">
             <mat-icon>autorenew</mat-icon>
@@ -95,18 +106,24 @@
             <mat-icon>delete</mat-icon>
           </button>
         </div>
-        <div *ngIf="media.id === mediaLink || media.id === mediaReplace"
+        <div *ngIf="media.id === mediaLink || media.id === mediaReplace || media.id === mediaEdit"
              class="detail"
              [@detailInOutAnimation]>
           <app-media-intents *ngIf="media.id === mediaLink"
                              [intents]="media.intents">
           </app-media-intents>
           <app-replace-media *ngIf="media.id === mediaReplace"
-                             (replaceMedia)="replaceMedia(media.id, $event)"></app-replace-media>
+                             (replaceMedia)="replaceMedia(media.id, $event)">
+          </app-replace-media>
+          <app-media-edit *ngIf="media.id === mediaEdit"
+                          (newMediaName)="editMedia(media.id, $event)"
+                          [media]="media">
+          </app-media-edit>
         </div>
       </app-chatbot-list-item>
     </div>
     <app-pagination [pagination]="pagination"
-                    (changePage)="mediaService.load($event).subscribe()"></app-pagination>
+                    (changePage)="mediaService.load($event).subscribe()">
+    </app-pagination>
   </div>
 </div>

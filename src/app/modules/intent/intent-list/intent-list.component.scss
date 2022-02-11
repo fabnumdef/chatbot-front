@@ -47,6 +47,10 @@
       border-radius: $border-radius;
     }
 
+    ::ng-deep.content-wrapper {
+      flex: 1;
+    }
+
     .actions {
       width: 270px;
     }

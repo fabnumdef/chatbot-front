@@ -28,6 +28,7 @@ export class MediaListComponent implements OnInit {
   processing$: Observable<boolean>;
   config$: Observable<Config>;
   unescape = unescape;
+  mediaEdit: number;
   mediaReplace: number;
   mediaLink: number;
   utils = Utils;
@@ -63,13 +64,23 @@ export class MediaListComponent implements OnInit {
       });
   }
 
-  selectMedia(mediaId: number, link: boolean) {
-    if (link) {
-      this.mediaReplace = null;
-      this.mediaLink = (this.mediaLink === mediaId) ? null : mediaId;
-    } else {
-      this.mediaLink = null;
-      this.mediaReplace = (this.mediaReplace === mediaId) ? null : mediaId;
+  selectMedia(mediaId: number, action: string) {
+    switch (action) {
+      case 'link':
+        this.mediaReplace = null;
+        this.mediaEdit = null;
+        this.mediaLink = (this.mediaLink === mediaId) ? null : mediaId;
+        return;
+      case 'edit':
+        this.mediaReplace = null;
+        this.mediaLink = null;
+        this.mediaEdit = (this.mediaEdit === mediaId) ? null : mediaId;
+        return;
+      case 'replace':
+        this.mediaLink = null;
+        this.mediaEdit = null;
+        this.mediaReplace = (this.mediaReplace === mediaId) ? null : mediaId;
+        return;
     }
   }
 
@@ -94,6 +105,12 @@ export class MediaListComponent implements OnInit {
   replaceMedia(mediaId: number, file: File) {
     this.mediaService.replace(mediaId, file).subscribe(() => {
       this.mediaReplace = null;
+    });
+  }
+
+  editMedia(mediaId: number, newMedia: any) {
+    this.mediaService.edit(newMedia, mediaId).subscribe(() => {
+      this.mediaEdit = null;
     });
   }
 

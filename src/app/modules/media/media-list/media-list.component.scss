@@ -60,10 +60,12 @@
       margin-bottom: 20px;
     }
 
+    $preview-size: 120px;
+
     ::ng-deep {
       .file-preview {
         height: 65px;
-        max-width: 120px;
+        max-width: $preview-size;
         background-color: $grey-light;
         border-radius: $border-radius;
         overflow: hidden;
@@ -84,23 +86,20 @@
         }
       }
 
-      .content-wrapper {
-        width: 100%;
-        justify-content: flex-start;
+      .content-before-wrapper {
+        overflow: hidden;
+        flex: initial;
+        margin-right: 20px;
 
         & > * {
-          margin-right: 20px;
-          box-sizing: border-box;
-          width: 20%;
-          font-weight: bold;
-          overflow: hidden;
-          text-overflow: ellipsis;
           text-decoration: none;
+          width: $preview-size;
         }
       }
 
       &.actions {
         width: 290px;
+        flex: auto;
       }
     }
   }

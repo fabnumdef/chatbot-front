@@ -1,0 +1,20 @@
+.media-form {
+  form {
+    display: flex;
+    flex-wrap: wrap;
+
+    .mat-form-field {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+
+  .media-edit-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    & > *:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+}

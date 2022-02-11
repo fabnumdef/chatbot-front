@@ -9,6 +9,7 @@ import { MediaListComponent } from './media-list/media-list.component';
 import { MediaFilterComponent } from './media-list/media-filter/media-filter.component';
 import { MediaIntentsComponent } from './media-list/media-intents/media-intents.component';
 import { ReplaceMediaComponent } from './media-list/replace-media/replace-media.component';
+import { MediaEditComponent } from './media-list/media-edit/media-edit.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ReplaceMediaComponent } from './media-list/replace-media/replace-media.
     MediaListComponent,
     MediaFilterComponent,
     MediaIntentsComponent,
-    ReplaceMediaComponent
+    ReplaceMediaComponent,
+    MediaEditComponent
   ],
   imports: [
     CommonModule,

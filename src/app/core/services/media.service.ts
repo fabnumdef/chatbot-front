@@ -64,6 +64,17 @@ export class MediaService extends ApiPaginationService<Media> {
     );
   }
 
+  public edit(item: Media, mediaId: number): Observable<Media> {
+    this._loading$.next(true);
+    return this._http.put<Media>(`${this._url}/${mediaId}/edit`, item).pipe(
+      tap(entity => {
+        this.updateEntityArray(entity);
+      }),
+      finalize(() => {
+        this._loading$.next(false);
+      }));
+  }
+
   public export(): Observable<any> {
     this._processing$.next(true);
     return this._http.get(`${this._url}/export`, {responseType: 'blob' as 'json'}).pipe(
