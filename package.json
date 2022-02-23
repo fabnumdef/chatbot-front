@@ -1,6 +1,6 @@
 {
   "name": "chatbot-front",
-  "version": "1.5.10",
+  "version": "1.5.13",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -47,7 +47,7 @@
     "ngx-highlightjs": "^4.1.1",
     "ngx-mat-select-search": "^3.2.0",
     "ngx-panzoom": "^11.0.0",
-    "ngx-toastr": "^12.1.0",
+    "ngx-toastr": "^14.2.1",
     "rxjs": "~6.6.7",
     "socket.io-client": "^4.1.2",
     "tslib": "^2.3.0",
