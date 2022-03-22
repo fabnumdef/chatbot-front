@@ -1,5 +1,5 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -13,12 +13,18 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   constructor(private _router: Router,
               private _authService: AuthService,
-              private _toastr: ToastrService) {
+              private _toastr: ToastrService,
+              @Inject(Window) private _window: Window) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const excludePaths = [`${this._window.location.origin}/media/`];
+
     return next.handle(request).pipe(catchError((err: HttpErrorResponse) => {
-      this._handleErrorResponse(err);
+      const excluded = excludePaths.find(e => request.url?.includes(e));
+      if (!excluded) {
+        this._handleErrorResponse(err);
+      }
       return throwError(err);
     }));
   }

@@ -80,34 +80,18 @@ export class IntentTreeLeafComponent implements OnInit {
     });
   }
 
-  createIntent(): void {
+  createFindIntent(isNew = false): void {
     if (!this._checkBeforeAddingChoice(this.intent)) {
       this._toastr.warning('Aucune réponse de type texte ou réponse à choix trouvée.');
       this.editIntent();
       return;
     }
-    const dialogRef = this._dialog.open(CreateEditIntentDialogComponent, {
+    const dialogRef = isNew ? this._dialog.open(CreateEditIntentDialogComponent, {
       data: {
         intent: new Intent()
       },
       maxHeight: '80vh'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result) {
-        return;
-      }
-      this._addChoice(result);
-    });
-  }
-
-  findIntent(): void {
-    if (!this._checkBeforeAddingChoice(this.intent)) {
-      this._toastr.warning('Aucune réponse de type texte ou réponse à choix trouvée.');
-      this.editIntent();
-      return;
-    }
-    const dialogRef = this._dialog.open(IntentFinderDialogComponent, {
+    }) : this._dialog.open(IntentFinderDialogComponent, {
       width: '80vw',
       maxHeight: '80vh'
     });
@@ -132,11 +116,11 @@ export class IntentTreeLeafComponent implements OnInit {
     quickReplyResponse.response = quickReplyResponse.response ? `${quickReplyResponse.response};${intent.mainQuestion}<${intent.id}>`
       : `${intent.mainQuestion}<${intent.id}>`;
 
-    this._intentService.create(this._formatIntent(this.intent)).subscribe(r => {
+    this._intentService.update(this._formatIntent(this.intent), this.intent.id).subscribe(r => {
       this._toastr.success('Connaissance sauvegardée');
+      this.intent.responses = [...this.intent.responses];
+      this.intent.nextIntents.push(intent);
     });
-    this.intent.responses = [...this.intent.responses];
-    this.intent.nextIntents.push(intent);
   }
 
   private _addQuickReply(intent: Intent): Response {

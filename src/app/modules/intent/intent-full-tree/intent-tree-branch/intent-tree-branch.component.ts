@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Intent } from '@model/intent.model';
 import { ResponseType } from '@enum/*';
-import { IntentService } from '@core/services/intent.service';
 import { ToastrService } from 'ngx-toastr';
 import { ResponseService } from '@core/services/response.service';
 
@@ -22,8 +21,7 @@ export class IntentTreeBranchComponent implements OnInit {
 
   public intentBranches: Intent[][] = [];
 
-  constructor(private _intentService: IntentService,
-              private _responseService: ResponseService,
+  constructor(private _responseService: ResponseService,
               private _toastr: ToastrService) {
   }
 

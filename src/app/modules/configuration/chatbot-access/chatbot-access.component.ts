@@ -19,7 +19,7 @@ export class ChatbotAccessComponent implements OnInit {
     // Mandatory
     botURL: '${window.location.origin}/chatbot',
     // Optionnal
-    chatWidth: '300px',
+    chatWidth: '400px',
     chatHeight: '500px',
     buttonSize: '60px',
     buttonColor: '#6e91f0',

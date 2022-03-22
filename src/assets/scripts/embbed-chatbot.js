@@ -6,7 +6,7 @@ Webchat.init = function (data) {
   const buttonColor = data.buttonColor ? data.buttonColor : '#6e91f0';
   const buttonSize = data.buttonSize ? data.buttonSize : '60px';
   const chatHeight = data.chatHeight ? data.chatHeight : '500px';
-  const chatWidth = data.chatWidth ? data.chatWidth : '300px';
+  const chatWidth = data.chatWidth ? data.chatWidth : '400px';
   const iconSize = data.iconSize ? data.iconSize : '30px';
   const iconColor = data.iconColor ? data.iconColor : '#ffffff';
 
@@ -112,7 +112,7 @@ Webchat.init = function (data) {
   const iframe = document.getElementById('iframe-bot');
   button.addEventListener("click", function () {
     if (!iframe.getElementsByTagName('iframe')[0]) {
-      iframe.innerHTML = `<iframe src="${data.botURL}"></iframe>`;
+      iframe.innerHTML = '<iframe src="' + data.botURL + '"></iframe>';
     }
     if (iframe.classList.contains('active')) {
       button.classList.remove('active');

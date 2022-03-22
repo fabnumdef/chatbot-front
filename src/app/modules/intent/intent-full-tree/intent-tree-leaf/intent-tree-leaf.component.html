@@ -52,10 +52,10 @@
       <mat-icon>add</mat-icon>
     </button>
     <mat-menu #newResponse="matMenu">
-      <button mat-menu-item (click)="this.createIntent(); $event.stopPropagation()">
+      <button mat-menu-item (click)="this.createFindIntent(true); $event.stopPropagation()">
         <span>Nouvelle connaissance</span>
       </button>
-      <button mat-menu-item (click)="this.findIntent(); $event.stopPropagation()">
+      <button mat-menu-item (click)="this.createFindIntent(false); $event.stopPropagation()">
         <span>Connaissance existante</span>
       </button>
     </mat-menu>
