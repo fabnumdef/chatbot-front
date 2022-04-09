@@ -42,7 +42,7 @@
     "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.2",
     "humanize-duration": "^3.25.1",
-    "moment": "^2.25.3",
+    "moment": "^2.29.2",
     "ngx-color-picker": "^11.0.0",
     "ngx-highlightjs": "^4.1.1",
     "ngx-mat-select-search": "^3.2.0",
