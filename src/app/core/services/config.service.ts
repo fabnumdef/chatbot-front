@@ -49,7 +49,7 @@ export class ConfigService {
     if (partialConfig.embeddedIcon) {
       formData.append('embeddedIcon', partialConfig.embeddedIcon, partialConfig.embeddedIcon.name);
     }
-    ['storage', 'showIntentSearch', 'showFaq', 'isTree'].forEach(attribute => {
+    ['storage', 'showIntentSearch', 'showFaq', 'showFallbackSuggestions', 'isTree'].forEach(attribute => {
       if (partialConfig[attribute] !== undefined) {
         formData.append(attribute, partialConfig[attribute].toString());
       }

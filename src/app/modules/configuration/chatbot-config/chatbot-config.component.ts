@@ -157,6 +157,7 @@ export class ChatbotConfigComponent extends DestroyObservable implements OnInit 
       help: [this.chatbotConfig.help, [Validators.maxLength(500)]],
       showIntentSearch: [this.chatbotConfig.showIntentSearch, [Validators.required]],
       showFaq: [this.chatbotConfig.showFaq, [Validators.required]],
+      showFallbackSuggestions: [this.chatbotConfig.showFallbackSuggestions, [Validators.required]],
     });
     this.descriptionForm = this._fb.group({
       problematic: [this.chatbotConfig.problematic, [Validators.required, Validators.maxLength(200)]],

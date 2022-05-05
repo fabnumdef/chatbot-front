@@ -292,6 +292,17 @@
               formControlName="showFaq">
               Publier la F.A.Q.
             </mat-slide-toggle>
+
+            <div class="chatbot-subtitle">
+              <h4>Réponse non trouvée par l'Intelligence Artificielle (IA)</h4>
+            </div>
+            <p>Lorsque l'IA n'arrive pas à déterminer assez précisement la réponse attendue, elle peut proposer quelques questions qui pourraient se rapprocher de la question de l'utilisateur</p>
+            <mat-slide-toggle
+              color="primary"
+              aria-label="Afficher ou masquer les suggestions"
+              formControlName="showFallbackSuggestions">
+              Afficher les suggestions de l'IA
+            </mat-slide-toggle>
           </div>
           <div class="preview">
             <app-chatbot-embedded-preview [chatbot]="fullConfiguration"

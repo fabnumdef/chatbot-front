@@ -19,6 +19,7 @@ export class Config {
   chatBtn: string;
   faqBtn: string;
   showFaq: boolean;
+  showFallbackSuggestions: boolean;
 
   // DESCRIPTION
   problematic: string;
