@@ -21,9 +21,13 @@ export class JwtInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
 
+    let newHeaders = request.headers.set('Authorization',
+      'Bearer ' + this.currentToken);
+    newHeaders = newHeaders.set('Cache-Control', 'no-cache');
+    newHeaders = newHeaders.set('Pragma', 'no-cache');
+    newHeaders = newHeaders.set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
     request = request.clone({
-      headers: request.headers.set('Authorization',
-        'Bearer ' + this.currentToken)
+      headers: newHeaders
     });
     return next.handle(request);
   }

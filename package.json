@@ -1,6 +1,6 @@
 {
   "name": "chatbot-front",
-  "version": "1.5.15",
+  "version": "1.5.16",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

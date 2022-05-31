@@ -41,7 +41,6 @@ export class ConfigService {
   }
 
   saveConfig(partialConfig: any) {
-    console.log('SAVE CONFIG', partialConfig);
     const formData: FormData = new FormData();
     if (partialConfig.icon) {
       formData.append('icon', partialConfig.icon, partialConfig.icon.name);
