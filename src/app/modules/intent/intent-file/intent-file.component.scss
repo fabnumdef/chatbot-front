@@ -48,8 +48,10 @@
     .file-status {
       padding: 10px 20px;
       font-size: 12px;
+      display: flex;
+      align-items: center;
 
-      .valid {
+      .valid, &.valid {
         color: $primary-color;
       }
 
@@ -64,6 +66,7 @@
       flex-direction: column;
       align-items: flex-start;
       padding: 20px;
+      box-sizing: border-box;
 
       .feedback-content {
         display: flex;
@@ -96,6 +99,14 @@
         width: 100%;
         margin-bottom: 20px;
         margin-top: 20px;
+      }
+    }
+
+    .change-url {
+      & > * {
+        box-sizing: border-box;
+        width: 50%;
+        padding: 0 10px;
       }
     }
   }

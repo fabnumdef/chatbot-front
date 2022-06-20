@@ -34,15 +34,16 @@
     <h4>Importer des nouvelles connaissances</h4>
   </div>
   <p>
-    Importer un nouveau fichier vous permet d'enrichir votre base de connaissances actuelle, de la modifier ou de la remplacer totalement.
+    Importer un nouveau fichier vous permet d'enrichir votre base de connaissances actuelle, de la modifier ou de la
+    remplacer totalement.
   </p>
   <p>
     <b>
       Quelle option choisissez-vous ?
     </b>
   </p>
-  <div class="option-row">
-    <form [formGroup]="importFileFormGroup" *ngIf="importFileFormGroup">
+  <form [formGroup]="importFileFormGroup" *ngIf="importFileFormGroup">
+    <div class="option-row">
       <mat-radio-group
         aria-label="Doit-on conserver les connaissances qui ne sont pas présentes dans le fichier d'import ?"
         labelPosition="before"
@@ -51,105 +52,135 @@
         <mat-radio-button [value]="false">Ajouter et modifier (sécurisé)</mat-radio-button>
         <mat-radio-button [value]="true">Remplacement total</mat-radio-button>
       </mat-radio-group>
-    </form>
-    <button mat-flat-button
-            (click)="uploader.click()"
-            [disabled]="(fileService.loading$ | async) || !!fileCtrl.value"
-            color="accent">
-      <mat-icon *ngIf="!(fileService.loading$ | async)">publish</mat-icon>
-      <mat-spinner *ngIf="fileService.loading$ | async"
-                   aria-label="Chargement et vérification du fichier"
-                   [diameter]="24"></mat-spinner>
-      Importer les connaissances
-    </button>
-  </div>
-  <div class="chatbot-info" *ngIf="!importFileFormGroup.get('deleteIntents').value">
-    <mat-icon>info</mat-icon>
-    <div>
-      Les connaissances importées écrasent celles déjà en place si elles ont le même identifiant.
+      <button mat-flat-button
+              (click)="uploader.click()"
+              [disabled]="(fileService.loading$ | async) || !!fileCtrl.value"
+              color="accent">
+        <mat-icon *ngIf="!(fileService.loading$ | async)">publish</mat-icon>
+        <mat-spinner *ngIf="fileService.loading$ | async"
+                     aria-label="Chargement et vérification du fichier"
+                     [diameter]="24"></mat-spinner>
+        Importer les connaissances
+      </button>
     </div>
-  </div>
-  <input hidden
-         type="file"
-         #uploader
-         (change)="checkFile($event)"
-         [accept]="'.xlsx'"/>
-  <div class="" *ngIf="fileTemplateCheckResume">
-    <div class="file-row" *ngIf="fileCtrl.value">
-      <div class="file-wrapper">
-        <div class="file-name">
-          <mat-icon color="primary"
-                    *ngIf="!hasFileErrors()">
-            check_circle
-          </mat-icon>
-          <mat-icon color="accent"
-                    *ngIf="hasFileErrors()">
-            cancel
-          </mat-icon>
-          {{ fileCtrl.value.name }}
-        </div>
-        <div class="file-buttons">
-          <button mat-stroked-button
-                  color="accent"
-                  (click)="resetFile()">
-            Supprimer
-          </button>
-          <button mat-flat-button
-                  color="accent"
-                  [disabled]="fileService.loading$ | async"
-                  (click)="uploader.click()">
-            Remplacer fichier
-          </button>
-        </div>
+    <div class="chatbot-info" *ngIf="!importFileFormGroup.get('deleteIntents').value">
+      <mat-icon>info</mat-icon>
+      <div>
+        Les connaissances importées écrasent celles déjà en place si elles ont le même identifiant.
       </div>
-      <div class="file-status">
+    </div>
+    <input hidden
+           type="file"
+           #uploader
+           (change)="checkFile($event)"
+           [accept]="'.xlsx'"/>
+    <div class="" *ngIf="fileTemplateCheckResume">
+      <div class="file-row" *ngIf="fileCtrl.value">
+        <div class="file-wrapper">
+          <div class="file-name">
+            <mat-icon color="primary"
+                      *ngIf="!hasFileErrors()">
+              check_circle
+            </mat-icon>
+            <mat-icon color="accent"
+                      *ngIf="hasFileErrors()">
+              cancel
+            </mat-icon>
+            {{ fileCtrl.value.name }}
+          </div>
+          <div class="file-buttons">
+            <button mat-stroked-button
+                    color="accent"
+                    (click)="resetFile()">
+              Supprimer
+            </button>
+            <button mat-flat-button
+                    color="accent"
+                    [disabled]="fileService.loading$ | async"
+                    (click)="uploader.click()">
+              Remplacer fichier
+            </button>
+          </div>
+        </div>
+        <div class="file-status">
             <span class="valid" *ngIf="!hasFileErrors()">
               Votre fichier est valide.
             </span>
-        <span class="error" *ngIf="hasFileErrors()">
+          <span class="error" *ngIf="hasFileErrors()">
               Votre fichier contient des erreurs. Veuillez le corriger et le mettre à jour.
             </span>
-      </div>
-      <div class="feedback-wrapper">
-        <div class="feedback-content">
-          <div class="number" [ngClass]="{'error': hasFileErrors()}">
-            {{ objectKeys(fileTemplateCheckResume.errors).length }}
-          </div>
-          <div class="message">
-            <b>Erreur(s)</b><span class="red">*</span><br/>
-            <span *ngIf="!hasFileErrors(); else messageError">
+        </div>
+        <div class="feedback-wrapper">
+          <div class="feedback-content">
+            <div class="number" [ngClass]="{'error': hasFileErrors()}">
+              {{ objectKeys(fileTemplateCheckResume.errors).length }}
+            </div>
+            <div class="message">
+              <b>Erreur(s)</b><span class="red">*</span><br/>
+              <span *ngIf="!hasFileErrors(); else messageError">
                 Votre fichier est conforme aux normes.
               </span>
-            <ng-template #messageError>
-              Votre fichier contient des erreurs qui l'empêche de fonctionner.<br/>
-              <a (click)="openDialog(true, fileTemplateCheckResume.errors)">
-                <b>Visualiser les erreurs</b>
-              </a>
-            </ng-template>
+              <ng-template #messageError>
+                Votre fichier contient des erreurs qui l'empêche de fonctionner.<br/>
+                <a (click)="openDialog(true, fileTemplateCheckResume.errors)">
+                  <b>Visualiser les erreurs</b>
+                </a>
+              </ng-template>
+            </div>
           </div>
-        </div>
-        <mat-divider></mat-divider>
-        <div class="feedback-content">
-          <div class="number">
-            {{ objectKeys(fileTemplateCheckResume.warnings).length }}
-          </div>
-          <div class="message">
-            <b>Avertissement(s)</b><br/>
-            <span *ngIf="!hasFileWarnings(); else messageWarning">
+          <mat-divider></mat-divider>
+          <div class="feedback-content">
+            <div class="number">
+              {{ objectKeys(fileTemplateCheckResume.warnings).length }}
+            </div>
+            <div class="message">
+              <b>Avertissement(s)</b><br/>
+              <span *ngIf="!hasFileWarnings(); else messageWarning">
                 Votre fichier ne contient pas d'avertissements.
               </span>
-            <ng-template #messageWarning>
-              Votre fichier contient des avertissements qui ne sont pas bloquants pour la création de votre
-              chatbot.<br/>
-              <a (click)="openDialog(false, fileTemplateCheckResume.warnings)">
-                <b>Visualiser les avertissements</b>
-              </a>
-            </ng-template>
+              <ng-template #messageWarning>
+                Votre fichier contient des avertissements qui ne sont pas bloquants pour la création de votre
+                chatbot.<br/>
+                <a (click)="openDialog(false, fileTemplateCheckResume.warnings)">
+                  <b>Visualiser les avertissements</b>
+                </a>
+              </ng-template>
+            </div>
           </div>
+        </div>
+      </div>
+      <div class="file-row">
+        <div class="file-wrapper">
+          <div class="file-name">
+            Remplacement URL
+          </div>
+        </div>
+        <div class="file-status valid">
+          <mat-icon>info</mat-icon>
+          <div>
+            Si vous souhaitez modifier une URL présente dans le fichier Excel par une nouvelle, merci de remplir les
+            deux champs ci-dessous.
+          </div>
+        </div>
+        <div class="change-url">
+          <mat-form-field appearance="outline">
+            <mat-label>URL à remplacer</mat-label>
+            <input matInput
+                   formControlName="oldURL"
+                   maxlength="255">
+            <span matPrefix>http(s)://</span>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nouvelle URL</mat-label>
+            <input matInput
+                   formControlName="newURL"
+                   maxlength="255">
+          </mat-form-field>
         </div>
       </div>
     </div>
-  </div>
+  </form>
   <div class="action-row" *ngIf="fileCtrl.value">
     <button mat-flat-button
             (click)="uploadFile()"

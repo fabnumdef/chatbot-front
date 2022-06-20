@@ -124,6 +124,8 @@ export class IntentFileComponent implements OnInit {
     this.importFileFormGroup = this._fb.group({
       file: ['', Validators.required],
       deleteIntents: [false, Validators.required],
+      oldURL: ['', Validators.maxLength(255)],
+      newURL: [window.location.origin, Validators.maxLength(255)]
     });
   }
 

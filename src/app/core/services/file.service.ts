@@ -42,6 +42,8 @@ export class FileService {
     const formData: FormData = new FormData();
     formData.append('file', importFile.file, importFile.file.name);
     formData.append('deleteIntents', importFile.deleteIntents.toString());
+    formData.append('oldURL', importFile.oldURL);
+    formData.append('newURL', importFile.newURL);
 
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
