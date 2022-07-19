@@ -1,29 +1,32 @@
 .faq-detail {
   &-back {
-    color: #ff006e;
-    text-decoration: underline;
-    font-weight: 700;
-
     svg {
-      fill: #ff006e;
-      margin-right: 10px;
+      fill: currentColor;
     }
   }
 
-  &-divider {
-    display: block;
+  &-header {
     margin: 20px 0;
-    border-top-width: 1px;
-    border-top-style: solid;
-    border-top-color: rgba(0, 0, 0, .12);
+
+    > * {
+      display: inline;
+    }
   }
 
   .mat-accordion .mat-expansion-panel {
     border-radius: 0;
     box-shadow: none;
+    background-color: transparent;
+    border-top: 1px solid #e5e5e5;
 
-    &:nth-child(odd) {
-      background-color: rgba(110, 145, 240, 0.1);
+    &:last-child {
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    &.mat-expanded {
+      .mat-expansion-panel-header {
+        font-weight: bold;
+      }
     }
 
     &-header {
@@ -32,6 +35,14 @@
 
       &-title {
         padding: 10px 0;
+      }
+
+      ::ng-deep.mat-content {
+        align-items: center;
+
+        svg {
+          flex: none;
+        }
       }
     }
   }

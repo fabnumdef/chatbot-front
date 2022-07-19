@@ -51,7 +51,8 @@
                     [botUrl]="socketUrl"
                     (switchToChat)="displayFaq = false">
       </app-faq-list>
-      <div class="button_chat_faq" *ngIf="showFaq">
+      <div class="button_chat_faq" *ngIf="showFaq"
+           [ngStyle]="{'border-color': botColor}">
         <div (click)="displayFaq = false"
              [ngClass]="{'active': !displayFaq}"
              [ngStyle]="!displayFaq && {'background-color': botColor}">

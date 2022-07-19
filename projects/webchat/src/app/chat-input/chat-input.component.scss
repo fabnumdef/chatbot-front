@@ -2,6 +2,7 @@
   display: flex;
   position: relative;
   height: 50px;
+  border-bottom: 2px solid;
 }
 
 .chat-input-text {
@@ -21,6 +22,7 @@
 
   &::-webkit-input-placeholder, &::-moz-placeholder, &::-ms-input-placeholder {
     color: #818181;
+    font-style: italic;
   }
 }
 
@@ -29,22 +31,25 @@
   cursor: pointer;
   border: 0;
   font-size: 24px;
-  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.chat-input-submit {
-  margin: 14px 12px;
+button.mat-button-base.chat-input-submit {
+  height: 48px;
   float: right;
 
-  &:disabled svg {
-    fill: #818181;
+  svg {
+    fill: white;
   }
 
-  &:enabled svg {
+  &.mat-button-disabled svg {
     fill: currentColor;
+  }
+
+  &.mat-button-disabled {
+    background-color: transparent;
   }
 }
 

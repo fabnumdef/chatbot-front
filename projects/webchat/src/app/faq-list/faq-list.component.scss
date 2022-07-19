@@ -8,8 +8,8 @@
     position: relative;
     height: 50px;
     margin-bottom: 20px;
-    border-radius: 100px;
-    background-color: #F0F0F0;
+    background-color: #F1EFF1;
+    border-bottom: 2px solid;
 
     &-text {
       margin: 14px 0 0 14px;
@@ -28,6 +28,7 @@
 
       &::-webkit-input-placeholder, &::-moz-placeholder, &::-ms-input-placeholder {
         color: #818181;
+        font-style: italic;
       }
     }
 
@@ -36,22 +37,25 @@
       cursor: pointer;
       border: 0;
       font-size: 24px;
-      background: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     &-submit {
-      margin: 14px 12px;
+      height: 48px;
       float: right;
 
-      &:disabled svg {
-        fill: #818181;
+      svg {
+        fill: white;
       }
 
-      &:enabled svg {
+      &.mat-button-disabled svg {
         fill: currentColor;
+      }
+
+      &.mat-button-disabled {
+        background-color: transparent;
       }
     }
   }
@@ -60,15 +64,15 @@
     cursor: pointer;
     background-color: #ffffff;
     height: 50px;
-    border-radius: 4px;
     display: flex;
     align-items: center;
     margin-bottom: 20px;
     font-weight: 700;
     font-size: 18px;
     padding: 0 20px 0 0;
-    box-shadow: 0 0 10px -3px rgba(110, 145, 240, .3);
     overflow: hidden;
+    border: solid 1px #e5e5e5;
+    border-radius: 0;
 
     .border-active {
       height: 100%;

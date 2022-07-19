@@ -1,4 +1,5 @@
-<div class="chat-input">
+<div class="chat-input"
+     [ngStyle]="{'border-color': botColor}">
   <button class="chat-input-mic"
           aria-label="Enregistrer"
           (mousedown)="recognition.start()"
@@ -8,10 +9,8 @@
           [matRippleUnbounded]="true"
           [matRippleRadius]="30"
           *ngIf="SpeechRecognition && !blockTypeText">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24" height="24">
-      <path d="M0 0h24v24H0z" fill="none"/>
-      <path
-        d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/>
+      <path d="M12 3a3 3 0 0 0-3 3v4a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zm0-2a5 5 0 0 1 5 5v4a5 5 0 0 1-10 0V6a5 5 0 0 1 5-5zM3.055 11H5.07a7.002 7.002 0 0 0 13.858 0h2.016A9.004 9.004 0 0 1 13 18.945V23h-2v-4.055A9.004 9.004 0 0 1 3.055 11z"/>
     </svg>
   </button>
   <textarea type="text"
@@ -24,14 +23,17 @@
             (keyup.enter)="messageText.setValue('')">
   </textarea>
   <button type="submit"
+          mat-button
+          mat-flat-button
           class="chat-input-submit"
           aria-label="Envoyer"
           (click)="onSubmit()"
           *ngIf="!blockTypeText"
+          [ngStyle]="{'background-color': messageText.value.trim() == '' ? '' : botColor}"
           [disabled]="messageText.value.trim() == ''">
-    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
-      <path d="M0 0h24v24H0z" fill="none"/>
-      <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path fill="none" d="M0 0h24v24H0z"/>
+      <path d="M3.741 1.408l18.462 10.154a.5.5 0 0 1 0 .876L3.741 22.592A.5.5 0 0 1 3 22.154V1.846a.5.5 0 0 1 .741-.438zM5 13v6.617L18.85 12 5 4.383V11h5v2H5z"/>
     </svg>
   </button>
 

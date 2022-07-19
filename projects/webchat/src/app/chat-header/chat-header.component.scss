@@ -1,24 +1,37 @@
 .chat-header {
   padding: 10px 20px;
+  padding-bottom: 9px;
   background-color: #fff;
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #80808057;
-  cursor: pointer;
+  border-bottom: 1px solid #e5e5e5;
 
-  & > div:nth-child(1) {
-    width: 100%;
+  &-body {
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    flex-direction: column;
+    color: dimgrey;
+  }
+
+  &-actions {
+    display: flex;
+
+    & > * {
+      cursor: pointer;
+
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
   }
 
   &-arrow {
-    color: dimgrey;
-    display: flex;
-    align-items: center;
-
     svg {
       transition: transform 160ms linear 0s;
-      width: 36px;
-      height: 36px;
     }
 
     &-reversed svg {
@@ -28,17 +41,17 @@
 
   .operator-header {
     display: flex;
-    flex-direction: column;
-    height: 50px;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
 
     h3 {
       margin: 0;
     }
+  }
 
-    h4 {
-      margin: 5px 0 0 0;
-      color: dimgrey;
-    }
+  &-subtitle {
+    border-top: 1px solid #e5e5e5;
+    font-size: 0.7rem;
+    padding-top: 5px;
   }
 }

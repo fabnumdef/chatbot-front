@@ -17,9 +17,7 @@
   &-divider {
     display: block;
     margin: 20px 0;
-    border-top-width: 1px;
-    border-top-style: solid;
-    border-top-color: rgba(0, 0, 0, .12);
+    border-top: 1px solid #e5e5e5;
   }
 
   &-company {
@@ -30,9 +28,14 @@
     }
   }
 
+  &-header {
+    display: flex;
+  }
+
   &-name h3 {
     margin: 10px 0 5px 0;
     font-weight: bold;
+    color: #161616;
   }
 
   &-subtitle h4 {
@@ -46,19 +49,30 @@
   }
 
   &-footer {
-    display: flex;
-    align-items: center;
     color: dimgrey;
-    font-size: 12px;
+    font-size: 0.8rem;
 
-    svg {
-      width: 90px;
-      margin-left: 5px;
+    &-develop {
+      border-bottom: 1px solid #e5e5e5;
+      padding-bottom: 10px;
+
+      & > * {
+        display: inline;
+      }
+
+      span {
+        flex: none
+      }
     }
-  }
 
-  &-accessibility {
-    font-weight: 700;
+    &-links {
+      padding-top: 10px;
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
   }
 
   &-actions {

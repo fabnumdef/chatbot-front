@@ -35,7 +35,6 @@ export class ChatSideMenuComponent implements OnInit {
     this._dialog.open(ChatHelpModalComponent, {
       width: '500px',
       data: {
-        primaryColor: this.botColor,
         botHelpBtn: this.botHelpBtn,
         botHelp: this.botHelp
       },

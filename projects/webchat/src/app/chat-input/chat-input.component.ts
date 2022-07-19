@@ -13,6 +13,7 @@ import { Subject } from 'rxjs';
 })
 export class ChatInputComponent implements OnInit {
   @Input() public placeholder: string;
+  @Input() public botColor: string;
 
   _blockTypeText: boolean;
   get blockTypeText(): boolean {

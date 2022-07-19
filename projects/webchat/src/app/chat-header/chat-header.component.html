@@ -1,18 +1,40 @@
-<div class="chat-header" *ngIf="isMobileSize" [ngStyle]="{'color': botColor}" (click)="drawer.toggle()">
-  <div class="">
-    <app-chat-avatar [image]="botAvatar" [header]="true"></app-chat-avatar>
+<div class="chat-header" *ngIf="isMobileSize">
+  <app-chat-avatar [image]="botAvatar" [header]="true"></app-chat-avatar>
+  <div class="chat-header-body">
     <div class="operator-header">
       <h3>
         {{botName}}
       </h3>
-      <h4 *ngIf="botSubtitle">
-        {{botSubtitle}}
-      </h4>
+      <div class="chat-header-actions">
+        <a *ngIf="isDesktop"
+           target="_blank"
+           rel="noopener"
+           [href]="currentUrl">
+          <div class="cheat-header-fullscreen">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+              <path fill="none" d="M0 0h24v24H0z"/>
+              <path d="M20 3h2v6h-2V5h-4V3h4zM4 3h4v2H4v4H2V3h2zm16 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"/>
+            </svg>
+          </div>
+        </a>
+        <div class="chat-header-arrow" [ngClass]="{'chat-header-arrow-reversed': drawer.opened}"
+             (click)="drawer.toggle()">
+          <svg *ngIf="!drawer.opened" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+               fill="currentColor">
+            <path fill="none" d="M0 0h24v24H0z"/>
+            <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/>
+          </svg>
+          <svg *ngIf="drawer.opened" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+               fill="currentColor">
+            <path fill="none" d="M0 0h24v24H0z"/>
+            <path
+              d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/>
+          </svg>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="chat-header-arrow" [ngClass]="{'chat-header-arrow-reversed': drawer.opened}">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M0 0h24v24H0z" fill="none"/><path d="M7 10l5 5 5-5z"/>
-    </svg>
+    <div class="chat-header-subtitle" *ngIf="botSubtitle">
+      {{botSubtitle}}
+    </div>
   </div>
 </div>

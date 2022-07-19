@@ -7,35 +7,35 @@
 // Chatbot palettes
 
 $chatbot-blue: (
-  50 : #eef2fd,
-  100 : #d4defb,
-  200 : #b7c8f8,
-  300 : #9ab2f5,
-  400 : #84a2f2,
-  500 : #6e91f0,
-  600 : #6689ee,
-  700 : #5b7eec,
-  800 : #5174e9,
-  900 : #3f62e5,
-  A100 : #ffffff,
-  A200 : #ffffff,
-  A400 : #ced7ff,
-  A700 : #b4c3ff,
+  50 : #e0e0f2,
+  100 : #b3b3de,
+  200 : #8080c8,
+  300 : #4d4db2,
+  400 : #2626a2,
+  500 : #000091,
+  600 : #000089,
+  700 : #00007e,
+  800 : #000074,
+  900 : #000062,
+  A100 : #9292ff,
+  A200 : #5f5fff,
+  A400 : #2c2cff,
+  A700 : #1313ff,
   contrast: (
     50 : #000000,
     100 : #000000,
     200 : #000000,
-    300 : #000000,
-    400 : #000000,
-    500 : #000000,
-    600 : #000000,
-    700 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
     800 : #ffffff,
     900 : #ffffff,
     A100 : #000000,
-    A200 : #000000,
-    A400 : #000000,
-    A700 : #000000,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
   )
 );
 
@@ -75,47 +75,68 @@ $chatbot-red: (
 $chatbot-primary: mat.define-palette($chatbot-blue);
 $chatbot-accent: mat.define-palette($chatbot-red);
 $chatbot-warn: mat.define-palette(mat.$red-palette);
-$chatbot-theme: mat.define-light-theme($chatbot-primary, $chatbot-accent, $chatbot-warn);
+$chatbot-typography: mat.define-typography-config(
+  $font-family: 'Marianne',
+);
+$chatbot-theme: mat.define-light-theme((
+  color: (
+    primary: $chatbot-primary,
+    accent: $chatbot-accent,
+    warn: $chatbot-warn
+  ),
+  typography: $chatbot-typography,
+));
 
 @include mat.all-component-themes($chatbot-theme);
 
-/* Roboto regular */
+$primary-color: map-get($chatbot-primary, 500);
 
+
+/* Marianne regular */
 @font-face {
-  font-family: 'Roboto';
-  src: url('assets/fonts/Roboto/Roboto-Regular.woff2') format('woff2'),
-  url('assets/fonts/Roboto/Roboto-Regular.woff') format('woff');
+  font-family: 'Marianne';
+  src: url('assets/fonts/Marianne-Regular.woff2') format('woff2'),
+  url('assets/fonts/Marianne-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
-/* Roboto italic */
-
+/* Marianne italic */
 @font-face {
-  font-family: 'Roboto';
-  src: url('assets/fonts/Roboto/Roboto-Italic.woff2') format('woff2'),
-  url('assets/fonts/Roboto/Roboto-Italic.woff') format('woff');
+  font-family: 'Marianne';
+  src: url('assets/fonts/Marianne-Regular_Italic.woff2') format('woff2'),
+  url('assets/fonts/Marianne-Regular_Italic.woff') format('woff');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 
-/* Roboto bold */
-
+/* Marianne bold */
 @font-face {
-  font-family: 'Roboto';
-  src: url('assets/fonts/Roboto/Roboto-Bold.woff2') format('woff2'),
-  url('assets/fonts/Roboto/Roboto-Bold.woff') format('woff');
+  font-family: 'Marianne';
+  src: url('assets/fonts/Marianne-Bold.woff2') format('woff2'),
+  url('assets/fonts/Marianne-Bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
+/* Spectral Regular */
 @font-face {
-  font-family: 'Gilroy';
-  src: url('assets/fonts/Gilroy-ExtraBold/Gilroy-ExtraBold.woff2') format('woff2'),
-  url('assets/fonts/Gilroy-ExtraBold/Gilroy-ExtraBold.woff') format('woff');
+  font-family: 'Spectral';
+  src: url('assets/fonts/Spectral-Regular.woff2') format('woff2'),
+  url('assets/fonts/Spectral-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Spectral ExtraBold */
+@font-face {
+  font-family: 'Spectral';
+  src: url('assets/fonts/Spectral-ExtraBold.woff2') format('woff2'),
+  url('assets/fonts/Spectral-ExtraBold.woff') format('woff');
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -127,13 +148,13 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, .mat-dialog-title {
-  font-family: 'Gilroy', sans-serif;
+  font-family: Marianne, sans-serif;
 }
 
 * {
   box-sizing: border-box;
   position: relative;
-  font-family: Roboto, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: Marianne, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .sr-only {
@@ -149,17 +170,94 @@ h1, h2, h3, h4, h5, .mat-dialog-title {
 }
 
 button {
-  &.mat-flat-button {
-    height: 38px;
+  &.mat-button-base {
+    height: 40px;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-radius: 0;
     color: #ffffff;
   }
 
+  &.mat-flat-button.mat-primary:hover:not([disabled]) {
+    background-color: #1212ff;
+  }
+
+  &:hover:not([disabled]), &.mat-stroked-button:hover:not([disabled]) {
+    background-color: rgba(224, 224, 224, 0.5);
+  }
+
   &.mat-flat-button, &.mat-stroked-button {
-    border-radius: 50px;
     border-width: 2px;
 
     &:not([disabled]) {
       border-color: currentColor !important;
     }
   }
+
+  &.border-button {
+    border-bottom: 1px solid currentColor;
+    padding: 0 10px;
+  }
+}
+
+.mat-slide-toggle.mat-primary {
+  &.mat-checked {
+    .mat-slide-toggle-bar {
+      background-color: $primary-color;
+
+      .mat-slide-toggle-thumb-container .mat-slide-toggle-thumb:after {
+        font-size: 0.7rem;
+        content: '✓';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        z-index: 1;
+        color: $primary-color;
+      }
+    }
+  }
+
+  .mat-slide-toggle-bar {
+    height: 20px;
+    border-radius: 10px;
+    background-color: transparent;
+    border: 1px solid $primary-color;
+
+    .mat-slide-toggle-thumb-container {
+      top: -1px;
+      left: -1px;
+
+      .mat-slide-toggle-thumb {
+        background-color: white;
+        border: 1px solid $primary-color;
+      }
+    }
+  }
+}
+
+a.external-link {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+
+  svg {
+    height: 18px;
+    margin-bottom: -3px;
+    margin-left: 5px;
+  }
+}
+
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+:-moz-placeholder {
+  font-style: italic;
+}
+::-moz-placeholder {
+  font-style: italic;
+}
+:-ms-input-placeholder {
+  font-style: italic;
 }

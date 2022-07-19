@@ -51,6 +51,18 @@ Webchat.init = function (data) {
       position: relative;
     }
 
+    #webchat button:not(.clicked) {
+      animation: gelatine 2s infinite;
+    }
+
+    @keyframes gelatine {
+      from, to { transform: scale(1, 1); }
+      12% { transform: scale(0.95, 1.05); }
+      25% { transform: scale(1.05, 0.95); }
+      37% { transform: scale(0.97, 1.02); }
+      50% { transform: scale(1, 1); }
+    }
+
     #webchat button:focus {outline:0;}
 
     #webchat button .chat-icon, #webchat button .close-icon {
@@ -111,6 +123,7 @@ Webchat.init = function (data) {
   const button = document.getElementById('webchat').getElementsByTagName('button')[0];
   const iframe = document.getElementById('iframe-bot');
   button.addEventListener("click", function () {
+    button.classList.add('clicked');
     if (!iframe.getElementsByTagName('iframe')[0]) {
       iframe.innerHTML = '<iframe src="' + data.botURL + '"></iframe>';
     }
