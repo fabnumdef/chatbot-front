@@ -1,6 +1,6 @@
 {
   "name": "chatbot-front",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,18 +9,14 @@
     "start:dev webchat": "ng serve --proxy-config proxy.dev.conf.json --project=webchat",
     "start:test": "ng serve --proxy-config proxy.test.conf.json",
     "build": "ng build",
-    "build:prod": "uglifyjs ./src/assets/scripts/embbed-chatbot.js -m -o ./src/assets/scripts/embbed-chatbot.min.js && ng build webchat --configuration production --base-href /chatbot/ --outputHashing=all && ng build --configuration production --base-href /backoffice/ --outputHashing=all && npm run add_date",
+    "build:prod": "uglifyjs ./src/assets/scripts/embbed-chatbot.js -m -o ./src/assets/scripts/embbed-chatbot.min.js && ng build webchat --configuration production --base-href /chatbot/ --outputHashing=all && ng build --configuration production --base-href /backoffice/ --outputHashing=all",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "cypress:local": "concurrently \"npm run start:local\" \"cypress open\"",
     "cypress:dev": "concurrently \"npm run start:dev\" \"cypress open\"",
     "clean": "rimraf ./dist",
-    "postinstall": "ngcc",
-    "add_date": "npm run add_date_js && npm run add_date_css && npm run rm_bak_files",
-    "add_date_js": "for i in dist/chatbot-front/*; do if [ -f $i ]; then LC_ALL=C sed -i.bak 's:js\":js?'$(date +%H%M%m%d%y)'\":g' $i; fi done && for i in dist/webchat/*; do if [ -f $i ]; then LC_ALL=C sed -i.bak 's:js\":js?'$(date +%H%M%m%d%y)'\":g' $i; fi done",
-    "add_date_css": "sed -i.bak 's:css\":css?'$(date +%H%M%m%d%y)'\":g' dist/chatbot-front/index.html && sed -i.bak 's:css\":css?'$(date +%H%M%m%d%y)'\":g' dist/webchat/index.html",
-    "rm_bak_files": "find dist -name '*.bak' -exec rm -Rf {} \\;"
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
