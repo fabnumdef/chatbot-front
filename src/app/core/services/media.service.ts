@@ -31,10 +31,6 @@ export class MediaService extends ApiPaginationService<Media> {
 
     this._loading$.next(true);
     return this._http.post<Media[]>(this._url, formData, options).pipe(
-      tap(entities => {
-        const auxArray = [...entities, ...this._entities$.value];
-        this._entities$.next(auxArray);
-      }),
       finalize(() => {
         this._loading$.next(false);
       })

@@ -38,7 +38,7 @@ export class MediaEditComponent implements OnInit {
 
   private _initForm() {
     this.mediaForm = this._fb.group({
-      file: [this.media.file, [Validators.required, Validators.maxLength(50)]],
+      file: [this.media.file, [Validators.required, Validators.maxLength(255)]],
     });
   }
 
