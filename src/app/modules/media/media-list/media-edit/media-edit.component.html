@@ -8,14 +8,14 @@
       <input matInput
              placeholder="Saisir..."
              formControlName="file"
-             maxlength="50"
+             maxlength="255"
              required>
       <mat-hint>Une modification de l'extension du fichier peut corrompre ce dernier.</mat-hint>
       <mat-error *ngIf="controls.file.hasError('required')">
         Vous n'avez pas saisi de nom de fichier.
       </mat-error>
       <mat-error *ngIf="controls.file.hasError('maxlength')">
-        Le nom de fichier est trop long, il doit faire au maximum 50 caractères.
+        Le nom de fichier est trop long, il doit faire au maximum 255 caractères.
       </mat-error>
     </mat-form-field>
   </form>

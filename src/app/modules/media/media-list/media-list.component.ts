@@ -98,6 +98,8 @@ export class MediaListComponent implements OnInit {
     });
     this.mediaService.createMedia(files).subscribe(() => {
       this._toast.success('Votre fichier a bien été enregistré.', 'Téléchargement réussi');
+    }, () => {}, () => {
+      this.mediaService.load();
     });
     $event.target.value = '';
   }
