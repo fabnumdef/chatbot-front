@@ -33,7 +33,7 @@
         </svg>
       </button>
     </ng-container>
-    <ng-container *ngIf="botName === 'Vaccin Covid'">
+    <ng-container *ngIf="botName === 'Kidivax'">
       <div class="chat-side-menu-divider"></div>
       <button mat-stroked-button color="accent" class="chat-side-menu-reboot" (click)="fullConversation()">
         Voir toutes les informations
@@ -44,8 +44,8 @@
         </svg>
       </button>
     </ng-container>
-    <div class="chat-side-menu-divider" *ngIf="botName !== 'Vaccin Covid'"></div>
-    <div class="chat-side-menu-accessibility" *ngIf="botName !== 'Vaccin Covid'">
+    <div class="chat-side-menu-divider"></div>
+    <div class="chat-side-menu-accessibility">
       <mat-slide-toggle [checked]="webchatService.accessibility"
                         (change)="webchatService.setAccessibility($event.checked)"
                         color="primary">

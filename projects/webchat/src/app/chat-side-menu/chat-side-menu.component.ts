@@ -26,9 +26,6 @@ export class ChatSideMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.botName === 'Vaccin Covid') {
-      this.webchatService.setAccessibility(true);
-    }
   }
 
   showHelpModal() {
