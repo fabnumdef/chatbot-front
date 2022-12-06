@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Media } from '@model/media.model';
 import { MediaService } from '@core/services/media.service';
 import { ToastrService } from 'ngx-toastr';
@@ -22,7 +22,7 @@ import { Config } from '@model/config.model';
 })
 export class MediaListComponent implements OnInit {
 
-  medias$: Observable<Media[]>;
+  medias$: BehaviorSubject<Media[]>;
   pagination: PaginationHelper;
   loading$: Observable<boolean>;
   processing$: Observable<boolean>;
@@ -32,11 +32,13 @@ export class MediaListComponent implements OnInit {
   mediaReplace: number;
   mediaLink: number;
   utils = Utils;
+  multipleSelection: number[] = [];
 
   constructor(public mediaService: MediaService,
               @Inject(Window) private _window: Window,
               private _toast: ToastrService,
               private _dialog: MatDialog,
+              private _toastr: ToastrService,
               private _configService: ConfigService) {
   }
 
@@ -46,6 +48,10 @@ export class MediaListComponent implements OnInit {
     this.medias$ = this.mediaService.entities$;
     this.pagination = this.mediaService.pagination;
     this.config$ = this._configService.config$;
+
+    this.medias$.subscribe(() => {
+      this.multipleSelection = [];
+    });
   }
 
   deleteMedia(media: Media) {
@@ -97,8 +103,8 @@ export class MediaListComponent implements OnInit {
       }
     });
     this.mediaService.createMedia(files).subscribe(() => {
-      this.mediaService.load();
       this._toast.success('Votre fichier a bien été enregistré.', 'Téléchargement réussi');
+      this.mediaService.reload();
     });
     $event.target.value = '';
   }
@@ -126,7 +132,53 @@ export class MediaListComponent implements OnInit {
     return `${this.mediaPath}${encodeURI(media.file)}`;
   }
 
-  get mediaPath() {
+  get mediaPath(): string {
     return `${this._window.location.origin}/media/`;
+  }
+
+  updateMultipleSelection(checked: boolean, mediaId: number) {
+    if (checked) {
+      this.multipleSelection.push(mediaId);
+    } else {
+      this._removeMediaFromSelection(mediaId);
+    }
+  }
+
+  selectAll() {
+    if (this.multipleSelection.length < this.medias$.getValue().length) {
+      this.multipleSelection = this.medias$.getValue().map(m => m.id);
+    } else {
+      this.multipleSelection = [];
+    }
+  }
+
+  deleteAll() {
+    const dialogRef = this._dialog.open(ConfirmDialogComponent, {
+      data: {
+        message: `Êtes-vous sûr de vouloir supprimer <b>${this.multipleSelection.length}</b> médias ?
+<br/>Cette action est irréversible.`
+      },
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed()
+      .pipe(filter(r => !!r))
+      .subscribe(() => {
+        this.mediaService.deleteAll(this.multipleSelection).subscribe(() => {
+          this._toastr.success(`${this.multipleSelection.length} média(s) ont été supprimés.`);
+          this.multipleSelection.forEach(mediaId => {
+            this._removeMediaFromSelection(mediaId);
+          });
+          this.multipleSelection = [];
+          this.mediaService.reload();
+        });
+      });
+  }
+
+  private _removeMediaFromSelection(mediaId: number) {
+    const index = this.multipleSelection.indexOf(mediaId);
+    if (index > -1) {
+      this.multipleSelection.splice(index, 1);
+    }
   }
 }

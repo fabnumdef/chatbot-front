@@ -89,4 +89,13 @@ export class MediaService extends ApiPaginationService<Media> {
       })
     );
   }
+
+  public deleteAll(mediaIds: number[]): Observable<void> {
+    this._processing$.next(true);
+    return this._http.post<void>(`${this._url}/delete`, mediaIds).pipe(
+      finalize(() => {
+        this._processing$.next(false);
+      })
+    );
+  }
 }

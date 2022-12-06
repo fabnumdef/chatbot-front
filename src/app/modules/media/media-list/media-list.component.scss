@@ -56,6 +56,21 @@
   .chatbot-list {
     margin-top: 20px;
 
+    &-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      &-buttons {
+        margin-left: 12px;
+        display: flex;
+        align-items: center;
+
+        & > *:not(:first-child) {
+          margin-left: 20px;
+        }
+      }
+    }
+
     & > * {
       margin-bottom: 20px;
     }

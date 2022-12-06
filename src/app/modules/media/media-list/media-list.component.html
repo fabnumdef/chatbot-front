@@ -37,19 +37,41 @@
     Base de média vide.
   </div>
   <div class="chatbot-list" *ngIf="(medias$ | async).length > 0">
-    <div class="pagination-info" *ngIf="pagination">
-      <button mat-icon-button [matMenuTriggerFor]="selectPaginationElements">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #selectPaginationElements="matMenu">
-        <app-select-pagination-elements (itemsPerPageChanged)="mediaService.reload()"></app-select-pagination-elements>
-      </mat-menu>
-      {{ (pagination.currentPage - 1) * pagination.size + 1}}
-      - {{ (pagination.currentPage - 1) * pagination.size + pagination.itemCount }} sur {{ pagination.totalElements }}
-      médias
+    <div class="chatbot-list-actions">
+      <div class="chatbot-list-actions-buttons">
+          <button mat-icon-button
+                  class="chatbot-icon-btn"
+                  aria-label="Sélectionner / desélectionner tout les médias"
+                  (click)="selectAll()"
+                  [matTooltip]="(multipleSelection.length >= medias$.getValue().length) ? 'Désélectionner tout les médias' : 'Sélectionner tout les médias'">
+            <mat-icon *ngIf="multipleSelection.length > 0">check_box</mat-icon>
+            <mat-icon *ngIf="multipleSelection.length < 1">check_box_outline_blank</mat-icon>
+          </button>
+          <button mat-icon-button
+                  class="chatbot-icon-btn"
+                  aria-label="Supprimer tout les médias sélectionnées"
+                  [disabled]="!multipleSelection || multipleSelection.length < 1"
+                  (click)="deleteAll()"
+                  [matTooltip]="'Supprimer les médias sélectionnées'">
+            <mat-icon>delete</mat-icon>
+          </button>
+      </div>
+      <div class="pagination-info" *ngIf="pagination">
+        <button mat-icon-button [matMenuTriggerFor]="selectPaginationElements">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #selectPaginationElements="matMenu">
+          <app-select-pagination-elements (itemsPerPageChanged)="mediaService.reload()"></app-select-pagination-elements>
+        </mat-menu>
+        {{ (pagination.currentPage - 1) * pagination.size + 1}}
+        - {{ (pagination.currentPage - 1) * pagination.size + pagination.itemCount }} sur {{ pagination.totalElements }}
+        médias
+      </div>
     </div>
     <div *ngFor="let media of medias$ | async">
-      <app-chatbot-list-item>
+      <app-chatbot-list-item [checkable]="true"
+                             [checked]="multipleSelection.includes(media.id)"
+                             (checkedClicked)="updateMultipleSelection($event, media.id)">
         <a target="_blank" rel="noopener" [href]="getMediaPath(media)" class="content-before">
           <div class="file-preview">
             <img *ngIf="utils.isFileImage(media.file); else showIcon" [src]="getMediaPath(media)">
