@@ -82,7 +82,7 @@
         </a>
 
         <div class="title">
-          {{ unescape(media.file) }}
+          {{ decodeURI(media.file) }}
         </div>
         <div class="hint">
           Ajouté Le {{ media.createdAt | date:'dd/MM/yyyy' }}, par {{ media.addedBy }}

@@ -14,7 +14,7 @@ export class MediaListDialogComponent implements OnInit {
   medias: Media[] = [];
   mediaSelected: Media;
   onlyImages = false;
-  unescape = unescape;
+  decodeURI = decodeURI;
   utils = Utils;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,

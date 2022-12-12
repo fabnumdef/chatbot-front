@@ -27,7 +27,7 @@ export class MediaListComponent implements OnInit {
   loading$: Observable<boolean>;
   processing$: Observable<boolean>;
   config$: Observable<Config>;
-  unescape = unescape;
+  decodeURI = decodeURI;
   mediaEdit: number;
   mediaReplace: number;
   mediaLink: number;

@@ -11,7 +11,7 @@
             <mat-icon>insert_photo</mat-icon>
           </ng-template>
         </div>
-        <div>{{ unescape(media.file) }}</div>
+        <div>{{ decodeURI(media.file) }}</div>
         <div>{{ media.createdAt | date: 'dd/MM/yyyy'}}</div>
       </div>
       <mat-divider></mat-divider>
