@@ -18,7 +18,7 @@
            (mouseleave)="quickReplyDiv.style.backgroundColor = ''"
            #quickReplyDiv
            class="chat-message-quick-reply"
-           [ngClass]="{'chat-message-quick-reply-disabled': !quickReply.payload}"
+           [ngClass]="{'chat-message-quick-reply-disabled': quickReply.disabled}"
            aria-label="Sélectionner cette proposition"
            tabindex="0"
            (keyup.enter)="quickReplyClick(quickReply.payload, quickReply.title, message)"

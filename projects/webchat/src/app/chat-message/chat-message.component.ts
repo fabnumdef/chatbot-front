@@ -17,6 +17,7 @@ export class ChatMessageComponent implements OnInit {
   @Output() addMessage = new EventEmitter<any>();
 
   public messageType = MessageType;
+  public disabled: boolean = false;
 
   private _domainRegex = new RegExp('^(https?:\\/\\/)?' + // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
@@ -29,6 +30,7 @@ export class ChatMessageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._computeMessage();
   }
 
   public async quickReplyClick(payload: string, title: string, message: any = null) {
@@ -59,6 +61,18 @@ export class ChatMessageComponent implements OnInit {
 
   public sanitize(url: string) {
     return this._sanitizer.bypassSecurityTrustHtml(url);
+  }
+
+  private _computeMessage() {
+    if (![MessageType.quick_reply, MessageType.button].includes(this.message.type)) {
+      return;
+    }
+    this.message.quick_replies?.forEach(qr => {
+      if (qr.title?.includes('_disabled')) {
+        qr.disabled = true;
+        qr.title = qr.title.replace('_disabled', '');
+      }
+    });
   }
 
 }
