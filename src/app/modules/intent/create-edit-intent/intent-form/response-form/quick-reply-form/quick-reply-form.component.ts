@@ -76,6 +76,7 @@ export class QuickReplyFormComponent extends DestroyObservable implements OnInit
       this.responseFormControl.setValue(
         value.map(v => `${v.text} <${v.intent.id}>`).join(';')
       );
+      this.responseFormControl.markAsDirty();
     });
   }
 
