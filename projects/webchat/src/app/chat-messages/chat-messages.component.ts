@@ -4,7 +4,7 @@ import { WebchatService } from '../core/services/webchat.service';
 import { Feedback, FeedbackStatus } from '../core/models/feedback.model';
 import { ChatFeedbackModalComponent } from '../chat-feedback-modal/chat-feedback-modal.component';
 import { FeedbackService } from '../core/services/feedback.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { interval, of, Subject } from 'rxjs';
 import { concatMap, delayWhen, filter, tap } from 'rxjs/operators';
 import { fadeIn, fadeInOut } from '../core/animation';

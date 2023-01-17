@@ -17,7 +17,7 @@ const routes: Routes = [
       {path: 'reset-password/success', component: ResetPasswordSuccessComponent},
       {path: 'forgot-password', component: ForgotPasswordComponent},
       {path: 'forgot-password/success', component: ForgotPasswordSuccessComponent},
-      {path: '', redirectTo: 'login'}
+      {path: '', redirectTo: 'login', pathMatch: 'full'}
     ]
   }
 ];

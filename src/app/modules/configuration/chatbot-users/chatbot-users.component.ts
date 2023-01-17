@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { User } from '@model/user.model';
 import { UserRole, UserRole_Fr } from '@enum/user-role.enum';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { filter } from 'rxjs/operators';
 import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 

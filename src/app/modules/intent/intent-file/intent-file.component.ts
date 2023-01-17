@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { FileService } from '@core/services/file.service';
 import { FileTemplateCheckResume } from '@model/file-template-check-resume.model';
 import { saveAs } from 'file-saver';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { WarningsDialogComponent } from './warnings-dialog/warnings-dialog.component';
 import { FileHistoric } from '@model/file-historic.model';
 import { finalize } from 'rxjs/operators';

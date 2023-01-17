@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IntentService } from '@core/services/intent.service';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { Intent } from '@model/intent.model';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { filter } from 'rxjs/operators';
 import { PaginationHelper } from '@model/pagination-helper.model';

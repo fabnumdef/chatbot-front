@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { MediaListDialogComponent } from '../media-list/media-list-dialog.component';
 import { filter, tap } from 'rxjs/operators';
 import { Media } from '@model/media.model';

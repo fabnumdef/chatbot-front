@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Intent } from '@model/intent.model';
 import { Utils } from '@core/utils/utils';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { CreateEditIntentDialogComponent } from '../create-edit-intent-dialog/create-edit-intent-dialog.component';
 import { IntentFinderDialogComponent } from '../intent-finder-dialog/intent-finder-dialog.component';
 import { ResponseType } from '@enum/*';

@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Intent } from '@model/intent.model';
 import { CreateEditIntentDialogComponent } from './create-edit-intent-dialog/create-edit-intent-dialog.component';
 import { IntentFinderDialogComponent } from './intent-finder-dialog/intent-finder-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { PanZoomAPI, PanZoomConfig } from 'ngx-panzoom';
 import domtoimage from 'dom-to-image';
 import * as moment from 'moment';
