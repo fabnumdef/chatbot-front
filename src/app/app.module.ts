@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { CoreModule } from '@core/core.module';
 import { AppRoutingModule } from './app.routing';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HIGHLIGHT_OPTIONS, HighlightOptions } from 'ngx-highlightjs';
+import { CoreModule } from '@core/core.module';
 
 @NgModule({
   declarations: [

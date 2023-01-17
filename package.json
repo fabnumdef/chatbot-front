@@ -42,7 +42,7 @@
     "moment": "^2.25.3",
     "ngx-color-picker": "^11.0.0",
     "ngx-highlightjs": "^4.1.1",
-    "ngx-mat-select-search": "^7.0.0",
+    "ngx-mat-select-search": "^6.0.0",
     "ngx-panzoom": "^15.0.0",
     "ngx-toastr": "^16.0.2",
     "rxjs": "~6.6.7",
