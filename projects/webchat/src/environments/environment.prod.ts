@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  chatbotUrl: window.location.origin,
+  socketUrl: '/socket-chatbot/'
 };

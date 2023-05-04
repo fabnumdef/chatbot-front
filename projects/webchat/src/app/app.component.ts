@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ConfigService } from './core/services/config.service';
 import { Title } from '@angular/platform-browser';
 import { Config } from './core/models/config.model';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
   constructor(@Inject(Window) public window: Window,
               public configService: ConfigService,
               private _titleService: Title) {
-    this.chatbotUrl = window.location.origin;
+    this.chatbotUrl = environment.chatbotUrl;
     this.configService.init(this.chatbotUrl);
   }
 

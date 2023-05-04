@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MessageType } from '../core/enums/message-type.enum';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-chat-widget',
@@ -19,7 +20,7 @@ export class ChatWidgetComponent implements OnInit {
   @Input() public companyLogo = `https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Logo_Minist%C3%A8re_des_Arm%C3%A9es_%282020%29.svg/520px-Logo_Minist%C3%A8re_des_Arm%C3%A9es_%282020%29.svg.png`;
   @Input() public userAvatar = null;
   @Input() public socketUrl = 'http://localhost:5500';
-  @Input() public socketPath = '/socket-chatbot/';
+  @Input() public socketPath = environment.socketUrl;
   @Input() public initPayload = '/phrase_presentation';
   @Input() public feedbackPayload = '/phrase_feedback';
   @Input() public inputPlaceholder = 'Posez votre question ...';
