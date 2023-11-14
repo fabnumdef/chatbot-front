@@ -15,11 +15,11 @@ export class UserFormComponent implements OnInit {
   userRole = Object.keys(UserRole);
   userRole_Fr = UserRole_Fr;
 
-  @Input() user: User = new User();
+  @Input() user = new User();
   @Output() cancel: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private _fb: FormBuilder,
-              private _userService: UserService) {
+    private _userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -50,8 +50,9 @@ export class UserFormComponent implements OnInit {
       isNewUser: [!this.user.email],
       firstName: [this.user.firstName, [Validators.required, Validators.maxLength(50)]],
       lastName: [this.user.lastName, [Validators.required, Validators.maxLength(50)]],
-      email: [{value: this.user.email, disabled: !!this.user.email}, [Validators.required, Validators.maxLength(255), Validators.email]],
-      role: [this.user.role, [Validators.required]]
+      email: [{ value: this.user.email, disabled: !!this.user.email }, [Validators.required, Validators.maxLength(255), Validators.email]],
+      role: [this.user.role, [Validators.required]],
+      endDate: [this.user.endDate, [Validators.required]],
     });
   }
 
