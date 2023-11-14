@@ -2,11 +2,7 @@
   <form [formGroup]="userForm" *ngIf="userForm">
     <mat-form-field appearance="outline">
       <mat-label>Prénom</mat-label>
-      <input matInput
-             placeholder="Saisir..."
-             formControlName="firstName"
-             maxlength="50"
-             required>
+      <input matInput placeholder="Saisir..." formControlName="firstName" maxlength="50" required>
       <mat-error *ngIf="controls.firstName.hasError('required')">
         Vous n'avez pas saisi de prénom.
       </mat-error>
@@ -17,11 +13,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Nom</mat-label>
-      <input matInput
-             placeholder="Saisir..."
-             formControlName="lastName"
-             maxlength="50"
-             required>
+      <input matInput placeholder="Saisir..." formControlName="lastName" maxlength="50" required>
       <mat-error *ngIf="controls.lastName.hasError('required')">
         Vous n'avez pas saisi de nom.
       </mat-error>
@@ -32,11 +24,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput
-             placeholder="Saisir..."
-             formControlName="email"
-             maxlength="255"
-             required>
+      <input matInput placeholder="Saisir..." formControlName="email" maxlength="255" required>
       <mat-error *ngIf="controls.email.hasError('required')">
         Vous n'avez pas saisi d'email.
       </mat-error>
@@ -50,27 +38,30 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Rôle</mat-label>
-      <mat-select formControlName="role"
-                  placeholder="Choisir..."
-                  required>
+      <mat-select formControlName="role" placeholder="Choisir..." required>
         <mat-option *ngFor="let role of userRole" [value]="role">{{ userRole_Fr[role] }}</mat-option>
       </mat-select>
       <mat-error *ngIf="controls.role.hasError('required')">
         Vous n'avez pas choisi de rôle.
       </mat-error>
     </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Date de fin de validité</mat-label>
+      <input matInput formControlName="endDate" [matDatepicker]="endDatePicker" required>
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+      <mat-error *ngIf="controls.endDate.hasError('required')">
+        La date de fin de validité est obligatoire.
+      </mat-error>
+    </mat-form-field>
+
   </form>
   <div class="actions">
-    <button mat-stroked-button
-            color="accent"
-            *ngIf="isNewUser"
-            (click)="onCancel()">
+    <button mat-stroked-button color="accent" *ngIf="isNewUser" (click)="onCancel()">
       Annuler
     </button>
-    <button mat-flat-button
-            color="accent"
-            [disabled]="!userForm.valid || !userForm.dirty"
-            (click)="addUser()">
+    <button mat-flat-button color="accent" [disabled]="!userForm.valid || !userForm.dirty" (click)="addUser()">
       {{ isNewUser ? 'Ajouter' : 'Modifier' }}
     </button>
   </div>

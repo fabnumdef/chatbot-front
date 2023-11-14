@@ -5,7 +5,8 @@ export class User {
   firstName: string;
   lastName: string;
 
-  role: UserRole = UserRole.writer;
+  role = UserRole.writer;
   createdAt: string;
   disabled: boolean;
+  endDate = "9999-12-31";
 }
