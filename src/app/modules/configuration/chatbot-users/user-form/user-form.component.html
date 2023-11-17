@@ -48,7 +48,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Date de fin de validité</mat-label>
-      <input matInput formControlName="endDate" [matDatepicker]="endDatePicker" required>
+      <input matInput formControlName="endDate" [matDatepicker]="endDatePicker">
       <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #endDatePicker></mat-datepicker>
       <mat-error *ngIf="controls.endDate.hasError('required')">
