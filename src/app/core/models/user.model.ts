@@ -8,5 +8,5 @@ export class User {
   role = UserRole.writer;
   createdAt: string;
   disabled: boolean;
-  endDate = "9999-12-31";
+  endDate?: string;
 }
