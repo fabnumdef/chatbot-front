@@ -9,6 +9,7 @@ import { Config } from '@model/config.model';
 export class ChatbotPreviewComponent implements OnInit {
 
   @Input() chatbot: Config;
+
   @Input() iconSrc: string;
 
   constructor() {

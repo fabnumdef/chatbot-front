@@ -1,5 +1,5 @@
 import { DestroyObservable } from '@core/utils/destroy-observable';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StatsService } from '@core/services/stats.service';
 import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -14,33 +14,46 @@ import domtoimage from 'dom-to-image';
 export class StatsGraphComponent extends DestroyObservable implements OnInit {
 
   startDate: Date;
+
   endDate: Date;
 
-  private _datasetQuestions = {series: [], name: 'Questions posées'};
-  private _datasetIntents = {series: [], name: 'Questions ajoutées'};
-  private _datasetVisitors = {series: [], name: 'Nb sessions'};
-  private _datasetFeedbacks = {series: [], name: 'Retours utilisateurs'};
+  private datasetQuestions = {series: [], name: 'Questions posées'};
+
+  private datasetIntents = {series: [], name: 'Questions ajoutées'};
+
+  private datasetVisitors = {series: [], name: 'Nb sessions'};
+
+  private datasetFeedbacks = {series: [], name: 'Retours utilisateurs'};
 
   questionsPanel = [];
+
   intentPanel = [];
+
   visitorsPanel = [];
+
   feedbacksPanel = [];
+
   questionDisplay = true;
+
   visitorsDisplay = true;
+
   intentDisplay = false;
+
   feedbackDisplay = true;
 
   curve = shape.curveMonotoneX;
+
   chartDataBis: any[];
+
   dataUrl: string;
 
-  constructor(public _statsService: StatsService) {
+  constructor(public statsService: StatsService) {
     super();
   }
 
   ngOnInit(): void {
     // If you want to add time filter
-    this._statsService._currentFilters$
+    this.statsService._currentFilters$
       .pipe(
         takeUntil(this.destroy$))
       .subscribe(
@@ -57,23 +70,23 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
       this.startDate = this.endDate;
     }
 
-    this._statsService.getGraphData().subscribe(
-      (result) => {
-        this._fillDataset(this._datasetQuestions, result['askedQuestionsNumber'], this.startDate, this.endDate);
-        this._fillDataset(this._datasetVisitors, result['visitorNumber'], this.startDate, this.endDate);
-        this._fillDataset(this._datasetIntents, result['dbQuestionSize'], this.startDate, this.endDate);
-        this._fillDataset(this._datasetFeedbacks, result['feedbacksNumber'], this.startDate, this.endDate);
+    this.statsService.getGraphData().subscribe(
+      (result: any) => {
+        this.fillDataset(this.datasetQuestions, result.askedQuestionsNumber, this.startDate, this.endDate);
+        this.fillDataset(this.datasetVisitors, result.visitorNumber, this.startDate, this.endDate);
+        this.fillDataset(this.datasetIntents, result.dbQuestionSize, this.startDate, this.endDate);
+        this.fillDataset(this.datasetFeedbacks, result.feedbacksNumber, this.startDate, this.endDate);
 
-        this.questionsPanel = this.getPanelData(this._datasetQuestions.series);
-        this.visitorsPanel = this.getPanelData(this._datasetVisitors.series);
-        this.intentPanel = this.getPanelData(this._datasetIntents.series);
-        this.feedbacksPanel = this.getPanelData(this._datasetFeedbacks.series);
+        this.questionsPanel = this.getPanelData(this.datasetQuestions.series);
+        this.visitorsPanel = this.getPanelData(this.datasetVisitors.series);
+        this.intentPanel = this.getPanelData(this.datasetIntents.series);
+        this.feedbacksPanel = this.getPanelData(this.datasetFeedbacks.series);
         this.displayPanel();
       }
     );
   }
 
-  private _fillDataset(dataset: any, elem: any[], start, end) {
+  private fillDataset(dataset: any, elem: any[], start, end) {
     const current = start ? new Date(start) : this.startDate;
     end = moment(end).set({hour: 0, minute: 0, second: 0, millisecond: 0});
     dataset.series = [];
@@ -95,16 +108,16 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
   }
 
   getPanelData(values) {
-    const dataArray = [];
-    dataArray['count'] = 0;
+    const dataArray: any = {};
+    dataArray.count = 0;
     values.forEach(elem => {
-      dataArray['count'] = dataArray['count'] + Number(elem.value);
+      dataArray.count += Number(elem.value);
     });
-    dataArray['maxNb'] = values.reduce((a, b) => Math.max(a && a.value !== undefined ? a.value : a, b.value));
-    dataArray['minNb'] = values.reduce((a, b) => Math.min(a && a.value !== undefined ? a.value : a, b.value));
+    dataArray.maxNb = values.reduce((a, b) => Math.max(a && a.value !== undefined ? a.value : a, b.value));
+    dataArray.minNb = values.reduce((a, b) => Math.min(a && a.value !== undefined ? a.value : a, b.value));
 
-    dataArray['maxDay'] = moment(values[values.findIndex(v => v.value === dataArray['maxNb'])].name).format('dddd Do MMM YYYY');
-    dataArray['minDay'] = moment(values[values.findIndex(v => v.value === dataArray['minNb'])].name).format('dddd Do MMM YYYY');
+    dataArray.maxDay = moment(values[values.findIndex(v => v.value === dataArray.maxNb)].name).format('dddd Do MMM YYYY');
+    dataArray.minDay = moment(values[values.findIndex(v => v.value === dataArray.minNb)].name).format('dddd Do MMM YYYY');
 
     return dataArray;
   }
@@ -112,19 +125,19 @@ export class StatsGraphComponent extends DestroyObservable implements OnInit {
   displayPanel() {
     this.chartDataBis = [];
 
-    this.questionDisplay ? this.chartDataBis.push({...this._datasetQuestions}) :
-      this.chartDataBis.push(Object.assign({...this._datasetQuestions}, {series: []}));
-    this.visitorsDisplay ? this.chartDataBis.push({...this._datasetVisitors}) :
-      this.chartDataBis.push(Object.assign({...this._datasetVisitors}, {series: []}));
-    this.intentDisplay ? this.chartDataBis.push({...this._datasetIntents}) :
-      this.chartDataBis.push(Object.assign({...this._datasetIntents}, {series: []}));
-    this.feedbackDisplay ? this.chartDataBis.push({...this._datasetFeedbacks}) :
-      this.chartDataBis.push(Object.assign({...this._datasetFeedbacks}, {series: []}));
+    this.questionDisplay ? this.chartDataBis.push({...this.datasetQuestions}) :
+      this.chartDataBis.push({...this.datasetQuestions, series: []});
+    this.visitorsDisplay ? this.chartDataBis.push({...this.datasetVisitors}) :
+      this.chartDataBis.push({...this.datasetVisitors, series: []});
+    this.intentDisplay ? this.chartDataBis.push({...this.datasetIntents}) :
+      this.chartDataBis.push({...this.datasetIntents, series: []});
+    this.feedbackDisplay ? this.chartDataBis.push({...this.datasetFeedbacks}) :
+      this.chartDataBis.push({...this.datasetFeedbacks, series: []});
   }
 
   downloadCanvas(event) {
     const anchor = event.target;
-    const name = 'globalStats-' + moment(new Date()).format('DDMMYYYYHHmmss') + '.jpg';
+    const name = `globalStats-${  moment(new Date()).format('DDMMYYYYHHmmss')  }.jpg`;
     // get the canvas
     anchor.href = this.dataUrl;
     anchor.download = name;

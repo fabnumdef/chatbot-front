@@ -11,6 +11,7 @@ import { IntentService } from '@core/services/intent.service';
 export class IntentTreeDialogComponent implements OnInit {
 
   public intentId: string;
+
   public intent: Intent;
 
   constructor(public dialogRef: MatDialogRef<IntentTreeDialogComponent>,

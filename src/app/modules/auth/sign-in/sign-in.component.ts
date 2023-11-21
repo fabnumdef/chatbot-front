@@ -11,6 +11,7 @@ import { AuthService } from '@core/services/auth.service';
 export class SignInComponent implements OnInit {
 
   signInForm: FormGroup;
+
   hidePassword = true;
 
   constructor(private _fb: FormBuilder,

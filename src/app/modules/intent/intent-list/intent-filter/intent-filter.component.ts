@@ -17,12 +17,17 @@ import { UserRole_Fr } from '@enum/*';
 })
 export class IntentFilterComponent extends DestroyObservable implements OnInit, OnDestroy {
   @Input() light = false;
+
   @Input() standalone = false;
+
   @Output() intentFilterChanges: EventEmitter<any> = new EventEmitter<any>();
 
   intentFilters: FormGroup;
+
   categories$: BehaviorSubject<string[]>;
+
   users$: Observable<User[]>;
+
   userRole_fr = UserRole_Fr;
 
   constructor(private _fb: FormBuilder,

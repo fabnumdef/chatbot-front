@@ -28,9 +28,9 @@ export class IntentService extends ApiPaginationService<Intent> {
     if (listView) {
       this._pagination.resetPage(page);
       return this.getEntities(false);
-    } else {
+    } 
       return this._loadFullTree();
-    }
+    
   }
 
   private _loadFullTree(): Observable<Intent[]> {

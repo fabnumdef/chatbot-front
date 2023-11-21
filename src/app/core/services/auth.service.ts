@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { finalize, tap } from 'rxjs/operators';
 import { ResetPassword } from '@model/reset-password.model';
@@ -8,6 +7,7 @@ import { Router } from '@angular/router';
 import { User } from '@model/user.model';
 import { Login } from '@model/login.model';
 import { AuthResponse } from '@model/auth-response.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +15,13 @@ import { AuthResponse } from '@model/auth-response.model';
 export class AuthService {
 
   private _tokenName = 'chatbotToken';
+
   private _userSession = 'user';
 
   private _token$ = new BehaviorSubject<string>(null);
+
   private _user$ = new BehaviorSubject<User>(null);
+
   private _authenticating$ = new BehaviorSubject<boolean>(false);
 
   private _url = '';

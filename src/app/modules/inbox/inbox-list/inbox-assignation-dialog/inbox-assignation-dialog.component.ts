@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class InboxAssignationDialogComponent implements OnInit {
 
   public inbox: Inbox;
+
   public assignationForm: FormGroup;
 
   constructor(public dialogRef: MatDialogRef<InboxAssignationDialogComponent>,

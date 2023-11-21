@@ -18,14 +18,14 @@ export class MediaService extends ApiPaginationService<Media> {
   public createMedia(files: File[]): Observable<Media[]> {
     const formData: FormData = new FormData();
     for (let i = 0; i < files.length; i++) {
-      formData.append('files', files[i], files[i]['name']);
+      formData.append('files', files[i], files[i].name);
     }
 
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');
     const options = {
-      headers: headers,
+      headers,
       reportProgress: true,
     };
 
@@ -45,7 +45,7 @@ export class MediaService extends ApiPaginationService<Media> {
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');
     const options = {
-      headers: headers,
+      headers,
       reportProgress: true,
     };
 

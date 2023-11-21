@@ -8,13 +8,13 @@ import { InboxStatus, InboxStatus_Fr, UserRole_Fr } from '@enum/inbox-status.enu
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '@core/services/user.service';
 import { User } from '@model/user.model';
-import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 import { ConfigService } from '@core/services/config.service';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { InboxAssignationDialogComponent } from './inbox-assignation-dialog/inbox-assignation-dialog.component';
-import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { filter } from 'rxjs/operators';
 import * as humanizeDuration from 'humanize-duration';
+import { InboxAssignationDialogComponent } from './inbox-assignation-dialog/inbox-assignation-dialog.component';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 
 @Component({
   selector: 'app-inbox-list',
@@ -27,14 +27,23 @@ import * as humanizeDuration from 'humanize-duration';
 export class InboxListComponent implements OnInit {
 
   inboxes$: BehaviorSubject<Inbox[]>;
+
   loading$: Observable<boolean>;
+
   processing$: Observable<boolean>;
+
   users$: Observable<User[]>;
+
   pagination: PaginationHelper;
+
   inboxStatus_Fr = InboxStatus_Fr;
+
   inboxIntent: number;
+
   inboxPreview: number;
+
   multipleSelection: number[] = [];
+
   userRole_fr = UserRole_Fr;
 
   constructor(public inboxService: InboxService,
@@ -116,7 +125,7 @@ export class InboxListComponent implements OnInit {
     this.inboxService.assign(inbox, null).subscribe();
     this._dialog.open(InboxAssignationDialogComponent, {
       data: {
-        inbox: inbox
+        inbox
       }
     });
   }

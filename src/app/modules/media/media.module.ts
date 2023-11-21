@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MediaLayoutComponent } from './media-layout/media-layout.component';
 import { MediaRoutingModule } from './media.routing';
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MediaListComponent } from './media-list/media-list.component';
 import { MediaFilterComponent } from './media-list/media-filter/media-filter.component';
 import { MediaIntentsComponent } from './media-list/media-intents/media-intents.component';

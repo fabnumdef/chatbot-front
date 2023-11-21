@@ -14,7 +14,9 @@ import { DestroyObservable } from '@core/utils/destroy-observable';
 export class QuestionFormComponent extends DestroyObservable implements OnInit {
 
   @Input() questionForm: FormGroup;
+
   categories$: BehaviorSubject<string[]>;
+
   filteredCategories$: Observable<string[]>;
 
   constructor(private _refDataService: RefDataService,
@@ -61,7 +63,7 @@ export class QuestionFormComponent extends DestroyObservable implements OnInit {
           if (exists) {
             this.questionForm.get('id').setErrors({'exists': true});
           } else if (this.questionForm.get('id').hasError('exists')) {
-            delete this.questionForm.get('id').errors['exists'];
+            delete this.questionForm.get('id').errors.exists;
           }
           this.questionForm.updateValueAndValidity();
         });

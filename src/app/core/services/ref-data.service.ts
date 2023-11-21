@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { finalize, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,7 @@ import { finalize, tap } from 'rxjs/operators';
 export class RefDataService {
 
   private _url = `${environment.api_endpoint}/ref-data`;
+
   private _loading$ = new BehaviorSubject<boolean>(false);
 
   categories$ = new BehaviorSubject<string[]>([]);

@@ -12,8 +12,11 @@ import { AuthService } from '../../../core/services/auth.service';
 export class ResetPasswordComponent implements OnInit {
 
   resetPasswordForm: FormGroup;
+
   hidePassword = true;
+
   hideCheckPassword = true;
+
   token;
 
   constructor(private _fb: FormBuilder,
@@ -21,7 +24,7 @@ export class ResetPasswordComponent implements OnInit {
               private _route: ActivatedRoute,
               private _router: Router) {
     this._route.queryParams.subscribe(params => {
-      this.token = params['token'];
+      this.token = params.token;
     });
   }
 

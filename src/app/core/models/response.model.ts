@@ -3,7 +3,9 @@ import { Intent } from '@model/intent.model';
 
 export class Response {
   id: number;
+
   responseType: ResponseType;
+
   response: string;
 
   intentId?: string;

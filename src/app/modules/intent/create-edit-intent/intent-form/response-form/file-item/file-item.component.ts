@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MediaListDialogComponent } from '../media-list/media-list-dialog.component';
 import { filter, tap } from 'rxjs/operators';
 import { Media } from '@model/media.model';
+import { MediaListDialogComponent } from '../media-list/media-list-dialog.component';
 
 @Component({
   selector: 'app-file-item',
@@ -12,7 +12,9 @@ import { Media } from '@model/media.model';
 export class FileItemComponent implements OnInit {
 
   @Input() disabled = false;
+
   @Input() media: Media = null;
+
   @Input() onlyImages = false;
 
   @Output() mediaChange = new EventEmitter<Media>();

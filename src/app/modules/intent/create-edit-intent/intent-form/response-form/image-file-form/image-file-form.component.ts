@@ -13,11 +13,15 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ImageFileFormComponent implements OnInit {
 
   @Input() responseFormControl: FormControl;
+
   @Input() responseType: ResponseType;
+
   @Input() index: number;
 
   btnText: string = null;
+
   url: string = null;
+
   media: Media = null;
 
   constructor(@Inject(Window) private _window: Window,
@@ -42,7 +46,7 @@ export class ImageFileFormComponent implements OnInit {
     if (this.isImage) {
       return 'Image';
     }
-    return `Lien / Fichier ${idx ? idx : ''}`;
+    return `Lien / Fichier ${idx || ''}`;
   }
 
   getInputLabel() {
@@ -98,11 +102,11 @@ export class ImageFileFormComponent implements OnInit {
   }
 
   private _initResponse() {
-    const value = this.responseFormControl.value;
+    const {value} = this.responseFormControl;
     let file;
     if (this.isImage) {
       file = value;
-    } else if (!!value) {
+    } else if (value) {
       file = value.substring(value.indexOf('<') + 1, value.indexOf('>')).trim();
       this.btnText = value.substring(0, value.indexOf('<')).trim();
     }
@@ -110,7 +114,7 @@ export class ImageFileFormComponent implements OnInit {
       this.media = <Media> {
         file: file.replace(this.mediaPath, '')
       };
-    } else if (!!file) {
+    } else if (file) {
       this.url = file;
     }
   }

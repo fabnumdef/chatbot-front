@@ -10,6 +10,7 @@ import { ResponseType } from '@enum/*';
 export class IntentPreviewResponseComponent implements OnInit {
 
   private _response: Response;
+
   get response(): Response {
     return this._response;
   }
@@ -20,6 +21,7 @@ export class IntentPreviewResponseComponent implements OnInit {
   }
 
   responseType = ResponseType;
+
   quickReplies = [];
 
   constructor() {

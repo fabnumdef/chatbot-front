@@ -13,14 +13,15 @@ import domtoimage from 'dom-to-image';
 export class StatsBestQuestionsComponent extends DestroyObservable implements OnInit {
 
   chartData: any[];
+
   dataUrl: string;
 
-  constructor(private _statsService: StatsService) {
+  constructor(private statsService: StatsService) {
     super();
   }
 
   ngOnInit(): void {
-    this._statsService._currentFilters$
+    this.statsService._currentFilters$
       .pipe(
         takeUntil(this.destroy$))
       .subscribe(() => {
@@ -30,16 +31,14 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
   }
 
   getGraph() {
-    this._statsService.getBestQuestionsData().subscribe(
-      (value) => {
-        this.chartData = value['mostAskedQuestions'].map(elem => {
-          return {
-            value: [parseInt(elem['count'], 10)],
-            name: elem['question']
-          };
-        });
+    this.statsService.getBestQuestionsData().subscribe(
+      (value: any) => {
+        this.chartData = value.mostAskedQuestions.map(elem => ({
+            value: [parseInt(elem.count, 10)],
+            name: elem.question
+          }));
         setTimeout(() => {
-          this._setGraphMargin();
+          this.setGraphMargin();
         });
       }
     );
@@ -47,7 +46,7 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
 
   downloadCanvasBest(event) {
     const anchor = event.target;
-    const name = 'bestQuestionsChart-' + moment(new Date()).format('DDMMYYYYHHmmss') + '.jpg';
+    const name = `bestQuestionsChart-${  moment(new Date()).format('DDMMYYYYHHmmss')  }.jpg`;
 
     // get the canvas
     anchor.href = this.dataUrl;
@@ -64,17 +63,17 @@ export class StatsBestQuestionsComponent extends DestroyObservable implements On
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this._setGraphMargin();
+  onResize() {
+    this.setGraphMargin();
   }
 
-  private _setGraphMargin() {
+  private setGraphMargin() {
     const legendNode = document.querySelectorAll('.stats-best-questions .chart-legend')[0];
     const graphNode = <HTMLElement> document.querySelectorAll('.stats-best-questions .chart-container')[0];
     if (!graphNode) {
       return;
     }
-    graphNode.style.marginBottom = legendNode.clientHeight + 'px';
+    graphNode.style.marginBottom = `${legendNode.clientHeight  }px`;
   }
 }
 

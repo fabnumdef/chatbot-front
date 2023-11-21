@@ -10,7 +10,9 @@ import { ResponseType } from '@enum/*';
 export class FileFormComponent implements OnInit {
 
   @Input() responseFormControl: FormControl;
+
   buttonsForm: FormArray;
+
   responseType = ResponseType;
 
   constructor(private _fb: FormBuilder) {
@@ -36,7 +38,7 @@ export class FileFormComponent implements OnInit {
   private _initFormArray() {
     this.buttonsForm = this._fb.array([]);
 
-    const value = this.responseFormControl.value;
+    const {value} = this.responseFormControl;
     if (!value) {
       return this.buttonsForm.push(this._initFormControl());
     }

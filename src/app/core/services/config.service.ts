@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Config } from '@model/config.model';
 import { finalize, tap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '@core/services/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,11 @@ import { AuthService } from '@core/services/auth.service';
 export class ConfigService {
 
   private _url: string;
+
   protected _loading$ = new BehaviorSubject<boolean>(false);
+
   public config$ = new BehaviorSubject<Config>(null);
+
   private _configInterval;
 
   constructor(private _http: HttpClient,
@@ -64,7 +67,7 @@ export class ConfigService {
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');
     const options = {
-      headers: headers,
+      headers,
       reportProgress: true,
     };
 

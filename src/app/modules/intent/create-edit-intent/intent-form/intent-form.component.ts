@@ -18,7 +18,9 @@ import { RefDataService } from '@core/services/ref-data.service';
 export class IntentFormComponent implements OnInit {
 
   @Input() intent: Intent;
+
   @Input() redirect = true;
+
   @Output() close: EventEmitter<Intent> = new EventEmitter<Intent>();
 
   intentForm: FormGroup;

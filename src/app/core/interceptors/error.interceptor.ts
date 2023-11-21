@@ -3,8 +3,8 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +38,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   }
 
   private _showBackendMessage(err: HttpErrorResponse): void {
-    const error: Error = err.error;
+    const {error} = err;
     const messageToShow = (error && error.message) ? this._generateErrorMessage(error.message) : 'Une erreur est survenue';
     this._toastr.error(messageToShow);
   }

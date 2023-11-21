@@ -9,6 +9,7 @@ import { InboxStatus } from '@enum/*';
 export class StatsListComponent implements OnInit {
 
   statView = 'chatbot';
+
   inboxStatus = InboxStatus;
 
   constructor() {

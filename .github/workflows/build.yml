@@ -18,6 +18,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: npm install #TODO: --only-prod, le build crash à voir pq
-      - run: npm install -g @angular/cli > /dev/null
-      - run: npm run build:prod
+      - run: yarn install #TODO: --only-prod, le build crash à voir pq
+      - run: yarn install -g @angular/cli > /dev/null
+      - run: yarn build:prod

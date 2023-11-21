@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IntentService } from '@core/services/intent.service';
 import { Observable, Subscription } from 'rxjs';
 import { Intent } from '@model/intent.model';
-import { CreateEditIntentDialogComponent } from './create-edit-intent-dialog/create-edit-intent-dialog.component';
-import { IntentFinderDialogComponent } from './intent-finder-dialog/intent-finder-dialog.component';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { PanZoomAPI, PanZoomConfig } from 'ngx-panzoom';
 import domtoimage from 'dom-to-image';
 import * as moment from 'moment';
+import { IntentFinderDialogComponent } from './intent-finder-dialog/intent-finder-dialog.component';
+import { CreateEditIntentDialogComponent } from './create-edit-intent-dialog/create-edit-intent-dialog.component';
 
 @Component({
   selector: 'app-intent-full-tree',
@@ -18,19 +18,28 @@ export class IntentFullTreeComponent implements OnInit, OnDestroy {
 
   // intents$: BehaviorSubject<Intent[]>;
   notSingleIntents: Intent[] = [];
+
   loading$: Observable<boolean>;
+
   dragScrollDisabled = true;
+
   fullScreen = false;
+
   onLeafSelected: string;
+
   onHighlightLeafs: string;
+
   panZoomConfig: PanZoomConfig = new PanZoomConfig({
     zoomOnDoubleClick: false,
     zoomOnMouseWheel: false,
     panOnClickDrag: true,
     keepInBounds: false
   });
+
   dataUrl: string;
+
   public panZoomAPI: PanZoomAPI;
+
   private _apiSubscription: Subscription;
 
   constructor(private _intentService: IntentService,
@@ -109,7 +118,7 @@ export class IntentFullTreeComponent implements OnInit, OnDestroy {
 
   downloadCanvasBest(event) {
     const anchor = event.target;
-    const name = 'arbre-' + moment(new Date()).format('DDMMYYYYHHmmss') + '.jpg';
+    const name = `arbre-${  moment(new Date()).format('DDMMYYYYHHmmss')  }.jpg`;
 
     // get the canvas
     anchor.href = this.dataUrl;

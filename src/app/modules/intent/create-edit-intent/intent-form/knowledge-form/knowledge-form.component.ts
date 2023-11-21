@@ -9,8 +9,11 @@ import { FormGroup } from '@angular/forms';
 export class KnowledgeFormComponent implements OnInit, AfterViewInit {
 
   @ViewChild('knowledgeInput') knowledgeInput: ElementRef;
+
   @Input() knowledgeForm: FormGroup;
+
   @Output() deleteKnowledge: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   @Output() addKnowledge: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor() {

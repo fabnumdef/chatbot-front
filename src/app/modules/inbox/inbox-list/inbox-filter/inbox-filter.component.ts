@@ -18,8 +18,11 @@ import { saveAs } from 'file-saver';
 export class InboxFilterComponent extends DestroyObservable implements OnInit, OnDestroy {
 
   inboxFilters: FormGroup;
+
   categories$: BehaviorSubject<string[]>;
+
   statutes = Object.keys(InboxStatus);
+
   inboxStatus_Fr = InboxStatus_Fr;
 
   constructor(private _fb: FormBuilder,

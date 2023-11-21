@@ -9,6 +9,7 @@ import { Intent } from '@model/intent.model';
 export class IntentTreeComponent implements OnInit {
 
   @Input() intent: Intent;
+
   @Output() intentChanged: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {

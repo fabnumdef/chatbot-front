@@ -16,6 +16,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 export class ChatbotTechComponent extends DestroyObservable implements OnInit {
 
   techForm: FormGroup;
+
   chatbotConfig: Config;
 
   constructor(private _configService: ConfigService,

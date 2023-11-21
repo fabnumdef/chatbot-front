@@ -18,11 +18,17 @@ import { DestroyObservable } from '@core/utils/destroy-observable';
 export class ChatbotConfigComponent extends DestroyObservable implements OnInit {
 
   customizationForm: FormGroup;
+
   descriptionForm: FormGroup;
+
   embeddedForm: FormGroup;
+
   chatbotConfig: Config;
+
   icons = ['avion.png', 'bateau.png', 'camion.png', 'tank.png', 'parachute.png', 'femme.png', 'homme.png'];
+
   iconPreview = null;
+
   embeddedIconPreview = null;
 
   constructor(private _configService: ConfigService,
@@ -73,7 +79,7 @@ export class ChatbotConfigComponent extends DestroyObservable implements OnInit 
   }
 
   selectIcon(iconName: string) {
-    this._http.get('assets/img/icons/' + iconName, {responseType: 'blob'}).subscribe((file: any) => {
+    this._http.get(`assets/img/icons/${  iconName}`, {responseType: 'blob'}).subscribe((file: any) => {
       file.name = iconName;
       this._storeIcon(file);
     });
@@ -164,7 +170,7 @@ export class ChatbotConfigComponent extends DestroyObservable implements OnInit 
       audience: [this.chatbotConfig.audience, [Validators.required, Validators.maxLength(200)]],
     });
 
-    if (!!this.chatbotConfig.icon) {
+    if (this.chatbotConfig.icon) {
       this._http.get(`${this.mediaPath}${encodeURI(this.chatbotConfig.icon)}`, {responseType: 'blob'}).subscribe((file: any) => {
         file.name = this.chatbotConfig.icon;
         this._storeIcon(file);
@@ -172,7 +178,7 @@ export class ChatbotConfigComponent extends DestroyObservable implements OnInit 
       });
     }
 
-    if (!!this.chatbotConfig.embeddedIcon) {
+    if (this.chatbotConfig.embeddedIcon) {
       this._http.get(`${this.mediaPath}${encodeURI(this.chatbotConfig.embeddedIcon)}`, {responseType: 'blob'}).subscribe((file: any) => {
         file.name = this.chatbotConfig.embeddedIcon;
         this._storeIcon(file, true);

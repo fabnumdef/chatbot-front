@@ -12,11 +12,17 @@ import { ResponseService } from '@core/services/response.service';
 export class IntentTreeBranchComponent implements OnInit {
 
   @Input() onLeafSelected: string;
+
   @Input() onHighlightLeafs: string;
+
   @Input() intent: Intent;
+
   @Input() isRoot: boolean;
+
   @Output() leafSelected: EventEmitter<string> = new EventEmitter<string>();
+
   @Output() highlightLeafs: EventEmitter<string> = new EventEmitter<string>();
+
   @Output() deleteLeaf: EventEmitter<string> = new EventEmitter<string>();
 
   public intentBranches: Intent[][] = [];
@@ -29,9 +35,7 @@ export class IntentTreeBranchComponent implements OnInit {
   }
 
   deleteIntentResponse(intentId: string) {
-    const responseIdx = this.intent.responses.findIndex(r => {
-      return r.responseType === ResponseType.quick_reply && r.response.includes(`<${intentId}>`);
-    });
+    const responseIdx = this.intent.responses.findIndex(r => r.responseType === ResponseType.quick_reply && r.response.includes(`<${intentId}>`));
     let responses = this.intent.responses[responseIdx].response.split(';');
     responses = responses.filter(r => !r.includes(`<${intentId}>`));
     this.intent.responses[responseIdx].response = responses.join(';');

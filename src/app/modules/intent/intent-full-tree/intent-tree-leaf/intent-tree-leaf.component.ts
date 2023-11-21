@@ -2,13 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Intent } from '@model/intent.model';
 import { Utils } from '@core/utils/utils';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { CreateEditIntentDialogComponent } from '../create-edit-intent-dialog/create-edit-intent-dialog.component';
-import { IntentFinderDialogComponent } from '../intent-finder-dialog/intent-finder-dialog.component';
 import { ResponseType } from '@enum/*';
 import { ResponseService } from '@core/services/response.service';
 import { ToastrService } from 'ngx-toastr';
 import { Response } from '@model/response.model';
 import { IntentService } from '@core/services/intent.service';
+import { IntentFinderDialogComponent } from '../intent-finder-dialog/intent-finder-dialog.component';
+import { CreateEditIntentDialogComponent } from '../create-edit-intent-dialog/create-edit-intent-dialog.component';
 
 @Component({
   selector: 'app-intent-tree-leaf',
@@ -33,13 +33,21 @@ export class IntentTreeLeafComponent implements OnInit {
   }
 
   @Input() intent: Intent;
+
   @Input() isRoot: boolean;
+
   @Output() leafSelected: EventEmitter<string> = new EventEmitter<string>();
+
   @Output() highlightLeafs: EventEmitter<string> = new EventEmitter<string>();
+
   @Output() deleteLeaf: EventEmitter<string> = new EventEmitter<string>();
+
   selected = false;
+
   highlighted = false;
+
   showResponses = false;
+
   id = Utils.uuid();
 
   constructor(private _dialog: MatDialog,
@@ -126,24 +134,20 @@ export class IntentTreeLeafComponent implements OnInit {
   private _addQuickReply(intent: Intent): Response {
     const qr = new Response(intent);
     qr.responseType = ResponseType.quick_reply;
-    const index = intent.responses.findIndex((r, idx) => {
-      return r.responseType === ResponseType.text &&
-        (!intent.responses[idx + 1] || (intent.responses[idx + 1].responseType === ResponseType.text));
-    });
+    const index = intent.responses.findIndex((r, idx) => r.responseType === ResponseType.text &&
+        (!intent.responses[idx + 1] || (intent.responses[idx + 1].responseType === ResponseType.text)));
 
     intent.responses.splice(index + 1, 0, qr);
     return intent.responses[index + 1];
   }
 
   private _checkBeforeAddingChoice(intent: Intent): boolean {
-    return intent.responses.findIndex((r, idx) => {
-      return r.responseType === ResponseType.quick_reply || (r.responseType === ResponseType.text &&
-        (!intent.responses[idx + 1] || (intent.responses[idx + 1].responseType === ResponseType.text)));
-    }) >= 0;
+    return intent.responses.findIndex((r, idx) => r.responseType === ResponseType.quick_reply || (r.responseType === ResponseType.text &&
+        (!intent.responses[idx + 1] || (intent.responses[idx + 1].responseType === ResponseType.text)))) >= 0;
   }
 
   private _formatIntent(intent: Intent): Intent {
-    const intentToReturn = Object.assign({}, intent);
+    const intentToReturn = { ...intent};
     delete intentToReturn.createdAt;
     return intentToReturn;
   }

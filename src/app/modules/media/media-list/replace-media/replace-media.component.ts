@@ -12,7 +12,9 @@ export class ReplaceMediaComponent implements OnInit {
   @Output() replaceMedia: EventEmitter<File> = new EventEmitter<File>();
 
   public replaceFile: File;
+
   public utils = Utils;
+
   imgPreview = null;
 
   constructor(private _toast: ToastrService) {

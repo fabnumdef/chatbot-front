@@ -10,6 +10,7 @@ import { KeyValue } from '@angular/common';
 export class WarningsDialogComponent implements OnInit {
 
   isError: boolean;
+
   details: { [key: string]: string };
 
   constructor(public dialogRef: MatDialogRef<WarningsDialogComponent>,

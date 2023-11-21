@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Config } from '@model/config.model';
 import { finalize, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,9 @@ import { HttpClient } from '@angular/common/http';
 export class PublicConfigService {
 
   private _url: string;
+
   protected _loading$ = new BehaviorSubject<boolean>(false);
+
   public config$ = new BehaviorSubject<Config>(null);
 
   constructor(private _http: HttpClient) {

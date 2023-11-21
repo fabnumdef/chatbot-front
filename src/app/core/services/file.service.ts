@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { finalize } from 'rxjs/operators';
 import { FileTemplateCheckResume } from '@model/file-template-check-resume.model';
 import { ImportFile } from '@model/import-file.model';
 import { FileHistoric } from '@model/file-historic.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
   private _url: string;
+
   protected _loading$ = new BehaviorSubject<boolean>(false);
 
   constructor(private _http: HttpClient) {
@@ -26,7 +27,7 @@ export class FileService {
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');
     const options = {
-      headers: headers,
+      headers,
       reportProgress: true,
     };
 
@@ -49,7 +50,7 @@ export class FileService {
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');
     const options = {
-      headers: headers,
+      headers,
       reportProgress: true,
     };
 
@@ -80,9 +81,9 @@ export class FileService {
     );
   }
 
-  /************************
+  /** **********************
    ******** GETTER ********
-   ************************/
+   *********************** */
 
   get loading$(): BehaviorSubject<boolean> {
     return this._loading$;

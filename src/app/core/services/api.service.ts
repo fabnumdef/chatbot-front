@@ -1,12 +1,14 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { finalize, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 export abstract class ApiService<T extends any> {
 
   protected _entities$ = new BehaviorSubject<T[]>([]);
+
   protected _loading$ = new BehaviorSubject<boolean>(false);
+
   protected _processing$ = new BehaviorSubject<boolean>(false);
 
   public currentSearch = '';
@@ -15,9 +17,9 @@ export abstract class ApiService<T extends any> {
     this._url = `${environment.api_endpoint}${this._url}`;
   }
 
-  /************************
+  /** **********************
    ********* CRUD *********
-   ************************/
+   *********************** */
 
   public save(item: T) {
     if (!item[this._idAttribute]) {
@@ -28,7 +30,7 @@ export abstract class ApiService<T extends any> {
 
   public update(item: T, id?: string): Observable<T> {
     this._processing$.next(true);
-    return this._h.put<T>(`${this._url}/${id ? id : item[this._idAttribute]}`, item).pipe(
+    return this._h.put<T>(`${this._url}/${id || item[this._idAttribute]}`, item).pipe(
       tap(entity => {
         this.updateEntityArray(entity);
       }),
@@ -84,9 +86,9 @@ export abstract class ApiService<T extends any> {
     this.currentSearch = '';
   }
 
-  /************************
+  /** **********************
    ******** GETTER ********
-   ************************/
+   *********************** */
 
   get loading$(): BehaviorSubject<boolean> {
     return this._loading$;

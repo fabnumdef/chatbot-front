@@ -14,6 +14,7 @@ export class IntentFinderDialogComponent implements OnInit {
   private _allIntents: Intent[];
 
   public filteredIntents: Intent[];
+
   public intentSelected: Intent;
 
   constructor(public dialogRef: MatDialogRef<IntentFinderDialogComponent>,
@@ -32,16 +33,16 @@ export class IntentFinderDialogComponent implements OnInit {
       return;
     }
     // get the search keyword
-    const query: string = $event.query;
-    const categories: string[] = $event.categories;
+    const {query} = $event;
+    const {categories} = $event;
     let keywords;
     if (!query && (!categories || categories.length < 1)) {
       this.filteredIntents = this._allIntents.slice();
       return;
-    } else {
+    } 
       // remove accent & special chars
       keywords = query.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().split(' ');
-    }
+    
     // filter the intents
     this.filteredIntents = this._allIntents.filter(intent => {
       if (categories && categories.length > 0) {

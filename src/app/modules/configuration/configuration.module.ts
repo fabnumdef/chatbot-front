@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { HighlightModule } from 'ngx-highlightjs';
 import { ConfigurationLayoutComponent } from './configuration-layout/configuration-layout.component';
 import { ConfigurationRoutingModule } from './configuration.routing';
 import { MaterialModule } from '../material/material.module';
@@ -8,12 +12,8 @@ import { ChatbotAccessComponent } from './chatbot-access/chatbot-access.componen
 import { ChatbotConfigComponent } from './chatbot-config/chatbot-config.component';
 import { ChatbotUsersComponent } from './chatbot-users/chatbot-users.component';
 import { UserFormComponent } from './chatbot-users/user-form/user-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'ngx-color-picker';
 import { ChatbotPreviewComponent } from './chatbot-config/chatbot-preview/chatbot-preview.component';
 import { ChatbotEmbeddedPreviewComponent } from './chatbot-config/chatbot-embedded-preview/chatbot-embedded-preview.component';
-import { ClipboardModule } from '@angular/cdk/clipboard';
-import { HighlightModule } from 'ngx-highlightjs';
 import { ChatbotTechComponent } from './chatbot-tech/chatbot-tech.component';
 
 @NgModule({

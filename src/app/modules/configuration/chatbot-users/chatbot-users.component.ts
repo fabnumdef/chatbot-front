@@ -3,9 +3,9 @@ import { UserService } from '@core/services/user.service';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '@model/user.model';
 import { UserRole, UserRole_Fr } from '@enum/user-role.enum';
-import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { filter } from 'rxjs/operators';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 
 @Component({
@@ -19,9 +19,13 @@ import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/
 export class ChatbotUsersComponent implements OnInit {
 
   users$: BehaviorSubject<User[]>;
+
   loading$: BehaviorSubject<boolean>;
+
   addUser = false;
+
   userSelected: string = null;
+
   userRole_Fr = UserRole_Fr;
 
   constructor(private _userService: UserService,

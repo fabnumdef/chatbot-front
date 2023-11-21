@@ -28,10 +28,10 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     if (this._authService.isAuthenticated() && isAuthPage) {
       this._router.navigate(['']);
       return false;
-    } else if (!this._authService.isAuthenticated() && !isAuthPage) {
+    } if (!this._authService.isAuthenticated() && !isAuthPage) {
       this._router.navigate(['auth']);
       return false;
-    } else if (allowedRole && !isAuthPage && this._authService.isAuthenticated() && this._authService.user.role !== allowedRole) {
+    } if (allowedRole && !isAuthPage && this._authService.isAuthenticated() && this._authService.user.role !== allowedRole) {
       this._router.navigate(['']);
       return false;
     }

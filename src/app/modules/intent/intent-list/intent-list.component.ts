@@ -3,13 +3,13 @@ import { IntentService } from '@core/services/intent.service';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { Intent } from '@model/intent.model';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { filter } from 'rxjs/operators';
 import { PaginationHelper } from '@model/pagination-helper.model';
-import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 import { IntentStatus, IntentStatus_Fr } from '@enum/*';
 import { ConfigService } from '@core/services/config.service';
 import { ToastrService } from 'ngx-toastr';
+import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { IntentTreeDialogComponent } from '../intent-tree-modal/intent-tree-dialog.component';
 
 @Component({
@@ -23,13 +23,21 @@ import { IntentTreeDialogComponent } from '../intent-tree-modal/intent-tree-dial
 export class IntentListComponent implements OnInit {
 
   intents$: BehaviorSubject<Intent[]>;
+
   pagination: PaginationHelper;
+
   loading$: Observable<boolean>;
+
   intentSelected: string;
+
   intentTree: string;
+
   intentStatus = IntentStatus;
+
   intentStatusFr = IntentStatus_Fr;
+
   multipleSelection: string[] = [];
+
   listView: boolean;
 
   constructor(public intentService: IntentService,
@@ -139,7 +147,7 @@ export class IntentListComponent implements OnInit {
       width: '80%',
       autoFocus: false,
       data: {
-        intentId: intentId
+        intentId
       }
     });
   }

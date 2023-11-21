@@ -10,7 +10,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class MediaEditComponent implements OnInit {
 
   @Input() media: Media;
+
   mediaForm: FormGroup;
+
   @Output() newMediaName: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private _fb: FormBuilder) {

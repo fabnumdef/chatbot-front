@@ -9,7 +9,9 @@ import { Config } from '@model/config.model';
 export class ChatbotEmbeddedPreviewComponent implements OnInit {
 
   @Input() chatbot: Config;
+
   @Input() iconSrc: string;
+
   @Input() embeddedIconSrc: string;
 
   constructor() { }

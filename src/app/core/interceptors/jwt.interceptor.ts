@@ -9,6 +9,7 @@ import { AuthService } from '../services/auth.service';
 export class JwtInterceptor implements HttpInterceptor {
 
   token$: Observable<string>;
+
   currentToken: string;
 
   constructor(private _authService: AuthService) {
@@ -22,7 +23,7 @@ export class JwtInterceptor implements HttpInterceptor {
     }
 
     let newHeaders = request.headers.set('Authorization',
-      'Bearer ' + this.currentToken);
+      `Bearer ${  this.currentToken}`);
     newHeaders = newHeaders.set('Cache-Control', 'no-cache');
     newHeaders = newHeaders.set('Pragma', 'no-cache');
     newHeaders = newHeaders.set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');

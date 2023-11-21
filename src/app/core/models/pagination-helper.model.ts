@@ -3,9 +3,13 @@ import { PaginatedResult } from '@model/paginated-result.model';
 export class PaginationHelper {
 
   currentPage: number = null;
+
   totalPages: number;
+
   totalElements: number;
+
   itemCount: number;
+
   last: boolean;
 
   constructor(public size = 20) {

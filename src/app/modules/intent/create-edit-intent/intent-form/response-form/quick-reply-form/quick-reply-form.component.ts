@@ -14,9 +14,13 @@ import { IntentService } from '@core/services/intent.service';
 export class QuickReplyFormComponent extends DestroyObservable implements OnInit {
 
   @Input() responseFormControl: FormControl;
+
   quickRepliesForm: FormArray;
+
   intents: Intent[];
+
   filteredIntents$: BehaviorSubject<Intent[]> = new BehaviorSubject<Intent[]>([]);
+
   public intentFilterCtrl: FormControl = new FormControl();
 
   constructor(private _fb: FormBuilder,
@@ -48,7 +52,7 @@ export class QuickReplyFormComponent extends DestroyObservable implements OnInit
   private _initFormArray() {
     this.quickRepliesForm = this._fb.array([]);
 
-    const value = this.responseFormControl.value;
+    const {value} = this.responseFormControl;
     if (!value) {
       return this.quickRepliesForm.push(this._initFormGroup());
     }
@@ -99,9 +103,9 @@ export class QuickReplyFormComponent extends DestroyObservable implements OnInit
     if (!search) {
       this.filteredIntents$.next(this.intents.slice());
       return;
-    } else {
+    } 
       keywords = search.toLowerCase().split(' ');
-    }
+    
     // filter the intents
     this.filteredIntents$.next(
       this.intents.filter(intent => {

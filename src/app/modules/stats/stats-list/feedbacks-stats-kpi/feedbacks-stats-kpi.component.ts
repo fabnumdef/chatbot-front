@@ -11,38 +11,43 @@ import { takeUntil } from 'rxjs/operators';
 export class FeedbacksStatsKpiComponent extends DestroyObservable implements OnInit {
 
   relevantQuestions = null;
+
   avgRelevantQuestions = null;
+
   wrongQuestions = null;
+
   avgWrongQuestions = null;
+
   offtopicQuestions = null;
+
   avgOfftopicQuestions = null;
 
-  constructor(private _statsService: StatsService) {
+  constructor(private statsService: StatsService) {
     super();
   }
 
   ngOnInit(): void {
     // If you want to add time filter
-    this._statsService._currentFilters$
+    this.statsService._currentFilters$
       .pipe(
         takeUntil(this.destroy$))
       .subscribe(
-        (value) => {
+        () => {
           this.getData();
         }
       );
   }
 
   getData() {
-    this._statsService.getFeedbackKPIData().subscribe(
-      (value) => {
+    this.statsService.getFeedbackKPIData().subscribe(
+      (value: any) => {
         // console.log(value);
-        this.relevantQuestions = value['relevantQuestions'].countFeedback;
-        this.avgRelevantQuestions =  Math.round(value['relevantQuestionsPct'].ratioFeedback * 100) / 100;
-        this.wrongQuestions = value['wrongQuestions'].countFeedback;
-        this.avgWrongQuestions =  Math.round(value['wrongQuestionsPct'].ratioFeedback * 100) / 100;
-        this.offtopicQuestions = value['offtopicQuestions'].countFeedback;
-        this.avgOfftopicQuestions =  Math.round(value['offtopicQuestionsPct'].ratioFeedback * 100) / 100;
+        this.relevantQuestions = value.relevantQuestions.countFeedback;
+        this.avgRelevantQuestions =  Math.round(value.relevantQuestionsPct.ratioFeedback * 100) / 100;
+        this.wrongQuestions = value.wrongQuestions.countFeedback;
+        this.avgWrongQuestions =  Math.round(value.wrongQuestionsPct.ratioFeedback * 100) / 100;
+        this.offtopicQuestions = value.offtopicQuestions.countFeedback;
+        this.avgOfftopicQuestions =  Math.round(value.offtopicQuestionsPct.ratioFeedback * 100) / 100;
       }
     );
   }

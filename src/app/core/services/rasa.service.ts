@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,7 @@ import { finalize } from 'rxjs/operators';
 export class RasaService {
 
   private _url = `${environment.api_endpoint}/rasa`;
+
   loading$ = new BehaviorSubject(false);
 
   constructor(private _http: HttpClient) { }

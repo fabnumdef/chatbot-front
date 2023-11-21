@@ -4,12 +4,12 @@ import { FileService } from '@core/services/file.service';
 import { FileTemplateCheckResume } from '@model/file-template-check-resume.model';
 import { saveAs } from 'file-saver';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { WarningsDialogComponent } from './warnings-dialog/warnings-dialog.component';
 import { FileHistoric } from '@model/file-historic.model';
 import { finalize } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { ImportResponse } from '@model/import-response.model';
 import { ConfigService } from '@core/services/config.service';
+import { WarningsDialogComponent } from './warnings-dialog/warnings-dialog.component';
 
 @Component({
   selector: 'app-intent-file',
@@ -19,9 +19,13 @@ import { ConfigService } from '@core/services/config.service';
 export class IntentFileComponent implements OnInit {
 
   importFileFormGroup: FormGroup;
+
   fileTemplateCheckResume: FileTemplateCheckResume;
+
   historicFiles: FileHistoric[];
+
   historicFilesFiltered: FileHistoric[];
+
   objectKeys = Object.keys;
 
   constructor(private _fb: FormBuilder,
@@ -105,7 +109,7 @@ export class IntentFileComponent implements OnInit {
     this._dialog.open(WarningsDialogComponent, {
       width: '100%',
       height: '90%',
-      data: {isError: isError, details: detailsArray}
+      data: {isError, details: detailsArray}
     });
   }
 

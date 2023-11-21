@@ -11,30 +11,31 @@ import { StatsService } from '@core/services/stats.service';
 export class FaqStatsKpiComponent extends DestroyObservable implements OnInit {
 
   visitors = null;
+
   avgQuestionsPerUser = null;
 
-  constructor(private _statsService: StatsService) {
+  constructor(private statsService: StatsService) {
     super();
   }
 
   ngOnInit(): void {
     // If you want to add time filter
-    this._statsService._currentFilters$
+    this.statsService._currentFilters$
       .pipe(
         takeUntil(this.destroy$))
       .subscribe(
-        (value) => {
+        () => {
           this.getData();
         }
       );
   }
 
   getData() {
-    this._statsService.getFaqKPIData().subscribe(
-      (value) => {
+    this.statsService.getFaqKPIData().subscribe(
+      (value: any) => {
         // console.log(value);
-        this.visitors = value['uniqueVisitorsNumber'].visitors;
-        this.avgQuestionsPerUser = Math.round(value['avgQuestionPerVisitor'].averagequestions * 100) / 100;
+        this.visitors = value.uniqueVisitorsNumber.visitors;
+        this.avgQuestionsPerUser = Math.round(value.avgQuestionPerVisitor.averagequestions * 100) / 100;
       }
     );
   }

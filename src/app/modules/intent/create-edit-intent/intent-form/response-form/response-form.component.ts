@@ -16,7 +16,9 @@ export class ResponseFormComponent implements OnInit {
   @Input() index: number;
 
   responseType = ResponseType;
+
   responseTypeKeys = Object.keys(ResponseType);
+
   responseType_Fr = ResponseType_Fr;
 
   constructor(private _fb: FormBuilder) {

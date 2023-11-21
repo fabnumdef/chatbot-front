@@ -18,16 +18,27 @@ import { RefDataService } from '@core/services/ref-data.service';
 export class InboxIntentComponent extends DestroyObservable implements OnInit {
 
   @Input() inbox: Inbox;
+
   @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   intents: Intent[];
+
   allIntents: Intent[];
+
   intentForm: FormGroup;
+
   categories$: BehaviorSubject<string[]>;
+
   filteredIntents$: BehaviorSubject<Intent[]> = new BehaviorSubject<Intent[]>([]);
+
   addIntent = false;
+
   modifyIntent = false;
+
   newIntent = new Intent();
+
   intentToEdit = null;
+
   public intentFilterCtrl: FormControl = new FormControl();
 
   constructor(private _fb: FormBuilder,
@@ -46,9 +57,7 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
         i.confidence = i.confidence ? Math.round(i.confidence * 100) : 0;
         return i;
       });
-      this.intents.sort(function(a, b) {
-        return a.confidence > b.confidence ? -1 : b.confidence > a.confidence ? 1 : 0;
-      });
+      this.intents.sort((a, b) => a.confidence > b.confidence ? -1 : b.confidence > a.confidence ? 1 : 0);
       this._initSelectFilter();
       this._initFormGroup();
       this.allIntents = this.intents;
@@ -62,7 +71,7 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
       this.addIntent = false;
       return;
     }
-    this._inboxService.save(<Inbox> {id: this.inbox.id, intent: intent}).subscribe(() => {
+    this._inboxService.save(<Inbox> {id: this.inbox.id, intent}).subscribe(() => {
       this._configService.getConfig().subscribe();
       this.close.emit(true);
     });
@@ -76,16 +85,14 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
   }
 
   getFilteredIntents(category) {
-    this.intents = category ? this.allIntents.filter((intent: Intent) => {
-      return intent.category && intent.category.includes(category);
-    }) : this.allIntents;
+    this.intents = category ? this.allIntents.filter((intent: Intent) => intent.category && intent.category.includes(category)) : this.allIntents;
     this._initSelectFilter();
   }
 
   private _initFormGroup() {
     const intent = this.intents.find(i => i.id === this.inbox.intent?.id);
     this.intentForm = this._fb.group({
-      intent: [intent ? intent : null, Validators.required]
+      intent: [intent || null, Validators.required]
     });
   }
 
@@ -111,10 +118,10 @@ export class InboxIntentComponent extends DestroyObservable implements OnInit {
     if (!search) {
       this.filteredIntents$.next(this.intents.slice());
       return;
-    } else {
+    } 
       // remove accent & special chars
       keywords = search.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().split(' ');
-    }
+    
     // filter the intents
     this.filteredIntents$.next(
       this.intents.filter(intent => {

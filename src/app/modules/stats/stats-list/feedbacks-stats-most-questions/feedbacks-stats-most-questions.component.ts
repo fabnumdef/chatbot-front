@@ -14,17 +14,19 @@ import domtoimage from 'dom-to-image';
 export class FeedbacksStatsMostQuestionsComponent extends DestroyObservable implements OnInit {
 
   @Input() status: InboxStatus;
+
   @Input() index: number;
 
   results: any[];
+
   dataUrl: string;
 
-  constructor(private _statsService: StatsService) {
+  constructor(private statsService: StatsService) {
     super();
   }
 
   ngOnInit(): void {
-    this._statsService._currentFilters$
+    this.statsService._currentFilters$
       .pipe(
         takeUntil(this.destroy$))
       .subscribe(() => {
@@ -34,16 +36,14 @@ export class FeedbacksStatsMostQuestionsComponent extends DestroyObservable impl
   }
 
   getGraph() {
-    this._statsService.getFeedbackMostQuestionsData(this.status).subscribe(
-      (value) => {
-        this.results = value['mostAskedQuestions'].map(elem => {
-          return {
-            value: [parseInt(elem['count'], 10)],
-            name: elem['question']
-          };
-        });
+    this.statsService.getFeedbackMostQuestionsData(this.status).subscribe(
+      (value: any) => {
+        this.results = value.mostAskedQuestions.map(elem => ({
+            value: [parseInt(elem.count, 10)],
+            name: elem.question
+          }));
         setTimeout(() => {
-          this._setGraphMargin();
+          this.setGraphMargin();
         });
       }
     );
@@ -51,7 +51,7 @@ export class FeedbacksStatsMostQuestionsComponent extends DestroyObservable impl
 
   downloadCanvasBest(event) {
     const anchor = event.target;
-    const name = 'mostFeedbacksQuestionsChart-' + moment(new Date()).format('DDMMYYYYHHmmss') + '.jpg';
+    const name = `mostFeedbacksQuestionsChart-${  moment(new Date()).format('DDMMYYYYHHmmss')  }.jpg`;
 
     // get the canvas
     anchor.href = this.dataUrl;
@@ -68,17 +68,17 @@ export class FeedbacksStatsMostQuestionsComponent extends DestroyObservable impl
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this._setGraphMargin();
+  onResize() {
+    this.setGraphMargin();
   }
 
-  private _setGraphMargin() {
+  private setGraphMargin() {
     const legendNode = document.querySelectorAll('.feedbacks-stats-most-questions .chart-legend')[0];
     const graphNode = <HTMLElement> document.querySelectorAll('.feedbacks-stats-most-questions .chart-container')[0];
     if (!graphNode) {
       return;
     }
-    graphNode.style.marginBottom = legendNode.clientHeight + 'px';
+    graphNode.style.marginBottom = `${legendNode.clientHeight  }px`;
   }
 
 }

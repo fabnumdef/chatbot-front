@@ -11,18 +11,22 @@ import { takeUntil } from 'rxjs/operators';
 export class StatsKpiComponent extends DestroyObservable implements OnInit {
 
   visitors = null;
+
   ratioResponseOk = null;
+
   ratioResponseSure = null;
+
   avgQuestionsPerUser = null;
+
   avgResponseTime = null;
 
-  constructor(private _statsService: StatsService) {
+  constructor(private statsService: StatsService) {
     super();
   }
 
   ngOnInit(): void {
     // If you want to add time filter
-    this._statsService._currentFilters$
+    this.statsService._currentFilters$
       .pipe(
         takeUntil(this.destroy$))
       .subscribe(
@@ -33,16 +37,16 @@ export class StatsKpiComponent extends DestroyObservable implements OnInit {
   }
 
   getData(dates) {
-    this._statsService.getKPIData().subscribe(
-      (value) => {
+    this.statsService.getKPIData().subscribe(
+      (value: any) => {
         // console.log(value);
-        this.visitors = value['uniqueVisitorsNumber'].visitors;
-        this.ratioResponseOk = value['ratioChatbotResponseOk'].ratioresponseok;
-        this.ratioResponseSure = value['ratioChatbotResponseSure'].ratioresponseok;
-        this.avgQuestionsPerUser = Math.round(value['avgQuestionPerVisitor'].averagequestions * 100) / 100;
-        this.avgResponseTime = Math.round(value['avgChatbotResponseTime'].averageresponse) / 1000 + ' seconde';
-        if ((value['avgChatbotResponseTime'].averageresponse / 1000) > 1 ) {
-          this.avgResponseTime = this.avgResponseTime + 's';
+        this.visitors = value.uniqueVisitorsNumber.visitors;
+        this.ratioResponseOk = value.ratioChatbotResponseOk.ratioresponseok;
+        this.ratioResponseSure = value.ratioChatbotResponseSure.ratioresponseok;
+        this.avgQuestionsPerUser = Math.round(value.avgQuestionPerVisitor.averagequestions * 100) / 100;
+        this.avgResponseTime = `${Math.round(value.avgChatbotResponseTime.averageresponse) / 1000  } seconde`;
+        if ((value.avgChatbotResponseTime.averageresponse / 1000) > 1 ) {
+          this.avgResponseTime += 's';
         }
       }
     );

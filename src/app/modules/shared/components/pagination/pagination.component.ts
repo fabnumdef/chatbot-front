@@ -9,6 +9,7 @@ import { PaginationHelper } from '@model/pagination-helper.model';
 export class PaginationComponent implements OnInit {
 
   @Input() pagination: PaginationHelper;
+
   @Output() changePage: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() {

@@ -12,9 +12,13 @@ import { Utils } from '@core/utils/utils';
 export class MediaListDialogComponent implements OnInit {
 
   medias: Media[] = [];
+
   mediaSelected: Media;
+
   onlyImages = false;
+
   decodeURI = decodeURI;
+
   utils = Utils;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,

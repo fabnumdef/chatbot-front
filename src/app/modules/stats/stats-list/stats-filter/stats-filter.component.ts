@@ -13,6 +13,7 @@ import * as moment from 'moment';
 export class StatsFilterComponent extends DestroyObservable implements OnInit, OnDestroy {
 
   statsFilters: FormGroup;
+
   today = new Date();
 
   constructor(private _fb: FormBuilder,

@@ -4,13 +4,13 @@ import { Media } from '@model/media.model';
 import { MediaService } from '@core/services/media.service';
 import { ToastrService } from 'ngx-toastr';
 import { PaginationHelper } from '@model/pagination-helper.model';
-import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { filter } from 'rxjs/operators';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Utils } from '@core/utils/utils';
-import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
 import { ConfigService } from '@core/services/config.service';
 import { Config } from '@model/config.model';
+import { detailInOutAnimation } from '../../shared/components/chatbot-list-item/chatbot-list-item.animation';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-media-list',
@@ -23,15 +23,25 @@ import { Config } from '@model/config.model';
 export class MediaListComponent implements OnInit {
 
   medias$: BehaviorSubject<Media[]>;
+
   pagination: PaginationHelper;
+
   loading$: Observable<boolean>;
+
   processing$: Observable<boolean>;
+
   config$: Observable<Config>;
+
   decodeURI = decodeURI;
+
   mediaEdit: number;
+
   mediaReplace: number;
+
   mediaLink: number;
+
   utils = Utils;
+
   multipleSelection: number[] = [];
 
   constructor(public mediaService: MediaService,
@@ -86,12 +96,12 @@ export class MediaListComponent implements OnInit {
         this.mediaLink = null;
         this.mediaEdit = null;
         this.mediaReplace = (this.mediaReplace === mediaId) ? null : mediaId;
-        return;
+        
     }
   }
 
   uploadMedia($event) {
-    const files: File[] = $event.target.files;
+    const {files} = $event.target;
     if (!files || files.length < 1) {
       return;
     }
@@ -99,7 +109,7 @@ export class MediaListComponent implements OnInit {
       const filesize = (file.size / 1024 / 1024);
       if (filesize > 5) {
         this._toast.error('Les poids des fichiers doivent être inférieur à 5Mb.', 'Fichier volumineux');
-        return;
+        
       }
     });
     this.mediaService.createMedia(files).subscribe(() => {

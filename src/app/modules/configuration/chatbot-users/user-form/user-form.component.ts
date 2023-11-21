@@ -12,10 +12,13 @@ import { User } from '@model/user.model';
 export class UserFormComponent implements OnInit {
 
   userForm: FormGroup;
+
   userRole = Object.keys(UserRole);
+
   userRole_Fr = UserRole_Fr;
 
   @Input() user = new User();
+
   @Output() cancel: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private _fb: FormBuilder,

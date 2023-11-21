@@ -11,6 +11,7 @@ import { Intent } from '@model/intent.model';
 export class CreateEditIntentDialogComponent implements OnInit {
 
   private _intentId: string;
+
   public intent: Intent;
 
   constructor(public dialogRef: MatDialogRef<CreateEditIntentDialogComponent>,

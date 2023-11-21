@@ -9,11 +9,15 @@ import { Router } from '@angular/router';
 export class ApiPaginationService<T extends any> extends ApiService<T> {
 
   protected _fullEntities$ = new BehaviorSubject<T[]>([]);
+
   protected _loaded$ = new BehaviorSubject<boolean>(false);
+
   protected _lastPage$ = new BehaviorSubject<boolean>(false);
+
   protected _pagination: PaginationHelper;
 
   public currentSearch = '';
+
   public currentFilters: any;
 
   protected constructor(private _httpClient: HttpClient,
@@ -25,9 +29,9 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
     this._pagination = new PaginationHelper(entitiesByPage);
   }
 
-  /************************
+  /** **********************
    ****** PAGINATION ******
-   ************************/
+   *********************** */
 
   public load(page: number = 1): Observable<PaginatedResult<T> | T[]> {
     this._loaded$.next(true);
@@ -106,9 +110,9 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
     this._pagination.size = items;
   }
 
-  /************************
+  /** **********************
    ********* CRUD *********
-   ************************/
+   *********************** */
 
   public loadOne(itemId: string | number, redirectUrl ?: string): Observable<T> {
     return this._httpClient.get<T>(`${this._url}/${itemId}`).pipe(
@@ -153,9 +157,9 @@ export class ApiPaginationService<T extends any> extends ApiService<T> {
     }
   }
 
-  /************************
+  /** **********************
    ******** GETTER ********
-   ************************/
+   *********************** */
 
   get pagination() {
     return this._pagination;
