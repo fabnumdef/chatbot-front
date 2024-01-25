@@ -1,5 +1,5 @@
 <div class="chatbot" *ngIf="configService.config && !configService.config.maintenanceMode">
-  <app-chat-widget [socketUrl]="chatbotUrl"
+  <app-chat-widget [socketUrl]="chatbotSocket"
                    [botAvatar]="chatbotUrl + '/media/'  + configService.config.icon"
                    [companyLogo]="configService.config.embeddedIcon ? chatbotUrl + '/media/'  + configService.config.embeddedIcon : null"
                    [botName]="configService.config.name"

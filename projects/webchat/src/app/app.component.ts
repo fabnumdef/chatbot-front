@@ -12,11 +12,13 @@ import { environment } from '../environments/environment';
 export class AppComponent implements OnInit {
 
   public chatbotUrl;
+  public chatbotSocket;
 
   constructor(@Inject(Window) public window: Window,
               public configService: ConfigService,
               private _titleService: Title) {
     this.chatbotUrl = environment.chatbotUrl;
+    this.chatbotSocket = environment.chatbotSocket;
     this.configService.init(this.chatbotUrl);
   }
 
