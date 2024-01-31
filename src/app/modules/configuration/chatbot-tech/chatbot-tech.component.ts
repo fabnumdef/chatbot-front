@@ -7,6 +7,9 @@ import { filter, take, takeUntil } from 'rxjs/operators';
 import { Utils } from '@core/utils/utils';
 import { ToastrService } from 'ngx-toastr';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { AdminService } from '@core/services/admin.service';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 @Component({
   selector: 'app-chatbot-tech',
@@ -20,9 +23,11 @@ export class ChatbotTechComponent extends DestroyObservable implements OnInit {
   chatbotConfig: Config;
 
   constructor(private _configService: ConfigService,
+              private _adminService: AdminService,
               private _fb: FormBuilder,
               private _toastr: ToastrService,
-              private _clipboard: Clipboard) {
+              private _clipboard: Clipboard,
+    private _dialog: MatDialog) {
     super();
   }
 
@@ -36,6 +41,21 @@ export class ChatbotTechComponent extends DestroyObservable implements OnInit {
       this.chatbotConfig = config;
       this._initForms();
     });
+  }
+
+  resetData() {
+    const dialogRef = this._dialog.open(ConfirmDialogComponent, {
+      data: {
+        message: `Êtes-vous sûr de vouloir réinitialiser votre bot, toutes vos données seront supprimées </b> et votre bot va temporairement être instable </b> ?`
+      },
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed()
+      .pipe(filter(r => !!r))
+      .subscribe(() => {
+        this._adminService.resetData();
+      });
   }
 
   saveTechConfig() {
