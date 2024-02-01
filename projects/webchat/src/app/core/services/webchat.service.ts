@@ -13,6 +13,7 @@ const ACCESSIBILITY_NAME = 'chat_accessibility';
 export class WebchatService {
 
   private _url;
+  private _apiUrl;
   private _initPayload: string;
 
   private _socket: any;
@@ -28,8 +29,9 @@ export class WebchatService {
   constructor(private _http: HttpClient) {
   }
 
-  public connect(url: string, path: string, initPayload: string) {
+  public connect(url: string, path: string, initPayload: string, apiUrl: string) {
     this._url = url;
+    this._apiUrl = apiUrl;
     this._initPayload = initPayload;
     if (this._socket) {
       this._socket.disconnect();
@@ -159,7 +161,7 @@ export class WebchatService {
       params = params.append('getResponses', getResponses.toString());
     }
 
-    return this._http.get(`${this._url}/api/public/intents`, {params});
+    return this._http.get(`${this._apiUrl}/api/public/intents`, {params});
   }
 
   public getSessionId() {

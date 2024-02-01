@@ -20,6 +20,7 @@ export class ChatWidgetComponent implements OnInit {
   @Input() public companyLogo = `https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Logo_Minist%C3%A8re_des_Arm%C3%A9es_%282020%29.svg/520px-Logo_Minist%C3%A8re_des_Arm%C3%A9es_%282020%29.svg.png`;
   @Input() public userAvatar = null;
   @Input() public socketUrl = 'http://localhost:5500';
+  @Input() public chatbotUrl: string;
   @Input() public socketPath = environment.socketUrl;
   @Input() public initPayload = '/phrase_presentation';
   @Input() public feedbackPayload = '/phrase_feedback';

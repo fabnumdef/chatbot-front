@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   chatbotUrl: window.location.origin,
-  socketUrl: '/socket-chatbot/'
+  chatbotSocket: 'http://localhost:5005',
+  socketUrl: '/socket.io/'
 };
 
 /*

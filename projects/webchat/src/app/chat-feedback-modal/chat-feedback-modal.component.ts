@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { FormBuilder, Validators } from '@angular/forms';
-import { WebchatService } from '../core/services/webchat.service';
 
 @Component({
   selector: 'app-chat-feedback-modal',
@@ -14,8 +13,7 @@ export class ChatFeedbackModalComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ChatFeedbackModalComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private _fb: FormBuilder,
-              private _webchatService: WebchatService) { }
+              private _fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
