@@ -33,6 +33,7 @@ export class ChatMessagesComponent implements OnInit, OnDestroy {
   @Input() isMobileSize: boolean;
   @Input() storage: string;
   @Input() socketUrl: string;
+  @Input() chatbotUrl: string;
   @Input() socketPath: string;
   @Input() initPayload: string;
   @Input() delayBetweenMessages: number;
@@ -73,7 +74,7 @@ export class ChatMessagesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._chatService.setStorage(this.storage);
     this.messages = this._chatService.getConversation();
-    this._chatService.connect(this.socketUrl, this.socketPath, this.initPayload);
+    this._chatService.connect(this.socketUrl, this.socketPath, this.initPayload, this.chatbotUrl);
     this._feedbackService.url = this.socketUrl;
 
     setTimeout(() => {
