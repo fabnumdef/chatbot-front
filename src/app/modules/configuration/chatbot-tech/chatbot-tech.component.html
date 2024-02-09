@@ -8,18 +8,44 @@
       </mat-expansion-panel-header>
       <form [formGroup]="techForm" *ngIf="techForm">
         <div class="chatbot-subtitle">
+          <h4>Réinitialisation du chatbot</h4>
+        </div>
+
+        <p>
+          Cette action vous permet de réinitialiser intégralement votre bot :
+          L'ensemble de vos données seront supprimées. Les utilisateurs, les
+          connaissances, la médiathèque ainsi que vos statistiques seront
+          effacés. Cette action est irréversible.
+        </p>
+        <ng-container *appHasRole="'admin'">
+          <button
+            mat-stroked-button
+            color="accent"
+            [disabled]="adminService.loading$ | async"
+            (click)="resetData()"
+          >
+            Réinitialiser
+          </button>
+        </ng-container>
+
+        <div class="chatbot-subtitle">
           <h4>Temps d'affichage réponses multiples</h4>
         </div>
-        <p>Pour les réponses multiples données par votre bot, définissez le temps d'affichage (en millisecondes, 1000ms = 1s) entre les réponses.</p>
+        <p>
+          Pour les réponses multiples données par votre bot, définissez le temps
+          d'affichage (en millisecondes, 1000ms = 1s) entre les réponses.
+        </p>
         <mat-form-field appearance="outline">
           <mat-label>Temps (ms)</mat-label>
-          <input matInput
-                 placeholder="Saisir..."
-                 type="number"
-                 formControlName="delayBetweenMessages"
-                 min="0"
-                 max="10000"
-                 required>
+          <input
+            matInput
+            placeholder="Saisir..."
+            type="number"
+            formControlName="delayBetweenMessages"
+            min="0"
+            max="10000"
+            required
+          />
           <mat-error *ngIf="delayBetweenMessagesControl.errors">
             Le temps d'attente doit se trouver entre 0 et 10 000ms
           </mat-error>
@@ -32,28 +58,39 @@
           aria-label="Le chatbot doit-il se réinitialiser à chaque changement d'onglet ?"
           labelPosition="before"
           formControlName="storage"
-          color="primary">
-          <mat-radio-button [value]="false">Au niveau de l'onglet</mat-radio-button>
-          <mat-radio-button [value]="true">Au niveau du navigateur</mat-radio-button>
+          color="primary"
+        >
+          <mat-radio-button [value]="false"
+            >Au niveau de l'onglet</mat-radio-button
+          >
+          <mat-radio-button [value]="true"
+            >Au niveau du navigateur</mat-radio-button
+          >
         </mat-radio-group>
 
         <div class="chatbot-subtitle">
           <h4>Est-ce un bot arborescent ?</h4>
         </div>
-        <p>Désactiver la possibilité pour l'utilisateur de saisir du texte. Toute la navigation dans le chatbot se fera via les réponses à choix.</p>
+        <p>
+          Désactiver la possibilité pour l'utilisateur de saisir du texte. Toute
+          la navigation dans le chatbot se fera via les réponses à choix.
+        </p>
         <mat-slide-toggle
           color="primary"
           aria-label="Désactiver la saisie de texte"
-          formControlName="isTree">
+          formControlName="isTree"
+        >
           Bot arborescent
         </mat-slide-toggle>
       </form>
       <ng-container *appHasRole="'admin'">
-        <button mat-stroked-button
-                color="accent"
-                (click)="saveTechConfig()"
-                *ngIf="techForm"
-                [disabled]="!techForm.dirty || !techForm.valid">
+        <button
+          mat-stroked-button
+          color="accent"
+          (click)="saveTechConfig()"
+          *ngIf="techForm"
+          [disabled]="!techForm.dirty || !techForm.valid"
+        >
           Enregistrer
         </button>
       </ng-container>
